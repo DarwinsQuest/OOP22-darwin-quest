@@ -1,0 +1,13 @@
+### Gradle ###
+.gradle/
+
+### IntelliJ ###
+.idea/
+
+### Visual Studio Code ###
+.vscode/
+
+# Compiled
+bin/
+build/
+*.class
