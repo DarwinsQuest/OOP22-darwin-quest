@@ -9,7 +9,7 @@ public interface DamageMove extends Move {
      * @return the damage caused by the {@link DamageMove}.
     */
     int getDamage();
-    
+
     /*
      * Makes damage to a {@link Banion}.
      * @param banion The {@link Banion} that is attacked with this {@link DamageMove}. 

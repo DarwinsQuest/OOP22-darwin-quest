@@ -5,7 +5,7 @@ package darwinsquest.core;
  */
 @FunctionalInterface
 public interface Move {
-    
+
     /**
      * Perform the {@link Move} on a banion.
      * @param banion The banion on which the {@link Move} is applied.
