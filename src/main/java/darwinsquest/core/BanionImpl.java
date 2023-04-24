@@ -27,10 +27,10 @@ public class BanionImpl implements Banion {
         this.def = def;
     }
 
-    private void testStat(final int stat, final IntPredicate predicate) {
-         if (predicate.negate().test(stat)) {
-            throw new IllegalArgumentException();
-         }
+    private void testStat(final int stat, final IntPredicate predicate, final String message) {
+        if (predicate.negate().test(stat)) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     /**
@@ -47,7 +47,7 @@ public class BanionImpl implements Banion {
      */
     @Override
     public void setHp(final int amount) {
-        testStat(amount, hp -> hp >= 0);
+        testStat(amount, hp -> hp >= 0, "Banion hp can't be set to a value < 0.");
         hp = amount;
     }
 
@@ -65,7 +65,7 @@ public class BanionImpl implements Banion {
      */
     @Override
     public void setAtk(final int amount) {
-        testStat(amount, atk -> atk > 0);
+        testStat(amount, atk -> atk > 0, "Banion attack can't be set to a value <= 0.");
         atk = amount;
     }
 
@@ -83,7 +83,7 @@ public class BanionImpl implements Banion {
      */
     @Override
     public void setDef(final int amount) {
-        testStat(amount, def -> def > 0);
+        testStat(amount, def -> def > 0, "Banion defense can't be set to a value <= 0.");
         def = amount;
     }
 
