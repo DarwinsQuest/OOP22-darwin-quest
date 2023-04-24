@@ -1,5 +1,6 @@
 package darwinsquest.core;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.IntSupplier;
 import java.util.random.RandomGenerator;
@@ -38,6 +39,14 @@ public class Die implements IntSupplier {
     }
 
     /**
+     * Getter for a {@link Die} number of faces.
+     * @return the number of faces.
+     */
+    public int getFaces() {
+        return faces;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -49,4 +58,20 @@ public class Die implements IntSupplier {
         return faces >= MIN_FACES && faces % 2 == 0;    // A die with an odd number of faces is not a polyhedron.
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Die die = (Die) o;
+        return faces == die.faces;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(faces, generator);
+    }
 }
