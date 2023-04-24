@@ -1,4 +1,4 @@
-package darwinsquesttest.core;
+package darwinsquest.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import darwinsquest.core.BanionImpl;
 
 /**
  * Simple Test for {@link darwinsquest.core.BanionImpl}.
