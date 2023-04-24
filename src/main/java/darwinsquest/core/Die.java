@@ -30,10 +30,10 @@ public class Die implements IntSupplier {
      * polyhedral dice.
      * @param faces the amount of the custom {@link Die}'s faces.
      */
-    public Die(final int faces) throws IllegalStateException {
+    public Die(final int faces) {
         generator = new Random();
         if (!isDieLegal(faces)) {
-            throw new IllegalStateException("Not a platonic solid.");
+            throw new IllegalArgumentException("Not a platonic solid.");
         }
         this.faces = faces;
     }
@@ -58,20 +58,27 @@ public class Die implements IntSupplier {
         return faces >= MIN_FACES && faces % 2 == 0;    // A die with an odd number of faces is not a polyhedron.
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Die die = (Die) o;
+        final Die die = (Die) o;
         return faces == die.faces;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(faces, generator);
     }
+
 }
