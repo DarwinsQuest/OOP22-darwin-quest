@@ -1,21 +1,26 @@
 package darwinsquest.core;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.function.IntPredicate;
 
 /**
- * Class that implements a basic {@link Banion}.
+ * Class that represents a simple {@link Banion} implementation.
  */
 public class BanionImpl implements Banion {
 
+    private final Collection<Move> moves;
     private int hp;
 
     /**
-     * Costructor that creates a simple {@link Banion} with a provided hit points amount.
+     * Costructor that creates a {@link Banion} with a provided hit points amount.
      * @param hp Hit points, represents health.
-     * @throws IllegalArgumentException Hit points can't be init as negative or zero.
+     * @throws IllegalArgumentException If hit points init to negative or zero.
      */
     public BanionImpl(final int hp) {
         testStat(hp, value -> value > 0, "Banion hp can't be init to a negative value or zero.");
+        moves = new HashSet<>();
         this.hp = hp;
     }
 
@@ -49,5 +54,29 @@ public class BanionImpl implements Banion {
     @Override
     public boolean isAlive() {
         return hp > 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<Move> getMoves() {
+        return Collections.unmodifiableCollection(moves);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean learnMove(final Move move) {
+        return moves.add(move);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean forgetMove(final Move move) {
+        return moves.remove(move);
     }
 }
