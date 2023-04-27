@@ -22,7 +22,7 @@ class TestBanion {
     @ParameterizedTest
     @CsvSource({"10, 0, -1"})
     void stats(final int hp, final int validHp, final int invalidHp) {
-        final var banion = new BanionImpl(hp);
+        final var banion = new BanionImpl("Homelander", hp);
         assertEquals(hp, banion.getHp());
 
         banion.setHp(validHp);
@@ -39,7 +39,7 @@ class TestBanion {
     @ParameterizedTest
     @CsvSource({"1, 0"})
     void alive(final int aliveHp, final int notAliveHp) {
-        final var banion = new BanionImpl(aliveHp);
+        final var banion = new BanionImpl("Queen Maeve", aliveHp);
         assertTrue(banion::isAlive, "Banion should be alive with " + banion.getHp() + " of life");
 
         banion.setHp(notAliveHp);

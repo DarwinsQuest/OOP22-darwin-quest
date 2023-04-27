@@ -3,6 +3,7 @@ package darwinsquest.core;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.function.IntPredicate;
 
 /**
@@ -10,17 +11,20 @@ import java.util.function.IntPredicate;
  */
 public class BanionImpl implements Banion {
 
+    private final String name;
     private final Collection<Move> moves;
     private int hp;
 
     /**
      * Costructor that creates a {@link Banion} with a provided hit points amount.
+     * @param name Identifier.
      * @param hp Hit points, represents health.
      * @throws IllegalArgumentException If hit points init to negative or zero.
      */
-    public BanionImpl(final int hp) {
+    public BanionImpl(final String name, final int hp) {
         testStat(hp, value -> value > 0, "Banion hp can't be init to a negative value or zero.");
         moves = new HashSet<>();
+        this.name = Objects.requireNonNull(name);
         this.hp = hp;
     }
 
@@ -78,5 +82,13 @@ public class BanionImpl implements Banion {
     @Override
     public boolean forgetMove(final Move move) {
         return moves.remove(move);
+    }
+
+    /**
+     * Retireves {@link Banion} name.
+     */
+    @Override
+    public String toString() {
+        return name;
     }
 }
