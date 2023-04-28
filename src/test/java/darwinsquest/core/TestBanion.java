@@ -134,7 +134,7 @@ class TestBanion {
     @Test
     void moves() {
         final var banion = new BanionImpl(new Water(), "Black Noir", 1);
-        final var moves = Set.of(new TestMove("FireMove", new Fire()),
+        final var moves = Set.of(new TestMove("fireMove", new Fire()),
             new TestMove("waterMove", new Water()),
             new TestMove("neutralMove", new Neutral()),
             new TestMove("airMove", new Air()));

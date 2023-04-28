@@ -30,10 +30,7 @@ public class AbstractElement implements Element {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        return !(obj == null || getClass() != obj.getClass() || !name.equals(((AbstractElement) obj).name));
+        return this == obj || obj != null && getClass().equals(obj.getClass()) && name.equals(((AbstractElement) obj).name);
     }
 
     /**
