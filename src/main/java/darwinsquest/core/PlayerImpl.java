@@ -38,8 +38,19 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Inventory getInventory() {
-        throw new UnsupportedOperationException("Inventory has yet to be implemented.");
+    public List<Banion> getInventory() {
+        return Collections.unmodifiableList(inventory);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateInventory(final int index, final Banion banion) {
+        if (index >= inventory.size()) {
+            inventory.add(index, banion);
+        }
+        inventory.set(index, banion);
     }
 
     /**
@@ -72,28 +83,6 @@ public class PlayerImpl implements Player {
     @Override
     public boolean isOutOfBanions() {
         return inventory.stream().noneMatch(Banion::isAlive);
-    }
-
-    /**
-     * todo: remove once the interface Inventory is implemented.
-     * @return the player's Inventory.
-     */
-    public List<Banion> getInventoryAsList() {
-        return Collections.unmodifiableList(inventory);
-    }
-
-    /**
-     * Updates the player inventory.
-     * If the provided index is grater than or equal the inventory size,
-     * the banion is added at the given inventory index.
-     * @param index of the banion to update.
-     * @param banion the updated banion.
-     */
-    public void updateInventory(final int index, final Banion banion) {
-        if (index >= inventory.size()) {
-            inventory.add(index, banion);
-        }
-        inventory.set(index, banion);
     }
 
     /**

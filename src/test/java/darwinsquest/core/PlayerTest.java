@@ -39,7 +39,7 @@ class PlayerTest {
         p.updateInventory(0, b1);
         p.updateInventory(1, b2);
         assertFalse(p.isOutOfBanions());
-        final var inventoryCopy = p.getInventoryAsList();
+        final var inventoryCopy = p.getInventory();
         b1.setHp(0);
         p.updateInventory(inventoryCopy.indexOf(b1), b1);
         assertFalse(p.isOutOfBanions());
