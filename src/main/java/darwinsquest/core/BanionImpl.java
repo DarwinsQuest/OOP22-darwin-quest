@@ -6,26 +6,32 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.function.IntPredicate;
 
+import darwinsquest.core.element.Element;
+import darwinsquest.core.element.Neutral;
+
 /**
  * Class that represents a simple {@link Banion} implementation.
  */
 public class BanionImpl implements Banion {
 
+    private final Element element;
     private final String name;
     private final Collection<Move> moves;
     private int hp;
 
     /**
      * Costructor that creates a {@link Banion} with a provided hit points amount.
-     * @param name Identifier.
-     * @param hp Hit points, represents health.
+     * @param element element of affinity.
+     * @param name identifier.
+     * @param hp hit points, represents health.
      * @throws IllegalArgumentException If hit points init to negative or zero.
      */
-    public BanionImpl(final String name, final int hp) {
+    public BanionImpl(final Element element, final String name, final int hp) {
         testStat(hp, value -> value > 0, "Banion hp can't be init to a negative value or zero.");
         moves = new HashSet<>();
         this.name = Objects.requireNonNull(name);
         this.hp = hp;
+        this.element = element;
     }
 
     private void testStat(final int stat, final IntPredicate predicate, final String message) {
@@ -73,7 +79,7 @@ public class BanionImpl implements Banion {
      */
     @Override
     public boolean learnMove(final Move move) {
-        return moves.add(move);
+        return (move.getElement().equals(element) || move.getElement().getClass().equals(Neutral.class)) && moves.add(move);
     }
 
     /**
@@ -82,6 +88,14 @@ public class BanionImpl implements Banion {
     @Override
     public boolean forgetMove(final Move move) {
         return moves.remove(move);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element getElement() {
+        return element;
     }
 
     /**
