@@ -21,14 +21,6 @@ public class AbstractElement implements Element {
      * {@inheritDoc}
      */
     @Override
-    public String toString() {
-        return name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int hashCode() {
         return Objects.hash(name);
     }
@@ -42,5 +34,13 @@ public class AbstractElement implements Element {
             return true;
         }
         return !(obj == null || getClass() != obj.getClass() || !name.equals(((AbstractElement) obj).name));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return name;
     }
 }
