@@ -1,7 +1,6 @@
 package darwinsquest.core;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -79,9 +78,22 @@ public class PlayerImpl implements Player {
      * todo: remove once the interface Inventory is implemented.
      * @return the player's Inventory.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Updating the field from outside is needed.")
     public List<Banion> getInventoryAsList() {
-        return inventory;
+        return Collections.unmodifiableList(inventory);
+    }
+
+    /**
+     * Updates the player inventory.
+     * If the provided index is grater than or equal the inventory size,
+     * the banion is added at the given inventory index.
+     * @param index of the banion to update.
+     * @param banion the updated banion.
+     */
+    public void updateInventory(final int index, final Banion banion) {
+        if (index >= inventory.size()) {
+            inventory.add(index, banion);
+        }
+        inventory.set(index, banion);
     }
 
     /**
