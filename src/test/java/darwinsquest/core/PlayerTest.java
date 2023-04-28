@@ -1,8 +1,8 @@
 package darwinsquest.core;
 
+import darwinsquest.core.element.Fire;
+import darwinsquest.core.element.Water;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -34,10 +34,17 @@ class PlayerTest {
     @Test
     void isOutOfBanionsTest() {
         final var p = new PlayerImpl(NAME_1);
-        final List<Banion> inventory = p.getInventoryAsList();
-        inventory.add(new BanionImpl(NAME_2, HP));
+        final var b1 = new BanionImpl(new Fire(), NAME_2, HP);
+        final var b2 = new BanionImpl(new Water(), NAME_2, HP);
+        p.updateInventory(0, b1);
+        p.updateInventory(1, b2);
         assertFalse(p.isOutOfBanions());
-        inventory.get(0).setHp(0);
+        final var inventoryCopy = p.getInventoryAsList();
+        b1.setHp(0);
+        p.updateInventory(inventoryCopy.indexOf(b1), b1);
+        assertFalse(p.isOutOfBanions());
+        b2.setHp(0);
+        p.updateInventory(inventoryCopy.indexOf(b2), b2);
         assertTrue(p.isOutOfBanions());
     }
 
