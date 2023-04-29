@@ -27,14 +27,14 @@ public class BanionImpl implements Banion {
      * @throws IllegalArgumentException If hit points init to negative or zero.
      */
     public BanionImpl(final Element element, final String name, final int hp) {
-        testStat(hp, value -> value > 0, "Banion hp can't be init to a negative value or zero.");
+        assertIntLegalArgument(hp, value -> value > 0, "Banion hp can't be init to a negative value or zero.");
         moves = new HashSet<>();
         this.name = Objects.requireNonNull(name);
         this.hp = hp;
         this.element = element;
     }
 
-    private void testStat(final int stat, final IntPredicate predicate, final String message) {
+    private void assertIntLegalArgument(final int stat, final IntPredicate predicate, final String message) {
         if (predicate.negate().test(stat)) {
             throw new IllegalArgumentException(message);
         }
@@ -54,7 +54,7 @@ public class BanionImpl implements Banion {
      */
     @Override
     public void setHp(final int amount) {
-        testStat(amount, value -> value >= 0, "Banion hp can't be set to a negative value.");
+        assertIntLegalArgument(amount, value -> value >= 0, "Banion hp can't be set to a negative value.");
         hp = amount;
     }
 
@@ -99,10 +99,18 @@ public class BanionImpl implements Banion {
     }
 
     /**
-     * Retireves {@link Banion} name.
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return name;
+        return "BanionImpl [element=" + getElement() + ", name=" + getName() + "]";
     }
 }
