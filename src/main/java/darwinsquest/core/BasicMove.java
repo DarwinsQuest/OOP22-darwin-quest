@@ -6,7 +6,7 @@ import darwinsquest.core.element.Element;
 /**
  * A basic implementation of {@link Move}.
  */
-public class BasicMove implements Move {
+public class BasicMove implements DamageMove {
 
     private final int baseDamage;
     private final String name;
