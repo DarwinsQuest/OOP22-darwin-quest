@@ -7,9 +7,9 @@ public interface Move extends Elemental {
 
     /**
      * Perform the {@link Move} on a banion.
-     * @param banion The banion on which the {@link Move} is applied.
+     * @param opponentBanion The banion on which the {@link Move} is applied.
      */
-    void perform(Banion banion);
+    void perform(Banion opponentBanion);
 
     /**
      * Determines whether the {@link Move}'s effect takes into account the
@@ -38,5 +38,17 @@ public interface Move extends Elemental {
      * @return the type of the {@link Move}.
      */
     String getType();
+
+    /**
+     * Retrieves the damage of the {@link Move}.
+     * @return the damage of the {@link Move}.
+     */
+    int getDamage();
+
+    /**
+     * Retrieves a string which represents the name of the {@link Move}.
+     * @return the name of the {@link Move}.
+     */
+    String getName();
 
 }
