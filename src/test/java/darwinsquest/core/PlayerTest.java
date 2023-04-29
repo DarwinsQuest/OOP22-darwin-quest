@@ -4,6 +4,9 @@ import darwinsquest.core.element.Fire;
 import darwinsquest.core.element.Water;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -19,8 +22,25 @@ class PlayerTest {
     @Test
     void createPlayerTest() {
         assertThrows(IllegalArgumentException.class, () -> new PlayerImpl(null));
-        assertThrows(IllegalArgumentException.class, () -> new PlayerImpl(""));
-        assertThrows(IllegalArgumentException.class, () -> new PlayerImpl("  "));
+        final List<String> stringsToCheck = new ArrayList<>(List.of(
+                "",
+                "  ",
+                "123",
+                "1" + NAME_1,
+                "!" + NAME_2,
+                "@@foo",
+                "bar%",
+                "€uro",
+                "_a",
+                "b_",
+                "__c_",
+                "d__",
+                "Amélie",
+                "Walter White",
+                "JessePinkman ",
+                "魚")
+        );
+        stringsToCheck.forEach(s -> assertThrows(IllegalArgumentException.class, () -> new PlayerImpl(s)));
     }
 
     @Test
