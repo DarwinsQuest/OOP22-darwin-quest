@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  * Interface that represents a game monster.
  */
-public interface Banion extends Elemental {
+public interface Banion extends Elemental, NamedObject {
 
     /**
      * Tells if this {@link Banion} is alive or not.
