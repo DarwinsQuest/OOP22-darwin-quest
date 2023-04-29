@@ -13,7 +13,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import darwinsquest.core.element.Air;
-import darwinsquest.core.element.Element;
 import darwinsquest.core.element.Fire;
 import darwinsquest.core.element.Neutral;
 import darwinsquest.core.element.Water;
@@ -22,6 +21,8 @@ import darwinsquest.core.element.Water;
  * Simple Test for {@link darwinsquest.core.BanionImpl}.
  */
 class TestBanion {
+
+    private static final int MOVE_DAMAGE = 10;
 
     /**
      * Tests Banion statistic changes.
@@ -57,87 +58,15 @@ class TestBanion {
     }
 
     /**
-     * A {@link Move} implementation for tests only.
-     */
-    static final class TestMove implements Move {
-
-        private final String name;
-        private final Element element;
-
-        /**
-         * Creates a test move.
-         * @param name the name.
-         * @param element the element of affinity.
-         */
-        TestMove(final String name, final Element element) {
-            this.name = name;
-            this.element = element;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public Element getElement() {
-            return element;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void perform(final Banion banion) {
-            throw new UnsupportedOperationException("Unimplemented method 'perform'");
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean isStackable() {
-            throw new UnsupportedOperationException("Unimplemented method 'isStackable'");
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int getCooldown() {
-            throw new UnsupportedOperationException("Unimplemented method 'getCooldown'");
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int getDuration() {
-            throw new UnsupportedOperationException("Unimplemented method 'getDuration'");
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String getType() {
-            throw new UnsupportedOperationException("Unimplemented method 'getType'");
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
-    /**
      * Tests possibility to add {@link Move} to a {@link BanionImpl}.
      */
     @Test
     void moves() {
         final var banion = new BanionImpl(new Water(), "Black Noir", 1);
-        final var moves = Set.of(new TestMove("fireMove", new Fire()),
-            new TestMove("waterMove", new Water()),
-            new TestMove("neutralMove", new Neutral()),
-            new TestMove("airMove", new Air()));
+        final var moves = Set.of(new BasicMove(MOVE_DAMAGE, "fireMove", new Fire()),
+            new BasicMove(MOVE_DAMAGE, "waterMove", new Water()),
+            new BasicMove(MOVE_DAMAGE, "neutralMove", new Neutral()),
+            new BasicMove(MOVE_DAMAGE, "airMove", new Air()));
 
         moves.stream().forEach(move -> banion.learnMove(move));
         assertTrue(banion.getMoves().stream()
