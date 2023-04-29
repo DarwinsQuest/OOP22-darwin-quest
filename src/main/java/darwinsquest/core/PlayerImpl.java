@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class that represents the {@link Player} implementation.
@@ -16,12 +18,32 @@ public class PlayerImpl implements Player {
 
     /**
      * The player constructor.
+     * <p>
+     * A nickname must:
+     * <ul>
+     *     <li>not be null nor blank</li>
+     *     <li>start with an alphabetical character</li>
+     *     <li>not start with one or more digits</li>
+     *     <li>not start nor end with one or more symbols</li>
+     *     <li>not start nor end with one or more underscores</li>
+     *     <li>not include any whitespaces</li>
+     *     <li>not include unicode characters</li>
+     * </ul>
+     * A nickname may include:
+     * <ul>
+     *     <li>one or more underscores between the first and last characters</li>
+     *     <li>digits after the first character</li>
+     * </ul>
      * @param nickname the player's nickname.
      */
     public PlayerImpl(final String nickname) {
-        // todo: add more checks for special characters.
         if (Objects.isNull(nickname) || nickname.isBlank()) {
             throw new IllegalArgumentException("Player nickname cannot be null or blank.");
+        }
+        final Pattern allowedPattern = Pattern.compile("^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$");
+        final Matcher matcher = allowedPattern.matcher(nickname);
+        if (!matcher.find()) {
+            throw new IllegalArgumentException("Invalid nickname format.");
         }
         this.nickname = nickname;
     }
