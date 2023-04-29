@@ -28,15 +28,15 @@ public interface Entity {
      * <p>
      * Example of adding a banion to an empty inventory:
      * <pre>{@code
-     *     player.getInventory().isEmpty();    // True.
-     *     player.updateInventory(0, banion);    // Adds the new banion.
+     *     entity.getInventory().isEmpty();    // True.
+     *     entity.updateInventory(0, banion);    // Adds the new banion at index 0.
      * }</pre>
      * <p>
      * Example of updating an existing banion:
      * <pre>{@code
-     *     player.getInventory().isEmpty();    // False.
+     *     entity.getInventory().isEmpty();    // False.
      *     banion.setHp(50);    // Sets banion's hp at 50.
-     *     player.updateInventory(player.getInventory().indexOf(banion), banion);    // Updates banion.
+     *     entity.updateInventory(entity.getInventory().indexOf(banion), banion);    // Updates banion.
      * }</pre>
      * @param index of the banion to update.
      * @param banion the updated banion.
