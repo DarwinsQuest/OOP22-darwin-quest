@@ -28,7 +28,7 @@ class TestMove {
         assertThrows(IllegalArgumentException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, "  ", new Fire()));
         assertThrows(NullPointerException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, null));
 
-        final Move move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire()); 
+        final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire()); 
         assertEquals(LEGAL_BASE_DAMAGE_1, move.getDamage());
         assertEquals(new Fire(), move.getElement());
         assertEquals(MOVE_NAME_1, move.getName());
@@ -36,7 +36,7 @@ class TestMove {
 
     @Test
     void testPerformMove() {
-        final Move move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
+        final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
         final Banion b1 = new BanionImpl(new Fire(), BANION_NAME_1, HP);
         final Banion b2 = new BanionImpl(new Water(), BANION_NAME_2, HP);
         move.perform(b2);
@@ -47,11 +47,11 @@ class TestMove {
 
     @Test
     void testEquality() {
-        final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
-        final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_2, new Water());
-        final Move m3 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_1, new Fire());
-        final Move m4 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Water());
-        final Move m5 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
+        final DamageMove m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
+        final DamageMove m2 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_2, new Water());
+        final DamageMove m3 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_1, new Fire());
+        final DamageMove m4 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Water());
+        final DamageMove m5 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
         assertEquals(m1, m1);
         assertEquals(m1, m5);
         assertNotEquals(m1, m3); // m1 and m3 have different damage

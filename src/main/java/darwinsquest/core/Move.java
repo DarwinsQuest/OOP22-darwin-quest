@@ -40,12 +40,6 @@ public interface Move extends Elemental {
     String getType();
 
     /**
-     * Retrieves the damage of the {@link Move}.
-     * @return the damage of the {@link Move}.
-     */
-    int getDamage();
-
-    /**
      * Retrieves a string which represents the name of the {@link Move}.
      * @return the name of the {@link Move}.
      */
