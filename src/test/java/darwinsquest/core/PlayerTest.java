@@ -47,8 +47,8 @@ class PlayerTest {
     void nicknameGetterTest() {
         final var p1 = new PlayerImpl(NAME_1);
         final var p2 = new PlayerImpl(NAME_2);
-        assertEquals(NAME_1, p1.getNickname());
-        assertEquals(NAME_2, p2.getNickname());
+        assertEquals(NAME_2, p2.getName());
+        assertEquals(NAME_1, p1.getName());
     }
 
     @Test

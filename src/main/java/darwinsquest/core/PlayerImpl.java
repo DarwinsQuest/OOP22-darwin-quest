@@ -52,14 +52,6 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public String getNickname() {
-        return nickname;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public List<Banion> getInventory() {
         return Collections.unmodifiableList(inventory);
     }
@@ -138,6 +130,14 @@ public class PlayerImpl implements Player {
         return "PlayerImpl{"
                 + "nickname='" + nickname + '\''
                 + ", inventory=" + inventory + '}';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return nickname;
     }
 
 }
