@@ -44,6 +44,22 @@ public class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element getElement() {
+        return element;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getHp() {
         return hp;
     }
@@ -94,16 +110,19 @@ public class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
-    public Element getElement() {
-        return element;
+    public int hashCode() {
+        return Objects.hash(element, name, moves, hp);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getName() {
-        return name;
+    public boolean equals(final Object obj) {
+        return this == obj || obj != null
+            && getClass().equals(obj.getClass())
+            && name.equals(((BanionImpl) obj).name)
+            && element.equals(((BanionImpl) obj).element);
     }
 
     /**
