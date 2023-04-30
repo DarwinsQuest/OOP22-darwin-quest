@@ -10,7 +10,7 @@ public interface Elemental {
 
     /**
      * Retrieves an {@link Element}.
-     * @return the element of belonging.
+     * @return the object {@link Element}..
      */
     Element getElement();
 }
