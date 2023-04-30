@@ -7,13 +7,7 @@ import java.util.Optional;
  * Interface that represents in-game beings, both
  * playable and non-playable characters.
  */
-public interface Entity {
-
-    /**
-     * Retrieves a string representing the {@link Entity}'s nickname.
-     * @return the Entity's nickname.
-     */
-    String getNickname();
+public interface Entity extends NamedObject {
 
     /**
      * Retrieves the {@link Entity}'s personal inventory.
