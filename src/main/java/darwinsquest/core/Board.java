@@ -9,13 +9,13 @@ public interface Board {
 
     /**
      * Retrieves the number of levels.
-     * @return The number of levels.
+     * @return the number of levels.
      */
     int getLevels();
 
     /**
      * Tries to compute a movement of a certain step.
-     * @return The step of movement, or nothing if can't move.
+     * @return the step of movement, or {@link Optional#empty()} if can't move.
      */
     Optional<Integer> move();
 }
