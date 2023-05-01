@@ -6,7 +6,7 @@ package darwinsquest.core;
 public interface NamedObject {
 
     /**
-     * Retieves the object name.
+     * Retrieves the object name.
      * @return the object name.
      */
     String getName();
