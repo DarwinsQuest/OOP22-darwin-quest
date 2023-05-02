@@ -1,24 +1,41 @@
 package darwinsquest.core;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * Interface that represents in-game beings, both
  * playable and non-playable characters.
  */
-public interface Entity {
+public interface Entity extends NamedObject {
 
     /**
-     * Retrieves a string representing the {@link Entity}'s nickname.
-     * @return the Entity's nickname.
+     * Retrieves the {@link Entity}'s personal inventory.
+     * @return a list representing the inventory.
      */
-    String getNickname();
+    List<Banion> getInventory();
 
     /**
-     * Retrieves the {@link Entity}'s personal {@link Inventory}.
-     * @return the Entity's Inventory.
+     * Updates the player's inventory.
+     * If the provided index is grater than or equal the inventory size,
+     * the banion is added at the given inventory index.
+     * <p>
+     * Example of adding a banion to an empty inventory:
+     * <pre>{@code
+     *     entity.getInventory().isEmpty();    // True.
+     *     entity.updateInventory(0, banion);    // Adds the new banion at index 0.
+     * }</pre>
+     * <p>
+     * Example of updating an existing banion:
+     * <pre>{@code
+     *     entity.getInventory().isEmpty();    // False.
+     *     banion.setHp(50);    // Sets banion's hp at 50.
+     *     entity.updateInventory(entity.getInventory().indexOf(banion), banion);    // Updates banion.
+     * }</pre>
+     * @param index of the banion to update.
+     * @param banion the updated banion.
      */
-    Inventory getInventory();
+    void updateInventory(int index, Banion banion);
 
     /**
      * Retrieves the {@link Entity}'s chosen {@link Banion}
