@@ -11,3 +11,6 @@
 bin/
 build/
 *.class
+
+# Custom files
+custom/
