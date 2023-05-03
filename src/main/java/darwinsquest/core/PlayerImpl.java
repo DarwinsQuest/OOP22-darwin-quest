@@ -79,7 +79,7 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Move selectMove() {
+    public Move selectMove(final Banion banion) {
         throw new UnsupportedOperationException("User input not yet supported.");
     }
 
