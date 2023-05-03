@@ -3,7 +3,7 @@ package darwinsquest.core;
 /**
  * Interface that represents a move that can be performed in a battle.
  */
-public interface Move extends Elemental {
+public interface Move extends Elemental, NamedObject {
 
     /**
      * Perform the {@link Move} on a banion.
@@ -38,11 +38,5 @@ public interface Move extends Elemental {
      * @return the type of the {@link Move}.
      */
     String getType();
-
-    /**
-     * Retrieves a string which represents the name of the {@link Move}.
-     * @return the name of the {@link Move}.
-     */
-    String getName();
 
 }
