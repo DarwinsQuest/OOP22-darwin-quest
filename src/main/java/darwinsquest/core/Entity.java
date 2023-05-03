@@ -45,10 +45,12 @@ public interface Entity extends NamedObject {
     Banion deployBanion();
 
     /**
-     * Retrieves the {@link Entity}'s selected {@link Move}.
-     * @return the selected Move.
+     * Retrieves the {@link Entity}'s selected {@link Move}
+     * to be performed by a banion.
+     * @param banion the banion to select the move from.
+     * @return the selected move.
      */
-    Move selectMove();
+    Move selectMove(Banion banion);
 
     /**
      * Swaps the active battle {@link Banion} with
