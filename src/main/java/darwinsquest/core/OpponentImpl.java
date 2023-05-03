@@ -52,15 +52,15 @@ public class OpponentImpl implements Opponent {
      */
     @Override
     public Banion deployBanion() {
-        return ai.decideBanionDeployment();
+        return ai.decideBanionDeployment(getInventory());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Move selectMove() {
-        return ai.decideMoveSelection();
+    public Move selectMove(final Banion banion) {
+        return ai.decideMoveSelection(banion.getMoves());
     }
 
     /**
@@ -68,7 +68,7 @@ public class OpponentImpl implements Opponent {
      */
     @Override
     public Optional<Banion> swapBanion() {
-        return ai.decideBanionSwap();
+        return ai.decideBanionSwap(getInventory());
     }
 
     /**
