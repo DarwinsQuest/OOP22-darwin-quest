@@ -1,11 +1,13 @@
 package darwinsquest.core;
 
 import darwinsquest.core.element.Fire;
+import darwinsquest.core.element.Grass;
 import darwinsquest.core.element.Water;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -54,18 +56,24 @@ class PlayerTest {
     @Test
     void isOutOfBanionsTest() {
         final var p = new PlayerImpl(NAME_1);
-        final var b1 = new BanionImpl(new Fire(), NAME_2, HP);
-        final var b2 = new BanionImpl(new Water(), NAME_2, HP);
-        p.updateInventory(0, b1);
-        p.updateInventory(1, b2);
+        final List<Banion> banionList = new ArrayList<>(List.of(
+                new BanionImpl(new Fire(), NAME_2, HP),
+                new BanionImpl(new Water(), NAME_2, HP),
+                new BanionImpl(new Grass(), NAME_2, HP))
+        );
+        IntStream.range(0, banionList.size()).forEach(i -> p.updateInventory(i, banionList.get(i)));
         assertFalse(p.isOutOfBanions());
         final var inventoryCopy = p.getInventory();
-        b1.setHp(0);
-        p.updateInventory(inventoryCopy.indexOf(b1), b1);
-        assertFalse(p.isOutOfBanions());
-        b2.setHp(0);
-        p.updateInventory(inventoryCopy.indexOf(b2), b2);
-        assertTrue(p.isOutOfBanions());
+        for (int i = 0; i < banionList.size(); i++) {
+            final var currentBanion = banionList.get(i);
+            currentBanion.setHp(0);
+            p.updateInventory(inventoryCopy.indexOf(currentBanion), currentBanion);
+            if (i == banionList.size() - 1) {
+                assertTrue(p.isOutOfBanions());
+            } else {
+                assertFalse(p.isOutOfBanions());
+            }
+        }
     }
 
     @Test

@@ -1,5 +1,6 @@
 package darwinsquest.core;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -10,24 +11,27 @@ public interface AI {
 
     /**
      * Decides a {@link Banion} to deploy in battle.
+     * @param banions The banions to choose from.
      * @return the {@link Banion} to deploy.
      * @see Entity#deployBanion()
      */
-    Banion decideBanionDeployment();
+    Banion decideBanionDeployment(Collection<Banion> banions);
 
     /**
      * Decides a {@link Move} to select.
+     * @param moves The moves to choose from.
      * @return the selected {@link Move}.
      * @see Entity#selectMove()
      */
-    Move decideMoveSelection();
+    Move decideMoveSelection(Collection<Move> moves);
 
     /**
      * Decides a {@link Banion} to switch the currently active one with.
+     * @param banions The banions owned by the {@link Opponent}.
      * @return a {@link Optional} containing a {@link Banion} if any is left,
      *         empty otherwise.
      * @see Entity#swapBanion()
      */
-    Optional<Banion> decideBanionSwap();
+    Optional<Banion> decideBanionSwap(Collection<Banion> banions);
 
 }
