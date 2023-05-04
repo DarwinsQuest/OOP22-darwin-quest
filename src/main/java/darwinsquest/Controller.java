@@ -6,9 +6,9 @@ import javafx.application.Application;
 /**
  * The startup class of this project.
  */
-public final class App {
+public final class Controller {
 
-    private App() { }
+    private Controller() { }
 
     /**
      * Application entry-point.
