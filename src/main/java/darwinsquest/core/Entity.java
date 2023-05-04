@@ -7,7 +7,7 @@ import java.util.Optional;
  * Interface that represents in-game beings, both
  * playable and non-playable characters.
  */
-public interface Entity extends NamedObject {
+public interface Entity extends Nameable {
 
     /**
      * Retrieves the {@link Entity}'s personal inventory.

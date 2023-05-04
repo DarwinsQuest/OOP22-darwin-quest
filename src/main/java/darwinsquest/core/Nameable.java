@@ -3,7 +3,7 @@ package darwinsquest.core;
 /**
  * Interface that represents a named object.
  */
-public interface NamedObject {
+public interface Nameable {
 
     /**
      * Retrieves the object name.

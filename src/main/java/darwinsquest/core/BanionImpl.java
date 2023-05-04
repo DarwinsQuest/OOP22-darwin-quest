@@ -12,7 +12,7 @@ import darwinsquest.core.element.Neutral;
 /**
  * Class that represents a simple {@link Banion} implementation.
  */
-public class BanionImpl implements Banion {
+public final class BanionImpl implements Banion {
 
     private final Element element;
     private final String name;
