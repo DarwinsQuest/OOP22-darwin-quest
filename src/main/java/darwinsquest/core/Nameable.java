@@ -3,6 +3,7 @@ package darwinsquest.core;
 /**
  * Interface that represents a named object.
  */
+@FunctionalInterface
 public interface Nameable {
 
     /**
