@@ -24,7 +24,6 @@ public final class BanionImpl implements Banion {
      * @param element element of affinity.
      * @param name identifier.
      * @param hp hit points, represents health.
-     * @throws IllegalArgumentException If hit points init to negative or zero.
      */
     public BanionImpl(final Element element, final String name, final int hp) {
         moves = new HashSet<>();
@@ -59,7 +58,6 @@ public final class BanionImpl implements Banion {
 
     /**
      * {@inheritDoc}
-     * @throws IllegalArgumentException If hit points set to negative.
      */
     @Override
     public void setHp(final int amount) {
