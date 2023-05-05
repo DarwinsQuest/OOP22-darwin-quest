@@ -12,9 +12,9 @@ import darwinsquest.core.utility.Assert;
  */
 public class BoardImpl implements Board {
 
-    private int position;
     private final int levels;
     private final IntSupplier supplier;
+    private int position;
 
     /**
      * Costructor that creates a {@link Board} with a provided number of levels.
