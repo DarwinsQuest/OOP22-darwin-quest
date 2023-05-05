@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.function.IntPredicate;
 
 import darwinsquest.core.element.Element;
 import darwinsquest.core.element.Neutral;
+import darwinsquest.core.utility.Assert;
 
 /**
  * Class that represents a simple {@link Banion} implementation.
@@ -27,17 +27,10 @@ public final class BanionImpl implements Banion {
      * @throws IllegalArgumentException If hit points init to negative or zero.
      */
     public BanionImpl(final Element element, final String name, final int hp) {
-        assertIntLegalArgument(hp, value -> value > 0, "Banion hp can't be init to a negative value or zero.");
         moves = new HashSet<>();
-        this.name = Objects.requireNonNull(name);
-        this.hp = hp;
+        this.name = Assert.stringNotNullOrEmpty(name);
+        this.hp = Assert.intMatch(hp, value -> value > 0);
         this.element = element;
-    }
-
-    private void assertIntLegalArgument(final int stat, final IntPredicate predicate, final String message) {
-        if (predicate.negate().test(stat)) {
-            throw new IllegalArgumentException(message);
-        }
     }
 
     /**
@@ -70,8 +63,7 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public void setHp(final int amount) {
-        assertIntLegalArgument(amount, value -> value >= 0, "Banion hp can't be set to a negative value.");
-        hp = amount;
+        hp = Assert.intMatch(amount, value -> value >= 0);
     }
 
     /**
