@@ -20,6 +20,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 
+    val apacheLang3Version = "3.12.0"
+
+    implementation("org.apache.commons:commons-lang3:$apacheLang3Version")
+
     val javaFxVersion = "15"
     
     for (platform in supportedPlatforms) {
