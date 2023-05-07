@@ -35,7 +35,12 @@ public class BasicMove implements DamageMove {
      */
     @Override
     public void perform(final Banion opponentBanion) {
-        opponentBanion.setHp(opponentBanion.getHp() - baseDamage);
+        final var opponentHp = opponentBanion.getHp();
+        if (opponentHp >= this.getDamage()) {
+            opponentBanion.setHp(opponentHp - baseDamage);
+        } else {
+            opponentBanion.setHp(0);
+        }
     }
 
     /**
@@ -99,8 +104,8 @@ public class BasicMove implements DamageMove {
      */
     @Override
     public String toString() {
-        return "Move: [ - name: " + this.getName() + " - element: " + this.getElement()
-                + " - damage: " + this.getDamage() + "]";
+        return "Move [name=" + this.getName() + " element=" + this.getElement()
+                + " damage= " + this.getDamage() + "]";
     }
 
     /**
