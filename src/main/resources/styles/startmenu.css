@@ -7,7 +7,6 @@
 .button {
   -fx-background-color: black;
   -fx-text-fill: white;
-  -fx-alignment: CENTER;
 }
 
 .button:disabled {
@@ -24,5 +23,5 @@
 
 .button:armed {
   -fx-background-color: derive(black, 30%);
-  -fx-effect: dropshadow(one-pass-box, black, 10.0, 0.0, 0.0, 0.0);;
+  -fx-effect: dropshadow(one-pass-box, black, 10.0, 0.0, 0.0, 0.0);
 }
