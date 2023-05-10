@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import darwinsquest.core.element.Element;
 import darwinsquest.core.element.Neutral;
-import darwinsquest.core.utility.Assert;
+import darwinsquest.utility.Assert;
 
 /**
  * Class that represents a simple {@link Banion} implementation.
