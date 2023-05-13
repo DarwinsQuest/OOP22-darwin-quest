@@ -12,6 +12,12 @@ public class BasicMove implements DamageMove {
     private final String name;
     private final Element element;
 
+    private BasicMove(final BasicMove move) {
+        baseDamage = move.baseDamage;
+        name = move.name;
+        element = move.element;
+    }
+
     /**
      * This constructor creates a new {@link BasicMove} with the provided name, damage and element.
      * @param name The name of the {@link BasicMove}.
@@ -97,6 +103,14 @@ public class BasicMove implements DamageMove {
     @Override
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BasicMove copy() {
+        return new BasicMove(this);
     }
 
     /**
