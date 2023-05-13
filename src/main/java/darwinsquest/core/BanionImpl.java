@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import darwinsquest.core.element.Element;
 import darwinsquest.core.element.Neutral;
@@ -14,10 +16,19 @@ import darwinsquest.utility.Assert;
  */
 public final class BanionImpl implements Banion {
 
+    private final UUID id;
     private final Element element;
     private final String name;
     private final Collection<Move> moves;
     private int hp;
+
+    private BanionImpl(final BanionImpl banion) {
+        id = banion.id;
+        moves = banion.moves.stream().map(Move::copy).collect(Collectors.toSet());
+        name = banion.name;
+        hp = banion.hp;
+        element = banion.element;
+    }
 
     /**
      * Costructor that creates a {@link Banion} with a provided hit points amount.
@@ -26,6 +37,7 @@ public final class BanionImpl implements Banion {
      * @param hp hit points, represents health.
      */
     public BanionImpl(final Element element, final String name, final int hp) {
+        id = UUID.randomUUID();
         moves = new HashSet<>();
         this.name = Assert.stringNotNullOrEmpty(name);
         this.hp = Assert.intMatch(hp, value -> value > 0);
@@ -100,6 +112,14 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
+    public Banion copy() {
+        return new BanionImpl(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int hashCode() {
         return Objects.hash(element, name, moves, hp);
     }
@@ -111,8 +131,7 @@ public final class BanionImpl implements Banion {
     public boolean equals(final Object obj) {
         return this == obj || obj != null
             && getClass().equals(obj.getClass())
-            && name.equals(((BanionImpl) obj).name)
-            && element.equals(((BanionImpl) obj).element);
+            && id.equals(((BanionImpl) obj).id);
     }
 
     /**

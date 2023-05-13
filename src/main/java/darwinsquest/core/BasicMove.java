@@ -131,4 +131,11 @@ public class BasicMove implements DamageMove {
         return baseDamage == move.baseDamage && name.equals(move.name) && element.equals(move.element);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BasicMove copy() {
+        throw new UnsupportedOperationException("Copy not yet supported.");
+    }
 }

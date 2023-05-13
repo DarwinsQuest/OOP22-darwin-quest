@@ -3,7 +3,7 @@ package darwinsquest.core;
 /**
  * Interface that represents a move that can be performed in a battle.
  */
-public interface Move extends Elemental, Nameable {
+public interface Move extends Elemental, Nameable, Cloneable<Move> {
 
     /**
      * Perform the {@link Move} on a banion.
