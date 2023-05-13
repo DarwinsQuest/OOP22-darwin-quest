@@ -21,7 +21,7 @@ import darwinsquest.core.element.Neutral;
 import darwinsquest.core.element.Water;
 
 /**
- * Simple Test for {@link darwinsquest.core.BanionImpl}.
+ * Test Class for {@link darwinsquest.core.BanionImpl}.
  */
 class TestBanion {
 
