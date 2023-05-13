@@ -1,13 +1,13 @@
 .root {
+    -black-overlay-semitransparent: rgba(0, 0, 0, 0.5);
     -fx-font-family: "Arial Black";
     -fx-font-size: 20;
 }
 
 #movesGrid {
-    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-color: -black-overlay-semitransparent;
 }
 
 #optionsBox {
-    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-color: -black-overlay-semitransparent;
 }
-

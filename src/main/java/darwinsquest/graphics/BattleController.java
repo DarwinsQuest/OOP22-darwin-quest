@@ -76,5 +76,4 @@ public final class BattleController implements Initializable {
         borderPane.setBackground(bg);
     }
 
-
 }
