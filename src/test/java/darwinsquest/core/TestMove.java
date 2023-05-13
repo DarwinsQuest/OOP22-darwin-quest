@@ -54,16 +54,25 @@ class TestMove {
 
     @Test
     void testEquality() {
-        final DamageMove m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
-        final DamageMove m2 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_2, new Water());
-        final DamageMove m3 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_1, new Fire());
-        final DamageMove m4 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Water());
-        final DamageMove m5 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
-        assertEquals(m1, m1);
+        final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
+        final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_2, new Water());
+        final Move m3 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_1, new Fire());
+        final Move m4 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Water());
+        final Move m5 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
         assertEquals(m1, m5);
         assertNotEquals(m1, m3); // m1 and m3 have different damage
         assertNotEquals(m1, m4); // m1 and m4 have different element
         assertNotEquals(m2, m4); // m2 and m4 have different name
+    }
+
+    @Test
+    void testCopy() {
+        final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
+        final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_2, new Water());
+        final Move m1Copy = m1.copy();
+        final Move m2Copy = m2.copy();
+        assertEquals(m1, m1Copy);
+        assertEquals(m2, m2Copy);
     }
 
 }
