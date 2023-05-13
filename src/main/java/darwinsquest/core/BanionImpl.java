@@ -39,7 +39,7 @@ public final class BanionImpl implements Banion {
     public BanionImpl(final Element element, final String name, final int hp) {
         id = UUID.randomUUID();
         moves = new HashSet<>();
-        this.name = Assert.stringNotNullOrEmpty(name);
+        this.name = Assert.stringNotNullOrWhiteSpace(name);
         this.hp = Assert.intMatch(hp, value -> value > 0);
         this.element = element;
     }
