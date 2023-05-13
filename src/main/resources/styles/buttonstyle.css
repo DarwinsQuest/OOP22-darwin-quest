@@ -1,0 +1,18 @@
+/* Generic button style sheet. */
+.root {
+    -button-bg-color: #0D98BA;
+    -black-inner-shadow: rgba(0, 0, 0, 0.3);
+}
+
+.button {
+    -fx-background-color: -button-bg-color;
+    -fx-background-radius: 10px;
+    -fx-effect: innershadow(one-pass-box, -black-inner-shadow, 0, 0, 1, -5);
+    -fx-text-fill: white;
+}
+
+.button:armed {
+    -fx-effect: innershadow(one-pass-box, -black-inner-shadow, 0, 0, 1, -2);
+    -fx-text-fill: rgba(255, 255, 255, 0.2);
+    -fx-translate-y: 3px;
+}
