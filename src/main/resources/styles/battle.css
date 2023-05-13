@@ -1,0 +1,13 @@
+.root {
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 20;
+}
+
+#movesGrid {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+#optionsBox {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
