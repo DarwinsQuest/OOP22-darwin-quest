@@ -1,18 +1,13 @@
 package darwinsquest.core;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Class that represents the {@link Opponent} implementation.
  */
-public class OpponentImpl implements Opponent {
+public class OpponentImpl extends AbstractEntity implements Opponent {
 
-    private final String nickname;
-    private final List<Banion> inventory = new LinkedList<>();
     private AI ai;
 
     /**
@@ -21,30 +16,8 @@ public class OpponentImpl implements Opponent {
      * @param difficulty the AI difficulty level.
      */
     public OpponentImpl(final String nickname, final AI difficulty) {
-        if (Objects.isNull(nickname) || nickname.isBlank()) {
-            throw new IllegalArgumentException("Opponent nickname cannot be null or blank.");
-        }
-        this.nickname = nickname;
+        super(nickname);
         ai = Objects.requireNonNull(difficulty);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Banion> getInventory() {
-        return Collections.unmodifiableList(inventory);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void updateInventory(final int index, final Banion banion) {
-        if (index >= inventory.size()) {
-            inventory.add(index, banion);
-        }
-        inventory.set(index, banion);
     }
 
     /**
@@ -75,22 +48,6 @@ public class OpponentImpl implements Opponent {
      * {@inheritDoc}
      */
     @Override
-    public boolean isOutOfBanions() {
-        return inventory.stream().noneMatch(Banion::isAlive);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        return nickname;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void setDifficulty(final AI difficulty) {
         ai = Objects.requireNonNull(difficulty);
     }
@@ -106,10 +63,11 @@ public class OpponentImpl implements Opponent {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+        if (!super.equals(o)) {
+            return false;
+        }
         final OpponentImpl opponent = (OpponentImpl) o;
-        return Objects.equals(nickname, opponent.nickname)
-                && Objects.equals(inventory, opponent.inventory)
-                && Objects.equals(ai, opponent.ai);
+        return Objects.equals(ai, opponent.ai);
     }
 
     /**
@@ -117,7 +75,17 @@ public class OpponentImpl implements Opponent {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(nickname, inventory, ai);
+        return Objects.hash(super.hashCode(), ai);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "OpponentImpl{"
+                + "nickname='" + getName() + '\''
+                + ", inventory=" + getInventory()
+                + ", ai=" + ai + '}';
+    }
 }

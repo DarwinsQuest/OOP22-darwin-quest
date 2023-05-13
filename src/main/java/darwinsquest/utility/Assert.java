@@ -1,8 +1,9 @@
-package darwinsquest.core.utility;
+package darwinsquest.utility;
 
-import java.util.Objects;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Class that represents a general Utility to assert certain conditions.
@@ -73,8 +74,8 @@ public final class Assert {
      * @return the provided {@code value}.
      * @throws IllegalArgumentException in case of unmatching.
      */
-    public static String stringNotNullOrEmpty(final String value) {
-        return stringNotNullOrEmpty(value, null);
+    public static String stringNotNullOrWhiteSpace(final String value) {
+        return stringNotNullOrWhiteSpace(value, null);
     }
 
     /**
@@ -84,7 +85,7 @@ public final class Assert {
      * @return the provided {@code value}.
      * @throws IllegalArgumentException in case of unmatching.
      */
-    public static String stringNotNullOrEmpty(final String value, final String message) {
-        return match(value, v -> Objects.nonNull(v) && !v.isBlank(), message);
+    public static String stringNotNullOrWhiteSpace(final String value, final String message) {
+        return match(value, StringUtils::isNotBlank, message);
     }
 }
