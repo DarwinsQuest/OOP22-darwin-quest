@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * Class that respresents the fxml view controller of the start menu.
+ * Class that represents the fxml view controller of the start menu.
  */
 public final class StartMenuController implements Initializable {
 
