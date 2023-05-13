@@ -1,6 +1,7 @@
 package darwinsquest.core;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface for Model manager.
@@ -19,7 +20,7 @@ public interface Engine {
      * @return a {@link Board} object that represents this game sequence.
      * @see Board
      */
-    Board startGame(String difficulty);
+    Optional<Board> startGame(String difficulty);
 
     /**
      * Tells if the game is over.
