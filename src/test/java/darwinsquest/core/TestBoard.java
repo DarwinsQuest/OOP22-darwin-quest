@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import darwinsquest.utility.Assert;
 
 /**
- * Simple Test for {@link darwinsquest.core.BoardImpl}.
+ * Test Class for {@link darwinsquest.core.BoardImpl}.
  */
 class TestBoard {
 
