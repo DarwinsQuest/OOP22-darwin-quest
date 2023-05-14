@@ -6,7 +6,7 @@ package darwinsquest.core.element;
 public final class Neutral extends AbstractElement {
 
     /**
-     * Creates a rock element.
+     * Constructor of {@link Neutral} immutable element.
      */
     public Neutral() {
         super("Neutral");

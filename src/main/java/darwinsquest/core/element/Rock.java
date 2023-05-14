@@ -6,7 +6,7 @@ package darwinsquest.core.element;
 public final class Rock extends AbstractElement {
 
     /**
-     * Creates a rock element.
+     * Constructor of {@link Rock} immutable element.
      */
     public Rock() {
         super("Rock");
