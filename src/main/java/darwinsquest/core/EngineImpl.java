@@ -12,7 +12,7 @@ public class EngineImpl implements Engine {
     private final List<Class<? extends Difficulty>> difficulties;
 
     /**
-     * Costructor that creates a {@link EngineImpl}.
+     * Constructor that creates a {@link EngineImpl}.
      */
     public EngineImpl() {
         difficulties = List.of(Normal.class);

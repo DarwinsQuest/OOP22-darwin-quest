@@ -40,7 +40,7 @@ class TestBanion {
         banion.setHp(validHp);
         assertEquals(validHp, banion.getHp());
 
-        assertThrows(IllegalArgumentException.class, () -> banion.setHp(invalidHp), "Espected throw IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> banion.setHp(invalidHp), "Expected throw IllegalArgumentException");
     }
 
     /**
