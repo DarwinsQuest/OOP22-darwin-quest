@@ -6,7 +6,7 @@ package darwinsquest.core.element;
 public final class Fire extends AbstractElement {
 
     /**
-     * Creates a fire element.
+     * Constructor of {@link Fire} immutable element.
      */
     public Fire() {
         super("Fire");
