@@ -17,7 +17,7 @@ public class BoardImpl implements Board {
     private int position;
 
     /**
-     * Costructor that creates a {@link Board} with a provided number of levels.
+     * Constructor that creates a {@link Board} with a provided number of levels.
      * @param levels the number of levels provided, it has to be a positive value.
      * @param supplier the movement strategy, it has to return always positive values.
      */

@@ -1,8 +1,8 @@
 package darwinsquest.core;
 
 /**
- * Interface that denotes a clonable class.
- * @param <T> the type of the cloned object.
+ * Interface that denotes a cloneable {@link Object}.
+ * @param <T> the type of the clone result.
  */
 public interface Cloneable<T> {
 

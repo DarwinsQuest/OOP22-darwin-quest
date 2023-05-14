@@ -101,9 +101,9 @@ class TestBanion {
         });
 
         final var banion = new BanionImpl(element, name, hp);
-        final var identifiables = Stream.generate(banion::copy).limit(size).toList();
+        final var banionClones = Stream.generate(banion::copy).limit(size).toList();
 
-        identifiables.forEach(o1 -> identifiables.forEach(o2 -> {
+        banionClones.forEach(o1 -> banionClones.forEach(o2 -> {
             assertNotSame(banion, o2);
             assertEquals(o1, o2);
         }));
