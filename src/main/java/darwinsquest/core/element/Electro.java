@@ -6,7 +6,7 @@ package darwinsquest.core.element;
 public final class Electro extends AbstractElement {
 
     /**
-     * Default costructor of this element alone.
+     * Constructor of {@link Electro} immutable element.
      */
     public Electro() {
         super("Electro");
