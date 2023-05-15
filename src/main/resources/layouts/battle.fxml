@@ -78,8 +78,8 @@
       </GridPane>
    </right>
    <stylesheets>
-      <URL value="@../styles/battle.css" />
-      <URL value="@../styles/buttonstyle.css" />
       <URL value="@../styles/fontstyle.css" />
+      <URL value="@../styles/buttonstyle.css" />
+      <URL value="@../styles/battle.css" />
    </stylesheets>
 </BorderPane>
