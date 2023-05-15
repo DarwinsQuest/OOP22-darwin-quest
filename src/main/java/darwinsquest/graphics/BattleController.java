@@ -13,6 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -55,6 +57,7 @@ public final class BattleController implements Initializable {
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         initializeBackground();
+        initializeButtons();
     }
 
     private void initializeBackground() {
@@ -74,6 +77,19 @@ public final class BattleController implements Initializable {
         );
         final Background bg = new Background(bgImg);
         borderPane.setBackground(bg);
+    }
+
+    // This method allows only one focused/hovered button at once.
+    private void initializeButtons() {
+        final List<Button> buttonList = new ArrayList<>(List.of(
+                moveBtn1,
+                moveBtn2,
+                moveBtn3,
+                moveBtn4,
+                inventoryBtn,
+                forfeitBtn));
+        buttonList.forEach(b -> b.setOnMouseEntered(event -> b.requestFocus()));
+        buttonList.forEach(b -> b.setOnMouseExited(event -> b.getParent().requestFocus()));
     }
 
 }
