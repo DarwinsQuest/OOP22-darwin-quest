@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -30,7 +29,7 @@ public final class StartMenuController implements Initializable {
      */
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-        titleImage.setImage(new Image(ClassLoader.getSystemResourceAsStream("img/green.png")));
+        // titleImage.setImage(new Image(ClassLoader.getSystemResourceAsStream("img/green.png")));
     }
 
     /**

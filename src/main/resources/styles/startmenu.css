@@ -1,27 +1,3 @@
 .root {
-  -fx-font-size: 20px;
-  -fx-font-family: "Arial Black";
   -fx-alignment: TOP_CENTER;
-}
-
-.button {
-  -fx-background-color: black;
-  -fx-text-fill: white;
-}
-
-.button:disabled {
-  -fx-opacity: 0.4;
-}
-
-.button:hover {
-  -fx-background-radius: 10px;
-}
-
-.button:focused {
-  -fx-text-fill: green;
-}
-
-.button:armed {
-  -fx-background-color: derive(black, 30%);
-  -fx-effect: dropshadow(one-pass-box, black, 10.0, 0.0, 0.0, 0.0);
 }
