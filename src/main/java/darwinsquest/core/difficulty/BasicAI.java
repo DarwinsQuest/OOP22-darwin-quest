@@ -1,21 +1,24 @@
-package darwinsquest.core;
+package darwinsquest.core.difficulty;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
+import darwinsquest.core.Banion;
+import darwinsquest.core.Move;
+
 /**
  * A basic implementation of the game AI.
  */
-public class BasicAI implements AI {
+class BasicAI implements AI {
 
     private final RandomGenerator generator;
 
     /**
      * Default constructor.
      */
-    public BasicAI() {
+    BasicAI() {
         generator = new Random();
     }
 

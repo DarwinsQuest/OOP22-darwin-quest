@@ -3,6 +3,8 @@ package darwinsquest.core;
 import java.util.Objects;
 import java.util.Optional;
 
+import darwinsquest.core.difficulty.AI;
+
 /**
  * Class that represents the {@link Opponent} implementation.
  */

@@ -31,7 +31,7 @@ public final class BanionImpl implements Banion {
     }
 
     /**
-     * Constructor that creates a {@link Banion} with a provided hit points amount.
+     * Default constructor.
      * @param element element of affinity.
      * @param name identifier.
      * @param hp hit points, represents health.
