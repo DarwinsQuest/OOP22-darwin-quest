@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.decision.Decision;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -42,6 +44,14 @@ public class OpponentImpl extends AbstractEntity implements Opponent {
     @Override
     public Optional<Banion> swapBanion() {
         return ai.decideBanionSwap(getInventory());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Decision getDecision() {
+        return ai.getDecision();
     }
 
     /**

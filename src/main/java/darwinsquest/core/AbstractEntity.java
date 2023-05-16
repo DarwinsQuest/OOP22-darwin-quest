@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.decision.Decision;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -58,7 +60,7 @@ public abstract class AbstractEntity implements Entity {
      */
     @Override
     public boolean addToInventory(final Banion banion) {
-        if (inventory.stream().anyMatch(b -> b == banion)) {
+        if (inventory.contains(banion)) {
             return false;
         }
         return inventory.add(banion);
@@ -69,9 +71,7 @@ public abstract class AbstractEntity implements Entity {
      */
     @Override
     public boolean addToInventory(final Collection<Banion> banions) {
-        final var allowedBanions = banions.stream()
-                .filter(current -> inventory.stream().noneMatch(b -> b == current))
-                .toList();
+        final var allowedBanions = banions.stream().filter(b -> !inventory.contains(b)).toList();
         return inventory.addAll(allowedBanions);
     }
 
@@ -80,7 +80,7 @@ public abstract class AbstractEntity implements Entity {
      */
     @Override
     public Optional<Banion> updateInventory(final Banion oldBanion, final Banion newBanion) {
-        if (!inventory.contains(oldBanion)) {
+        if (!inventory.contains(oldBanion) || inventory.contains(newBanion)) {
             return Optional.empty();
         }
         final var index = inventory.indexOf(oldBanion);
@@ -95,6 +95,9 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public abstract Optional<Banion> swapBanion();
+
+    @Override
+    public abstract Decision getDecision();
 
     /**
      * {@inheritDoc}
