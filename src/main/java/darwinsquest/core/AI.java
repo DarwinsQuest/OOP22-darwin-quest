@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.decision.Decision;
+
 import java.util.Collection;
 import java.util.Optional;
 
@@ -33,5 +35,12 @@ public interface AI {
      * @see Entity#swapBanion()
      */
     Optional<Banion> decideBanionSwap(Collection<Banion> banions);
+
+    /**
+     * Retrieves the decision made by the {@link AI} about what to do
+     * in the following battle turn.
+     * @return the decision made by the AI for the following battle turn.
+     */
+    Decision getDecision();
 
 }
