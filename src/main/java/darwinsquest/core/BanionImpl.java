@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import darwinsquest.core.element.Element;
 import darwinsquest.core.element.Neutral;
-import darwinsquest.utility.Assert;
+import darwinsquest.utility.Asserts;
 
 /**
  * Class that represents a simple {@link Banion} implementation.
@@ -39,8 +39,8 @@ public final class BanionImpl implements Banion {
     public BanionImpl(final Element element, final String name, final int hp) {
         id = UUID.randomUUID();
         moves = new HashSet<>();
-        this.name = Assert.stringNotNullOrWhiteSpace(name);
-        this.hp = Assert.intMatch(hp, value -> value > 0);
+        this.name = Asserts.stringNotNullOrWhiteSpace(name);
+        this.hp = Asserts.intMatch(hp, value -> value > 0);
         this.element = element;
     }
 
@@ -73,7 +73,7 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public void setHp(final int amount) {
-        hp = Assert.intMatch(amount, value -> value >= 0);
+        hp = Asserts.intMatch(amount, value -> value >= 0);
     }
 
     /**
