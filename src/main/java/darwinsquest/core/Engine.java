@@ -17,10 +17,16 @@ public interface Engine {
     /**
      * Starts a new game.
      * @param difficulty a difficulty indicator selected between given {@link Engine#getDifficulties()} elements.
-     * @return a {@link Board} object that represents this game sequence.
+     * @return if the game is correctly started.
+     */
+    boolean startGame(String difficulty);
+
+    /**
+     * Retrieves a {@link Board} element.
+     * @return the {@link Board}, or {@link Optional#empty()} if game isn't started yet.
      * @see Board
      */
-    Optional<Board> startGame(String difficulty);
+    Optional<Board> getBoard();
 
     /**
      * Tells if the game is over.

@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import darwinsquest.core.difficulty.AI;
+import darwinsquest.core.difficulty.Normal;
 import darwinsquest.core.element.Air;
 import darwinsquest.core.element.Fire;
 import darwinsquest.core.element.Grass;
@@ -18,9 +20,10 @@ class TestBasicAI {
     private static final int BANION_HP = 100;
     private static final int MOVE_DAMAGE = 10;
 
+    private final AI ai = new Normal().getAI();
+
     @Test
     void testDeployBanion() {
-        final AI ai = new BasicAI();
         final Collection<Banion> banions = new HashSet<>();
         final Banion b1 = new BanionImpl(new Fire(), "Firey", BANION_HP);
         final Banion b2 = new BanionImpl(new Water(), "Watery", BANION_HP);
@@ -32,7 +35,6 @@ class TestBasicAI {
 
     @Test
     void testMoveSelection() {
-        final AI ai = new BasicAI();
         final Collection<Move> moves = new HashSet<>();
         final Move m1 = new BasicMove(MOVE_DAMAGE, "Fireball", new Fire());
         final Move m2 = new BasicMove(MOVE_DAMAGE, "Explosion", new Fire());
@@ -44,7 +46,6 @@ class TestBasicAI {
 
     @Test
     void testBanionSwap() {
-        final AI ai = new BasicAI();
         final Collection<Banion> banions = new HashSet<>();
         final Banion b1 = new BanionImpl(new Grass(), "Grassy", BANION_HP);
         final Banion b2 = new BanionImpl(new Air(), "Airy", BANION_HP);

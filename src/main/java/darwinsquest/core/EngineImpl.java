@@ -2,7 +2,12 @@ package darwinsquest.core;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import darwinsquest.annotation.Description;
+import darwinsquest.core.difficulty.Difficulty;
+import darwinsquest.core.difficulty.Normal;
 
 /**
  * Class that represents the engine of darwinsquest model.
@@ -10,12 +15,19 @@ import java.util.Optional;
 public class EngineImpl implements Engine {
 
     private final List<Class<? extends Difficulty>> difficulties;
+    private final Player player;
+    private Optional<Board> board;
+    private Optional<Difficulty> difficulty;
 
     /**
-     * Constructor that creates a {@link EngineImpl}.
+     * Default constructor.
+     * @param player the player enveloped with the game.
      */
-    public EngineImpl() {
+    public EngineImpl(final Player player) {
         difficulties = List.of(Normal.class);
+        difficulty = Optional.empty();
+        board = Optional.empty();
+        this.player = Objects.requireNonNull(player);
     }
 
     /**
@@ -23,32 +35,35 @@ public class EngineImpl implements Engine {
      */
     @Override
     public List<String> getDifficulties() {
-        return difficulties.stream().map(Class::getName).toList();
+        return difficulties.stream().map(c -> c.getAnnotation(Description.class).value()).toList();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Optional<Board> startGame(final String difficulty) {
+    public boolean startGame(final String difficulty) {
         try {
-            return Optional.ofNullable(difficulties.stream()
-                .map(Class::getName)
-                .noneMatch(difficulty::equals)
-                    ? null
-                    : difficulties.stream()
-                        .filter(c -> c.getName().equals(difficulty))
-                        .findFirst()
-                        .get()
-                        .getDeclaredConstructor()
-                        .newInstance()
-                        .getBoard()
-                );
+            this.difficulty = Optional.of(difficulties.stream()
+                .filter(c -> c.getAnnotation(Description.class).value().equals(difficulty))
+                .findFirst()
+                .get()
+                .getDeclaredConstructor()
+                .newInstance());
         } catch (InstantiationException | IllegalAccessException
-            | IllegalArgumentException | InvocationTargetException
-            | NoSuchMethodException | SecurityException e) {
-            throw new IllegalStateException(e);
+            | InvocationTargetException | NoSuchMethodException e) {
+            return false;
         }
+        board = Optional.of(this.difficulty.get().getBoard());
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Board> getBoard() {
+        return board;
     }
 
     /**
@@ -56,6 +71,6 @@ public class EngineImpl implements Engine {
      */
     @Override
     public boolean isGameOver() {
-        throw new UnsupportedOperationException("Unimplemented method 'isGameOver'");
+        return player.isOutOfBanions();
     }
 }

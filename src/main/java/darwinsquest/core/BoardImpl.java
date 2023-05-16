@@ -8,7 +8,7 @@ import darwinsquest.utility.Assert;
 
 /**
  * Class that represents a simple {@link Board} implementation.
- * The start position is always considered the first
+ * The start position is always considered the first.
  */
 public class BoardImpl implements Board {
 
@@ -17,7 +17,7 @@ public class BoardImpl implements Board {
     private int position;
 
     /**
-     * Constructor that creates a {@link Board} with a provided number of levels.
+     * Default constructor.
      * @param levels the number of levels provided, it has to be a positive value.
      * @param supplier the movement strategy, it has to return always positive values.
      */

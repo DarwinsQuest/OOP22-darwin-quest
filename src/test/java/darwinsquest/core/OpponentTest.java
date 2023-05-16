@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.difficulty.AI;
+import darwinsquest.core.difficulty.Normal;
 import darwinsquest.core.element.Air;
 import darwinsquest.core.element.Fire;
 import darwinsquest.core.element.Grass;
@@ -21,7 +23,7 @@ class OpponentTest {
 
     private static final String NAME_1 = "Alice";
     private static final String NAME_2 = "Bob";
-    private static final AI AI = new BasicAI();
+    private static final AI AI = new Normal().getAI();
 
     private static final int HP = 100;
     private final List<Banion> banionList = new ArrayList<>(List.of(

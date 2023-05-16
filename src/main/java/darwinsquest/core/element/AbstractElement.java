@@ -10,7 +10,7 @@ public class AbstractElement implements Element {
     private final String name;
 
     /**
-     * Creates a default element.
+     * Default constructor.
      * @param name the name of this {@link Element}.
      */
     protected AbstractElement(final String name) {

@@ -1,12 +1,12 @@
 package darwinsquest.core.element;
 
 /**
- * Class that represents the Air Element.
+ * Class that represents the Air immutable {@link Element}.
  */
 public final class Air extends AbstractElement {
 
     /**
-     * Creates an air element.
+     * Default constructor.
      */
     public Air() {
         super("Air");
