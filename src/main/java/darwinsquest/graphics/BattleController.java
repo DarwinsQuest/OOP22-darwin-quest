@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the battle scene.
  */
-public final class BattleController implements Initializable {
+public final class BattleController extends InteractiveController implements Initializable {
 
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;
@@ -48,6 +48,13 @@ public final class BattleController implements Initializable {
     @FXML
     private Button moveBtn4;
 
+    /**
+     * Default constructor.
+     * @param manager the stage manager related to this controller.
+     */
+    public BattleController(final StageManager manager) {
+        super(manager);
+    }
 
     /**
      * {@inheritDoc}
