@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import darwinsquest.utility.Assert;
+import darwinsquest.utility.Asserts;
 
 /**
  * Test Class for {@link darwinsquest.core.BoardImpl}.
@@ -29,6 +29,6 @@ class TestBoard {
             pos = board.getPos();
         }
         assertEquals(levels + 1, pos);
-        Assert.match(pos, value -> value > 0, null);
+        Asserts.match(pos, value -> value > 0, null);
     }
 }

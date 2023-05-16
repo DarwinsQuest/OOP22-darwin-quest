@@ -8,9 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Class that represents a general Utility to assert certain conditions.
  */
-public final class Assert {
+public final class Asserts {
 
-    private Assert() {
+    private Asserts() {
 
     }
 

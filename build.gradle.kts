@@ -42,5 +42,5 @@ tasks.test {
 }
 
 application {
-    mainClass.set("darwinsquest.Controller")
+    mainClass.set("darwinsquest.ControllerImpl")
 }
