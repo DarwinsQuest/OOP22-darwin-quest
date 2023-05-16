@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.decision.Decision;
+
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -7,6 +9,8 @@ import java.util.regex.Pattern;
  * Class that represents the {@link Player} implementation.
  */
 public class PlayerImpl extends AbstractEntity implements Player {
+
+    private static final String EXCEPTION_MSG = "User input not yet supported.";
 
     /**
      * The player constructor.
@@ -37,7 +41,7 @@ public class PlayerImpl extends AbstractEntity implements Player {
      */
     @Override
     public Banion deployBanion() {
-        throw new UnsupportedOperationException("User input not yet supported.");
+        throw new UnsupportedOperationException(EXCEPTION_MSG);
     }
 
     /**
@@ -45,7 +49,7 @@ public class PlayerImpl extends AbstractEntity implements Player {
      */
     @Override
     public Move selectMove(final Banion banion) {
-        throw new UnsupportedOperationException("User input not yet supported.");
+        throw new UnsupportedOperationException(EXCEPTION_MSG);
     }
 
     /**
@@ -53,7 +57,15 @@ public class PlayerImpl extends AbstractEntity implements Player {
      */
     @Override
     public Optional<Banion> swapBanion() {
-        throw new UnsupportedOperationException("User input not yet supported.");
+        throw new UnsupportedOperationException(EXCEPTION_MSG);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Decision getDecision() {
+        throw new UnsupportedOperationException(EXCEPTION_MSG);
     }
 
     /**
