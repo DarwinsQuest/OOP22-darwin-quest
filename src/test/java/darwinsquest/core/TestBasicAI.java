@@ -1,13 +1,14 @@
 package darwinsquest.core;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
-
+import darwinsquest.core.decision.Decision;
 import org.junit.jupiter.api.Test;
-
 import darwinsquest.core.element.Air;
 import darwinsquest.core.element.Fire;
 import darwinsquest.core.element.Grass;
@@ -15,6 +16,8 @@ import darwinsquest.core.element.Water;
 
 class TestBasicAI {
 
+    private static final int SEED = 353_232;
+    private static final int N_ITERATIONS = 100;
     private static final int BANION_HP = 100;
     private static final int MOVE_DAMAGE = 10;
 
@@ -59,4 +62,18 @@ class TestBasicAI {
         final Optional<Banion> deployedBanion3 = ai.decideBanionSwap(banions);
         assertTrue(deployedBanion3.isEmpty());
     }
+
+    @Test
+    void testGetDecision() {
+        final BasicAI ai1 = new BasicAI(SEED);
+        final BasicAI ai2 = new BasicAI(SEED);
+        final Collection<Decision> decisions1 = new ArrayList<>();
+        final Collection<Decision> decisions2 = new ArrayList<>();
+        for (int x = 1; x <= N_ITERATIONS; x++) {
+            decisions1.add(ai1.getDecision());
+            decisions2.add(ai2.getDecision());
+        }
+        assertEquals(decisions1, decisions2);
+    }
+
 }

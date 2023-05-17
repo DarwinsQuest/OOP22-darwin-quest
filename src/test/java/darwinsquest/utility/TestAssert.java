@@ -9,20 +9,20 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test Class for {@link darwinsquest.utility.Assert}.
+ * Test Class for {@link darwinsquest.utility.Asserts}.
  */
 class TestAssert {
 
     @Test
     void strings() {
-        assertThrows(IllegalArgumentException.class, () -> Assert.stringNotNullOrWhiteSpace(null));
+        assertThrows(IllegalArgumentException.class, () -> Asserts.stringNotNullOrWhiteSpace(null));
 
         List.of("", " ", "  ").forEach(s -> {
-            assertThrows(IllegalArgumentException.class, () -> Assert.stringNotNullOrWhiteSpace(s));
+            assertThrows(IllegalArgumentException.class, () -> Asserts.stringNotNullOrWhiteSpace(s));
         });
 
         List.of(" a ", " . ", " 5 ", "null").forEach(s -> {
-            Assert.stringNotNullOrWhiteSpace(s);
+            Asserts.stringNotNullOrWhiteSpace(s);
         });
     }
 
@@ -30,12 +30,12 @@ class TestAssert {
     void ints() {
         final int max = 1001;
         IntStream.range(0, max).forEach(i -> {
-            assertThrows(IllegalArgumentException.class, () -> Assert.intMatch(i, v -> -v > 0 || v < 0));
+            assertThrows(IllegalArgumentException.class, () -> Asserts.intMatch(i, v -> -v > 0 || v < 0));
         });
     }
 
     @Test
     void values() {
-        assertThrows(IllegalArgumentException.class, () -> Assert.match(null, Objects::nonNull));
+        assertThrows(IllegalArgumentException.class, () -> Asserts.match(null, Objects::nonNull));
     }
 }

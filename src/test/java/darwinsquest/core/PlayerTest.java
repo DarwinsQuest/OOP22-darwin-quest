@@ -88,7 +88,7 @@ class PlayerTest {
                         .map(Optional::get)
                         .toList()
         );
-        // Same banion instances test.
+        // Same banion test.
         final Entity p2 = new PlayerImpl(NAME_1);
         final var b1 = banionList.get(0);
         final var b2 = banionList.get(1);
@@ -98,7 +98,7 @@ class PlayerTest {
         assertTrue(p2.addToInventory(List.of(b2, b3)));
         assertFalse(p2.addToInventory(List.of(b1, b2, b3)));
         assertTrue(p2.addToInventory(List.of(b1, b2, b3, new BanionImpl(new Air(), NAME_2, HP))));
-        // Not existing banion to update test.
+        // Non-existing banion to update test.
         final Entity p3 = new PlayerImpl(NAME_1);
         final var testBanion = p3.updateInventory(banionList.get(0), banionList.get(1));
         assertTrue(testBanion.isEmpty());
