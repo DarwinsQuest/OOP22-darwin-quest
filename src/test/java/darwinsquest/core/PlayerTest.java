@@ -100,8 +100,15 @@ class PlayerTest {
         assertTrue(p2.addToInventory(List.of(b1, b2, b3, new BanionImpl(new Air(), NAME_2, HP))));
         // Non-existing banion to update test.
         final Entity p3 = new PlayerImpl(NAME_1);
-        final var testBanion = p3.updateInventory(banionList.get(0), banionList.get(1));
-        assertTrue(testBanion.isEmpty());
+        var retrievedBanion = p3.updateInventory(b1, b2);
+        assertTrue(retrievedBanion.isEmpty());
+        // Inventory contains newBanion test.
+        p3.addToInventory(List.of(b1, b2));
+        retrievedBanion = p3.updateInventory(b1, b2);
+        assertTrue(retrievedBanion.isEmpty());
+        // Inventory does not contain oldBanion test.
+        retrievedBanion = p3.updateInventory(b3, new BanionImpl(new Air(), NAME_2, HP));
+        assertTrue(retrievedBanion.isEmpty());
     }
 
     @Test

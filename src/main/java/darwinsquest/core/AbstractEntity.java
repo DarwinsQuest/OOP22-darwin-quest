@@ -32,7 +32,7 @@ public abstract class AbstractEntity implements Entity {
 
     /**
      * A constructor that allows the usage of a regular expression
-     * to evaluate a nickname validity.
+     * to evaluate nickname validity.
      * @param nickname the entity's nickname.
      * @param pattern  the regular expression.
      */

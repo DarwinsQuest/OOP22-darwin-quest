@@ -98,4 +98,5 @@ public class OpponentImpl extends AbstractEntity implements Opponent {
                 + ", inventory=" + getInventory()
                 + ", ai=" + ai + '}';
     }
+
 }
