@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.function.IntSupplier;
 
-import darwinsquest.utility.Assert;
+import darwinsquest.utility.Asserts;
 
 /**
  * Class that represents a simple {@link Board} implementation.
@@ -17,12 +17,12 @@ public class BoardImpl implements Board {
     private int position;
 
     /**
-     * Costructor that creates a {@link Board} with a provided number of levels.
+     * Constructor that creates a {@link Board} with a provided number of levels.
      * @param levels the number of levels provided, it has to be a positive value.
      * @param supplier the movement strategy, it has to return always positive values.
      */
     public BoardImpl(final int levels, final IntSupplier supplier) {
-        this.levels = Assert.intMatch(levels, value -> value > 0);
+        this.levels = Asserts.intMatch(levels, value -> value > 0);
         this.supplier = Objects.requireNonNull(supplier);
     }
 
@@ -48,7 +48,7 @@ public class BoardImpl implements Board {
     @Override
     public OptionalInt move() {
         final var pos = position;
-        position = Math.min(position + Assert.intMatch(supplier.getAsInt(), value -> value > 0), levels);
+        position = Math.min(position + Asserts.intMatch(supplier.getAsInt(), value -> value > 0), levels);
         return position == pos ? OptionalInt.empty() : OptionalInt.of(position - pos);
     }
 }
