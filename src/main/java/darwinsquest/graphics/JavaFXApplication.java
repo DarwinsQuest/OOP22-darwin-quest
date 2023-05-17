@@ -34,6 +34,7 @@ public final class JavaFXApplication extends Application implements StageManager
 
     private void initStage(final Stage stage) {
         this.stage = stage;
+        stage.setTitle("DarwinsQuest");
         stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("img/green.png")));
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         stage.setMinHeight(screenSize.getHeight() * MIN_HEIGHT_FACTOR);
