@@ -2,18 +2,18 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" minHeight="200.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" spacing="5.0" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="200.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" spacing="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15">
    <children>
-      <ImageView fx:id="titleImage" fitHeight="${vbox.height * 5 / 9}" fitWidth="${vbox.width * 5 / 9}" preserveRatio="true">
+      <ImageView fitHeight="257.0" fitWidth="422.0" preserveRatio="true">
          <image>
             <Image url="@../img/green.png" />
          </image></ImageView>
-      <Button fx:id="btPlay" onAction="#onPlayAction" text="Play" />
-      <Button fx:id="btExit" onAction="#onExitAction" text="Quit" />
+      <Button onAction="#onPlayAction" text="Play" />
+      <Button onAction="#onExitAction" text="Quit" />
    </children>
    <stylesheets>
       <URL value="@../styles/fontstyle.css" />
