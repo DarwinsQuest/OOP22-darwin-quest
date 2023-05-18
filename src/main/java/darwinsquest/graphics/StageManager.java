@@ -11,6 +11,11 @@ public interface StageManager {
     void showStartMenu();
 
     /**
+     * Shows login {@link javafx.scene.Scene}.
+     */
+    void showLogin();
+
+    /**
      * Shows battle {@link javafx.scene.Scene}.
      */
     void showBattle();

@@ -52,11 +52,25 @@ public final class JavaFXApplication extends Application implements StageManager
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showStartMenu() {
         setSceneFromFXML(new StartMenuController(this), "startmenu.fxml");
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void showLogin() {
+        setSceneFromFXML(new LoginController(this), "login.fxml");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showBattle() {
         setSceneFromFXML(new BattleController(this), "battle.fxml");

@@ -4,5 +4,9 @@
 
 .root {
     -fx-font-family: 'Press Start 2P';
+    -fx-font-size: 12px;
+}
+
+.button {
     -fx-font-size: 20px;
 }
