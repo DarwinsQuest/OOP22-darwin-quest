@@ -23,7 +23,7 @@ public class LoginController extends InteractiveController {
      */
     @FXML
     protected void onEnterAction(final ActionEvent event) {
-        getManager().showBattle();
+        getManager().showDifficulties();
     }
 
     /**

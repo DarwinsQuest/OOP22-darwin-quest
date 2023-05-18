@@ -72,6 +72,14 @@ public final class JavaFXApplication extends Application implements StageManager
      * {@inheritDoc}
      */
     @Override
+    public void showDifficulties() {
+        setSceneFromFXML(new DifficultiesController(this), "difficultyselector.fxml");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void showBattle() {
         setSceneFromFXML(new BattleController(this), "battle.fxml");
     }
