@@ -16,6 +16,11 @@ public interface StageManager {
     void showLogin();
 
     /**
+     * Shows difficulty selector {@link javafx.scene.Scene}.
+     */
+    void showDifficulties();
+
+    /**
      * Shows battle {@link javafx.scene.Scene}.
      */
     void showBattle();
