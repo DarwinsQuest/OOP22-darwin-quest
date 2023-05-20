@@ -1,7 +1,7 @@
 package darwinsquest.core;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Interface for Model manager.
@@ -9,10 +9,10 @@ import java.util.Optional;
 public interface Engine {
 
     /**
-     * Provides a sequence of possible difficulties for a new game to be created.
-     * @return a sequence of possible difficulties.
+     * Provides an ordered sequence of possible difficulties for a new game to be created.
+     * @return an ordered sequence of possible difficulties.
      */
-    List<String> getDifficulties();
+    Set<String> getDifficulties();
 
     /**
      * Starts a new game.

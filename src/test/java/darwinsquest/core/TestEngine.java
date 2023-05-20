@@ -1,10 +1,9 @@
 package darwinsquest.core;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
-import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
@@ -35,6 +34,6 @@ class TestEngine {
         }
 
         final var nonexistingDifficulty = generatedDifficulty;
-        assertThrows(NoSuchElementException.class, () -> engine.startGame(nonexistingDifficulty));
+        assertFalse(engine.startGame(nonexistingDifficulty));
     }
 }

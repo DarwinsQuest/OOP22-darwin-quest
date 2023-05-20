@@ -1,9 +1,12 @@
 package darwinsquest.core;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
@@ -30,12 +33,16 @@ public class EngineImpl implements Engine {
         this.player = Objects.requireNonNull(player);
     }
 
+    private static String getDifficultyName(final Class<? extends Difficulty> difficulty) {
+        return difficulty.getAnnotation(Description.class).value();
+    } 
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<String> getDifficulties() {
-        return difficulties.stream().map(c -> c.getAnnotation(Description.class).value()).toList();
+    public Set<String> getDifficulties() {
+        return difficulties.stream().map(EngineImpl::getDifficultyName).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     /**
@@ -43,19 +50,24 @@ public class EngineImpl implements Engine {
      */
     @Override
     public boolean startGame(final String difficulty) {
-        try {
-            this.difficulty = Optional.of(difficulties.stream()
-                .filter(c -> c.getAnnotation(Description.class).value().equals(difficulty))
-                .findFirst()
-                .get()
-                .getDeclaredConstructor()
-                .newInstance());
-        } catch (InstantiationException | IllegalAccessException
-            | InvocationTargetException | NoSuchMethodException e) {
+        if (this.difficulty.isPresent()) {
             return false;
         }
-        board = Optional.of(this.difficulty.get().getBoard());
-        return true;
+
+        difficulties.stream()
+            .filter(c -> EngineImpl.getDifficultyName(c).equals(difficulty))
+            .findFirst()
+            .ifPresent(d -> {
+                try {
+                    this.difficulty = Optional.of(d.getDeclaredConstructor().newInstance());
+                } catch (InstantiationException | IllegalAccessException
+                        | InvocationTargetException | NoSuchMethodException e) {
+                    throw new IllegalStateException(e);
+                }
+                board = Optional.of(this.difficulty.get().getBoard());
+            });
+
+        return this.difficulty.isPresent();
     }
 
     /**
