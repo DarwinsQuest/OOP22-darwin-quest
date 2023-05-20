@@ -1,6 +1,7 @@
 package darwinsquest.core;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Interface for Model manager.
@@ -8,18 +9,24 @@ import java.util.List;
 public interface Engine {
 
     /**
-     * Provides a sequence of possible difficulties for a new game to be created.
-     * @return a sequence of possible difficulties.
+     * Provides an ordered sequence of possible difficulties for a new game to be created.
+     * @return an ordered sequence of possible difficulties.
      */
-    List<String> getDifficulties();
+    Set<String> getDifficulties();
 
     /**
      * Starts a new game.
      * @param difficulty a difficulty indicator selected between given {@link Engine#getDifficulties()} elements.
-     * @return a {@link Board} object that represents this game sequence.
+     * @return if the game is correctly started.
+     */
+    boolean startGame(String difficulty);
+
+    /**
+     * Retrieves a {@link Board} element.
+     * @return the {@link Board}, or {@link Optional#empty()} if game isn't started yet.
      * @see Board
      */
-    Board startGame(String difficulty);
+    Optional<Board> getBoard();
 
     /**
      * Tells if the game is over.
