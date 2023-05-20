@@ -1,12 +1,12 @@
 package darwinsquest.core.element;
 
 /**
- * Class that represents the Water Element.
+ * Class that represents the Water immutable {@link Element}.
  */
 public final class Water extends AbstractElement {
 
     /**
-     * Constructor of {@link Water} immutable element.
+     * Default constructor.
      */
     public Water() {
         super("Water");
