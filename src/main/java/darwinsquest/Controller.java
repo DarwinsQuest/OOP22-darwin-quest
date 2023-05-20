@@ -1,20 +1,8 @@
 package darwinsquest;
 
-import darwinsquest.graphics.JavaFXApplication;
-import javafx.application.Application;
-
 /**
- * The startup class of this project.
+ * Interface that represents this project controller.
  */
-public final class Controller {
+public interface Controller {
 
-    private Controller() { }
-
-    /**
-     * Application entry-point.
-     * @param args arguments
-     */
-    public static void main(final String[] args) {
-        Application.launch(JavaFXApplication.class, args);
-    }
 }
