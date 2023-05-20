@@ -1,12 +1,12 @@
 package darwinsquest.core.element;
 
 /**
- * Class that represents the Grass Element.
+ * Class that represents the Grass immutable {@link Element}.
  */
 public final class Grass extends AbstractElement {
 
     /**
-     * Creates a grass element.
+     * Default constructor.
      */
     public Grass() {
         super("Grass");

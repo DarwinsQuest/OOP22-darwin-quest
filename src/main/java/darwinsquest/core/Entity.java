@@ -1,5 +1,8 @@
 package darwinsquest.core;
 
+import darwinsquest.core.decision.Decision;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,26 +19,31 @@ public interface Entity extends Nameable {
     List<Banion> getInventory();
 
     /**
-     * Updates the player's inventory.
-     * If the provided index is grater than or equal the inventory size,
-     * the banion is added at the given inventory index.
-     * <p>
-     * Example of adding a banion to an empty inventory:
-     * <pre>{@code
-     *     entity.getInventory().isEmpty();    // True.
-     *     entity.updateInventory(0, banion);    // Adds the new banion at index 0.
-     * }</pre>
-     * <p>
-     * Example of updating an existing banion:
-     * <pre>{@code
-     *     entity.getInventory().isEmpty();    // False.
-     *     banion.setHp(50);    // Sets banion's hp at 50.
-     *     entity.updateInventory(entity.getInventory().indexOf(banion), banion);    // Updates banion.
-     * }</pre>
-     * @param index of the banion to update.
-     * @param banion the updated banion.
+     * Appends the banion to the end of the inventory.
+     * @param banion the new banion.
+     * @return {@code true} on successful operation,
+     *         {@code false} if not or if the provided banion is
+     *         already present.
      */
-    void updateInventory(int index, Banion banion);
+    boolean addToInventory(Banion banion);
+
+    /**
+     * Appends all the banions in the given collection to the end of the inventory,
+     * in the order that they are returned by the specified collection's iterator.
+     * @param banions collection of banions to append in the inventory.
+     * @return {@code true} on successful operation,
+     *         {@code false} if not or if the provided banions are already present.
+     */
+    boolean addToInventory(Collection<Banion> banions);
+
+    /**
+     * Updates the player's inventory by switching {@code oldBanion} with {@code newBanion}.
+     * @param oldBanion the banion to update.
+     * @param newBanion the updated banion.
+     * @return an optional of {@code oldBanion} on successful operation,
+     *         empty if neither {@code oldBanion} nor {@code newBanion} are contained in the inventory.
+     */
+    Optional<Banion> updateInventory(Banion oldBanion, Banion newBanion);
 
     /**
      * Retrieves the {@link Entity}'s chosen {@link Banion}
@@ -59,6 +67,13 @@ public interface Entity extends Nameable {
      *         empty otherwise.
      */
     Optional<Banion> swapBanion();
+
+    /**
+     * Retrieves the last decision made by the entity.
+     * @return a decision.
+     * @see Decision
+     */
+   Decision getDecision();
 
     /**
      * Determines whether the {@link Entity} has any {@link Banion}s left.
