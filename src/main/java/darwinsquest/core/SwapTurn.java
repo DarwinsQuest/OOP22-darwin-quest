@@ -8,7 +8,7 @@ import java.util.Optional;
  * Interface that represents a turn in which the {@link Entity} on turn
  * has decided to swap his currently deployed {@link Banion}.
  */
-public interface SwapTurn {
+public interface SwapTurn extends Turn {
 
     /**
      * Retrieves the swapped {@link Banion} and the new currently deployed {@link Banion}.
