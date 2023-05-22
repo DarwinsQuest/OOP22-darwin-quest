@@ -3,7 +3,6 @@ package darwinsquest.core;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -20,47 +19,35 @@ public abstract class AbstractTurn implements Turn {
     /**
      * This constructor creates an {@link AbstractTurn} with the provided entities.
      * The currently deployed {@link Banion}s of the provided entities are automatically 
-     * set to {@code null}.
+     * set to {@link Optional#empty()}.
      * @param entityOnTurn the entity will hold the current turn.
      * @param otherEntity the entity not on turn.
      */
     public AbstractTurn(final Entity entityOnTurn, final Entity otherEntity) {
         this.id = UUID.randomUUID();
-        this.entityOnTurn = new MutablePair<>(Objects.requireNonNull(entityOnTurn), Optional.empty());
-        this.otherEntity = new MutablePair<>(Objects.requireNonNull(otherEntity), Optional.empty());
-    }
-
-    /**
-     * This constructor creates an {@link AbstractTurn} with the provided entities and
-     * currently deployed {@link Banion}s.
-     * @param entityOnTurn a pair composed by the {@link Entity} that will hold the turn 
-     * and their currently deployed banion.
-     * @param otherEntity a pair composed by the {@link Entity} that will not hold the turn
-     * and their currently deployed banion.
-     */
-    public AbstractTurn(final Pair<Entity, Banion> entityOnTurn, final Pair<Entity, Banion> otherEntity) {
         if (Objects.nonNull(entityOnTurn) && Objects.nonNull(otherEntity)) {
-            this.id = UUID.randomUUID();
-            this.entityOnTurn = new MutablePair<>(Objects.requireNonNull(entityOnTurn.getLeft()),
-                Optional.of(Objects.requireNonNull(entityOnTurn.getRight())));
-            this.otherEntity = new MutablePair<>(Objects.requireNonNull(otherEntity.getLeft()),
-                Optional.of(Objects.requireNonNull(otherEntity.getRight())));
+            this.entityOnTurn = new MutablePair<>(entityOnTurn, Optional.empty());
+            this.otherEntity = new MutablePair<>(otherEntity, Optional.empty());
         } else {
-            throw new IllegalArgumentException("The tuples should not be null.");
+            throw new IllegalArgumentException("The entities cannot be null.");
         }
     }
 
     /**
-     * Creates a new instance of {@link AbstractTurn} from the previous {@link AbstractTurn} of the battle.
-     * @param turn the previous turn in the battle.
+     * Creates a new instance of {@link AbstractTurn} from the provided {@link Turn}.
+     * The {@link Entity} on turn is the {@link Entity} that does not hold the turn in {@code previousTurn}.
+     * As a consequence the {@link Entity} not on turn is the {@link Entity} that holds the turn in {@code previousTurn}.
+     * @param previousTurn the previous turn in the battle.
      */
-    public AbstractTurn(final AbstractTurn turn) {
-        if (Objects.nonNull(turn)) {
+    public AbstractTurn(final Turn previousTurn) {
+        if (Objects.nonNull(previousTurn) && previousTurn.hasBeenDone()) {
             this.id = UUID.randomUUID();
-            this.entityOnTurn = turn.entityOnTurn;
-            this.otherEntity = turn.otherEntity;
+            this.entityOnTurn = new MutablePair<>(previousTurn.getOtherEntity(),
+                    previousTurn.otherEntityCurrentlyDeployedBanion());
+            this.otherEntity = new MutablePair<>(previousTurn.getEntityOnTurn(),
+                    previousTurn.onTurnCurrentlyDeployedBanion());
         } else {
-            throw new IllegalArgumentException("turn should not be null.");
+            throw new IllegalArgumentException("turn cannot be null or cannot not be unperformed.");
         }
     }
 
@@ -69,21 +56,16 @@ public abstract class AbstractTurn implements Turn {
      */
     @Override
     public final Entity getEntityOnTurn() {
-        // if (isStateLegal) {
-            return this.entityOnTurn.getLeft();
-        // } else {
-            // throw new IllegalStateException("Turn must be done in order to call this method.");
-        // }
+        return this.entityOnTurn.getLeft();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Banion onTurnCurrentlyDeployedBanion() {
+    public final Optional<Banion> onTurnCurrentlyDeployedBanion() {
         if (isStateLegal) {
-            return this.entityOnTurn.getRight().get(); // no control with isPresent() because if the state
-                                                       // is legal then there is a banion
+            return this.entityOnTurn.getRight();
         } else {
             throw new IllegalStateException("Turn must be done in order to call this method.");
         }
@@ -94,21 +76,16 @@ public abstract class AbstractTurn implements Turn {
      */
     @Override
     public final Entity getOtherEntity() {
-        // if (isStateLegal) {
-            return this.otherEntity.getLeft();
-        // } else {
-            // throw new IllegalStateException("Turn must be done in order to call this method.");
-        // }
+        return this.otherEntity.getLeft();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Banion otherEntityCurrentlyDeployedBanion() {
+    public final Optional<Banion> otherEntityCurrentlyDeployedBanion() {
         if (isStateLegal) {
-            return this.otherEntity.getRight().get(); // no control with isPresent() because if the state is legal
-                                                      // then there is a banion
+            return this.otherEntity.getRight();
         } else {
             throw new IllegalStateException("Turn must be done in order to call this method.");
         }
@@ -140,7 +117,7 @@ public abstract class AbstractTurn implements Turn {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(entityOnTurn, otherEntity);
+        return Objects.hash(id, entityOnTurn, otherEntity);
     }
 
     /**
@@ -159,10 +136,10 @@ public abstract class AbstractTurn implements Turn {
     }
 
     /**
-     * Retrieves whether the turn has been done.
-     * @return {@code true} if the turn has already been done, {@code false} otherwise.
+     * {@inheritDoc}
      */
-    protected boolean isStateLegal() {
+    @Override
+    public boolean hasBeenDone() {
         return this.isStateLegal;
     }
 
@@ -172,7 +149,19 @@ public abstract class AbstractTurn implements Turn {
      * @param banion the new currently deployed banion of the entity on turn.
      */
     protected void setCurrentlyDeployedBanion(final Optional<Banion> banion) {
-        entityOnTurn.setValue(banion);
+        if (hasBeenDone()) {
+            entityOnTurn.setValue(banion);
+        }
+    }
+
+    /**
+     * Retrieves a string that represents the internal state of the turn.
+     * @return a string that represents the internal state of the turn.
+     */
+    protected String internalState() {
+        return "entity on turn= " + getEntityOnTurn() + " entity on turn's currently deployed banion= "
+                + onTurnCurrentlyDeployedBanion() + "entity not on turn= " + getOtherEntity()
+                + " entity not on turn's currently deployed banion= " + otherEntityCurrentlyDeployedBanion();
     }
 
 }

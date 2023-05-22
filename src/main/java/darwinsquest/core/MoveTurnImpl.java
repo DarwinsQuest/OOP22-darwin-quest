@@ -1,7 +1,6 @@
 package darwinsquest.core;
 
 import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 
 /**
@@ -10,17 +9,24 @@ import org.apache.commons.lang3.tuple.Triple;
 public class MoveTurnImpl extends AbstractTurn implements MoveTurn {
 
     private Move actionDone;
+    private final Banion activeBanion;
+    private final Banion passiveBanion;
 
     /**
-     * This constructor creates an {@link AbstractTurn} with the provided entities and
-     * currently deployed {@link Banion}s.
-     * @param entityOnTurn a pair composed by the {@link Entity} that will hold the turn
-     *                     and their currently deployed banion.
-     * @param otherEntity  a pair composed by the {@link Entity} that will not hold the turn
-     *                     and their currently deployed banion.
+     * Creates a new instance of {@link MoveTurnImpl} from the provided {@link Turn}.
+     * The {@link Entity} on turn is the {@link Entity} that does not hold the turn in {@code previousTurn}.
+     * As a consequence the {@link Entity} not on turn is the {@link Entity} that holds the turn in {@code previousTurn}.
+     * @param previousTurn the previous turn in the battle.
      */
-    public MoveTurnImpl(final Pair<Entity, Banion> entityOnTurn, final Pair<Entity, Banion> otherEntity) {
-        super(entityOnTurn, otherEntity);
+    public MoveTurnImpl(final Turn previousTurn) {
+        super(previousTurn);
+        if (previousTurn.onTurnCurrentlyDeployedBanion().isPresent()
+                && previousTurn.otherEntityCurrentlyDeployedBanion().isPresent()) {
+            activeBanion = previousTurn.otherEntityCurrentlyDeployedBanion().get();
+            passiveBanion = previousTurn.onTurnCurrentlyDeployedBanion().get();
+        } else {
+            throw new IllegalArgumentException("All the entities must have a currently deployed banion.");
+        }
     }
 
     /**
@@ -28,8 +34,8 @@ public class MoveTurnImpl extends AbstractTurn implements MoveTurn {
      */
     @Override
     public Triple<Move, Banion, Banion> getAction() {
-        if (isStateLegal()) {
-            return new ImmutableTriple<>(actionDone, onTurnCurrentlyDeployedBanion(), otherEntityCurrentlyDeployedBanion());
+        if (hasBeenDone()) {
+            return new ImmutableTriple<>(actionDone, activeBanion, passiveBanion);
         } else {
             throw new IllegalStateException("The action hasn't already been done.");
         }
@@ -39,9 +45,17 @@ public class MoveTurnImpl extends AbstractTurn implements MoveTurn {
      * {@inheritDoc}
      */
     @Override
+    public String toString() {
+        return "MoveTurnImpl[ " + internalState();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     protected void doAction() {
-        this.actionDone = getEntityOnTurn().selectMove(onTurnCurrentlyDeployedBanion());
-        actionDone.perform(otherEntityCurrentlyDeployedBanion());
+        this.actionDone = getEntityOnTurn().selectMove(activeBanion);
+        actionDone.perform(passiveBanion); // the chosen move is always done against otherEntityCurrentlyDeployedBanion().get().
     }
 
 }
