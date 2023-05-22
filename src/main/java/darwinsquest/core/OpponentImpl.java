@@ -5,6 +5,8 @@ import darwinsquest.core.decision.Decision;
 import java.util.Objects;
 import java.util.Optional;
 
+import darwinsquest.core.difficulty.AI;
+
 /**
  * Class that represents the {@link Opponent} implementation.
  */
@@ -98,4 +100,5 @@ public class OpponentImpl extends AbstractEntity implements Opponent {
                 + ", inventory=" + getInventory()
                 + ", ai=" + ai + '}';
     }
+
 }

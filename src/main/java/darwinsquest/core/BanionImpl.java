@@ -2,7 +2,6 @@ package darwinsquest.core;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -13,8 +12,15 @@ import darwinsquest.utility.Asserts;
 
 /**
  * Class that represents a simple {@link Banion} implementation.
+ * The number of moves is bounded at 4.
+ * The moves can only be of {@link #getElement()}, or {@link Neutral}.
  */
 public final class BanionImpl implements Banion {
+
+    /**
+     * Allowed number of moves.
+     */
+    public static final int NUM_MOVES = 4;
 
     private final UUID id;
     private final Element element;
@@ -31,17 +37,26 @@ public final class BanionImpl implements Banion {
     }
 
     /**
-     * Constructor that creates a {@link Banion} with a provided hit points amount.
+     * Default constructor.
      * @param element element of affinity.
      * @param name identifier.
      * @param hp hit points, represents health.
+     * @param moves are allowed only 4 moves per {@link Banion}, not more, not less.
      */
-    public BanionImpl(final Element element, final String name, final int hp) {
+    public BanionImpl(final Element element, final String name, final int hp, final Collection<Move> moves) {
         id = UUID.randomUUID();
-        moves = new HashSet<>();
+        this.element = Objects.requireNonNull(element);
+        this.moves = Asserts.match(moves, value -> Objects.nonNull(value)
+            && value.size() == NUM_MOVES
+            && value.stream().allMatch(this::isMoveAcceptable));
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
         this.hp = Asserts.intMatch(hp, value -> value > 0);
-        this.element = element;
+    }
+
+    private boolean isMoveAcceptable(final Move move) {
+        return Objects.nonNull(move)
+            && (move.getElement().equals(getElement())
+                || move.getElement().getClass().equals(Neutral.class));
     }
 
     /**
@@ -96,16 +111,8 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
-    public boolean learnMove(final Move move) {
-        return (move.getElement().equals(element) || move.getElement().getClass().equals(Neutral.class)) && moves.add(move);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean forgetMove(final Move move) {
-        return moves.remove(move);
+    public boolean replaceMove(final Move oldOne, final Move newOne) {
+        return isMoveAcceptable(newOne) && moves.remove(oldOne) && moves.add(newOne);
     }
 
     /**
@@ -139,6 +146,9 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public String toString() {
-        return "BanionImpl [element=" + getElement() + ", name=" + getName() + "]";
+        return getClass().getSimpleName() + " [element = " + getElement()
+            + ", name = " + getName()
+            + ", hp = " + getHp()
+            + ", moves = [" + getMoves().stream().map(Move::toString).collect(Collectors.joining(", ")) + "]]";
     }
 }

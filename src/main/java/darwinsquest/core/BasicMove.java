@@ -118,8 +118,8 @@ public class BasicMove implements DamageMove {
      */
     @Override
     public String toString() {
-        return "Move [name=" + this.getName() + " element=" + this.getElement()
-                + " damage= " + this.getDamage() + "]";
+        return getClass().getSimpleName() + " [name = " + this.getName() + ", element = " + this.getElement()
+                + ", damage = " + this.getDamage() + "]";
     }
 
     /**

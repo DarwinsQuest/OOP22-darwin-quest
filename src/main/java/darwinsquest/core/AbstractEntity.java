@@ -8,8 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Abstract class that represents an abstract {@link Entity}.
@@ -26,23 +24,6 @@ public abstract class AbstractEntity implements Entity {
     public AbstractEntity(final String nickname) {
         if (Objects.isNull(nickname) || nickname.isBlank()) {
             throw new IllegalArgumentException("Entity nickname cannot be null or blank.");
-        }
-        this.nickname = nickname;
-    }
-
-    /**
-     * A constructor that allows the usage of a regular expression
-     * to evaluate a nickname validity.
-     * @param nickname the entity's nickname.
-     * @param pattern  the regular expression.
-     */
-    public AbstractEntity(final String nickname, final Pattern pattern) {
-        if (Objects.isNull(nickname) || nickname.isBlank()) {
-            throw new IllegalArgumentException("Entity nickname cannot be null or blank.");
-        }
-        final Matcher matcher = pattern.matcher(nickname);
-        if (!matcher.find()) {
-            throw new IllegalArgumentException("Invalid nickname format.");
         }
         this.nickname = nickname;
     }

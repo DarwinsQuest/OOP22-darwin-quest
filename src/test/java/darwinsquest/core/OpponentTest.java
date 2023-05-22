@@ -1,14 +1,17 @@
 package darwinsquest.core;
 
-import darwinsquest.core.element.Air;
-import darwinsquest.core.element.Fire;
-import darwinsquest.core.element.Grass;
-import darwinsquest.core.element.Water;
+import darwinsquest.core.difficulty.AI;
+import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.element.Element;
+import darwinsquest.core.element.Neutral;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,14 +24,20 @@ class OpponentTest {
 
     private static final String NAME_1 = "Alice";
     private static final String NAME_2 = "Bob";
-    private static final AI AI = new BasicAI();
+    private static final int MOVE_DAMAGE = 10;
+    private static final AI AI = new Normal().getAI();
+
+    private final Element neutral = new Neutral();
 
     private static final int HP = 100;
+    private final Collection<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "9", neutral),
+        new BasicMove(MOVE_DAMAGE, "2", neutral),
+        new BasicMove(MOVE_DAMAGE, "19", neutral),
+        new BasicMove(MOVE_DAMAGE, "4", neutral));
     private final List<Banion> banionList = new ArrayList<>(List.of(
-            new BanionImpl(new Fire(), NAME_2, HP),
-            new BanionImpl(new Water(), NAME_2, HP),
-            new BanionImpl(new Grass(), NAME_2, HP))
-    );
+        new BanionImpl(neutral, NAME_2, HP, moves),
+        new BanionImpl(neutral, NAME_2, HP, moves),
+        new BanionImpl(neutral, NAME_2, HP, moves)));
 
     @Test
     void createOpponentTest() {
@@ -65,9 +74,9 @@ class OpponentTest {
         final Entity o1 = new OpponentImpl(NAME_1, AI);
         o1.addToInventory(banionList);
         final List<Optional<Banion>> banionsRemoved = IntStream.range(1, banionList.size())
-                .mapToObj(i -> o1.updateInventory(banionList.get(i), new BanionImpl(new Fire(), NAME_2, HP)))
+                .mapToObj(i -> o1.updateInventory(banionList.get(i), new BanionImpl(neutral, NAME_2, HP, moves)))
                 .toList();
-        assertTrue(o1.getInventory().stream().allMatch(b -> b.getElement().equals(new Fire())));
+        assertTrue(o1.getInventory().stream().allMatch(b -> b.getElement().equals(neutral)));
         assertEquals(banionList.subList(1, banionList.size()),
                 banionsRemoved.stream()
                         .filter(Optional::isPresent)
@@ -83,11 +92,18 @@ class OpponentTest {
         assertFalse(o2.addToInventory(b1));
         assertTrue(o2.addToInventory(List.of(b2, b3)));
         assertFalse(o2.addToInventory(List.of(b1, b2, b3)));
-        assertTrue(o2.addToInventory(List.of(b1, b2, b3, new BanionImpl(new Air(), NAME_2, HP))));
+        assertTrue(o2.addToInventory(List.of(b1, b2, b3, new BanionImpl(neutral, NAME_2, HP, moves))));
         // Non-existing banion to update test.
         final Entity o3 = new OpponentImpl(NAME_1, AI);
-        final var testBanion = o3.updateInventory(banionList.get(0), banionList.get(1));
-        assertTrue(testBanion.isEmpty());
+        var retrievedBanion = o3.updateInventory(b1, b2);
+        assertTrue(retrievedBanion.isEmpty());
+        // Inventory contains newBanion test.
+        o3.addToInventory(List.of(b1, b2));
+        retrievedBanion = o3.updateInventory(b1, b2);
+        assertTrue(retrievedBanion.isEmpty());
+        // Inventory does not contain oldBanion test.
+        retrievedBanion = o3.updateInventory(b3, new BanionImpl(neutral, NAME_2, HP, moves));
+        assertTrue(retrievedBanion.isEmpty());
     }
 
     @Test

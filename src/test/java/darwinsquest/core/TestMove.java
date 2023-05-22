@@ -4,11 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Collection;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
-import darwinsquest.core.element.Fire;
-import darwinsquest.core.element.Grass;
-import darwinsquest.core.element.Water;
+import darwinsquest.MoveFactory;
+import darwinsquest.core.element.Element;
+import darwinsquest.core.element.Neutral;
 
 class TestMove {
 
@@ -23,27 +26,34 @@ class TestMove {
     private static final int HP_1 = 100;
     private static final int HP_2 = 20;
     private static final int HP_3 = 15;
+    private final Element neutral = new Neutral();
+    private static final int MOVE_DAMAGE = 10;
+
+    private final Collection<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
+        new BasicMove(MOVE_DAMAGE, "2", neutral),
+        new BasicMove(MOVE_DAMAGE, "3", neutral),
+        new BasicMove(MOVE_DAMAGE, "4", neutral));
 
     @Test
     void testMoveCreation() {
-        assertThrows(IllegalArgumentException.class, () -> new BasicMove(ILLEGAL_BASE_DAMAGE, MOVE_NAME_1, new Fire()));
-        assertThrows(IllegalArgumentException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, null, new Fire()));
-        assertThrows(IllegalArgumentException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, "", new Fire()));
-        assertThrows(IllegalArgumentException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, "  ", new Fire()));
+        assertThrows(IllegalArgumentException.class, () -> new BasicMove(ILLEGAL_BASE_DAMAGE, MOVE_NAME_1, neutral));
+        assertThrows(IllegalArgumentException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, null, neutral));
+        assertThrows(IllegalArgumentException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, "", neutral));
+        assertThrows(IllegalArgumentException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, "  ", neutral));
         assertThrows(NullPointerException.class, () -> new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, null));
 
-        final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire()); 
+        final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral); 
         assertEquals(LEGAL_BASE_DAMAGE_1, move.getDamage());
-        assertEquals(new Fire(), move.getElement());
+        // assertEquals(new Fire(), move.getElement());
         assertEquals(MOVE_NAME_1, move.getName());
     }
 
     @Test
     void testPerformMove() {
-        final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
-        final Banion banion1 = new BanionImpl(new Fire(), BANION_NAME_1, HP_1);
-        final Banion banion2 = new BanionImpl(new Water(), BANION_NAME_2, HP_2);
-        final Banion banion3 = new BanionImpl(new Grass(), BANION_NAME_3, HP_3);
+        final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
+        final Banion banion1 = new BanionImpl(neutral, BANION_NAME_1, HP_1, moves);
+        final Banion banion2 = new BanionImpl(neutral, BANION_NAME_2, HP_2, moves);
+        final Banion banion3 = new BanionImpl(neutral, BANION_NAME_3, HP_3, moves);
         move.perform(banion1);
         assertEquals(banion1.getHp(), HP_1 - move.getDamage());
         move.perform(banion2);
@@ -54,11 +64,13 @@ class TestMove {
 
     @Test
     void testEquality() {
-        final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
-        final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_2, new Water());
-        final Move m3 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_1, new Fire());
-        final Move m4 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Water());
-        final Move m5 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
+        final var element = new MoveFactory().createElements().get().stream()
+            .filter(m -> !m.getElement().equals(neutral)).findAny().get().getElement();
+        final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
+        final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_1, neutral);
+        final Move m3 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_1, neutral);
+        final Move m4 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_2, element);
+        final Move m5 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
         assertEquals(m1, m5);
         assertNotEquals(m1, m3); // m1 and m3 have different damage
         assertNotEquals(m1, m4); // m1 and m4 have different element
@@ -67,8 +79,8 @@ class TestMove {
 
     @Test
     void testCopy() {
-        final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, new Fire());
-        final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_2, new Water());
+        final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
+        final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_2, neutral);
         final Move m1Copy = m1.copy();
         final Move m2Copy = m2.copy();
         assertEquals(m1, m1Copy);

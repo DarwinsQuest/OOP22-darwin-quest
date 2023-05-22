@@ -21,20 +21,12 @@ public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
     Collection<Move> getMoves();
 
     /**
-     * Adds a move to the possible moves to perform.
-     * @param move the move to add.
-     * @return {@code true} if move added correctly.
-     * @see Move
+     * Replaces the {@code old} move with the {@code new} one.
+     * @param oldOne the {@link Move} to remove.
+     * @param newOne the {@link Move} to add.
+     * @return if {@code oldMove} replaced correctly.
      */
-    boolean learnMove(Move move);
-
-    /**
-     * Removes a specific move.
-     * @param move the move that will be removed.
-     * @return if move removed correctly.
-     * @see Move
-     */
-    boolean forgetMove(Move move);
+    boolean replaceMove(Move oldOne, Move newOne);
 
     /**
      * Provides the life stat amount.

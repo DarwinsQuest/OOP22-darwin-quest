@@ -1,8 +1,25 @@
 package darwinsquest.core.element;
 
+import darwinsquest.core.Nameable;
+
 /**
  * Interface that represents an Elemental type.
  */
-public interface Element {
+public interface Element extends Nameable {
 
+    /**
+     * Checks if the {@code other} element is weaker than this element.
+     * If the {@code other} one isn't weaker it doesn't mean that it is inevitably stronger.
+     * @param other the {@link Element} to check.
+     * @return if the {@code other} is weaker.
+     */
+    boolean isWeaker(Element other);
+
+    /**
+     * Checks if the {@code other} element is stronger than this element.
+     * If the {@code other} one isn't stronger it doesn't mean that it is inevitably weaker.
+     * @param other the {@link Element} to check.
+     * @return if the {@code other} is stronger.
+     */
+    boolean isStronger(Element other);
 }
