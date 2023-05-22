@@ -29,6 +29,7 @@ import java.util.jar.JarFile;
 public final class GameSoundSystem {
 
     private static MediaPlayer bgmPlayer;
+    private static MediaPlayer introPlayer;
     private static MediaPlayer sfxPlayer;
     private static final Map<String, Pair<Media, Optional<Duration>>> SOUND_SYSTEM = loadSounds();
 
@@ -104,7 +105,7 @@ public final class GameSoundSystem {
         stopIfPlaying(bgmPlayer);
         final var introPair = SOUND_SYSTEM.get(intro);
         final var mainPair = SOUND_SYSTEM.get(main);
-        final var introPlayer = new MediaPlayer(introPair.getKey());
+        introPlayer = new MediaPlayer(introPair.getKey());
         bgmPlayer = new MediaPlayer(mainPair.getKey());
         introPlayer.setStartTime(Duration.ZERO);
         introPlayer.setStopTime(introPair.getValue().orElse(Duration.INDEFINITE));
@@ -123,6 +124,7 @@ public final class GameSoundSystem {
      */
     public static void stopAll() {
         stopIfPlaying(bgmPlayer);
+        stopIfPlaying(introPlayer);
         stopIfPlaying(sfxPlayer);
     }
 
