@@ -9,6 +9,21 @@ import javafx.application.Application;
  */
 public final class ControllerImpl implements Controller {
 
+    private static final String PATH_CONFIG = "config/";
+
+    /**
+     * Path to {@link darwinsquest.core.element.Element} definitions.
+     */
+    public static final String PATH_ELEMENTS = PATH_CONFIG + "elements.json";
+    /**
+     * Path to {@link darwinsquest.core.Move} definitions.
+     */
+    public static final String PATH_MOVES = PATH_CONFIG + "moves.json";
+    /**
+     * Path to {@link darwinsquest.core.Banion} definitions.
+     */
+    public static final String PATH_BANIONS = PATH_CONFIG + "banions.json";
+
     private ControllerImpl() { }
 
     /**

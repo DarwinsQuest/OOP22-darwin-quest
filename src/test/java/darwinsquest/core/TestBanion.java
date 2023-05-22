@@ -15,43 +15,41 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import darwinsquest.core.element.Air;
-import darwinsquest.core.element.Fire;
+import darwinsquest.BanionFactory;
+import darwinsquest.MoveFactory;
 import darwinsquest.core.element.Neutral;
-import darwinsquest.core.element.Water;
 
 /**
  * Test Class for {@link darwinsquest.core.BanionImpl}.
  */
 class TestBanion {
 
+    private final Set<Banion> banions = new BanionFactory().createElements().get();
+
     /**
      * Tests Banion statistic changes.
-     * @param hp Valid stat.
      * @param validHp Valid stat.
      * @param invalidHp Invalid stat.
      */
     @ParameterizedTest
-    @CsvSource({"10, 0, -1"})
-    void stats(final int hp, final int validHp, final int invalidHp) {
-        final var banion = new BanionImpl(new Fire(), "Homelander", hp);
-        assertEquals(hp, banion.getHp());
+    @CsvSource({"0, -1"})
+    void stats(final int validHp, final int invalidHp) {
+        final var banion = banions.stream().findAny().get();
 
         banion.setHp(validHp);
         assertEquals(validHp, banion.getHp());
 
-        assertThrows(IllegalArgumentException.class, () -> banion.setHp(invalidHp), "Espected throw IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> banion.setHp(invalidHp), "Expected throw IllegalArgumentException");
     }
 
     /**
      * Tests Banion alive state.
-     * @param aliveHp Alive amount stat.
      * @param notAliveHp Not alive amount stat.
      */
     @ParameterizedTest
-    @CsvSource({"1, 0"})
-    void alive(final int aliveHp, final int notAliveHp) {
-        final var banion = new BanionImpl(new Water(), "Queen Maeve", aliveHp);
+    @CsvSource({"0"})
+    void alive(final int notAliveHp) {
+        final var banion = banions.stream().findAny().get();
         assertTrue(banion::isAlive, "Banion should be alive with " + banion.getHp() + " of life");
 
         banion.setHp(notAliveHp);
@@ -65,21 +63,13 @@ class TestBanion {
      */
     @ParameterizedTest
     @CsvSource({"10, 100"})
-    void moves(final int damage, final int hp) {
-        final var banion = new BanionImpl(new Water(), "Black Noir", hp);
-        final var moves = Set.of(new BasicMove(damage, "fireMove", new Fire()),
-            new BasicMove(damage, "waterMove", new Water()),
-            new BasicMove(damage, "neutralMove", new Neutral()),
-            new BasicMove(damage, "airMove", new Air()));
-
-        moves.stream().forEach(banion::learnMove);
-
-        assertTrue(banion.getMoves().stream()
-            .collect(Collectors.toSet())
-            .containsAll(moves.stream()
-                .filter(move -> move.getElement().equals(banion.getElement())
-                    || move.getElement().getClass().equals(Neutral.class))
-                .collect(Collectors.toSet())));
+    void numMoves(final int damage, final int hp) {
+        banions.stream().map(Banion::getMoves).forEach(m -> assertEquals(m.size(), BanionImpl.NUM_MOVES));
+        // Checks types of each Banion move
+        banions.stream()
+            .forEach(b -> b.getMoves().stream()
+                .forEach(m -> assertTrue(m.getElement().equals(b.getElement()) 
+                    || m.getElement().equals(new Neutral()))));
     }
 
     /**
@@ -91,16 +81,20 @@ class TestBanion {
     void comparisons(final long size) {
         final var name = "Translucent";
         final var hp = 100;
-        final var element = new Fire();
+        final var element = new Neutral();
+        final var moves = new MoveFactory().createElements().get().stream()
+            .filter(m -> m.getElement().getClass().equals(element.getClass()))
+            .limit(BanionImpl.NUM_MOVES)
+            .collect(Collectors.toSet());
 
-        final var banions = Stream.generate(() -> new BanionImpl(element, name, hp)).limit(size).toList();
+        final var banions = Stream.generate(() -> new BanionImpl(element, name, hp, moves)).limit(size).toList();
 
         banions.forEach(b1 -> {
             banions.stream().filter(b2 -> b1 != b2).forEach(b3 -> assertNotEquals(b1, b3));
             banions.stream().filter(b2 -> b1 == b2).forEach(b3 -> assertEquals(b1, b3));
         });
 
-        final var banion = new BanionImpl(element, name, hp);
+        final var banion = new BanionImpl(element, name, hp, moves);
         final var banionClones = Stream.generate(banion::copy).limit(size).toList();
 
         banionClones.forEach(o1 -> banionClones.forEach(o2 -> {

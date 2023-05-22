@@ -1,4 +1,4 @@
-package darwinsquest.core;
+package darwinsquest.core.difficulty;
 
 import darwinsquest.core.decision.Decision;
 import darwinsquest.core.decision.MoveDecision;
@@ -11,10 +11,13 @@ import java.util.random.RandomGenerator;
 import java.util.Map;
 import java.util.HashMap;
 
+import darwinsquest.core.Banion;
+import darwinsquest.core.Move;
+
 /**
  * A basic implementation of the game AI.
  */
-public class BasicAI implements AI {
+class BasicAI implements AI {
 
     private static final int MOVE_DECISION_BOUND = 19;
     private static final int SWAP_DECISION_BOUND = 2;
@@ -25,7 +28,7 @@ public class BasicAI implements AI {
      * Creates an instance of {@link BasicAI} using the provided {@code seed} to initialize the random number generator.
      * @param seed the random generator's seed.
      */
-    public BasicAI(final int seed) {
+    BasicAI(final int seed) {
         generator = new Random(seed);
         this.decisions = new HashMap<>(Map.of(new SwapDecision(), SWAP_DECISION_BOUND, new MoveDecision(), MOVE_DECISION_BOUND));
     }
@@ -33,7 +36,7 @@ public class BasicAI implements AI {
     /**
      * Default constructor.
      */
-    public BasicAI() {
+    BasicAI() {
         generator = new Random();
         this.decisions = new HashMap<>(Map.of(new SwapDecision(), SWAP_DECISION_BOUND, new MoveDecision(), MOVE_DECISION_BOUND));
     }
