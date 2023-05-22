@@ -1,9 +1,9 @@
 package darwinsquest.core.element;
 
 /**
- * Class that represents the Rock immutable {@link Element}.
+ * Class that represents the Neutral immutable {@link Element}.
  */
-public final class Neutral extends AbstractElement {
+public final class Neutral extends ImmutableElement {
 
     /**
      * Default constructor.
