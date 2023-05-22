@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -51,7 +52,7 @@ public class CustomDeserializer<T> {
 
     /**
      * Reads elements of type {@code T} read from file.
-     * @return The elements read, {@link Optional#empty()} if error occurred.
+     * @return The elements read in unmodifiable {@link Set}, {@link Optional#empty()} if error occurred.
      */
     protected final Optional<Set<T>> readElements() {
         cleanMessage();
@@ -72,7 +73,7 @@ public class CustomDeserializer<T> {
                 : e.getLocalizedMessage();
             return Optional.empty();
         }
-        return Optional.of(elements);
+        return Optional.of(Collections.unmodifiableSet(elements));
     }
 
     /**
