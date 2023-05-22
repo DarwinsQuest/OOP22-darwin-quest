@@ -1,10 +1,11 @@
-package darwinsquest.graphics;
+package darwinsquest.view;
 
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import darwinsquest.view.sound.GameSoundSystem;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class DifficultiesController extends InteractiveController implements Ini
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        // Difficulties should be read from controller, and relative buttons created
+        // Difficulties should be read from the controller, and relative buttons created
         createButtons(List.of("Normal")); // temporary
     }
 
@@ -52,5 +53,6 @@ public class DifficultiesController extends InteractiveController implements Ini
     public void handle(final ActionEvent event) {
         // Chose difficulty sent to controller
         getManager().showBattle();
+        GameSoundSystem.playSfx("LowThud.mp3");
     }
 }

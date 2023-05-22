@@ -1,9 +1,13 @@
-package darwinsquest.graphics;
+package darwinsquest.view;
 
+import darwinsquest.view.graphics.SpriteAnimation;
+import darwinsquest.view.sound.GameSoundSystem;
+import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -11,11 +15,9 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -25,7 +27,15 @@ public final class BattleController extends InteractiveController implements Ini
 
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;
-
+    private static final int BG_UPSCALE = 4;
+    private static final Image IMAGE1 = new Image("img/banions/AngryPig/Idle (36x30).png");
+    private static final int FRAMES_IMG1 = 9;
+    private static final int WIDTH_IMG1 = 36;
+    private static final int HEIGHT_IMG1 = 30;
+    private static final Image IMAGE2 = new Image("img/banions/Bat/Flying (46x30).png");
+    private static final int FRAMES_IMG2 = 7;
+    private static final int WIDTH_IMG2 = 46;
+    private static final int HEIGHT_IMG2 = 30;
     @FXML
     private BorderPane borderPane;
 
@@ -50,8 +60,15 @@ public final class BattleController extends InteractiveController implements Ini
     @FXML
     private Button moveBtn4;
 
+    @FXML
+    private ImageView leftBanion;
+
+    @FXML
+    private ImageView rightBanion;
+
     /**
      * Default constructor.
+     *
      * @param manager the stage manager related to this controller.
      */
     public BattleController(final StageManager manager) {
@@ -64,11 +81,32 @@ public final class BattleController extends InteractiveController implements Ini
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         initializeBackground();
-        initializeButtons();
+        new SpriteAnimation(
+                leftBanion,
+                IMAGE1,
+                Duration.seconds(1),
+                Animation.INDEFINITE,
+                FRAMES_IMG1,
+                FRAMES_IMG1,
+                WIDTH_IMG1,
+                HEIGHT_IMG1,
+                true).animate();
+        new SpriteAnimation(
+                rightBanion,
+                IMAGE2,
+                Duration.seconds(1),
+                Animation.INDEFINITE,
+                FRAMES_IMG2,
+                FRAMES_IMG2,
+                WIDTH_IMG2,
+                HEIGHT_IMG2,
+                false).animate();
+        GameSoundSystem.stopAll();
+        GameSoundSystem.playIntroAndMusic("BossIntro.wav", "BossMain.wav");
     }
 
     private void initializeBackground() {
-        final Image img = new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("img/bg.png")));
+        final Image img = new Image("img/bg.png");
         final BackgroundSize bgSize = new BackgroundSize(
                 WIDTH,
                 HEIGHT,
@@ -76,7 +114,12 @@ public final class BattleController extends InteractiveController implements Ini
                 true,
                 true,
                 false);
-        final BackgroundImage bgImg = new BackgroundImage(img,
+        final BackgroundImage bgImg = new BackgroundImage(
+                new Image(img.getUrl(),
+                        img.getWidth() * BG_UPSCALE,
+                        img.getHeight() * BG_UPSCALE,
+                        true,
+                        false),
                 BackgroundRepeat.REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
@@ -84,19 +127,6 @@ public final class BattleController extends InteractiveController implements Ini
         );
         final Background bg = new Background(bgImg);
         borderPane.setBackground(bg);
-    }
-
-    // This method allows only one focused/hovered button at once.
-    private void initializeButtons() {
-        final List<Button> buttonList = new ArrayList<>(List.of(
-                moveBtn1,
-                moveBtn2,
-                moveBtn3,
-                moveBtn4,
-                inventoryBtn,
-                forfeitBtn));
-        buttonList.forEach(b -> b.setOnMouseEntered(event -> b.requestFocus()));
-        buttonList.forEach(b -> b.setOnMouseExited(event -> b.getParent().requestFocus()));
     }
 
 }

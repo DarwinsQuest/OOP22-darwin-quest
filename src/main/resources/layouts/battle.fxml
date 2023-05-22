@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -38,8 +37,8 @@
             </GridPane>
             <VBox id="optionsBox" fx:id="vboxMoves" alignment="CENTER" prefHeight="100" prefWidth="125.0" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="inventoryBtn" prefHeight="${vboxMoves.height / 3}" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Inventory" />
-                  <Button fx:id="forfeitBtn" prefHeight="${vboxMoves.height / 3}" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Forfeit" />
+                  <Button fx:id="inventoryBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="${vboxMoves.height / 3}" text="Inventory" />
+                  <Button fx:id="forfeitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="${vboxMoves.height / 3}" text="Forfeit" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -58,10 +57,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="${borderPane.height / 2}" fitWidth="${borderPane.height / 3}" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <image>
-                  <Image url="@../img/green.png" />
-               </image></ImageView>
+            <ImageView fx:id="leftBanion" fitHeight="${borderPane.height / 2}" fitWidth="${borderPane.height / 3}" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
             <Label text="Banion 1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
@@ -76,10 +72,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="${borderPane.height / 2}" fitWidth="${borderPane.height / 3}" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <image>
-                  <Image url="@../img/green.png" />
-               </image></ImageView>
+            <ImageView fx:id="rightBanion" fitHeight="${borderPane.height / 2}" fitWidth="${borderPane.height / 3}" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
             <Label text="Banion 2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
