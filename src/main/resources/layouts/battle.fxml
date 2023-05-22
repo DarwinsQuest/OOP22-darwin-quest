@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <HBox fx:id="lowerButtonsBox" prefHeight="${borderPane.height / 6}" BorderPane.alignment="CENTER">
          <children>
@@ -26,10 +26,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="moveBtn1" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Move 1" />
-                  <Button fx:id="moveBtn2" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Move 2" GridPane.columnIndex="1" />
-                  <Button fx:id="moveBtn3" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Move 3" GridPane.rowIndex="1" />
-                  <Button fx:id="moveBtn4" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Move 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="moveBtn1" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMove1Action" text="Move 1" />
+                  <Button fx:id="moveBtn2" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMove2Action" text="Move 2" GridPane.columnIndex="1" />
+                  <Button fx:id="moveBtn3" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMove3Action" text="Move 3" GridPane.rowIndex="1" />
+                  <Button fx:id="moveBtn4" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMove4Action" text="Move 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -37,8 +37,8 @@
             </GridPane>
             <VBox id="optionsBox" fx:id="vboxMoves" alignment="CENTER" prefHeight="100" prefWidth="125.0" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="inventoryBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="${vboxMoves.height / 3}" text="Inventory" />
-                  <Button fx:id="forfeitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="${vboxMoves.height / 3}" text="Forfeit" />
+                  <Button fx:id="inventoryBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onInventoryAction" prefHeight="${vboxMoves.height / 3}" text="Inventory" />
+                  <Button fx:id="forfeitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onForfeitAction" prefHeight="${vboxMoves.height / 3}" text="Forfeit" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

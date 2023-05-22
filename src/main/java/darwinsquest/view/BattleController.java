@@ -3,6 +3,7 @@ package darwinsquest.view;
 import darwinsquest.view.graphics.SpriteAnimation;
 import darwinsquest.view.sound.GameSoundSystem;
 import javafx.animation.Animation;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -36,6 +37,7 @@ public final class BattleController extends InteractiveController implements Ini
     private static final int FRAMES_IMG2 = 7;
     private static final int WIDTH_IMG2 = 46;
     private static final int HEIGHT_IMG2 = 30;
+    private static final String BUTTON_SOUND = "MI_SFX21.wav";
     @FXML
     private BorderPane borderPane;
 
@@ -103,6 +105,37 @@ public final class BattleController extends InteractiveController implements Ini
                 false).animate();
         GameSoundSystem.stopAll();
         GameSoundSystem.playIntroAndMusic("BossIntro.wav", "BossMain.wav");
+    }
+
+    @FXML
+    void onForfeitAction(final ActionEvent event) {
+        GameSoundSystem.stopAll();
+        GameSoundSystem.playSfx("WarpJingle.wav");
+    }
+
+    @FXML
+    void onInventoryAction(final ActionEvent event) {
+        GameSoundSystem.playSfx(BUTTON_SOUND);
+    }
+
+    @FXML
+    void onMove1Action(final ActionEvent event) {
+        GameSoundSystem.playSfx(BUTTON_SOUND);
+    }
+
+    @FXML
+    void onMove2Action(final ActionEvent event) {
+        GameSoundSystem.playSfx(BUTTON_SOUND);
+    }
+
+    @FXML
+    void onMove3Action(final ActionEvent event) {
+        GameSoundSystem.playSfx(BUTTON_SOUND);
+    }
+
+    @FXML
+    void onMove4Action(final ActionEvent event) {
+        GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
     private void initializeBackground() {
