@@ -1,17 +1,16 @@
 package darwinsquest.view;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.io.IOException;
-import java.util.Objects;
-import java.util.function.Consumer;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.IOException;
+import java.util.function.Consumer;
 
 /**
  * View main class.
@@ -37,8 +36,8 @@ public final class JavaFXApplication extends Application implements StageManager
 
     private void initStage(final Stage stage) {
         this.stage = stage;
-        stage.setTitle("DarwinsQuest");
-        stage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("img/green.png"))));
+        stage.setTitle("Darwin's Quest");
+        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("img/icon.png")));
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         stage.setMinHeight(screenSize.getHeight() * MIN_HEIGHT_FACTOR);
         stage.setMinWidth(screenSize.getWidth() * MIN_WIDTH_FACTOR);
