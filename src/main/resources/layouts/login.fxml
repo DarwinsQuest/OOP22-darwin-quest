@@ -12,7 +12,7 @@
       <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0">
          <children>
             <Label text="User name:" />
-            <TextField onKeyTyped="#onUserNameTextChanged" />
+            <TextField onKeyReleased="#onUserNameTextChanged" />
          </children>
       </HBox>
       <Button onAction="#onEnterAction" text="_Enter" />

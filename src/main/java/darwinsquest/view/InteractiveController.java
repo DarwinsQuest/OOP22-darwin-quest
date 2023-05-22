@@ -1,4 +1,4 @@
-package darwinsquest.graphics;
+package darwinsquest.view;
 
 import java.util.Objects;
 

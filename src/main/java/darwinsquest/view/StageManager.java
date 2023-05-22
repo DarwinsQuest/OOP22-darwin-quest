@@ -1,4 +1,4 @@
-package darwinsquest.graphics;
+package darwinsquest.view;
 
 /**
  * A javafx {@link javafx.stage.Stage} manager.

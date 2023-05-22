@@ -1,6 +1,6 @@
 package darwinsquest;
 
-import darwinsquest.graphics.JavaFXApplication;
+import darwinsquest.view.JavaFXApplication;
 import javafx.application.Application;
 
 /**
