@@ -33,7 +33,10 @@ public class PlayerImpl extends AbstractEntity implements Player {
      * @param nickname the player's nickname.
      */
     public PlayerImpl(final String nickname) {
-        super(nickname, Pattern.compile("^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$"));
+        super(nickname);
+        if (!isNameValid(nickname)) {
+            throw new IllegalArgumentException("Invalid nickname format.");
+        }
     }
 
     /**
@@ -76,6 +79,16 @@ public class PlayerImpl extends AbstractEntity implements Player {
         return "PlayerImpl{"
                 + "nickname='" + getName() + '\''
                 + ", inventory=" + getInventory() + '}';
+    }
+
+    /**
+     * Checks whether a nickname is valid.
+     * @param nickname the nickname to check.
+     * @return {@code true} if valid, {@code false} otherwise.
+     */
+    public static boolean isNameValid(final String nickname) {
+        final Pattern pattern = Pattern.compile("^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$");
+        return pattern.matcher(nickname).find();
     }
 
 }
