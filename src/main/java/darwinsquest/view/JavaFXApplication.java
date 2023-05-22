@@ -3,9 +3,12 @@ package darwinsquest.view;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -26,37 +29,41 @@ public final class JavaFXApplication extends Application implements StageManager
      * {@inheritDoc}
      */
     @Override
-    public void start(final Stage stage) throws Exception {
+    public void start(final Stage stage) {
         initStage(stage);
-        showStartMenu();
+        setStartMenu();
         stage.show();
     }
 
     private void initStage(final Stage stage) {
         this.stage = stage;
         stage.setTitle("DarwinsQuest");
-        stage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("img/green.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("img/green.png"))));
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         stage.setMinHeight(screenSize.getHeight() * MIN_HEIGHT_FACTOR);
         stage.setMinWidth(screenSize.getWidth() * MIN_WIDTH_FACTOR);
     }
 
-    private void setSceneFromFXML(final Object controller, final String name) {
+    private void setFromFXML(final Object controller, final String name, final Consumer<Parent> consumer) {
         final var fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("layouts/" + name));
         fxmlLoader.setController(controller);
 
         try {
-            stage.setScene(new Scene(fxmlLoader.load()));
+            consumer.accept(fxmlLoader.load());
         } catch (final IOException e) {
             throw new IllegalStateException(e);
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void showStartMenu() {
+    private void setSceneFromFXML(final Object controller, final String name) {
+        setFromFXML(controller, name, p -> stage.setScene(new Scene(p)));
+    }
+
+    private void setPanelFromFXML(final Object controller, final String name) {
+        setFromFXML(controller, name, p -> stage.getScene().setRoot(p));
+    }
+
+    private void setStartMenu() {
         setSceneFromFXML(new StartMenuController(this), "startmenu.fxml");
     }
 
@@ -64,8 +71,16 @@ public final class JavaFXApplication extends Application implements StageManager
      * {@inheritDoc}
      */
     @Override
+    public void showStartMenu() {
+        setPanelFromFXML(new StartMenuController(this), "startmenu.fxml");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void showLogin() {
-        setSceneFromFXML(new LoginController(this), "login.fxml");
+        setPanelFromFXML(new LoginController(this), "login.fxml");
     }
 
     /**
@@ -73,7 +88,7 @@ public final class JavaFXApplication extends Application implements StageManager
      */
     @Override
     public void showDifficulties() {
-        setSceneFromFXML(new DifficultiesController(this), "difficultyselector.fxml");
+        setPanelFromFXML(new DifficultiesController(this), "difficultyselector.fxml");
     }
 
     /**
@@ -81,6 +96,6 @@ public final class JavaFXApplication extends Application implements StageManager
      */
     @Override
     public void showBattle() {
-        setSceneFromFXML(new BattleController(this), "battle.fxml");
+        setPanelFromFXML(new BattleController(this), "battle.fxml");
     }
 }
