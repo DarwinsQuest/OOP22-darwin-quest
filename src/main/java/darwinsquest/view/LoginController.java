@@ -3,14 +3,28 @@ package darwinsquest.view;
 import darwinsquest.view.sound.GameSoundSystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Class that represents the fxml view controller of the user login.
  */
-public class LoginController extends InteractiveController {
+public class LoginController extends InteractiveController implements Initializable {
+
+    @FXML
+    private VBox vBox;
 
     /**
      * Default constructor.
@@ -47,5 +61,27 @@ public class LoginController extends InteractiveController {
         }
 
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void initialize(final URL location, final ResourceBundle resources) {
+        initializeBackground();
+    }
+
+    private void initializeBackground() {
+        final Image image = new Image("img/Blue.png");
+        final BackgroundImage bgImg = new BackgroundImage(
+                new Image(image.getUrl(), image.getWidth(), image.getHeight(), true, false),
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT,
+                BackgroundPosition.CENTER,
+                BackgroundSize.DEFAULT
+        );
+        final Background bg = new Background(bgImg);
+        vBox.setBackground(bg);
+    }
+
 }
 
