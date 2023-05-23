@@ -6,7 +6,6 @@ import darwinsquest.core.element.Element;
 import darwinsquest.core.element.Neutral;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -26,7 +25,7 @@ class PlayerTest {
     private static final int HP = 100;
 
     private final Element neutral = new Neutral();
-    private final Collection<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
+    private final Set<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
         new BasicMove(MOVE_DAMAGE, "2", neutral),
         new BasicMove(MOVE_DAMAGE, "3", neutral),
         new BasicMove(MOVE_DAMAGE, "4", neutral));
@@ -125,7 +124,7 @@ class PlayerTest {
         assertFalse(p.isOutOfBanions());
         for (int i = 0; i < banionList.size(); i++) {
             final var currentBanion = banionList.get(i);
-            currentBanion.setHp(0);
+            currentBanion.decreaseHp(currentBanion.getHp());
             p.updateInventory(currentBanion, currentBanion);
             if (i == banionList.size() - 1) {
                 assertTrue(p.isOutOfBanions());

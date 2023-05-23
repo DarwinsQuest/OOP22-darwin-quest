@@ -8,7 +8,6 @@ import darwinsquest.core.element.Neutral;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -30,7 +29,7 @@ class OpponentTest {
     private final Element neutral = new Neutral();
 
     private static final int HP = 100;
-    private final Collection<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "9", neutral),
+    private final Set<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "9", neutral),
         new BasicMove(MOVE_DAMAGE, "2", neutral),
         new BasicMove(MOVE_DAMAGE, "19", neutral),
         new BasicMove(MOVE_DAMAGE, "4", neutral));
@@ -113,7 +112,7 @@ class OpponentTest {
         assertFalse(o.isOutOfBanions());
         for (int i = 0; i < banionList.size(); i++) {
             final var currentBanion = banionList.get(i);
-            currentBanion.setHp(0);
+            currentBanion.decreaseHp(currentBanion.getHp());
             o.updateInventory(currentBanion, currentBanion);
             if (i == banionList.size() - 1) {
                 assertTrue(o.isOutOfBanions());

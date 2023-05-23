@@ -2,7 +2,9 @@ package darwinsquest.core;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -17,23 +19,20 @@ import darwinsquest.utility.Asserts;
  */
 public final class BanionImpl implements Banion {
 
-    /**
-     * Allowed number of moves.
-     */
-    public static final int NUM_MOVES = 4;
-
     private final UUID id;
     private final Element element;
     private final String name;
     private final Collection<Move> moves;
+    private int maxHp;
     private int hp;
 
     private BanionImpl(final BanionImpl banion) {
-        id = banion.id;
-        moves = banion.moves.stream().map(Move::copy).collect(Collectors.toSet());
+        id = UUID.randomUUID();
+        element = banion.element;
+        moves = new HashSet<>(banion.moves);
         name = banion.name;
         hp = banion.hp;
-        element = banion.element;
+        maxHp = banion.maxHp;
     }
 
     /**
@@ -43,20 +42,21 @@ public final class BanionImpl implements Banion {
      * @param hp hit points, represents health.
      * @param moves are allowed only 4 moves per {@link Banion}, not more, not less.
      */
-    public BanionImpl(final Element element, final String name, final int hp, final Collection<Move> moves) {
+    public BanionImpl(final Element element, final String name, final int hp, final Set<Move> moves) {
         id = UUID.randomUUID();
         this.element = Objects.requireNonNull(element);
-        this.moves = Asserts.match(moves, value -> Objects.nonNull(value)
+        this.moves = Asserts.match(moves,
+            value -> Objects.nonNull(value)
             && value.size() == NUM_MOVES
             && value.stream().allMatch(this::isMoveAcceptable));
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
-        this.hp = Asserts.intMatch(hp, value -> value > 0);
+        this.hp = Asserts.intMatch(hp, value -> value > MIN_HP);
+        maxHp = this.hp;
     }
 
     private boolean isMoveAcceptable(final Move move) {
-        return Objects.nonNull(move)
-            && (move.getElement().equals(getElement())
-                || move.getElement().getClass().equals(Neutral.class));
+        final var element = Objects.requireNonNull(move).getElement();
+        return element.equals(getElement()) || element.getClass().equals(Neutral.class);
     }
 
     /**
@@ -87,8 +87,43 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
-    public void setHp(final int amount) {
-        hp = Asserts.intMatch(amount, value -> value >= 0);
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setMaxHp(final int amount) {
+        maxHp = Asserts.intMatch(amount, value -> value > MIN_HP);
+        if (hp > maxHp) {
+            setHpToMax();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setHpToMax() {
+        hp = maxHp;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void increaseHp(final int amount) {
+        hp = Math.min(Asserts.intMatch(hp + amount, value -> value > hp), maxHp);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void decreaseHp(final int amount) {
+        hp = Math.max(MIN_HP, Asserts.intMatch(hp - amount, value -> value < hp));
     }
 
     /**
@@ -96,7 +131,7 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public boolean isAlive() {
-        return hp > 0;
+        return getHp() > MIN_HP;
     }
 
     /**
@@ -128,7 +163,7 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(element, name, moves, hp);
+        return Objects.hash(element, name, moves, hp, maxHp);
     }
 
     /**
@@ -148,6 +183,7 @@ public final class BanionImpl implements Banion {
     public String toString() {
         return getClass().getSimpleName() + " [element = " + getElement()
             + ", name = " + getName()
+            + ", maxHp = " + getMaxHp()
             + ", hp = " + getHp()
             + ", moves = [" + getMoves().stream().map(Move::toString).collect(Collectors.joining(", ")) + "]]";
     }
