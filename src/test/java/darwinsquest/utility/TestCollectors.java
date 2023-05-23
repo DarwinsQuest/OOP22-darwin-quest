@@ -9,11 +9,22 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TestCollectors {
 
     private static final int START = 0;
     private static final int END = 1000;
+
+    @Test
+    void immutableSet() {
+        final var sequence = List.of(1, 3, 3, 4);
+
+        final var set = sequence.stream().collect(MyCollectors.toImmutableSet(HashSet::new));
+
+        assertThrows(UnsupportedOperationException.class, () -> set.add(0));
+        assertThrows(UnsupportedOperationException.class, () -> set.remove(0));
+    }
 
     @Test
     void orderedSet() {
