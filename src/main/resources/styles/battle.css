@@ -1,0 +1,11 @@
+.root {
+    -black-overlay-semitransparent: rgba(0, 0, 0, 0.5);
+}
+
+#movesGrid {
+    -fx-background-color: -black-overlay-semitransparent;
+}
+
+#optionsBox {
+    -fx-background-color: -black-overlay-semitransparent;
+}

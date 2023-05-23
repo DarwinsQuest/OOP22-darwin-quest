@@ -1,0 +1,32 @@
+/* Generic button style sheet. */
+.root {
+    -primary-button-color: #0D98BA;
+    -secondary-button-color: #10BAE5;
+    -black-inner-shadow: rgba(0, 0, 0, 0.3);
+}
+
+.button {
+    -fx-background-color: -primary-button-color;
+    -fx-background-radius: 10px;
+    -fx-effect: innershadow(one-pass-box, -black-inner-shadow, 0, 0, 1, -5);
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: -secondary-button-color;
+}
+
+.button:armed {
+    /* Lowers the inner shadow when pressed. */
+    -fx-effect: innershadow(one-pass-box, -black-inner-shadow, 0, 0, 1, -2);
+    -fx-text-fill: rgba(255, 255, 255, 0.2);
+    -fx-translate-y: 3px;
+}
+
+.button:focused {
+    -fx-background-color: -secondary-button-color;
+}
+
+.button:disabled {
+    -fx-opacity: 50%;
+}

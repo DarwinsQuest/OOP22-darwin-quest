@@ -6,8 +6,8 @@ package darwinsquest.core;
 public interface DamageMove extends Move {
 
     /**
-     * Retrieves the damage of the {@link DamageMove}.
-     * @return the damage of the {@link DamageMove}.
+     * Retrieves the damage made by the {@link DamageMove}.
+     * @return the damage made by the {@link DamageMove}.
      */
     int getDamage();
 

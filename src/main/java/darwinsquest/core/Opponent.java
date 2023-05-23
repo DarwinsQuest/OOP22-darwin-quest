@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.difficulty.AI;
+
 /**
  * Interface that represents the {@link Player}'s
  * battle opponents.
