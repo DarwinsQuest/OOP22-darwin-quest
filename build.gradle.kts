@@ -9,7 +9,7 @@ repositories {
     mavenCentral()
 }
 
-val javaFXModules = listOf("base", "controls", "fxml", "swing", "graphics")
+val javaFXModules = listOf("base", "controls", "fxml", "swing", "graphics", "media")
 val supportedPlatforms = listOf("linux", "mac", "win")
 
 dependencies {
@@ -19,6 +19,14 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+
+    val googleGsonVersion = "2.10.1"
+
+    implementation("com.google.code.gson:gson:$googleGsonVersion")
+
+    val apacheLang3Version = "3.12.0"
+
+    implementation("org.apache.commons:commons-lang3:$apacheLang3Version")
 
     val javaFxVersion = "15"
     
@@ -38,5 +46,5 @@ tasks.test {
 }
 
 application {
-    mainClass.set("darwinsquest.App")
+    mainClass.set("darwinsquest.ControllerImpl")
 }
