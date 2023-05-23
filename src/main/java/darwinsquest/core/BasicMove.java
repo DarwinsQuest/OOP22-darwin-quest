@@ -41,12 +41,7 @@ public class BasicMove implements DamageMove {
      */
     @Override
     public void perform(final Banion opponentBanion) {
-        final var opponentHp = opponentBanion.getHp();
-        if (opponentHp >= this.getDamage()) {
-            opponentBanion.setHp(opponentHp - baseDamage);
-        } else {
-            opponentBanion.setHp(0);
-        }
+        opponentBanion.decreaseHp(getDamage());
     }
 
     /**

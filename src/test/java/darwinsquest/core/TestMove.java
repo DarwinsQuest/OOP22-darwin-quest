@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Collection;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ class TestMove {
     private final Element neutral = new Neutral();
     private static final int MOVE_DAMAGE = 10;
 
-    private final Collection<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
+    private final Set<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
         new BasicMove(MOVE_DAMAGE, "2", neutral),
         new BasicMove(MOVE_DAMAGE, "3", neutral),
         new BasicMove(MOVE_DAMAGE, "4", neutral));
