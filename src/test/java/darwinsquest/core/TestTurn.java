@@ -1,11 +1,12 @@
 package darwinsquest.core;
 
-import darwinsquest.core.element.Air;
-import darwinsquest.core.element.Fire;
-import darwinsquest.core.element.Grass;
-import darwinsquest.core.element.Water;
+import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.element.ImmutableElement;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -19,19 +20,36 @@ class TestTurn {
     private static final int HP = 100;
     private static final int DAMAGE_1 = 20;
     private static final int DAMAGE_2 = 15;
-    private static final Entity E1 = new OpponentImpl("e1", new BasicAI());
-    private static final Entity E2 = new OpponentImpl("e2", new BasicAI());
+    private static final Entity E1 = new OpponentImpl("e1", new Normal().getAI());
+    private static final Entity E2 = new OpponentImpl("e2", new Normal().getAI());
+
 
     @BeforeAll
     static void addBanions() {
-        final var b1 = new BanionImpl(new Fire(), "b1", HP);
-        final var b2 = new BanionImpl(new Water(), "b2", HP);
-        final var b3 = new BanionImpl(new Grass(), "b3", HP);
-        final var b4 = new BanionImpl(new Air(), "b4", HP);
-        b1.learnMove(new BasicMove(DAMAGE_1, "m1", new Fire()));
-        b2.learnMove(new BasicMove(DAMAGE_2, "m2", new Water()));
-        b3.learnMove(new BasicMove(DAMAGE_1, "m3", new Grass()));
-        b4.learnMove(new BasicMove(DAMAGE_2, "m4", new Air()));
+        final var fire = new ImmutableElement("Fire", Set.of(), Set.of());
+        final var water = new ImmutableElement("Water", Set.of(), Set.of());
+        final var grass = new ImmutableElement("Grass", Set.of(), Set.of());
+        final var air = new ImmutableElement("Air", Set.of(), Set.of());
+        final Collection<Move> b1Moves = List.of(new BasicMove(DAMAGE_1, "m1", fire),
+                new BasicMove(DAMAGE_2, "m2", fire),
+                new BasicMove(DAMAGE_1, "m3", fire),
+                new BasicMove(DAMAGE_2, "m4", fire));
+        final Collection<Move> b2Moves = List.of(new BasicMove(DAMAGE_1, "m1", water),
+                new BasicMove(DAMAGE_2, "m2", water),
+                new BasicMove(DAMAGE_1, "m3", water),
+                new BasicMove(DAMAGE_2, "m4", water));
+        final Collection<Move> b3Moves = List.of(new BasicMove(DAMAGE_1, "m1", grass),
+                new BasicMove(DAMAGE_2, "m2", grass),
+                new BasicMove(DAMAGE_1, "m3", grass),
+                new BasicMove(DAMAGE_2, "m4", grass));
+        final Collection<Move> b4Moves = List.of(new BasicMove(DAMAGE_1, "m1", air),
+                new BasicMove(DAMAGE_2, "m2", air),
+                new BasicMove(DAMAGE_1, "m3", air),
+                new BasicMove(DAMAGE_2, "m4", air));
+        final var b1 = new BanionImpl(fire, "b1", HP, b1Moves);
+        final var b2 = new BanionImpl(water, "b2", HP, b2Moves);
+        final var b3 = new BanionImpl(grass, "b3", HP, b3Moves);
+        final var b4 = new BanionImpl(air, "b4", HP, b4Moves);
         E1.addToInventory(b1);
         E1.addToInventory(b2);
         E2.addToInventory(b3);
