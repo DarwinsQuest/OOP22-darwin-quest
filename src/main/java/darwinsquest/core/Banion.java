@@ -8,6 +8,15 @@ import java.util.Collection;
 public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
 
     /**
+     * Allowed number of moves.
+     */
+    int NUM_MOVES = 4;
+    /**
+     * Allowed min hit points amount.
+     */
+    int MIN_HP = 0;
+
+    /**
      * Tells if this {@link Banion} is alive or not.
      * @return if is alive or not.
      */
@@ -35,8 +44,31 @@ public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
     int getHp();
 
     /**
-     * Changes the life stat amount.
+     * Increases the life stat amount.
      * @param amount the life stat amount.
      */
-    void setHp(int amount);
+    void increaseHp(int amount);
+
+    /**
+     * Decreases the life stat amount, if {@link #isAlive()}.
+     * @param amount the life stat amount.
+     */
+    void decreaseHp(int amount);
+
+    /**
+     * Provides the full potential life amount.
+     * @return the full potential life amount.
+     */
+    int getMaxHp();
+
+    /**
+     * Changes the max life stat amount.
+     * @param amount the max life stat amount.
+     */
+    void setMaxHp(int amount);
+
+    /**
+     * Sets the life stat amount to {@link #getMaxHp()}.
+     */
+    void setHpToMax();
 }
