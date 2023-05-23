@@ -2,19 +2,14 @@ package darwinsquest.view;
 
 import darwinsquest.Controller;
 import darwinsquest.view.sound.GameSoundSystem;
+import darwinsquest.view.utility.JavaFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 
@@ -81,20 +76,7 @@ public class LoginController extends InteractiveController implements Initializa
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        initializeBackground();
-    }
-
-    private void initializeBackground() {
-        final Image image = new Image("img/Blue.png");
-        final BackgroundImage bgImg = new BackgroundImage(
-                new Image(image.getUrl(), image.getWidth(), image.getHeight(), true, false),
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.REPEAT,
-                BackgroundPosition.CENTER,
-                BackgroundSize.DEFAULT
-        );
-        final Background bg = new Background(bgImg);
-        vBox.setBackground(bg);
+        JavaFXUtils.initializeBackground(vBox, "img/Blue.png");
     }
 }
 

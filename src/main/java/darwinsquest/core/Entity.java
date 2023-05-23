@@ -73,7 +73,7 @@ public interface Entity extends Nameable {
      * @return a decision.
      * @see Decision
      */
-   Decision getDecision();
+    Decision getDecision();
 
     /**
      * Determines whether the {@link Entity} has any {@link Banion}s left.
