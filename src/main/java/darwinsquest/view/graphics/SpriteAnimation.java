@@ -6,7 +6,6 @@ import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 /**
@@ -72,10 +71,7 @@ public class SpriteAnimation extends Transition {
             final int y = (index / columns) * height;
             imageView.setViewport(new Rectangle2D(x, y, width, height));
             if (horizontalFlip) {
-                final var flipScale = new Scale();
-                flipScale.setX(-1);
-                flipScale.setPivotX(imageView.getFitWidth() / 2);    // Pivoting the sprite around the center.
-                imageView.getTransforms().setAll(flipScale);
+                imageView.setScaleX(-1);
             }
             lastIndex = index;
         }

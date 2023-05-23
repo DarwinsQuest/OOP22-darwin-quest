@@ -4,6 +4,7 @@ import darwinsquest.view.sound.GameSoundSystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -25,6 +26,9 @@ public class LoginController extends InteractiveController implements Initializa
 
     @FXML
     private VBox vBox;
+
+    @FXML
+    private Button btEnter;
 
     /**
      * Default constructor.
@@ -59,7 +63,6 @@ public class LoginController extends InteractiveController implements Initializa
                 || event.getCode().equals(KeyCode.DELETE)) {
             GameSoundSystem.playSfx("LowThud.mp3");
         }
-
     }
 
     /**
@@ -82,6 +85,5 @@ public class LoginController extends InteractiveController implements Initializa
         final Background bg = new Background(bgImg);
         vBox.setBackground(bg);
     }
-
 }
 
