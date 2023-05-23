@@ -10,9 +10,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class Asserts {
 
-    private Asserts() {
-
-    }
+    private Asserts() { }
 
     /**
      * Asserts that a certain {@code value} match a specific {@code predicate}.
