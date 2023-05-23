@@ -1,10 +1,12 @@
 package darwinsquest.view;
 
+import darwinsquest.Controller;
 import darwinsquest.view.sound.GameSoundSystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -30,12 +33,19 @@ public class LoginController extends InteractiveController implements Initializa
     @FXML
     private Button btEnter;
 
+    @FXML
+    private TextField userName;
+
+    private final Controller controller;
+
     /**
      * Default constructor.
      * @param manager the stage manager related to this controller.
+     * @param controller the MVC controller.
      */
-    public LoginController(final StageManager manager) {
+    public LoginController(final StageManager manager, final Controller controller) {
         super(manager);
+        this.controller = Objects.requireNonNull(controller);
     }
 
     /**
@@ -44,6 +54,8 @@ public class LoginController extends InteractiveController implements Initializa
      */
     @FXML
     protected void onEnterAction(final ActionEvent event) {
+        controller.login(userName.getText());
+        getManager().setUsername(userName.getText());
         getManager().showDifficulties();
         GameSoundSystem.playSfx("IntroJingle.wav", MediaPlayer::pause, MediaPlayer::play);
     }
@@ -54,8 +66,7 @@ public class LoginController extends InteractiveController implements Initializa
      */
     @FXML
     protected void onUserNameTextChanged(final KeyEvent event) {
-        // Probably here should be verified if username is acceptable or not
-        // ((TextField) event.getSource()).getText()
+        btEnter.setDisable(!controller.isValidUsername(((TextField) event.getSource()).getText()));
         if (event.getEventType().equals(KeyEvent.KEY_RELEASED)
                 && event.getCode().isLetterKey()
                 || event.getCode().isDigitKey()

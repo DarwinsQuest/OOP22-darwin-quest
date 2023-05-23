@@ -1,5 +1,7 @@
 package darwinsquest.view;
 
+import darwinsquest.Controller;
+import darwinsquest.ControllerImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +23,10 @@ public final class JavaFXApplication extends Application implements StageManager
     private static final double MIN_WIDTH_FACTOR = 0.2;
     private static final double MIN_HEIGHT_FACTOR = 0.2;
 
-    // private final Controller controller = new ControllerImpl();
+    private static final String TITLE = "darwin's quest";
+    private static final String SEPARATOR = " - ";
+
+     private final Controller controller = new ControllerImpl();
 
     private Stage stage;
 
@@ -37,7 +42,7 @@ public final class JavaFXApplication extends Application implements StageManager
 
     private void initStage(final Stage stage) {
         this.stage = stage;
-        stage.setTitle("darwin's quest");
+        stage.setTitle(TITLE);
         stage.getIcons().add(new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("img/icon.png"))));
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         stage.setMinHeight(screenSize.getHeight() * MIN_HEIGHT_FACTOR);
@@ -71,6 +76,14 @@ public final class JavaFXApplication extends Application implements StageManager
      * {@inheritDoc}
      */
     @Override
+    public void setUsername(final String username) {
+        stage.setTitle(Objects.requireNonNull(username) + SEPARATOR + TITLE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void showStartMenu() {
         setPanelFromFXML(new StartMenuController(this), "startmenu.fxml");
     }
@@ -80,7 +93,7 @@ public final class JavaFXApplication extends Application implements StageManager
      */
     @Override
     public void showLogin() {
-        setPanelFromFXML(new LoginController(this), "login.fxml");
+        setPanelFromFXML(new LoginController(this, controller), "login.fxml");
     }
 
     /**
