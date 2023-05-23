@@ -1,6 +1,6 @@
 package darwinsquest.core.element;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,8 +31,8 @@ public class ImmutableElement implements Element {
      */
     public ImmutableElement(final String name, final Set<String> weaker, final Set<String> stronger) {
         this.name = Objects.requireNonNull(name);
-        this.weaker = new HashSet<>(Objects.requireNonNull(weaker));
-        this.stronger = new HashSet<>(Objects.requireNonNull(stronger));
+        this.weaker = Collections.unmodifiableSet(Objects.requireNonNull(weaker));
+        this.stronger = Collections.unmodifiableSet(Objects.requireNonNull(stronger));
     }
 
     /**
