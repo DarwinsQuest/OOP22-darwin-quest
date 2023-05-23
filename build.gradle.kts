@@ -9,7 +9,7 @@ repositories {
     mavenCentral()
 }
 
-val javaFXModules = listOf("base", "controls", "fxml", "swing", "graphics")
+val javaFXModules = listOf("base", "controls", "fxml", "swing", "graphics", "media")
 val supportedPlatforms = listOf("linux", "mac", "win")
 
 dependencies {

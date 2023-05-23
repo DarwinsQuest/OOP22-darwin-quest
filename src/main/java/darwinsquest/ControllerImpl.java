@@ -1,6 +1,6 @@
 package darwinsquest;
 
-import darwinsquest.graphics.JavaFXScene;
+import darwinsquest.view.JavaFXApplication;
 import javafx.application.Application;
 
 /**
@@ -31,6 +31,7 @@ public final class ControllerImpl implements Controller {
      * @param args arguments
      */
     public static void main(final String[] args) {
-        Application.launch(JavaFXScene.class, args);
+        Application.launch(JavaFXApplication.class, args);
     }
+
 }
