@@ -1,17 +1,13 @@
 package darwinsquest.view;
 
 import darwinsquest.view.sound.GameSoundSystem;
+import darwinsquest.view.utility.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -40,7 +36,7 @@ public final class StartMenuController extends InteractiveController implements 
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        initializeBackground();
+        JavaFXUtils.initializeBackground(vBox, "img/Blue.png");
         logo.setImage(new Image("img/logo.png"));
         GameSoundSystem.playMusic("Map.wav", true);
     }
@@ -51,7 +47,7 @@ public final class StartMenuController extends InteractiveController implements 
      */
     @FXML
     protected void onExitAction(final ActionEvent event) {
-        Platform.runLater(() -> Platform.exit());
+        Platform.runLater(Platform::exit);
     }
 
     /**
@@ -63,18 +59,4 @@ public final class StartMenuController extends InteractiveController implements 
         getManager().showLogin();
         GameSoundSystem.playSfx("LowThud.mp3");
     }
-
-    private void initializeBackground() {
-        final Image image = new Image("img/Blue.png");
-        final BackgroundImage bgImg = new BackgroundImage(
-                new Image(image.getUrl(), image.getWidth(), image.getHeight(), true, false),
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.REPEAT,
-                BackgroundPosition.CENTER,
-                BackgroundSize.DEFAULT
-        );
-        final Background bg = new Background(bgImg);
-        vBox.setBackground(bg);
-    }
-
 }
