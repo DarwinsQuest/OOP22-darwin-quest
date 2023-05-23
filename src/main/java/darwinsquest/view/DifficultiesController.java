@@ -2,9 +2,9 @@ package darwinsquest.view;
 
 import java.net.URL;
 import java.util.Collection;
-import java.util.List;
 import java.util.ResourceBundle;
 
+import darwinsquest.Controller;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.view.utility.JavaFXUtils;
 import javafx.event.ActionEvent;
@@ -17,17 +17,18 @@ import javafx.scene.layout.VBox;
 /**
  * Class that represents the fxml view controller of the difficulty selector.
  */
-public class DifficultiesController extends InteractiveController implements Initializable, EventHandler<ActionEvent> {
+public class DifficultiesController extends ControllerStageInteractive implements Initializable, EventHandler<ActionEvent> {
 
     @FXML
     private VBox vBox;
 
     /**
      * Default constructor.
-     * @param manager the stage manager related to this controller.
+     * @param manager the stage manager related to this javafx controller.
+     * @param controller the MVC controller.
      */
-    public DifficultiesController(final StageManager manager) {
-        super(manager);
+    public DifficultiesController(final StageManager manager, final Controller controller) {
+        super(manager, controller);
     }
 
     /**
@@ -35,9 +36,8 @@ public class DifficultiesController extends InteractiveController implements Ini
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        // Difficulties should be read from the controller, and relative buttons created
-        createButtons(List.of("Normal")); // temporary
         JavaFXUtils.initializeBackground(vBox, "img/Blue.png");
+        createButtons(getController().getDifficulties());
     }
 
     private void createButtons(final Collection<String> difficulties) {
@@ -53,8 +53,8 @@ public class DifficultiesController extends InteractiveController implements Ini
      */
     @Override
     public void handle(final ActionEvent event) {
-        // Chose difficulty sent to controller
-        getManager().showBattle();
         GameSoundSystem.playSfx("LowThud.mp3");
+        getController().startGame(((Button) event.getSource()).getText());
+        getManager().showBattle();
     }
 }

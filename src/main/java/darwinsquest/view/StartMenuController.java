@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Class that represents the fxml view controller of the start menu.
  */
-public final class StartMenuController extends InteractiveController implements Initializable {
+public final class StartMenuController extends StageInteractive implements Initializable {
 
     @FXML
     private ImageView logo;

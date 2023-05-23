@@ -3,9 +3,9 @@ package darwinsquest.view;
 import java.util.Objects;
 
 /**
- * Abstract fxml controller.
+ * Stage interactive javafx controller.
  */
-public class InteractiveController {
+public class StageInteractive {
 
     private final StageManager manager;
 
@@ -13,7 +13,7 @@ public class InteractiveController {
      * Default constructor.
      * @param manager the stage manager related to this controller.
      */
-    protected InteractiveController(final StageManager manager) {
+    protected StageInteractive(final StageManager manager) {
         this.manager = Objects.requireNonNull(manager);
     }
 
@@ -21,7 +21,7 @@ public class InteractiveController {
      * Retrieves the {@link javafx.stage.Stage} manager.
      * @return the {@link javafx.stage.Stage} manager.
      */
-    protected StageManager getManager() {
+    protected final StageManager getManager() {
         return manager;
     }
 }

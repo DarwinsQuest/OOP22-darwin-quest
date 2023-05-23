@@ -21,7 +21,7 @@ public final class JavaFXUtils {
      * @param imageName the image resource path to set as repeated background.
      */
     public static void initializeBackground(final Region region, final String imageName) {
-        final var image = new Image("img/" + imageName);
+        final var image = new Image(imageName);
         final var bgImg = new BackgroundImage(
             new Image(image.getUrl(), image.getWidth(), image.getHeight(), true, false),
             BackgroundRepeat.REPEAT,

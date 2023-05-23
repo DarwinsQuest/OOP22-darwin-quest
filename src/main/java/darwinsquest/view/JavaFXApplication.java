@@ -101,7 +101,7 @@ public final class JavaFXApplication extends Application implements StageManager
      */
     @Override
     public void showDifficulties() {
-        setPanelFromFXML(new DifficultiesController(this), "difficultyselector.fxml");
+        setPanelFromFXML(new DifficultiesController(this, controller), "difficultyselector.fxml");
     }
 
     /**
