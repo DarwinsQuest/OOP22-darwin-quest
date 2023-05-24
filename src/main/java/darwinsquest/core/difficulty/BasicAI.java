@@ -11,8 +11,8 @@ import java.util.random.RandomGenerator;
 import java.util.Map;
 import java.util.HashMap;
 
-import darwinsquest.core.Banion;
-import darwinsquest.core.Move;
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.Move;
 
 /**
  * A basic implementation of the game AI.

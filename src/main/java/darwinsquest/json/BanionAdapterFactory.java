@@ -13,10 +13,10 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import darwinsquest.ControllerImpl;
-import darwinsquest.core.Banion;
-import darwinsquest.core.BanionImpl;
-import darwinsquest.core.Move;
-import darwinsquest.core.element.Element;
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.banion.BanionImpl;
+import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.element.Element;
 
 /**
  * An adapter to deserialize an {@link Banion}.
@@ -40,8 +40,8 @@ public class BanionAdapterFactory implements TypeAdapterFactory {
             return null;
         }
         return (TypeAdapter<T>) new BanionAdapter(
-            new NamableLinkAdapter<Element>(Element.class, ElementAdapterFactory.class, ControllerImpl.PATH_ELEMENTS), 
-            new NamableLinkAdapter<Move>(Move.class, MoveAdapterFactory.class, ControllerImpl.PATH_MOVES));
+            new NameableLinkAdapter<Element>(Element.class, ElementAdapterFactory.class, ControllerImpl.PATH_ELEMENTS),
+            new NameableLinkAdapter<Move>(Move.class, MoveAdapterFactory.class, ControllerImpl.PATH_MOVES));
     }
 
     private static class BanionAdapter extends TypeAdapter<Banion> {

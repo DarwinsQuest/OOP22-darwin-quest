@@ -1,10 +1,11 @@
 package darwinsquest;
 
-import darwinsquest.core.Engine;
 import darwinsquest.core.EngineImpl;
-import darwinsquest.core.PlayerImpl;
+import darwinsquest.core.gameobject.PlayerImpl;
 import darwinsquest.view.JavaFXApplication;
 import javafx.application.Application;
+
+import darwinsquest.core.Engine;
 
 import java.util.Objects;
 import java.util.Set;
@@ -18,15 +19,15 @@ public final class ControllerImpl implements Controller {
     private static final String PATH_CONFIG = "config/";
 
     /**
-     * Path to {@link darwinsquest.core.element.Element} definitions.
+     * Path to {@link darwinsquest.core.gameobject.element.Element} definitions.
      */
     public static final String PATH_ELEMENTS = PATH_CONFIG + "elements.json";
     /**
-     * Path to {@link darwinsquest.core.Move} definitions.
+     * Path to {@link darwinsquest.core.gameobject.Move} definitions.
      */
     public static final String PATH_MOVES = PATH_CONFIG + "moves.json";
     /**
-     * Path to {@link darwinsquest.core.Banion} definitions.
+     * Path to {@link darwinsquest.core.gameobject.banion.Banion} definitions.
      */
     public static final String PATH_BANIONS = PATH_CONFIG + "banions.json";
 

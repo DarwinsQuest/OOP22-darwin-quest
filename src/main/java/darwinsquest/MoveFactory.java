@@ -3,7 +3,7 @@ package darwinsquest;
 import java.util.Optional;
 import java.util.Set;
 
-import darwinsquest.core.Move;
+import darwinsquest.core.gameobject.Move;
 import darwinsquest.json.CustomDeserializer;
 import darwinsquest.json.MoveAdapterFactory;
 

@@ -1,6 +1,6 @@
 package darwinsquest.core.difficulty;
 
-import darwinsquest.core.Board;
+import darwinsquest.core.world.Board;
 
 /**
  * Interface of a game difficulty.

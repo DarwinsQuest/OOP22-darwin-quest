@@ -1,8 +1,8 @@
 package darwinsquest.core.decision;
 
 /**
- * Class that represents the {@link darwinsquest.core.Entity}'s choice of
- * a {@link darwinsquest.core.Move} during the battle.
+ * Class that represents the {@link darwinsquest.core.gameobject.Entity}'s choice of
+ * a {@link darwinsquest.core.gameobject.Move} during the battle.
  */
 public final class MoveDecision extends MiscDecision {
 

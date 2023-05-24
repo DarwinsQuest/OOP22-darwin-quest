@@ -23,11 +23,11 @@ public final class MyCollectors {
      */
     public static <T, A extends Set<T>> Collector<T, A, Set<T>> toImmutableSet(final Supplier<A> supplier) {
         return Collector.of(supplier,
-                Set::add,
-                (left, right) -> {
-                    left.addAll(right);
-                    return left;
-                },
-                Collections::unmodifiableSet);
+            Set::add,
+            (left, right) -> {
+                left.addAll(right);
+                return left;
+            },
+            Collections::unmodifiableSet);
     }
 }

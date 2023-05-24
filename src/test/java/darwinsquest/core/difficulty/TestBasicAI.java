@@ -10,13 +10,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import darwinsquest.BanionFactory;
-import darwinsquest.core.Banion;
-import darwinsquest.core.BanionImpl;
-import darwinsquest.core.BasicMove;
-import darwinsquest.core.Move;
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.banion.BanionImpl;
+import darwinsquest.core.gameobject.BasicMove;
+import darwinsquest.core.gameobject.Move;
 import darwinsquest.core.decision.Decision;
-import darwinsquest.core.element.Element;
-import darwinsquest.core.element.Neutral;
+import darwinsquest.core.gameobject.element.Element;
+import darwinsquest.core.gameobject.element.Neutral;
 
 import org.junit.jupiter.api.Test;
 
