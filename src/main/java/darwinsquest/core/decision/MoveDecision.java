@@ -4,8 +4,8 @@ import darwinsquest.core.MoveTurnImpl;
 import darwinsquest.core.Turn;
 
 /**
- * Class that represents the {@link darwinsquest.core.Entity}'s choice of
- * a {@link darwinsquest.core.Move} during the battle.
+ * Class that represents the {@link darwinsquest.core.gameobject.entity.GameEntity}'s choice of
+ * a {@link darwinsquest.core.gameobject.move.Move} during the battle.
  */
 public final class MoveDecision extends MiscDecision {
 

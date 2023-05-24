@@ -11,8 +11,8 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-import darwinsquest.core.element.Element;
-import darwinsquest.core.element.ImmutableElement;
+import darwinsquest.core.gameobject.element.Element;
+import darwinsquest.core.gameobject.element.ImmutableElement;
 
 /**
  * An adapter to deserialize an {@link Element}.
