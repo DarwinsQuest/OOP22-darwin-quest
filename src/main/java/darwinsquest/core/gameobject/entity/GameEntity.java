@@ -1,6 +1,8 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.decision.Decision;
+import darwinsquest.core.gameobject.GameObject;
+import darwinsquest.core.gameobject.Move;
 import darwinsquest.core.gameobject.banion.Banion;
 import java.util.Collection;
 import java.util.List;
@@ -10,10 +12,10 @@ import java.util.Optional;
  * Interface that represents in-game beings, both
  * playable and non-playable characters.
  */
-public interface Entity extends GameObject {
+public interface GameEntity extends GameObject {
 
     /**
-     * Retrieves the {@link Entity}'s personal inventory.
+     * Retrieves the {@link GameEntity}'s personal inventory.
      * @return a list representing the inventory.
      */
     List<Banion> getInventory();
@@ -46,14 +48,14 @@ public interface Entity extends GameObject {
     Optional<Banion> updateInventory(Banion oldBanion, Banion newBanion);
 
     /**
-     * Retrieves the {@link Entity}'s chosen {@link Banion}
+     * Retrieves the {@link GameEntity}'s chosen {@link Banion}
      * to be their active battle companion.
      * @return the chosen Banion.
      */
     Banion deployBanion();
 
     /**
-     * Retrieves the {@link Entity}'s selected {@link Move}
+     * Retrieves the {@link GameEntity}'s selected {@link Move}
      * to be performed by a banion.
      * @param banion the banion to select the move from.
      * @return the selected move.
@@ -62,7 +64,7 @@ public interface Entity extends GameObject {
 
     /**
      * Swaps the active battle {@link Banion} with
-     * another available one chosen by the {@link Entity}.
+     * another available one chosen by the {@link GameEntity}.
      * @return an {@link Optional} containing a {@link Banion} if any is left,
      *         empty otherwise.
      */
@@ -76,8 +78,8 @@ public interface Entity extends GameObject {
     Decision getDecision();
 
     /**
-     * Determines whether the {@link Entity} has any {@link Banion}s left.
-     * @return {@code true} if the {@link Entity} has no more available Banions.
+     * Determines whether the {@link GameEntity} has any {@link Banion}s left.
+     * @return {@code true} if the {@link GameEntity} has no more available Banions.
      *         {@code false} if there are some left.
      */
     boolean isOutOfBanions();

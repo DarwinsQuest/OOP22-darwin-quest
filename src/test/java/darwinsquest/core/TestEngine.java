@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
-import darwinsquest.core.gameobject.PlayerImpl;
+import darwinsquest.core.gameobject.entity.PlayerImpl;
 import org.junit.jupiter.api.Test;
 
 /**
