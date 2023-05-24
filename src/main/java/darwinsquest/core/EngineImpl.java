@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
 import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.gameobject.entity.Player;
+import darwinsquest.core.world.Board;
+import darwinsquest.utility.MyCollectors;
 
 /**
  * Class that represents the engine of darwinsquest model.
@@ -19,8 +21,8 @@ public class EngineImpl implements Engine {
 
     private final List<Class<? extends Difficulty>> difficulties;
     private final Player player;
-    private Optional<Board> board;
-    private Optional<Difficulty> difficulty;
+    private Board board;
+    private Difficulty difficulty;
 
     /**
      * Default constructor.
@@ -28,8 +30,6 @@ public class EngineImpl implements Engine {
      */
     public EngineImpl(final Player player) {
         difficulties = List.of(Normal.class);
-        difficulty = Optional.empty();
-        board = Optional.empty();
         this.player = Objects.requireNonNull(player);
     }
 
@@ -42,7 +42,7 @@ public class EngineImpl implements Engine {
      */
     @Override
     public Set<String> getDifficulties() {
-        return difficulties.stream().map(EngineImpl::getDifficultyName).collect(Collectors.toCollection(LinkedHashSet::new));
+        return difficulties.stream().map(EngineImpl::getDifficultyName).collect(MyCollectors.toImmutableSet(LinkedHashSet::new));
     }
 
     /**
@@ -50,7 +50,7 @@ public class EngineImpl implements Engine {
      */
     @Override
     public boolean startGame(final String difficulty) {
-        if (this.difficulty.isPresent()) {
+        if (Objects.nonNull(this.difficulty)) {
             return false;
         }
 
@@ -59,15 +59,15 @@ public class EngineImpl implements Engine {
             .findFirst()
             .ifPresent(d -> {
                 try {
-                    this.difficulty = Optional.of(d.getDeclaredConstructor().newInstance());
+                    this.difficulty = d.getDeclaredConstructor().newInstance();
                 } catch (InstantiationException | IllegalAccessException
                         | InvocationTargetException | NoSuchMethodException e) {
                     throw new IllegalStateException(e);
                 }
-                board = Optional.of(this.difficulty.get().getBoard());
+                board = this.difficulty.getBoard();
             });
 
-        return this.difficulty.isPresent();
+        return Objects.nonNull(this.difficulty);
     }
 
     /**
@@ -75,7 +75,7 @@ public class EngineImpl implements Engine {
      */
     @Override
     public Optional<Board> getBoard() {
-        return board;
+        return Optional.ofNullable(board);
     }
 
     /**

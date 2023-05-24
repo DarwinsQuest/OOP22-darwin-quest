@@ -3,7 +3,7 @@ package darwinsquest.core.decision;
 import darwinsquest.core.Turn;
 
 /**
- * Interface that represents a decision made by a {@link darwinsquest.core.Entity}
+ * Interface that represents a decision made by a {@link darwinsquest.core.gameobject.entity.GameEntity}
  * during a battle.
  */
 public interface Decision {

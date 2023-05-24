@@ -1,5 +1,6 @@
 package darwinsquest.core;
 
+import darwinsquest.core.world.Die;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
