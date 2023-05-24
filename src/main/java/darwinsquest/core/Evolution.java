@@ -1,21 +1,20 @@
 package darwinsquest.core;
 
+import java.util.function.Predicate;
+
 /**
  * Interface that represents a {@link Banion}'s
  * evolution path.
  */
+@FunctionalInterface
 public interface Evolution {
 
     /**
      * Prompts the {@link Banion}'s evolution.
+     * @param banion the banion to evolve.
+     * @param requirement the condition to meet.
+     * @return {@code true} if evolved.
      */
-    void evolve();
-
-    /**
-     * Determines whether the {@link Banion} can evolve or not.
-     * @return {@code true} if all evolving conditions are met,
-     *         {@code false} otherwise.
-     */
-    boolean canEvolve();
+    boolean evolve(Banion banion, Predicate<Banion> requirement);
 
 }
