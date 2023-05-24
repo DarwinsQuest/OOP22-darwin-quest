@@ -12,6 +12,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import darwinsquest.core.gameobject.element.Elemental;
+import darwinsquest.core.gameobject.move.BasicMove;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -24,6 +26,8 @@ import darwinsquest.core.gameobject.element.Neutral;
  * Test Class for {@link BanionImpl}.
  */
 class TestBanion {
+
+    private static final int DAMAGE = 10;
 
     private final Set<Banion> banions = new BanionFactory().createElements().get();
 
@@ -71,16 +75,20 @@ class TestBanion {
         assertEquals(banion.getHp(), banion.getMaxHp());
     }
 
-    /**
-     * Tests possibility to add {@link darwinsquest.core.gameobject.move.Move} to a {@link BanionImpl}.
-     * @param damage the moves damage.
-     * @param hp the hit points of the {@link BanionImpl}.
-     */
-    @ParameterizedTest
-    @CsvSource({"10, 100"})
-    void numMoves(final int damage, final int hp) {
+    @Test
+    void moves() {
         final var neutral = new Neutral();
+        // It's unlikely that exists an equal move in banion
+        final var newMove = new BasicMove(DAMAGE, "*", neutral);
+
         banions.stream().map(Banion::getMoves).forEach(m -> assertEquals(m.size(), BanionImpl.NUM_MOVES));
+        final var banion = banions.stream().findAny().get();
+
+        assertFalse(banion.getMoves().contains(newMove));
+        final var oldMove = banion.getMoves().stream().findAny().get();
+        assertTrue(banion.replaceMove(oldMove, newMove));
+        assertTrue(banion.getMoves().contains(newMove));
+        assertFalse(banion.getMoves().contains(oldMove));
 
         // Checks types of each Banion move
         banions.forEach(b -> b.getMoves().stream()
