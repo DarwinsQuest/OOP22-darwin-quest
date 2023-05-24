@@ -1,7 +1,6 @@
 package darwinsquest.core;
 
 import darwinsquest.core.gameobject.entity.GameEntity;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
