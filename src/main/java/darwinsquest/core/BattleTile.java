@@ -1,5 +1,9 @@
 package darwinsquest.core;
 
+import darwinsquest.core.gameobject.entity.GameEntity;
+
+import java.util.List;
+
 /**
  * Interface that represents a tile that will prompt a battle.
 */
@@ -7,15 +11,21 @@ public interface BattleTile {
 
     /**
      * Starts the battle.
-    */
-    void startBattle();
+     * @return a list of turns that represent the actions made by the entities
+     *         during the whole battle.
+     */
+    List<Turn> startBattle();
 
     /**
-     * Retrieves the {@link Banion} which is currently deployed in the
-     * battle by the provided {@link Entity}.
-     * @param entity the owner of the currently deployed banion.
-     * @return {@code entity}'s currently deployed banion.
+     * Retrieves the {@link GameEntity} that holds the first turn of the battle.
+     * @return the entity that holds the first turn.
      */
-    Banion getCurrentlyDeployedBanion(Entity entity);
+    GameEntity getPlayer();
+
+    /**
+     * Retrieves the {@link GameEntity} that doesn't hold the first turn of the battle.
+     * @return the entity that doesn't hold the first turn.
+     */
+    GameEntity getOpponent();
 
 }

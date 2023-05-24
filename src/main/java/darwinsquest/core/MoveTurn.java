@@ -1,16 +1,18 @@
 package darwinsquest.core;
 
 
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.move.Move;
 import org.apache.commons.lang3.tuple.Triple;
 
 /**
- * Interface that represents a {@link Turn} in which the {@link Entity} on turn has chosen
- * to perform a move on a {@link Banion}.
+ * Interface that represents a {@link Turn} in which the {@link darwinsquest.core.gameobject.entity.GameEntity} on turn
+ * has chosen to perform a move on a {@link Banion}.
  */
 public interface MoveTurn extends Turn {
 
     /**
-     * Retrieves the {@link Move} chosen by the {@link Entity} on turn,
+     * Retrieves the {@link Move} chosen by the {@link darwinsquest.core.gameobject.entity.GameEntity} on turn,
      * the {@link Banion} which performed the {@link Move} and the {@link Banion}
      * on which the {@link Move} is performed.
      * @return a triple made of the chosen move, the banion which performs the move

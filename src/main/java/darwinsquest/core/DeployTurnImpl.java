@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.entity.GameEntity;
 import java.util.Optional;
 
 /**
@@ -17,15 +19,15 @@ public class DeployTurnImpl extends AbstractTurn implements DeployTurn {
      * @param entityOnTurn the entity will hold the current turn.
      * @param otherEntity  the entity not on turn.
      */
-    public DeployTurnImpl(final Entity entityOnTurn, final Entity otherEntity) {
+    public DeployTurnImpl(final GameEntity entityOnTurn, final GameEntity otherEntity) {
         super(entityOnTurn, otherEntity);
         this.deployedBanion = Optional.empty();
     }
 
     /**
      * Creates a new instance of {@link DeployTurnImpl} from the provided {@link Turn}.
-     * The {@link Entity} on turn is the {@link Entity} that does not hold the turn in {@code previousTurn}.
-     * As a consequence the {@link Entity} not on turn is the {@link Entity} that holds the turn in {@code previousTurn}.
+     * The {@link GameEntity} on turn is the {@link GameEntity} that does not hold the turn in {@code previousTurn}.
+     * As a consequence the {@link GameEntity} not on turn is the {@link GameEntity} that holds the turn in {@code previousTurn}.
      * @param previousTurn the turn from which the new turn is created.
      */
     public DeployTurnImpl(final Turn previousTurn) {
@@ -39,9 +41,9 @@ public class DeployTurnImpl extends AbstractTurn implements DeployTurn {
     @Override
     public Banion getAction() {
         if (this.hasBeenDone()) {
-            final var deployedBanion = this.deployedBanion.get(); // if the state is legal then the banion has already been
+            // final var deployedBanion = this.deployedBanion.get(); // if the state is legal then the banion has already been
                                                                   // deployed, so the optional is not empty.
-            return deployedBanion.copy();
+            return this.deployedBanion.get();
         } else {
             throw new IllegalStateException("The action hasn't already been done.");
         }
@@ -52,7 +54,11 @@ public class DeployTurnImpl extends AbstractTurn implements DeployTurn {
      */
     @Override
     public String toString() {
-        return "DeployTurnImpl[ " + internalState();
+        if (this.hasBeenDone()) {
+            return "DeployTurnImpl[ " + getEntityOnTurn().getName() + " deployed the banion " + deployedBanion.get();
+        } else {
+            return "The turn hasn't already been done.";
+        }
     }
 
     /**
@@ -60,8 +66,9 @@ public class DeployTurnImpl extends AbstractTurn implements DeployTurn {
      */
     @Override
     protected void doAction() {
-        setCurrentlyDeployedBanion(Optional.of(getEntityOnTurn().deployBanion()));
-        this.deployedBanion = onTurnCurrentlyDeployedBanion();
+        final var currentBanion = Optional.of(getEntityOnTurn().deployBanion());
+        setCurrentlyDeployedBanion(currentBanion);
+        this.deployedBanion = Optional.of(currentBanion.get().copy());
     }
 
 }

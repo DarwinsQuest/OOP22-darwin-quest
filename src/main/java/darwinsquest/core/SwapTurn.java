@@ -1,11 +1,11 @@
 package darwinsquest.core;
 
+import darwinsquest.core.gameobject.banion.Banion;
 import org.apache.commons.lang3.tuple.Pair;
-
 import java.util.Optional;
 
 /**
- * Interface that represents a turn in which the {@link Entity} on turn
+ * Interface that represents a turn in which the {@link darwinsquest.core.gameobject.entity.GameEntity} on turn
  * has decided to swap his currently deployed {@link Banion}.
  */
 public interface SwapTurn extends Turn {

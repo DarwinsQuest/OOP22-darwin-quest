@@ -3,6 +3,8 @@ package darwinsquest.core;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.entity.GameEntity;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -12,8 +14,8 @@ import org.apache.commons.lang3.tuple.Pair;
 public abstract class AbstractTurn implements Turn {
 
     private final UUID id;
-    private final Pair<Entity, Optional<Banion>> entityOnTurn;
-    private final Pair<Entity, Optional<Banion>> otherEntity;
+    private final Pair<GameEntity, Optional<Banion>> entityOnTurn;
+    private final Pair<GameEntity, Optional<Banion>> otherEntity;
     private boolean isStateLegal;
 
     /**
@@ -23,7 +25,7 @@ public abstract class AbstractTurn implements Turn {
      * @param entityOnTurn the entity will hold the current turn.
      * @param otherEntity the entity not on turn.
      */
-    public AbstractTurn(final Entity entityOnTurn, final Entity otherEntity) {
+    public AbstractTurn(final GameEntity entityOnTurn, final GameEntity otherEntity) {
         this.id = UUID.randomUUID();
         if (Objects.nonNull(entityOnTurn) && Objects.nonNull(otherEntity)) {
             this.entityOnTurn = new MutablePair<>(entityOnTurn, Optional.empty());
@@ -35,8 +37,9 @@ public abstract class AbstractTurn implements Turn {
 
     /**
      * Creates a new instance of {@link AbstractTurn} from the provided {@link Turn}.
-     * The {@link Entity} on turn is the {@link Entity} that does not hold the turn in {@code previousTurn}.
-     * As a consequence the {@link Entity} not on turn is the {@link Entity} that holds the turn in {@code previousTurn}.
+     * The {@link GameEntity} on turn is the {@link GameEntity} that does not hold the turn in {@code previousTurn}.
+     * As a consequence the {@link GameEntity} not on turn is the {@link GameEntity} that holds the turn
+     * in {@code previousTurn}.
      * @param previousTurn the previous turn in the battle.
      */
     public AbstractTurn(final Turn previousTurn) {
@@ -55,7 +58,7 @@ public abstract class AbstractTurn implements Turn {
      * {@inheritDoc}
      */
     @Override
-    public final Entity getEntityOnTurn() {
+    public final GameEntity getEntityOnTurn() {
         return this.entityOnTurn.getLeft();
     }
 
@@ -75,7 +78,7 @@ public abstract class AbstractTurn implements Turn {
      * {@inheritDoc}
      */
     @Override
-    public final Entity getOtherEntity() {
+    public final GameEntity getOtherEntity() {
         return this.otherEntity.getLeft();
     }
 
@@ -107,7 +110,7 @@ public abstract class AbstractTurn implements Turn {
     }
 
     /**
-     * Allows the {@link Entity} on turn to choose their action.
+     * Allows the {@link GameEntity} on turn to choose their action.
      * @see Turn#performAction()
      */
     protected abstract void doAction();
@@ -144,7 +147,7 @@ public abstract class AbstractTurn implements Turn {
     }
 
     /**
-     * Sets the currently deployed {@link Banion} of the {@link Entity} on turn.
+     * Sets the currently deployed {@link Banion} of the {@link GameEntity} on turn.
      *
      * @param banion the new currently deployed banion of the entity on turn.
      */
