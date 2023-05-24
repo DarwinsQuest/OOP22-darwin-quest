@@ -1,7 +1,7 @@
 package darwinsquest.core.decision;
 
-import darwinsquest.core.SwapTurnImpl;
-import darwinsquest.core.Turn;
+import darwinsquest.core.battle.SwapTurnImpl;
+import darwinsquest.core.battle.Turn;
 
 /**
  * Class that represents the {@link darwinsquest.core.gameobject.entity.GameEntity}'s choice of swapping the currently
