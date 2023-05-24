@@ -1,4 +1,4 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.move;
 
 /**
  * Interface that represents a {@link Move} that can do damage.

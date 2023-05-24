@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import darwinsquest.core.gameobject.banion.Banion;
-import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Element;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

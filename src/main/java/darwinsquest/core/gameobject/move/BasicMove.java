@@ -1,4 +1,4 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.move;
 
 import java.util.Objects;
 

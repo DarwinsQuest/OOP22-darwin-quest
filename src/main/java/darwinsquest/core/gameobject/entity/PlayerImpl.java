@@ -1,7 +1,7 @@
 package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.decision.Decision;
-import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.banion.Banion;
 
 import java.util.Optional;

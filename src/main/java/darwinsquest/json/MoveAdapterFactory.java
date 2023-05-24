@@ -12,8 +12,8 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import darwinsquest.ControllerImpl;
-import darwinsquest.core.gameobject.BasicMove;
-import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.move.BasicMove;
+import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 

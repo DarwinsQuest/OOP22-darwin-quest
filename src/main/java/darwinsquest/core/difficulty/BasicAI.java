@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import darwinsquest.core.gameobject.banion.Banion;
-import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.move.Move;
 
 /**
  * A basic implementation of the game AI.

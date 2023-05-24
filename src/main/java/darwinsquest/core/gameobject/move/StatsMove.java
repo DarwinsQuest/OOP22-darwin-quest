@@ -1,4 +1,4 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.move;
 
 /**
  * Interface that represents a {@link Move} that can change the stats of a {@link darwinsquest.core.gameobject.banion.Banion}.

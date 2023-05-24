@@ -15,7 +15,7 @@ import com.google.gson.stream.JsonWriter;
 import darwinsquest.ControllerImpl;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
-import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Element;
 
 /**
