@@ -1,4 +1,4 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.move;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

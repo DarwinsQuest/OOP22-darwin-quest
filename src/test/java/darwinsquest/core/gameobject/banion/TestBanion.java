@@ -72,7 +72,7 @@ class TestBanion {
     }
 
     /**
-     * Tests possibility to add {@link Move} to a {@link BanionImpl}.
+     * Tests possibility to add {@link darwinsquest.core.gameobject.move.Move} to a {@link BanionImpl}.
      * @param damage the moves damage.
      * @param hp the hit points of the {@link BanionImpl}.
      */

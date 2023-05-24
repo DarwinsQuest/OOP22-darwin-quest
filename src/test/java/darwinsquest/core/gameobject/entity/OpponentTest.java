@@ -2,8 +2,8 @@ package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.difficulty.AI;
 import darwinsquest.core.difficulty.Normal;
-import darwinsquest.core.gameobject.BasicMove;
-import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.move.BasicMove;
+import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import darwinsquest.core.gameobject.element.Element;

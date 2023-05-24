@@ -1,5 +1,6 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.move;
 
+import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.element.Elemental;
 import darwinsquest.utility.Cloneable;

@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import darwinsquest.core.difficulty.AI;
-import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.banion.Banion;
 
 /**

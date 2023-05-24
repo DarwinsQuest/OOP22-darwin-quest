@@ -23,7 +23,7 @@ public final class ControllerImpl implements Controller {
      */
     public static final String PATH_ELEMENTS = PATH_CONFIG + "elements.json";
     /**
-     * Path to {@link darwinsquest.core.gameobject.Move} definitions.
+     * Path to {@link darwinsquest.core.gameobject.move.Move} definitions.
      */
     public static final String PATH_MOVES = PATH_CONFIG + "moves.json";
     /**
