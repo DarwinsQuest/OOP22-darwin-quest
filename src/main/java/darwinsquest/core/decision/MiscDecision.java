@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Class that represents a generic {@link Decision}.
  */
-class MiscDecision implements Decision {
+abstract class MiscDecision implements Decision {
 
     private final String name;
 
