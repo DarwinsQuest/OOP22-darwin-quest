@@ -28,6 +28,10 @@ dependencies {
 
     implementation("org.apache.commons:commons-lang3:$apacheLang3Version")
 
+    val apacheCollections4Version = "4.4";
+
+    implementation("org.apache.commons:commons-collections4:$apacheCollections4Version")
+
     val javaFxVersion = "15"
     
     for (platform in supportedPlatforms) {

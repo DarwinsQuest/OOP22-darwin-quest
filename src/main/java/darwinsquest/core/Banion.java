@@ -1,6 +1,9 @@
 package darwinsquest.core;
 
+import org.apache.commons.collections4.MultiValuedMap;
+
 import java.util.Collection;
+import java.util.function.Predicate;
 
 /**
  * Interface that represents a game monster.
@@ -71,4 +74,51 @@ public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
      * Sets the life stat amount to {@link #getMaxHp()}.
      */
     void setHpToMax();
+
+    /**
+     * Retrieves the current banion level.
+     * @return the current level.
+     */
+    int getLevel();
+
+    /**
+     * Increases the current level.
+     */
+    void increaseLevel();
+
+    /**
+     * Prompts the {@link Banion}'s evolution.
+     * @param requirement the condition to meet.
+     * @return {@code true} if evolved.
+     */
+    boolean evolve(Predicate<Banion> requirement);
+
+    /**
+     * Prompts the {@link Banion}'s evolution to reach
+     * an adequate phase based on the provided level.
+     * The same requirement is applied to each evolution.
+     * Upon the requirement failure, the evolution will be rollback
+     * to the previous legal state.
+     * @param level the level to base the evolution on.
+     * @param requirement the condition to meet.
+     * @return {@code true} if evolved,
+     *         {@code false} in case of rollback.
+     */
+    boolean evolveToLevel(int level, Predicate<Banion> requirement);
+
+    /**
+     * Prompts the {@link Banion}'s evolution to reach an adequate
+     * phase based on the provided level.
+     * By utilising a multimap, this method enables the use of
+     * different requirements across various levels while accommodating
+     * the shared usage of a single requirement for multiple levels.
+     * Upon any requirement failure, the evolution will be rollback
+     * to the previous legal state.
+     * @param requirements a multimap that links a specific requirement
+     *                     to a list of levels.
+     * @return {@code true} if evolved,
+     *         {@code false} in case of rollback.
+     */
+    boolean evolveToLevel(MultiValuedMap<Predicate<Banion>, Integer> requirements);
+
 }
