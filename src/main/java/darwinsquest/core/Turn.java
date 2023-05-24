@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.entity.GameEntity;
 import java.util.Optional;
 
 /**
@@ -8,11 +10,11 @@ import java.util.Optional;
 public interface Turn {
 
     /**
-     * Retrieves the {@link Entity} that holds the turn.
+     * Retrieves the {@link GameEntity} that holds the turn.
      *
      * @return the entity that holds the turn.
      */
-    Entity getEntityOnTurn();
+    GameEntity getEntityOnTurn();
 
     /**
      * Retrieves the currently deployed {@link Banion} of the entity
@@ -24,14 +26,14 @@ public interface Turn {
     Optional<Banion> onTurnCurrentlyDeployedBanion();
 
     /**
-     * Retrieves the {@link Entity} that does not hold the turn.
+     * Retrieves the {@link GameEntity} that does not hold the turn.
      *
      * @return the entity that does not hold the turn.
      */
-    Entity getOtherEntity();
+    GameEntity getOtherEntity();
 
     /**
-     * Retrieves the currently deployed {@link Banion} of the {@link Entity}
+     * Retrieves the currently deployed {@link Banion} of the {@link GameEntity}
      * not on turn.
      *
      * @return the currently deployed banion of the entity not on turn.
@@ -39,7 +41,7 @@ public interface Turn {
     Optional<Banion> otherEntityCurrentlyDeployedBanion();
 
     /**
-     * Allows the {@link Entity} on turn to effectuate their chosen action.
+     * Allows the {@link GameEntity} on turn to effectuate their chosen action.
      *
      * @see AbstractTurn#doAction()
      */

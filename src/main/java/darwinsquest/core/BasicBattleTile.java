@@ -1,18 +1,18 @@
 package darwinsquest.core;
 
+import darwinsquest.core.gameobject.entity.GameEntity;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * A basic implementation of {@link BattleTile}.
  */
 public class BasicBattleTile implements BattleTile {
 
-    private final List<Pair<Entity, Banion>> playersAndCurrentBanions;
+    private final List<GameEntity> players;
 
     /**
      * This constructor creates a new {@link BasicBattleTile} with the
@@ -20,38 +20,50 @@ public class BasicBattleTile implements BattleTile {
      * @param player the entity that starts the battle.
      * @param opponent {@code player}'s opponent.
      */
-    public BasicBattleTile(final Entity player, final Entity opponent) {
-        this.playersAndCurrentBanions = new ArrayList<>();
-        playersAndCurrentBanions.add(new ImmutablePair<>(Objects.requireNonNull(player), null)); 
-        playersAndCurrentBanions.add(new ImmutablePair<>(Objects.requireNonNull(opponent), null));
+    public BasicBattleTile(final GameEntity player, final GameEntity opponent) {
+        this.players = List.of(Objects.requireNonNull(player), Objects.requireNonNull(opponent));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void startBattle() {
-        playersAndCurrentBanions.stream().
-            forEach(tuple -> setCurrentlyDeployedBanion(tuple.getLeft(), tuple.getLeft().deployBanion()));
-        while (noOneIsOutOfBanions()) {
-            for (final var entityAndBanion : playersAndCurrentBanions) {
-                final var entityOnTurn = entityAndBanion.getLeft();
-                if (!getCurrentlyDeployedBanion(entityOnTurn).isAlive()) {
-                    setCurrentlyDeployedBanion(entityOnTurn, entityOnTurn.swapBanion().get());
-                } else {
-                    final var opponentBanion = getCurrentlyDeployedBanion(entityNotOnTurn(entityOnTurn));
-                    entityOnTurn.selectMove(getCurrentlyDeployedBanion(entityOnTurn)).perform(opponentBanion);
-                }
+    public GameEntity getPlayer() {
+        return this.players.get(0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GameEntity getOpponent() {
+        return this.players.get(1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Turn> startBattle() {
+        final List<Turn> turns = new ArrayList<>();
+        final var firstTurn = new DeployTurnImpl(getPlayer(), getOpponent());
+        firstTurn.performAction();
+        turns.add(firstTurn);
+        final var secondTurn = new DeployTurnImpl(firstTurn);
+        secondTurn.performAction();
+        turns.add(secondTurn);
+        while (nobodyIsOutOfBanions()) {
+            final var previousTurn = turns.get(turns.size() - 1);
+            final Turn currentTurn;
+            if (previousTurn.otherEntityCurrentlyDeployedBanion().get().isAlive()) {
+                currentTurn = getEntityOnTurn(previousTurn).getDecision().getAssociatedTurn(previousTurn);
+            } else {
+                currentTurn = new SwapTurnImpl(previousTurn);
             }
+            turns.add(currentTurn);
+            currentTurn.performAction();
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Banion getCurrentlyDeployedBanion(final Entity entity) {
-        return findMatchingTuple(entity).getRight();
+        return Collections.unmodifiableList(turns);
     }
 
     /**
@@ -59,7 +71,7 @@ public class BasicBattleTile implements BattleTile {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(playersAndCurrentBanions);
+        return Objects.hash(players);
     }
 
     /**
@@ -77,34 +89,20 @@ public class BasicBattleTile implements BattleTile {
         return this.getOpponent().equals(battle.getOpponent());
     }
 
-    private void setCurrentlyDeployedBanion(final Entity entity, final Banion banion) {
-        playersAndCurrentBanions.set(playersAndCurrentBanions
-            .indexOf(findMatchingTuple(entity)), new ImmutablePair<>(entity, banion));
-    }
-
-    private Pair<Entity, Banion> findMatchingTuple(final Entity entity) {
-        return playersAndCurrentBanions.stream().filter(tuple -> tuple.getLeft().equals(entity)).toList().get(0);
-    }
-
-    private Entity getOpponent() {
-        return playersAndCurrentBanions.get(1).getLeft();
-    }
-
-    private boolean noOneIsOutOfBanions() {
-        return playersAndCurrentBanions.stream().noneMatch(tuple -> tuple.getLeft().isOutOfBanions());
-    }
-
-    private Entity entityNotOnTurn(final Entity entityOnTurn) {
-        return playersAndCurrentBanions.get((playersAndCurrentBanions.
-            indexOf(findMatchingTuple(entityOnTurn)) + 1) % playersAndCurrentBanions.size()).getLeft();
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "BasicBattleTile [playersAndCurrentBanions=" + playersAndCurrentBanions + "]";
+        return "BasicBattleTile [players=" + players + "]";
+    }
+
+    private boolean nobodyIsOutOfBanions() {
+        return players.stream().noneMatch(GameEntity::isOutOfBanions);
+    }
+
+    private GameEntity getEntityOnTurn(final Turn previousTurn) {
+        return previousTurn.getOtherEntity();
     }
 
 }
