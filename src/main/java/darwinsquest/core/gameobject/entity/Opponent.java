@@ -1,4 +1,4 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.difficulty.AI;
 
@@ -6,7 +6,7 @@ import darwinsquest.core.difficulty.AI;
  * Interface that represents the {@link Player}'s
  * battle opponents.
  */
-public interface Opponent extends Entity {
+public interface Opponent extends GameEntity {
 
     /**
      * Sets the {@link Opponent}'s {@link AI}

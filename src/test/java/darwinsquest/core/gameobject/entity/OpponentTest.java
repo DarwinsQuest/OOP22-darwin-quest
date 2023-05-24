@@ -1,12 +1,13 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.difficulty.AI;
 import darwinsquest.core.difficulty.Normal;
-import darwinsquest.core.gameobject.element.Element;
-import darwinsquest.core.gameobject.element.Neutral;
-
+import darwinsquest.core.gameobject.BasicMove;
+import darwinsquest.core.gameobject.Move;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
+import darwinsquest.core.gameobject.element.Element;
+import darwinsquest.core.gameobject.element.Neutral;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -59,12 +60,12 @@ class OpponentTest {
     @Test
     void addToInventoryTest() {
         // Add collection test.
-        final Entity o1 = new OpponentImpl(NAME_1, AI);
+        final GameEntity o1 = new OpponentImpl(NAME_1, AI);
         o1.addToInventory(banionList.get(0));
         o1.addToInventory(banionList.get(1));
         assertEquals(banionList.subList(0, 2), o1.getInventory());
         // Add element test.
-        final Entity o2 = new OpponentImpl(NAME_1, AI);
+        final GameEntity o2 = new OpponentImpl(NAME_1, AI);
         o2.addToInventory(banionList);
         assertEquals(banionList, o2.getInventory());
     }
@@ -72,7 +73,7 @@ class OpponentTest {
     @Test
     void updateInventoryTest() {
         // Updating the initial inventory to contain all fire banions.
-        final Entity o1 = new OpponentImpl(NAME_1, AI);
+        final GameEntity o1 = new OpponentImpl(NAME_1, AI);
         o1.addToInventory(banionList);
         final List<Optional<Banion>> banionsRemoved = IntStream.range(1, banionList.size())
                 .mapToObj(i -> o1.updateInventory(banionList.get(i), new BanionImpl(neutral, NAME_2, HP, moves)))
@@ -85,7 +86,7 @@ class OpponentTest {
                         .toList()
         );
         // Same banion test.
-        final Entity o2 = new OpponentImpl(NAME_1, AI);
+        final GameEntity o2 = new OpponentImpl(NAME_1, AI);
         final var b1 = banionList.get(0);
         final var b2 = banionList.get(1);
         final var b3 = banionList.get(2);
@@ -95,7 +96,7 @@ class OpponentTest {
         assertFalse(o2.addToInventory(List.of(b1, b2, b3)));
         assertTrue(o2.addToInventory(List.of(b1, b2, b3, new BanionImpl(neutral, NAME_2, HP, moves))));
         // Non-existing banion to update test.
-        final Entity o3 = new OpponentImpl(NAME_1, AI);
+        final GameEntity o3 = new OpponentImpl(NAME_1, AI);
         var retrievedBanion = o3.updateInventory(b1, b2);
         assertTrue(retrievedBanion.isEmpty());
         // Inventory contains newBanion test.
@@ -109,7 +110,7 @@ class OpponentTest {
 
     @Test
     void isOutOfBanionsTest() {
-        final Entity o = new OpponentImpl(NAME_1, AI);
+        final GameEntity o = new OpponentImpl(NAME_1, AI);
         o.addToInventory(banionList);
         assertFalse(o.isOutOfBanions());
         for (int i = 0; i < banionList.size(); i++) {

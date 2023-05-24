@@ -1,7 +1,7 @@
 package darwinsquest;
 
 import darwinsquest.core.EngineImpl;
-import darwinsquest.core.gameobject.PlayerImpl;
+import darwinsquest.core.gameobject.entity.PlayerImpl;
 import darwinsquest.view.JavaFXApplication;
 import javafx.application.Application;
 

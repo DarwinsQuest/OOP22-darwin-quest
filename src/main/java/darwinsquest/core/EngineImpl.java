@@ -10,7 +10,7 @@ import java.util.Set;
 import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
 import darwinsquest.core.difficulty.Normal;
-import darwinsquest.core.gameobject.Player;
+import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.core.world.Board;
 import darwinsquest.utility.MyCollectors;
 

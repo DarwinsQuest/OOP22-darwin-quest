@@ -1,6 +1,7 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.decision.Decision;
+import darwinsquest.core.gameobject.Move;
 import darwinsquest.core.gameobject.banion.Banion;
 
 import java.util.Optional;
@@ -9,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Class that represents the {@link Player} implementation.
  */
-public class PlayerImpl extends AbstractEntity implements Player {
+public class PlayerImpl extends AbstractGameEntity implements Player {
 
     private static final String EXCEPTION_MSG = "User input not yet supported.";
 

@@ -1,4 +1,4 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.decision.Decision;
 
@@ -6,12 +6,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 import darwinsquest.core.difficulty.AI;
+import darwinsquest.core.gameobject.Move;
 import darwinsquest.core.gameobject.banion.Banion;
 
 /**
  * Class that represents the {@link Opponent} implementation.
  */
-public class OpponentImpl extends AbstractEntity implements Opponent {
+public class OpponentImpl extends AbstractGameEntity implements Opponent {
 
     private AI ai;
 

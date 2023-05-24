@@ -1,6 +1,7 @@
-package darwinsquest.core.gameobject;
+package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.decision.Decision;
+import darwinsquest.core.gameobject.Move;
 import darwinsquest.core.gameobject.banion.Banion;
 
 import java.util.Collection;
@@ -11,9 +12,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Abstract class that represents an abstract {@link Entity}.
+ * Abstract class that represents an abstract {@link GameEntity}.
  */
-public abstract class AbstractEntity implements Entity {
+public abstract class AbstractGameEntity implements GameEntity {
 
     private final String nickname;
     private final List<Banion> inventory = new LinkedList<>();
@@ -22,7 +23,7 @@ public abstract class AbstractEntity implements Entity {
      * Basic constructor.
      * @param nickname the entity's nickname.
      */
-    public AbstractEntity(final String nickname) {
+    public AbstractGameEntity(final String nickname) {
         if (Objects.isNull(nickname) || nickname.isBlank()) {
             throw new IllegalArgumentException("Entity nickname cannot be null or blank.");
         }
@@ -108,7 +109,7 @@ public abstract class AbstractEntity implements Entity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final AbstractEntity entity = (AbstractEntity) o;
+        final AbstractGameEntity entity = (AbstractGameEntity) o;
         return Objects.equals(nickname, entity.nickname) && Objects.equals(inventory, entity.inventory);
     }
 
