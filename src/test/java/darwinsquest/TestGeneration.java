@@ -2,15 +2,17 @@ package darwinsquest;
 
 import java.util.Set;
 
-import darwinsquest.core.element.Neutral;
+import darwinsquest.core.gameobject.element.Neutral;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import darwinsquest.core.Banion;
-import darwinsquest.core.Move;
-import darwinsquest.core.element.Element;
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.Move;
+import darwinsquest.core.gameobject.element.Element;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Class that generates {@link Move}, {@link Banion} and {@link Element}.

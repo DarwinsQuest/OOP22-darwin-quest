@@ -3,7 +3,7 @@ package darwinsquest;
 import java.util.Optional;
 import java.util.Set;
 
-import darwinsquest.core.element.Element;
+import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.json.CustomDeserializer;
 import darwinsquest.json.ElementAdapterFactory;
 
