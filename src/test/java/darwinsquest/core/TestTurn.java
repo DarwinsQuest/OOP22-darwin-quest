@@ -166,8 +166,6 @@ class TestTurn {
         assertBanionEquality(turn.onTurnCurrentlyDeployedBanion().get(), actionDone.getMiddle());
         assertBanionEquality(turn.otherEntityCurrentlyDeployedBanion().get(), actionDone.getRight());
         assertEquals(chosenMove.getDamage(), passiveBanionBeforeAction.getHp() - actionDone.getRight().getHp());
-        // assertEquals(turn.onTurnCurrentlyDeployedBanion().get(), actionDone.getMiddle());
-        // assertEquals(turn.otherEntityCurrentlyDeployedBanion().get(), actionDone.getRight());
     }
 
     @Test
@@ -178,10 +176,8 @@ class TestTurn {
         swapTurn.performAction();
         final var banions = swapTurn.getAction();
         assertBanionEquality(oldBanion, banions.getLeft());
-        // assertEquals(oldBanion, banions.getLeft());
         if (banions.getRight().isPresent()) {
             assertBanionEquality(swapTurn.onTurnCurrentlyDeployedBanion().get(), banions.getRight().get());
-            // assertEquals(swapTurn.onTurnCurrentlyDeployedBanion(), banions.getRight());
         }
     }
 
@@ -195,7 +191,6 @@ class TestTurn {
 
     private void assertBanionEquality(final Banion b1, final Banion b2) {
         assertEquals(b1.getHp(), b2.getHp());
-        // assertEquals(b1.getMoves(), b2.getMoves());
         assertEquals(b1.getElement(), b2.getElement());
         assertEquals(b1.getName(), b2.getName());
         assertEquals(b1.getMaxHp(), b2.getMaxHp());
