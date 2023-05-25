@@ -27,4 +27,12 @@ public interface BattleTile {
      */
     GameEntity getOpponent();
 
+    /**
+     * Retrieves if the provided {@link GameEntity} has won the battle.
+     *
+     * @param entity a {@link GameEntity} that is fighting in the battle.
+     * @return {@code true} if {@code entity} has won the battle, {@code false} otherwise.
+     */
+    boolean isWinner(GameEntity entity);
+
 }
