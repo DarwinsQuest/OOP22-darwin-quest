@@ -7,10 +7,11 @@ import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.gameobject.entity.OpponentImpl;
 import darwinsquest.core.gameobject.move.BasicMove;
 import darwinsquest.core.gameobject.move.Move;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -28,8 +29,8 @@ class TestBattle {
     private static final GameEntity E1 = new OpponentImpl("E1", new Normal().getAI());
     private static final GameEntity E2 = new OpponentImpl("E2", new Normal().getAI());
 
-    @BeforeAll
-    static void addBanions() {
+    @BeforeEach
+    void addBanions() {
         final var neutralElement = new Neutral();
         final Set<Move> b1Moves = Set.of(new BasicMove(DAMAGE_1, "m1", neutralElement),
                 new BasicMove(DAMAGE_2, "m2", neutralElement),
@@ -78,6 +79,17 @@ class TestBattle {
     }
 
     @Test
+    void testBattleStart() {
+        final var battle = new BasicBattleTile(E2, E1);
+        battle.startBattle();
+        if (battle.isWinner(E2)) {
+            assertThrows(IllegalStateException.class, battle::startBattle);
+        } else {
+            assertDoesNotThrow(battle::startBattle); // if the "player" is not the winner, the battle can be fought again.
+        }
+    }
+
+    @Test
     void testBattleDevelopment() {
         final var battle = new BasicBattleTile(E1, E2);
         final var report = battle.startBattle();
@@ -104,6 +116,19 @@ class TestBattle {
             } // controls if the game entity swaps the banion that died in the previous turn with a new one (different
               // from the previous banion) in the following turn.
         }
+    }
+
+    @Test
+    void testBattleWinner() {
+        final var battle = new BasicBattleTile(E1, E2);
+        assertThrows(IllegalStateException.class, () -> battle.isWinner(E1));
+        final var report = battle.startBattle();
+        final var lastTurn = report.get(report.size() - 1);
+        final var loser = lastTurn.getOtherEntity(); // the loser is the entity not on turn of the last turn,
+        // because the last turn is a MoveTurn and so the entity not on turn is the entity whose banion is killed.
+        assertTrue(loser.isOutOfBanions());
+        assertFalse(battle.isWinner(loser));
+        assertThrows(NullPointerException.class, () -> battle.isWinner(null));
     }
 
 }

@@ -12,6 +12,8 @@ import java.util.Objects;
 public class BasicBattleTile implements BattleTile {
 
     private final List<GameEntity> players;
+    private boolean hasBeenDone;
+    private GameEntity winner;
 
     /**
      * This constructor creates a new {@link BasicBattleTile} with the
@@ -44,6 +46,9 @@ public class BasicBattleTile implements BattleTile {
      */
     @Override
     public List<Turn> startBattle() {
+        if (hasBeenDone && isWinner(getPlayer())) {
+            throw new IllegalStateException("The battle has already been fought and the player has already won it");
+        } // if the player has already won the battle, he can't play that battle again
         final List<Turn> turns = new ArrayList<>();
         final var firstTurn = new DeployTurnImpl(getPlayer(), getOpponent());
         firstTurn.performAction();
@@ -62,7 +67,21 @@ public class BasicBattleTile implements BattleTile {
             turns.add(currentTurn);
             currentTurn.performAction();
         }
+        hasBeenDone = true; // the field hasBeenDone begins true only at the end of the battle
+        setWinner();
         return Collections.unmodifiableList(turns);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isWinner(final GameEntity entity) {
+        if (hasBeenDone) {
+            return this.winner.equals(Objects.requireNonNull(entity));
+        } else {
+            throw new IllegalStateException("To know the winner, the battle must have been fought");
+        }
     }
 
     /**
@@ -102,6 +121,16 @@ public class BasicBattleTile implements BattleTile {
 
     private GameEntity getEntityOnTurn(final Turn previousTurn) {
         return previousTurn.getOtherEntity();
+    }
+
+    private void setWinner() {
+        if (hasBeenDone) {
+            if (players.stream().filter(GameEntity::isOutOfBanions).findFirst().get().equals(getPlayer())) {
+                this.winner = getOpponent();
+            } else {
+                this.winner = getPlayer();
+            }
+        }
     }
 
 }
