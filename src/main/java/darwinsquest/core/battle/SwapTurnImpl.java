@@ -38,7 +38,7 @@ public class SwapTurnImpl extends AbstractTurn implements SwapTurn {
     @Override
     public Pair<Banion, Optional<Banion>> getAction() {
         if (hasBeenDone()) {
-            return new ImmutablePair<>(oldBanion, Optional.of(newBanion.get()));
+            return new ImmutablePair<>(oldBanion, newBanion);
         } else {
             throw new IllegalStateException("The action hasn't already been done.");
         }

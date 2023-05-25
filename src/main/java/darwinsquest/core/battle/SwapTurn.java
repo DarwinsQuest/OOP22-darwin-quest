@@ -12,7 +12,7 @@ public interface SwapTurn extends Turn {
 
     /**
      * Retrieves the swapped {@link Banion} and the new currently deployed {@link Banion}.
-     * @return a pair composed by the replaced banion and the banion which has replaced the before mentioned one.
+     * @return a {@link Pair} composed by the replaced banion and the banion which has replaced the before mentioned one.
      */
     Pair<Banion, Optional<Banion>> getAction();
 

@@ -12,8 +12,8 @@ import java.util.Optional;
 public class MoveTurnImpl extends AbstractTurn implements MoveTurn {
 
     private Move actionDone;
-    private final Banion activeBanion;
-    private final Banion passiveBanion;
+    private final Banion activeBanion; // the banion which performs the move
+    private final Banion passiveBanion; // the banion on which the move is performed
     private final Banion activeBanionCopy;
     private Optional<Banion> passiveBanionCopy;
 

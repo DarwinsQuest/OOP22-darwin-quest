@@ -17,11 +17,12 @@ public interface Turn {
     GameEntity getEntityOnTurn();
 
     /**
-     * Retrieves the currently deployed {@link Banion} of the entity
+     * Retrieves the currently deployed {@link Banion} of the {@link GameEntity}
      * on turn.
      *
      * @return {@link Optional#empty()} if the entity on turn has not yet deployed a banion or if the entity on turn
-     * is out of banions; an {@link Optional} containing the currently deployed banion otherwise.
+     *         is out of banions;
+     *         an {@link Optional} containing the entity on turn's currently deployed banion otherwise.
      */
     Optional<Banion> onTurnCurrentlyDeployedBanion();
 
@@ -36,7 +37,9 @@ public interface Turn {
      * Retrieves the currently deployed {@link Banion} of the {@link GameEntity}
      * not on turn.
      *
-     * @return the currently deployed banion of the entity not on turn.
+     * @return {@link Optional#empty()} if the entity not on turn has not yet deployed a banion, or if the entity not on turn
+     *         is out of banions;
+     *         an {@link Optional} containing the entity not on turn's currently deployed banion otherwise.
      */
     Optional<Banion> otherEntityCurrentlyDeployedBanion();
 

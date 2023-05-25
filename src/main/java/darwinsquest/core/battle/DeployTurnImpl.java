@@ -28,7 +28,7 @@ public class DeployTurnImpl extends AbstractTurn implements DeployTurn {
      * Creates a new instance of {@link DeployTurnImpl} from the provided {@link Turn}.
      * The {@link GameEntity} on turn is the {@link GameEntity} that does not hold the turn in {@code previousTurn}.
      * As a consequence the {@link GameEntity} not on turn is the {@link GameEntity} that holds the turn in {@code previousTurn}.
-     * @param previousTurn the turn from which the new turn is created.
+     * @param previousTurn the previous turn in the battle.
      */
     public DeployTurnImpl(final Turn previousTurn) {
         super(previousTurn);

@@ -1,7 +1,6 @@
 package darwinsquest.core.battle;
 
 import darwinsquest.core.gameobject.entity.GameEntity;
-
 import java.util.List;
 
 /**
@@ -17,13 +16,13 @@ public interface BattleTile {
     List<Turn> startBattle();
 
     /**
-     * Retrieves the {@link GameEntity} that holds the first turn of the battle.
+     * Retrieves the {@link GameEntity} that holds the first {@link Turn} of the battle.
      * @return the entity that holds the first turn.
      */
     GameEntity getPlayer();
 
     /**
-     * Retrieves the {@link GameEntity} that doesn't hold the first turn of the battle.
+     * Retrieves the {@link GameEntity} that doesn't hold the first {@link Turn} of the battle.
      * @return the entity that doesn't hold the first turn.
      */
     GameEntity getOpponent();
