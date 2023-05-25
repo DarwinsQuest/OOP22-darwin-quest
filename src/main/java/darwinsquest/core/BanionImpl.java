@@ -1,16 +1,18 @@
 package darwinsquest.core;
 
+import darwinsquest.core.element.Element;
+import darwinsquest.core.element.Neutral;
+import darwinsquest.utility.Asserts;
+import org.apache.commons.collections4.MultiValuedMap;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import darwinsquest.core.element.Element;
-import darwinsquest.core.element.Neutral;
-import darwinsquest.utility.Asserts;
 
 /**
  * Class that represents a simple {@link Banion} implementation.
@@ -23,14 +25,18 @@ public final class BanionImpl implements Banion {
     private final Element element;
     private final String name;
     private final Collection<Move> moves;
+    private final Evolution evolution;
+    private int level = 1;
     private int maxHp;
     private int hp;
 
     private BanionImpl(final BanionImpl banion) {
         id = UUID.randomUUID();
         element = banion.element;
-        moves = new HashSet<>(banion.moves);
         name = banion.name;
+        moves = new HashSet<>(banion.moves);
+        evolution = banion.evolution;
+        level = banion.level;
         hp = banion.hp;
         maxHp = banion.maxHp;
     }
@@ -52,6 +58,7 @@ public final class BanionImpl implements Banion {
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
         this.hp = Asserts.intMatch(hp, value -> value > MIN_HP);
         maxHp = this.hp;
+        evolution = new LinearEvolution();
     }
 
     private boolean isMoveAcceptable(final Move move) {
@@ -130,6 +137,62 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void increaseLevel() {
+        level = level + 1;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean evolve(final Predicate<Banion> requirement) {
+        return evolution.evolve(this, requirement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean evolveToLevel(final int level, final Predicate<Banion> requirement) {
+        if (this.level >= level) {
+            throw new IllegalArgumentException("Current level " + "(" + this.level + ") is past: " + level);
+        }
+        // Saving stats for possible rollbacks.
+        final var oldHp = hp;
+        final var oldMaxHp = maxHp;
+        final var oldLevel = this.level;
+
+        boolean lastStatus;
+        while (this.level != level) {
+            lastStatus = evolution.evolve(this, requirement);
+            if (!lastStatus) {
+                rollbackStats(oldHp, oldMaxHp, oldLevel);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean evolveToLevel(final MultiValuedMap<Predicate<Banion>, Integer> requirements) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isAlive() {
         return getHp() > MIN_HP;
     }
@@ -187,4 +250,11 @@ public final class BanionImpl implements Banion {
             + ", hp = " + getHp()
             + ", moves = [" + getMoves().stream().map(Move::toString).collect(Collectors.joining(", ")) + "]]";
     }
+
+    private void rollbackStats(final int oldHp, final int oldMaxHp, final int oldLevel) {
+        hp = oldHp;
+        maxHp = oldMaxHp;
+        level = oldLevel;
+    }
+
 }
