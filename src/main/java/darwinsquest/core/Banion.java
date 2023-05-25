@@ -99,10 +99,13 @@ public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
      * The same requirement is applied to each evolution.
      * Upon the requirement failure, the evolution will be rollback
      * to the previous legal state.
+     * No rollback will be prompted if the provided level is
+     * less or equal to the current banion level.
      * @param level the level to base the evolution on.
      * @param requirement the condition to meet.
      * @return {@code true} if evolved,
-     *         {@code false} in case of rollback.
+     *         {@code false} in case of rollback, or if
+     *         {@code level <= current level}.
      */
     boolean evolveToLevel(int level, Predicate<Banion> requirement);
 
