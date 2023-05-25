@@ -5,7 +5,7 @@ import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Elemental;
 import darwinsquest.utility.Cloneable;
 
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Interface that represents a game monster.
@@ -32,13 +32,13 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion> {
      * @return moves that can be performed.
      * @see Move
      */
-    Collection<Move> getMoves();
+    Set<Move> getMoves();
 
     /**
      * Replaces the {@code old} move with the {@code new} one.
-     * @param oldOne the {@link Move} to remove.
-     * @param newOne the {@link Move} to add.
-     * @return if {@code oldMove} replaced correctly.
+     * @param oldOne the {@link Move} to remove that has to be contained in {@link #getMoves()}.
+     * @param newOne the {@link Move} to add that mustn't be contained in {@link #getMoves()}.
+     * @return if {@code oldOne} replaced correctly with {@code newOne}.
      */
     boolean replaceMove(Move oldOne, Move newOne);
 

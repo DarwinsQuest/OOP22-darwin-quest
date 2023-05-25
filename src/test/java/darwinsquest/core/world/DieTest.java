@@ -1,6 +1,6 @@
-package darwinsquest.core;
+package darwinsquest.core.world;
 
-import darwinsquest.core.world.Die;
+import darwinsquest.core.difficulty.Die;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -3,7 +3,6 @@ package darwinsquest.core.difficulty;
 import darwinsquest.annotation.Description;
 import darwinsquest.core.world.Board;
 import darwinsquest.core.world.BoardImpl;
-import darwinsquest.core.world.Die;
 
 /**
  * Represents normal difficulty.

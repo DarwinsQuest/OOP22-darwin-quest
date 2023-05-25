@@ -1,10 +1,9 @@
-package darwinsquest.core;
+package darwinsquest.core.world;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import darwinsquest.core.world.BoardImpl;
-import darwinsquest.core.world.Die;
+import darwinsquest.core.difficulty.Die;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

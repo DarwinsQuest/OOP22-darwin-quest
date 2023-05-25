@@ -1,6 +1,5 @@
 package darwinsquest.core.gameobject.banion;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,7 +22,7 @@ public final class BanionImpl implements Banion {
     private final UUID id;
     private final Element element;
     private final String name;
-    private final Collection<Move> moves;
+    private final Set<Move> moves;
     private int maxHp;
     private int hp;
 
@@ -46,10 +45,10 @@ public final class BanionImpl implements Banion {
     public BanionImpl(final Element element, final String name, final int hp, final Set<Move> moves) {
         id = UUID.randomUUID();
         this.element = Objects.requireNonNull(element);
-        this.moves = Asserts.match(moves,
+        this.moves = new HashSet<>(Asserts.match(moves,
             value -> Objects.nonNull(value)
             && value.size() == NUM_MOVES
-            && value.stream().allMatch(this::isMoveAcceptable));
+            && value.stream().allMatch(this::isMoveAcceptable)));
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
         this.hp = Asserts.intMatch(hp, value -> value > MIN_HP);
         maxHp = this.hp;
@@ -139,8 +138,8 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
-    public Collection<Move> getMoves() {
-        return Collections.unmodifiableCollection(moves);
+    public Set<Move> getMoves() {
+        return Collections.unmodifiableSet(moves);
     }
 
     /**
@@ -148,7 +147,10 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public boolean replaceMove(final Move oldOne, final Move newOne) {
-        return isMoveAcceptable(newOne) && moves.remove(oldOne) && moves.add(newOne);
+        return isMoveAcceptable(newOne)
+            && !moves.contains(newOne)
+            && moves.remove(oldOne)
+            && moves.add(newOne);
     }
 
     /**
