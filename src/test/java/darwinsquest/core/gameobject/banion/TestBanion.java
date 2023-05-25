@@ -81,14 +81,24 @@ class TestBanion {
         // It's unlikely that exists an equal move in banion
         final var newMove = new BasicMove(DAMAGE, "*", neutral);
 
-        banions.stream().map(Banion::getMoves).forEach(m -> assertEquals(m.size(), BanionImpl.NUM_MOVES));
+        banions.stream().map(Banion::getMoves).forEach(m -> assertEquals(m.size(), Banion.NUM_MOVES));
         final var banion = banions.stream().findAny().get();
 
         assertFalse(banion.getMoves().contains(newMove));
-        final var oldMove = banion.getMoves().stream().findAny().get();
-        assertTrue(banion.replaceMove(oldMove, newMove));
+        final var moves = banion.getMoves().stream().toList();
+
+        // trying to replace a move with a new one
+        assertTrue(banion.replaceMove(moves.get(0), newMove));
+        assertEquals(Banion.NUM_MOVES, banion.getMoves().size());
         assertTrue(banion.getMoves().contains(newMove));
-        assertFalse(banion.getMoves().contains(oldMove));
+        assertFalse(banion.getMoves().contains(moves.get(0)));
+
+        // trying to replace a move with another yet present
+        assertTrue(banion.getMoves().contains(moves.get(1)));
+        assertFalse(banion.replaceMove(newMove, moves.get(1)));
+        assertEquals(Banion.NUM_MOVES, banion.getMoves().size());
+        assertTrue(banion.getMoves().contains(newMove));
+        assertTrue(banion.getMoves().contains(moves.get(1)));
 
         // Checks types of each Banion move
         banions.forEach(b -> b.getMoves().stream()

@@ -1,4 +1,4 @@
-package darwinsquest.core.world;
+package darwinsquest.core.difficulty;
 
 import java.util.Objects;
 import java.util.Random;
