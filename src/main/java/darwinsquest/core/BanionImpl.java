@@ -4,7 +4,9 @@ import darwinsquest.core.element.Element;
 import darwinsquest.core.element.Neutral;
 import darwinsquest.utility.Asserts;
 import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -37,6 +39,7 @@ public final class BanionImpl implements Banion {
     private final String name;
     private final Collection<Move> moves;
     private final Evolution evolution;
+    private final List<Integer> previousLevels;
     private int level = 1;
     private int maxHp;
     private int hp;
@@ -50,6 +53,7 @@ public final class BanionImpl implements Banion {
         level = banion.level;
         hp = banion.hp;
         maxHp = banion.maxHp;
+        previousLevels = new ArrayList<>(banion.previousLevels);
     }
 
     /**
@@ -70,6 +74,7 @@ public final class BanionImpl implements Banion {
         this.hp = Asserts.intMatch(hp, value -> value > MIN_HP);
         maxHp = this.hp;
         evolution = new LinearEvolution();
+        previousLevels = new ArrayList<>();
     }
 
     private boolean isMoveAcceptable(final Move move) {
@@ -196,18 +201,25 @@ public final class BanionImpl implements Banion {
         if (requirements.isEmpty()) {
             return false;
         }
-        final var sortedLevels = requirements.values().stream().sorted().toList();
-        if (sortedLevels.stream().anyMatch(lvl -> Collections.frequency(sortedLevels, lvl) > 1)) {
+        final var mapCopy = new ArrayListValuedHashMap<>(requirements);
+        var sortedLevels = mapCopy.values().stream().sorted().toList();
+        if (hasDuplicates(sortedLevels)) {
             throw new IllegalArgumentException("MultiMap cannot have duplicate values.");
         }
-        final var lowestLevel = sortedLevels.get(0);
-        final var highestLevel = sortedLevels.get(sortedLevels.size() - 1);
-        if (highestLevel >= level || lowestLevel != 1 && lowestLevel <= this.level || highestLevel <= this.level) {
-            throw new IllegalArgumentException("Illegal instance of MultiMap.");
+        // Removing past levels if the map is not new and was not cleared.
+        if (containsPreviousLevels(mapCopy)) {
+            mapCopy.entries().forEach(e -> {
+                if (previousLevels.contains(e.getValue())) {
+                    mapCopy.remove(e.getKey());
+                }
+            });
+            sortedLevels = mapCopy.values().stream().sorted().toList();
         }
-        populateMissingConditions(requirements, sortedLevels);
+        if (hasGaps(level, sortedLevels)) {
+            throw new IllegalArgumentException("MultiMap is missing required values.");
+        }
         final var rollbackRecord = new BanionStats(this.level, hp, maxHp);
-        final var entries = requirements.entries().stream().sorted(Map.Entry.comparingByValue()).toList();
+        final var entries = mapCopy.entries().stream().sorted(Map.Entry.comparingByValue()).toList();
         for (final var e : entries) {
             final var flag = evolve(e.getKey());
             if (!flag) {
@@ -215,6 +227,8 @@ public final class BanionImpl implements Banion {
                 return false;
             }
         }
+        previousLevels.clear();
+        previousLevels.addAll(requirements.values());
         return true;
     }
 
@@ -286,14 +300,26 @@ public final class BanionImpl implements Banion {
         maxHp = record.maxHp();
     }
 
-    private void populateMissingConditions(final MultiValuedMap<Predicate<Banion>, Integer> map,
-                                           final List<Integer> sortedValues) {
-        final var last = sortedValues.get(sortedValues.size() - 1);
-        for (int current = 1; current <= last; current++) {
+    private boolean hasDuplicates(final List<Integer> levels) {
+        return levels.stream().anyMatch(lvl -> Collections.frequency(levels, lvl) > 1);
+    }
+
+    private boolean containsPreviousLevels(final MultiValuedMap<Predicate<Banion>, Integer> map) {
+        return !previousLevels.isEmpty() && map.values().stream().anyMatch(previousLevels::contains);
+    }
+
+    private boolean hasGaps(final int level, final List<Integer> sortedValues) {
+        final var lowest = sortedValues.get(0);
+        // If given starting point does not match the current level.
+        if (lowest != this.level) {
+            return true;
+        }
+        for (int current = lowest; current < level; current++) {
             if (!sortedValues.contains(current)) {
-                map.put(banion -> true, current);
+                return true;
             }
         }
+        return false;
     }
 
 }

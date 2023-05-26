@@ -96,9 +96,12 @@ public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
     /**
      * Prompts the {@link Banion}'s evolution to reach
      * an adequate phase based on the provided level.
+     * <p>
      * The same requirement is applied to each evolution.
+     * <p>
      * Upon the requirement failure, the evolution will be rollback
      * to the previous legal state.
+     * <p>
      * No rollback will be prompted if the provided level is
      * less or equal to the current banion level.
      * @param level the level to reach.
@@ -112,11 +115,16 @@ public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
     /**
      * Prompts the {@link Banion}'s evolution to reach an adequate
      * phase based on the provided level.
+     * <p>
      * By utilising a multimap, this method enables the use of
-     * different requirements across various levels while accommodating
-     * the shared usage of a single requirement for multiple levels.
+     * different requirements across various level values while accommodating
+     * the shared usage of a single requirement for multiple values.
+     * <p>
      * Upon any requirement failure, the evolution will be rollback
      * to the previous legal state.
+     * <p>
+     * This multimap must contain all level values between the {@code current
+     * level} (inclusive) and the given {@code level} (exclusive).
      * @param level the level to reach.
      * @param requirements a multimap that links a specific requirement
      *                     to a list of levels.
