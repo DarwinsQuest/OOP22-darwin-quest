@@ -1,4 +1,4 @@
-package darwinsquest.core.decision;
+package darwinsquest.core.battle.decision;
 
 import java.util.Objects;
 

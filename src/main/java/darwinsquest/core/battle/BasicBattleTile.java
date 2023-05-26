@@ -1,6 +1,9 @@
 package darwinsquest.core.battle;
 
+import darwinsquest.core.battle.turn.DeployTurnImpl;
+import darwinsquest.core.battle.turn.SwapTurnImpl;
 import darwinsquest.core.gameobject.entity.GameEntity;
+import darwinsquest.core.battle.turn.Turn;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

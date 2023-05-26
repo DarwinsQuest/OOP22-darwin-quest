@@ -1,4 +1,4 @@
-package darwinsquest.core.battle;
+package darwinsquest.core.battle.turn;
 
 import darwinsquest.core.gameobject.banion.Banion;
 import org.apache.commons.lang3.tuple.ImmutablePair;

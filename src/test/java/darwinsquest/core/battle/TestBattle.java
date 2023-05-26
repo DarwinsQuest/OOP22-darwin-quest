@@ -1,5 +1,7 @@
 package darwinsquest.core.battle;
 
+import darwinsquest.core.battle.turn.MoveTurn;
+import darwinsquest.core.battle.turn.SwapTurn;
 import darwinsquest.core.difficulty.Normal;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import darwinsquest.core.gameobject.element.Neutral;
