@@ -8,6 +8,8 @@ import org.apache.commons.collections4.MultiValuedMap;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -20,6 +22,15 @@ import java.util.stream.Collectors;
  * The moves can only be of {@link #getElement()}, or {@link Neutral}.
  */
 public final class BanionImpl implements Banion {
+
+    /**
+     * A record that stores a {@link Banion}'s statistics.
+     * @param level current level.
+     * @param hp current hp.
+     * @param maxHp current maxHp.
+     */
+    protected record BanionStats(int level, int hp, int maxHp) {
+    }
 
     private final UUID id;
     private final Element element;
@@ -163,18 +174,14 @@ public final class BanionImpl implements Banion {
     @Override
     public boolean evolveToLevel(final int level, final Predicate<Banion> requirement) {
         if (this.level >= level) {
-            throw new IllegalArgumentException("Current level " + "(" + this.level + ") is past: " + level);
+            throw new IllegalArgumentException("Current level " + "(" + this.level + ") is past or equal to: " + level);
         }
-        // Saving stats for possible rollbacks.
-        final var oldHp = hp;
-        final var oldMaxHp = maxHp;
-        final var oldLevel = this.level;
-
+        final var rollbackRecord = new BanionStats(this.level, hp, maxHp);
         boolean lastStatus;
         while (this.level != level) {
-            lastStatus = evolution.evolve(this, requirement);
+            lastStatus = evolve(requirement);
             if (!lastStatus) {
-                rollbackStats(oldHp, oldMaxHp, oldLevel);
+                rollbackStats(rollbackRecord);
                 return false;
             }
         }
@@ -185,8 +192,30 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
-    public boolean evolveToLevel(final MultiValuedMap<Predicate<Banion>, Integer> requirements) {
-        throw new UnsupportedOperationException();
+    public boolean evolveToLevel(final int level, final MultiValuedMap<Predicate<Banion>, Integer> requirements) {
+        if (requirements.isEmpty()) {
+            return false;
+        }
+        final var sortedLevels = requirements.values().stream().sorted().toList();
+        if (sortedLevels.stream().anyMatch(lvl -> Collections.frequency(sortedLevels, lvl) > 1)) {
+            throw new IllegalArgumentException("MultiMap cannot have duplicate values.");
+        }
+        final var lowestLevel = sortedLevels.get(0);
+        final var highestLevel = sortedLevels.get(sortedLevels.size() - 1);
+        if (highestLevel >= level || lowestLevel != 1 && lowestLevel <= this.level || highestLevel <= this.level) {
+            throw new IllegalArgumentException("Illegal instance of MultiMap.");
+        }
+        populateMissingConditions(requirements, sortedLevels);
+        final var rollbackRecord = new BanionStats(this.level, hp, maxHp);
+        final var entries = requirements.entries().stream().sorted(Map.Entry.comparingByValue()).toList();
+        for (final var e : entries) {
+            final var flag = evolve(e.getKey());
+            if (!flag) {
+                rollbackStats(rollbackRecord);
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -251,10 +280,20 @@ public final class BanionImpl implements Banion {
             + ", moves = [" + getMoves().stream().map(Move::toString).collect(Collectors.joining(", ")) + "]]";
     }
 
-    private void rollbackStats(final int oldHp, final int oldMaxHp, final int oldLevel) {
-        hp = oldHp;
-        maxHp = oldMaxHp;
-        level = oldLevel;
+    private void rollbackStats(final BanionStats record) {
+        level = record.level();
+        hp = record.hp();
+        maxHp = record.maxHp();
+    }
+
+    private void populateMissingConditions(final MultiValuedMap<Predicate<Banion>, Integer> map,
+                                           final List<Integer> sortedValues) {
+        final var last = sortedValues.get(sortedValues.size() - 1);
+        for (int current = 1; current <= last; current++) {
+            if (!sortedValues.contains(current)) {
+                map.put(banion -> true, current);
+            }
+        }
     }
 
 }
