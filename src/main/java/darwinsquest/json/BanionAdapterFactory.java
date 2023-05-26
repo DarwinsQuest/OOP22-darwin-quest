@@ -63,19 +63,8 @@ public class BanionAdapterFactory implements TypeAdapterFactory {
          * {@inheritDoc}
          */
         @Override
-        public void write(final JsonWriter out, final Banion value) throws IOException {
-            out.beginObject();
-            out.name(ELEMENT);
-            elementAdapter.write(out, value.getElement());
-            out.name(NAME).value(value.getName());
-            out.name(HP).value(value.getHp());
-            out.name(MOVES);
-            out.beginArray();
-            for (final var m: value.getMoves()) {
-                moveAdapter.write(out, m);
-            }
-            out.endArray();
-            out.endObject();
+        public void write(final JsonWriter out, final Banion value) {
+            throw new UnsupportedOperationException("The write operation for " + Banion.class.getName() + " isn't allowed.");
         }
 
         /**

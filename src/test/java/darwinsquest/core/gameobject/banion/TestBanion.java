@@ -29,7 +29,7 @@ class TestBanion {
 
     private static final int DAMAGE = 10;
 
-    private final Set<Banion> banions = new BanionFactory().createElements().get();
+    private final Set<Banion> banions = new BanionFactory().createElements();
 
     /**
      * Tests Banion statistic changes.
@@ -117,7 +117,7 @@ class TestBanion {
         final var name = "Translucent";
         final var hp = 100;
         final var element = new Neutral();
-        final var moves = new MoveFactory().createElements().get().stream()
+        final var moves = new MoveFactory().createElements().stream()
             .filter(m -> m.getElement().getClass().equals(element.getClass()))
             .limit(BanionImpl.NUM_MOVES)
             .collect(Collectors.toSet());

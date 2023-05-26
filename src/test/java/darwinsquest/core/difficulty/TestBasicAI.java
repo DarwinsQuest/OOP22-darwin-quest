@@ -29,7 +29,7 @@ class TestBasicAI {
 
     private final Element neutral = new Neutral();
 
-    private final Collection<Banion> banions = new BanionFactory().createElements().get();
+    private final Collection<Banion> banions = new BanionFactory().createElements();
     private final Set<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
         new BasicMove(MOVE_DAMAGE, "2", neutral),
         new BasicMove(MOVE_DAMAGE, "3", neutral),

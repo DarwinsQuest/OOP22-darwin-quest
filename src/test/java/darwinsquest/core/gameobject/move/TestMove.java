@@ -65,7 +65,7 @@ class TestMove {
 
     @Test
     void testEquality() {
-        final var element = new MoveFactory().createElements().get().stream()
+        final var element = new MoveFactory().createElements().stream()
             .filter(m -> !m.getElement().equals(neutral)).findAny().get().getElement();
         final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
         final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_1, neutral);

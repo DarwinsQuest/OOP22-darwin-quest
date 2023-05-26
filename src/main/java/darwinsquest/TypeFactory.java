@@ -1,6 +1,5 @@
 package darwinsquest;
 
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -11,7 +10,7 @@ public interface TypeFactory<T> {
 
     /**
      * Creates elements.
-     * @return the elements provided, {@code Optional#empty()} if error occurred.
+     * @return the elements provided.
      */
-    Optional<Set<T>> createElements();
+    Set<T> createElements();
 }
