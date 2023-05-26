@@ -12,7 +12,6 @@ import darwinsquest.core.gameobject.element.Element;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Class that generates {@link Move}, {@link Banion} and {@link Element}.
@@ -36,14 +35,11 @@ class TestGeneration {
     private static <T> Set<T> read(final Class<T> typeClass, final TypeFactory<T> factory, final int size) {
         final var entities = factory.createElements();
 
-        assertTrue(entities.isPresent(),
-            () -> typeClass.getSimpleName() + "s should be read correctly");
-
-        assertFalse(entities.get().isEmpty(),
+        assertFalse(entities.isEmpty(),
             () -> typeClass.getSimpleName() + "s should contain at least one " + typeClass.getSimpleName());
 
-        assertEquals(entities.get().size(), size);
-        return entities.get();
+        assertEquals(entities.size(), size);
+        return entities;
     }
 
     @BeforeAll

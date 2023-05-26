@@ -60,7 +60,7 @@ public class MoveAdapterFactory implements TypeAdapterFactory {
          * {@inheritDoc}
          */
         @Override
-        public void write(final JsonWriter out, final Move value) throws IOException {
+        public void write(final JsonWriter out, final Move value) {
             throw new UnsupportedOperationException("The write operation for " + Move.class.getName() + " isn't allowed.");
         }
 

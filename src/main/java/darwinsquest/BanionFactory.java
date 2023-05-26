@@ -1,6 +1,5 @@
 package darwinsquest;
 
-import java.util.Optional;
 import java.util.Set;
 
 import darwinsquest.core.gameobject.banion.Banion;
@@ -23,7 +22,7 @@ public class BanionFactory extends CustomDeserializer<Banion> implements TypeFac
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Banion>> createElements() {
+    public Set<Banion> createElements() {
         return readElements();
     }
 }

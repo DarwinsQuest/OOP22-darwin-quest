@@ -48,7 +48,7 @@ public class ElementAdapterFactory implements TypeAdapterFactory {
          * {@inheritDoc}
          */
         @Override
-        public void write(final JsonWriter out, final Element value) throws IOException {
+        public void write(final JsonWriter out, final Element value) {
             throw new UnsupportedOperationException("The write operation for " + Element.class.getName() + " isn't allowed.");
         }
 

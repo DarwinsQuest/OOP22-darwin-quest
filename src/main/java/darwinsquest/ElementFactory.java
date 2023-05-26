@@ -1,6 +1,5 @@
 package darwinsquest;
 
-import java.util.Optional;
 import java.util.Set;
 
 import darwinsquest.core.gameobject.element.Element;
@@ -23,7 +22,7 @@ public class ElementFactory extends CustomDeserializer<Element> implements TypeF
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Element>> createElements() {
+    public Set<Element> createElements() {
         return readElements();
     }
 }
