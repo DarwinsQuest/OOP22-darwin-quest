@@ -1,4 +1,4 @@
-package darwinsquest.core.battle;
+package darwinsquest.core.battle.turn;
 
 import java.util.Objects;
 import java.util.Optional;

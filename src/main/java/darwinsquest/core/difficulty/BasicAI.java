@@ -1,8 +1,8 @@
 package darwinsquest.core.difficulty;
 
-import darwinsquest.core.decision.Decision;
-import darwinsquest.core.decision.MoveDecision;
-import darwinsquest.core.decision.SwapDecision;
+import darwinsquest.core.battle.decision.Decision;
+import darwinsquest.core.battle.decision.MoveDecision;
+import darwinsquest.core.battle.decision.SwapDecision;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;

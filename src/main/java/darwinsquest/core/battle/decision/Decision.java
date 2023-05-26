@@ -1,6 +1,6 @@
-package darwinsquest.core.decision;
+package darwinsquest.core.battle.decision;
 
-import darwinsquest.core.battle.Turn;
+import darwinsquest.core.battle.turn.Turn;
 
 /**
  * Interface that represents a decision made by a {@link darwinsquest.core.gameobject.entity.GameEntity}

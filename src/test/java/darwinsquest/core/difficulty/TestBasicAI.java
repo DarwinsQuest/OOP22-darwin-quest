@@ -13,7 +13,7 @@ import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import darwinsquest.core.gameobject.move.BasicMove;
 import darwinsquest.core.gameobject.move.Move;
-import darwinsquest.core.decision.Decision;
+import darwinsquest.core.battle.decision.Decision;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 import org.junit.jupiter.api.Test;
