@@ -3,12 +3,11 @@ package darwinsquest.core.gameobject.move;
 import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.element.Elemental;
-import darwinsquest.utility.Cloneable;
 
 /**
  * Interface that represents a move that can be performed in a battle.
  */
-public interface Move extends Elemental, GameObject, Cloneable<Move> {
+public interface Move extends Elemental, GameObject {
 
     /**
      * Perform the {@link Move} on a banion.

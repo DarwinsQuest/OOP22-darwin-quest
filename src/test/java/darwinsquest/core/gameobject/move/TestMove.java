@@ -5,11 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Set;
-
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import org.junit.jupiter.api.Test;
-
 import darwinsquest.MoveFactory;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
@@ -76,16 +74,6 @@ class TestMove {
         assertNotEquals(m1, m3); // m1 and m3 have different damage
         assertNotEquals(m1, m4); // m1 and m4 have different element
         assertNotEquals(m2, m4); // m2 and m4 have different name
-    }
-
-    @Test
-    void testCopy() {
-        final Move m1 = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
-        final Move m2 = new BasicMove(LEGAL_BASE_DAMAGE_2, MOVE_NAME_2, neutral);
-        final Move m1Copy = m1.copy();
-        final Move m2Copy = m2.copy();
-        assertEquals(m1, m1Copy);
-        assertEquals(m2, m2Copy);
     }
 
 }
