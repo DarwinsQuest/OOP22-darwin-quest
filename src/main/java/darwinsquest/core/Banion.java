@@ -101,7 +101,7 @@ public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
      * to the previous legal state.
      * No rollback will be prompted if the provided level is
      * less or equal to the current banion level.
-     * @param level the level to base the evolution on.
+     * @param level the level to reach.
      * @param requirement the condition to meet.
      * @return {@code true} if evolved,
      *         {@code false} in case of rollback, or if
@@ -117,11 +117,12 @@ public interface Banion extends Elemental, Nameable, Cloneable<Banion> {
      * the shared usage of a single requirement for multiple levels.
      * Upon any requirement failure, the evolution will be rollback
      * to the previous legal state.
+     * @param level the level to reach.
      * @param requirements a multimap that links a specific requirement
      *                     to a list of levels.
      * @return {@code true} if evolved,
      *         {@code false} in case of rollback.
      */
-    boolean evolveToLevel(MultiValuedMap<Predicate<Banion>, Integer> requirements);
+    boolean evolveToLevel(int level, MultiValuedMap<Predicate<Banion>, Integer> requirements);
 
 }
