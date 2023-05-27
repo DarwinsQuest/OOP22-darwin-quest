@@ -177,12 +177,15 @@ public final class BanionImpl implements Banion {
 
     @Override
     public void increaseXp(final int amount) {
-        final var increase = Asserts.intMatch(xp + amount, value -> value > 0);
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount cannot be 0 or a negative number: " + amount);
+        }
+        final var increase = xp + amount;
         if (increase <= MAX_XP) {
             xp = increase;
         } else {
-            final var increaseRest = Asserts.intMatch(increase - MAX_XP, value -> value > 0);
-            xp = Asserts.intMatch(increase - increaseRest, value -> value > 0);
+            final var increaseRest = increase - MAX_XP;
+            xp = increase - increaseRest;
             evolve(banion -> true);
             xp = increaseRest;
         }
