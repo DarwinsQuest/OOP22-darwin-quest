@@ -1,9 +1,8 @@
 package darwinsquest.core.difficulty;
 
 import darwinsquest.annotation.Description;
-import darwinsquest.core.Board;
-import darwinsquest.core.BoardImpl;
-import darwinsquest.core.Die;
+import darwinsquest.core.world.Board;
+import darwinsquest.core.world.BoardImpl;
 
 /**
  * Represents normal difficulty.

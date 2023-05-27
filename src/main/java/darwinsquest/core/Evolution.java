@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.gameobject.banion.Banion;
+
 import java.util.function.Predicate;
 
 /**
