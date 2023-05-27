@@ -20,16 +20,16 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 
-    val googleGsonVersion = "2.10.1"
+    val javaFakerVersion = "1.0.2"
+    implementation("com.github.javafaker:javafaker:$javaFakerVersion")
 
+    val googleGsonVersion = "2.10.1"
     implementation("com.google.code.gson:gson:$googleGsonVersion")
 
     val apacheLang3Version = "3.12.0"
-
     implementation("org.apache.commons:commons-lang3:$apacheLang3Version")
 
     val javaFxVersion = "15"
-    
     for (platform in supportedPlatforms) {
         for (module in javaFXModules) {
             implementation("org.openjfx:javafx-$module:$javaFxVersion:$platform")
