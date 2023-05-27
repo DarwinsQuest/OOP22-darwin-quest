@@ -1,18 +1,17 @@
 package darwinsquest.core.gameobject.banion;
 
+import darwinsquest.core.Evolvable;
 import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.element.Elemental;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.utility.Cloneable;
-import org.apache.commons.collections4.MultiValuedMap;
 
 import java.util.Set;
-import java.util.function.Predicate;
 
 /**
  * Interface that represents a game monster.
  */
-public interface Banion extends Elemental, GameObject, Cloneable<Banion> {
+public interface Banion extends Elemental, GameObject, Cloneable<Banion>, Evolvable {
 
     /**
      * Allowed number of moves.
@@ -91,50 +90,15 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion> {
     void increaseLevel();
 
     /**
-     * Prompts the {@link Banion}'s evolution.
-     * @param requirement the condition to meet.
-     * @return {@code true} if evolved.
+     * Retrieves the current banion experience amount.
+     * @return the current xp amount.
      */
-    boolean evolve(Predicate<Banion> requirement);
+    int getXp();
 
     /**
-     * Prompts the {@link Banion}'s evolution to reach
-     * an adequate phase based on the provided level.
-     * <p>
-     * The same requirement is applied to each evolution.
-     * <p>
-     * Upon the requirement failure, the evolution will be rollback
-     * to the previous legal state.
-     * <p>
-     * No rollback will be prompted if the provided level is
-     * less or equal to the current banion level.
-     * @param level the level to reach.
-     * @param requirement the condition to meet.
-     * @return {@code true} if evolved,
-     *         {@code false} in case of rollback, or if
-     *         {@code level <= current level}.
+     * Increases the current experience amount.
+     * @param amount the increase.
      */
-    boolean evolveToLevel(int level, Predicate<Banion> requirement);
-
-    /**
-     * Prompts the {@link Banion}'s evolution to reach an adequate
-     * phase based on the provided level.
-     * <p>
-     * By utilising a multimap, this method enables the use of
-     * different requirements across various level values while accommodating
-     * the shared usage of a single requirement for multiple values.
-     * <p>
-     * Upon any requirement failure, the evolution will be rollback
-     * to the previous legal state.
-     * <p>
-     * This multimap must contain all level values between the {@code current
-     * level} (inclusive) and the given {@code level} (exclusive).
-     * @param level the level to reach.
-     * @param requirements a multimap that links a specific requirement
-     *                     to a list of levels.
-     * @return {@code true} if evolved,
-     *         {@code false} in case of rollback.
-     */
-    boolean evolveToLevel(int level, MultiValuedMap<Predicate<Banion>, Integer> requirements);
+    void increaseXp(int amount);
 
 }

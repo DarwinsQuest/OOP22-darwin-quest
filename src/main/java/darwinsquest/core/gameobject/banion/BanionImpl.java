@@ -36,6 +36,7 @@ public final class BanionImpl implements Banion {
     public record BanionStats(int level, int hp, int maxHp) {
     }
 
+    private static final int MAX_XP = 20;
     private final UUID id;
     private final Element element;
     private final String name;
@@ -43,6 +44,7 @@ public final class BanionImpl implements Banion {
     private final Evolution evolution;
     private final List<Integer> previousLevels;
     private int level = 1;
+    private int xp;
     private int maxHp;
     private int hp;
 
@@ -53,6 +55,7 @@ public final class BanionImpl implements Banion {
         moves = new HashSet<>(banion.moves);
         evolution = banion.evolution;
         level = banion.level;
+        xp = banion.xp;
         hp = banion.hp;
         maxHp = banion.maxHp;
         previousLevels = new ArrayList<>(banion.previousLevels);
@@ -165,6 +168,24 @@ public final class BanionImpl implements Banion {
     @Override
     public void increaseLevel() {
         level = level + 1;
+    }
+
+    @Override
+    public int getXp() {
+        return Asserts.intMatch(xp, value -> value >= 0);
+    }
+
+    @Override
+    public void increaseXp(final int amount) {
+        final var increase = Asserts.intMatch(xp + amount, value -> value > 0);
+        if (increase <= MAX_XP) {
+            xp = increase;
+        } else {
+            final var increaseRest = Asserts.intMatch(increase - MAX_XP, value -> value > 0);
+            xp = Asserts.intMatch(increase - increaseRest, value -> value > 0);
+            evolve(banion -> true);
+            xp = increaseRest;
+        }
     }
 
     /**
