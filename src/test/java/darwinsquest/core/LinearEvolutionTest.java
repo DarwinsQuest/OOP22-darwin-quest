@@ -22,6 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LinearEvolutionTest {
 
+    public static final int XP_0 = 0;
+    public static final int XP_5 = 5;
+    public static final int XP_20 = 20;
     public static final int LEVEL_1 = 1;
     public static final int LEVEL_2 = 2;
     public static final int LEVEL_3 = 3;
@@ -136,6 +139,21 @@ class LinearEvolutionTest {
         assertFalse(b.evolveToLevel(LEVEL_5, requirements));
         assertRollback(DEFAULT_RECORD, b);
         requirements.clear();
+    }
+
+    @Test
+    void increaseXpTest() {
+        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, moves);
+        assertEquals(XP_0, b.getXp());
+        b.increaseXp(XP_5);
+        assertEquals(XP_5, b.getXp());
+        assertRecordEquals(DEFAULT_RECORD, b);
+        lastRecord = new BanionStats(LEVEL_2,
+                addPercentage(DEFAULT_RECORD.hp(), 1),
+                addPercentage(DEFAULT_RECORD.maxHp(), 1));
+        b.increaseXp(XP_20);
+        assertEquals(XP_5, b.getXp());
+        assertRecordEquals(lastRecord, b);
     }
 
     private void assertRollback(final BanionStats record, final Banion banion) {
