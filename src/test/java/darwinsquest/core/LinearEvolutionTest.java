@@ -1,8 +1,12 @@
 package darwinsquest.core;
 
-import darwinsquest.core.BanionImpl.BanionStats;
-import darwinsquest.core.element.Element;
-import darwinsquest.core.element.Neutral;
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.banion.BanionImpl;
+import darwinsquest.core.gameobject.banion.BanionImpl.BanionStats;
+import darwinsquest.core.gameobject.element.Element;
+import darwinsquest.core.gameobject.element.Neutral;
+import darwinsquest.core.gameobject.move.BasicMove;
+import darwinsquest.core.gameobject.move.Move;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.junit.jupiter.api.Test;

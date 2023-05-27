@@ -12,10 +12,10 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import darwinsquest.ControllerImpl;
-import darwinsquest.core.BasicMove;
-import darwinsquest.core.Move;
-import darwinsquest.core.element.Element;
-import darwinsquest.core.element.Neutral;
+import darwinsquest.core.gameobject.move.BasicMove;
+import darwinsquest.core.gameobject.move.Move;
+import darwinsquest.core.gameobject.element.Element;
+import darwinsquest.core.gameobject.element.Neutral;
 
 /**
  * An adapter to deserialize an {@link Move}.
@@ -39,7 +39,7 @@ public class MoveAdapterFactory implements TypeAdapterFactory {
             return null;
         }
         return (TypeAdapter<T>) new MoveAdapter(
-            new NamableLinkAdapter<Element>(Element.class, ElementAdapterFactory.class, ControllerImpl.PATH_ELEMENTS));
+            new NameableLinkAdapter<Element>(Element.class, ElementAdapterFactory.class, ControllerImpl.PATH_ELEMENTS));
     }
 
     private static class MoveAdapter extends TypeAdapter<Move> {
@@ -60,7 +60,7 @@ public class MoveAdapterFactory implements TypeAdapterFactory {
          * {@inheritDoc}
          */
         @Override
-        public void write(final JsonWriter out, final Move value) throws IOException {
+        public void write(final JsonWriter out, final Move value) {
             throw new UnsupportedOperationException("The write operation for " + Move.class.getName() + " isn't allowed.");
         }
 

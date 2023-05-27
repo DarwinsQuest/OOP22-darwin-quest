@@ -16,7 +16,7 @@ public @interface Description {
 
     /**
     * Retrieves the relative description.
-    * @return the the relative description.
+    * @return the relative description.
     */
     String value();
 }

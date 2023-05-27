@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the battle scene.
  */
-public final class BattleController extends InteractiveController implements Initializable {
+public final class BattleController extends StageInteractive implements Initializable {
 
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;

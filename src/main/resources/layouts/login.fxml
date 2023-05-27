@@ -9,10 +9,10 @@
       <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0">
          <children>
             <Label text="User name:" />
-            <TextField onKeyReleased="#onUserNameTextChanged" />
+            <TextField fx:id="userName" onKeyReleased="#onUserNameTextChanged" />
          </children>
       </HBox>
-      <Button fx:id="btEnter" onAction="#onEnterAction" text="_Enter" />
+      <Button fx:id="btEnter" disable="true" onAction="#onEnterAction" text="_Enter" />
    </children>
    <stylesheets>
       <URL value="@../styles/fontstyle.css" />

@@ -1,9 +1,8 @@
 package darwinsquest;
 
-import java.util.Optional;
 import java.util.Set;
 
-import darwinsquest.core.Move;
+import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.json.CustomDeserializer;
 import darwinsquest.json.MoveAdapterFactory;
 
@@ -23,7 +22,7 @@ public class MoveFactory extends CustomDeserializer<Move> implements TypeFactory
      * {@inheritDoc}
      */
     @Override
-    public Optional<Set<Move>> createElements() {
+    public Set<Move> createElements() {
         return readElements();
     }
 }

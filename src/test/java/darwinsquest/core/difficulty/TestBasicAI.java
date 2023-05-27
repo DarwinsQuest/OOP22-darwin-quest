@@ -8,16 +8,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
 import darwinsquest.BanionFactory;
-import darwinsquest.core.Banion;
-import darwinsquest.core.BanionImpl;
-import darwinsquest.core.BasicMove;
-import darwinsquest.core.Move;
-import darwinsquest.core.decision.Decision;
-import darwinsquest.core.element.Element;
-import darwinsquest.core.element.Neutral;
-
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.banion.BanionImpl;
+import darwinsquest.core.gameobject.move.BasicMove;
+import darwinsquest.core.gameobject.move.Move;
+import darwinsquest.core.battle.decision.Decision;
+import darwinsquest.core.gameobject.element.Element;
+import darwinsquest.core.gameobject.element.Neutral;
 import org.junit.jupiter.api.Test;
 
 class TestBasicAI {
@@ -31,7 +29,7 @@ class TestBasicAI {
 
     private final Element neutral = new Neutral();
 
-    private final Collection<Banion> banions = new BanionFactory().createElements().get();
+    private final Collection<Banion> banions = new BanionFactory().createElements();
     private final Set<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
         new BasicMove(MOVE_DAMAGE, "2", neutral),
         new BasicMove(MOVE_DAMAGE, "3", neutral),

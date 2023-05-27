@@ -6,6 +6,12 @@ package darwinsquest.view;
 public interface StageManager {
 
     /**
+     * Sets username in title.
+     * @param username the username to set.
+     */
+    void setUsername(String username);
+
+    /**
      * Shows start menu {@link javafx.scene.Scene}.
      */
     void showStartMenu();

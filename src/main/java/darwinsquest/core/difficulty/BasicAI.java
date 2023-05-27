@@ -1,8 +1,8 @@
 package darwinsquest.core.difficulty;
 
-import darwinsquest.core.decision.Decision;
-import darwinsquest.core.decision.MoveDecision;
-import darwinsquest.core.decision.SwapDecision;
+import darwinsquest.core.battle.decision.Decision;
+import darwinsquest.core.battle.decision.MoveDecision;
+import darwinsquest.core.battle.decision.SwapDecision;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
@@ -11,8 +11,8 @@ import java.util.random.RandomGenerator;
 import java.util.Map;
 import java.util.HashMap;
 
-import darwinsquest.core.Banion;
-import darwinsquest.core.Move;
+import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.move.Move;
 
 /**
  * A basic implementation of the game AI.

@@ -1,5 +1,7 @@
 package darwinsquest.core;
 
+import darwinsquest.core.world.Board;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -22,9 +24,9 @@ public interface Engine {
     boolean startGame(String difficulty);
 
     /**
-     * Retrieves a {@link Board} element.
-     * @return the {@link Board}, or {@link Optional#empty()} if game isn't started yet.
-     * @see Board
+     * Retrieves a {@link darwinsquest.core.world.Board} element.
+     * @return the {@link darwinsquest.core.world.Board}, or {@link Optional#empty()} if game isn't started yet.
+     * @see darwinsquest.core.world.Board
      */
     Optional<Board> getBoard();
 
