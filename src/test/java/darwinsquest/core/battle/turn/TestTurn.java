@@ -165,7 +165,8 @@ class TestTurn {
         final var chosenMove = (DamageMove) actionDone.getLeft();
         assertBanionEquality(turn.onTurnCurrentlyDeployedBanion().get(), actionDone.getMiddle());
         assertBanionEquality(turn.otherEntityCurrentlyDeployedBanion().get(), actionDone.getRight());
-        assertEquals(chosenMove.getDamage(), passiveBanionBeforeAction.getHp() - actionDone.getRight().getHp());
+        assertEquals(chosenMove.computeDamage(actionDone.getRight()),
+                passiveBanionBeforeAction.getHp() - actionDone.getRight().getHp());
     }
 
     @Test
