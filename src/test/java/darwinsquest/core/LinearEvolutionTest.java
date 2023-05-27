@@ -24,6 +24,7 @@ class LinearEvolutionTest {
 
     public static final int XP_0 = 0;
     public static final int XP_5 = 5;
+    private static final int XP_15 = 15;
     public static final int XP_20 = 20;
     public static final int LEVEL_1 = 1;
     public static final int LEVEL_2 = 2;
@@ -154,6 +155,17 @@ class LinearEvolutionTest {
         b.increaseXp(XP_20);
         assertEquals(XP_5, b.getXp());
         assertRecordEquals(lastRecord, b);
+        b.increaseXp(XP_15);
+        assertEquals(XP_20, b.getXp());
+        assertRecordEquals(lastRecord, b);
+        lastRecord = new BanionStats(LEVEL_3,
+                addPercentage(lastRecord.hp(), 1),
+                addPercentage(lastRecord.maxHp(), 1));
+        b.increaseXp(XP_5);
+        assertEquals(XP_5, b.getXp());
+        assertRecordEquals(lastRecord, b);
+        assertThrows(IllegalArgumentException.class, () -> b.increaseXp(0));
+        assertThrows(IllegalArgumentException.class, () -> b.increaseXp(-1));
     }
 
     private void assertRollback(final BanionStats record, final Banion banion) {
