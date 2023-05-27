@@ -13,7 +13,7 @@ public interface Element extends GameObject {
      * @param other the {@link Element} to check.
      * @return if the {@code other} is weaker.
      */
-    boolean isWeaker(Element other);
+    boolean isStronger(Element other);
 
     /**
      * Checks if the {@code other} element is stronger than this element.
@@ -21,5 +21,5 @@ public interface Element extends GameObject {
      * @param other the {@link Element} to check.
      * @return if the {@code other} is stronger.
      */
-    boolean isStronger(Element other);
+    boolean isWeaker(Element other);
 }
