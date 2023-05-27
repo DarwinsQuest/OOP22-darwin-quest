@@ -5,8 +5,7 @@ import darwinsquest.ElementFactory;
 import darwinsquest.MoveFactory;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
-import darwinsquest.core.gameobject.entity.Player;
-import darwinsquest.core.gameobject.entity.PlayerImpl;
+import darwinsquest.core.gameobject.entity.OpponentImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.Collectors;
@@ -23,7 +22,7 @@ class TestNormal {
     void opponents() {
         final int hp = 100;
 
-        final Player player = new PlayerImpl(new Faker().name().firstName());
+        final var player = new OpponentImpl(new Faker().name().firstName(), new BasicAI());
         final var element = new ElementFactory().createElements().stream().findAny().orElseThrow(IllegalStateException::new);
 
         player.addToInventory(new BanionImpl(element,
@@ -37,9 +36,11 @@ class TestNormal {
         final var difficulty = new Normal();
         final var board = difficulty.getBoard();
 
-        assertEquals(1, difficulty.getOpponent(player).getInventory().size());
+        assertEquals(1, difficulty.createOpponent(player).getInventory().size());
+        board.startBattle(player);
         while (board.move().isPresent()) {
-            assertTrue(difficulty.getOpponent(player).getInventory().size() > 0);
+            assertTrue(difficulty.createOpponent(player).getInventory().size() > 0);
+            board.startBattle(player);
         }
     }
 }

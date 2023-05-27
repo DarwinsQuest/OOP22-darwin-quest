@@ -7,7 +7,7 @@ import java.util.function.IntSupplier;
 import darwinsquest.utility.Asserts;
 
 /**
- * Class that represents a simple {@link Board} implementation.
+ * Class that represents a simple {@link Board}.
  * The start position is always considered the first.
  */
 public class BoardImpl implements Board {

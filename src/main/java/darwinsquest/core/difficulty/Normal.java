@@ -5,16 +5,16 @@ import darwinsquest.BanionFactory;
 import darwinsquest.annotation.Description;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.element.Elemental;
-import darwinsquest.core.gameobject.entity.Opponent;
+import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.gameobject.entity.OpponentImpl;
-import darwinsquest.core.gameobject.entity.Player;
-import darwinsquest.core.world.Board;
-import darwinsquest.core.world.BoardImpl;
+import darwinsquest.core.world.BattleBoard;
+import darwinsquest.core.world.BattleBoardImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,14 +31,14 @@ public final class Normal implements Difficulty {
     private static final int LAST_LEVEL = LEVELS + 1;
 
     private final AI ai;
-    private final Board board;
+    private final BattleBoard board;
 
     /**
      * Default constructor.
      */
     public Normal() {
         ai = new BasicAI();
-        board = new BoardImpl(LEVELS, new Die(MAX_STEP));
+        board = new BattleBoardImpl(LEVELS, new Die(MAX_STEP), this);
     }
 
     /**
@@ -53,11 +53,11 @@ public final class Normal implements Difficulty {
      * {@inheritDoc}
      */
     @Override
-    public Board getBoard() {
+    public BattleBoard getBoard() {
         return board;
     }
 
-    private Banion getFirstOpponent(final Player player, final List<Banion> banions) {
+    private Banion createFirstOpponent(final List<Banion> banions, final GameEntity player) {
         Collections.shuffle(banions);
         return banions.stream()
             .filter(b -> player.getInventory().stream()
@@ -67,7 +67,7 @@ public final class Normal implements Difficulty {
             .orElseThrow(IllegalStateException::new);
     }
 
-    private Collection<Banion> getMidOpponent(final Player player, final List<Banion> banions) {
+    private Collection<Banion> createMidOpponent(final List<Banion> banions, final GameEntity player) {
         Set<Banion> result;
         do {
             Collections.shuffle(banions);
@@ -82,7 +82,7 @@ public final class Normal implements Difficulty {
         return result;
     }
 
-    private Collection<Banion> getLastOpponent(final Player player, final List<Banion> banions) {
+    private Collection<Banion> createLastOpponent(final List<Banion> banions, final GameEntity player) {
         Collections.shuffle(banions);
         return banions.stream()
             .filter(b -> player.getInventory().stream()
@@ -97,13 +97,13 @@ public final class Normal implements Difficulty {
      * {@inheritDoc}
      */
     @Override
-    public Opponent getOpponent(final Player player) {
+    public GameEntity createOpponent(final GameEntity player) {
         final var opponent = new OpponentImpl(new Faker().name().firstName(), getAI());
         final var banions = new ArrayList<>(new BanionFactory().createElements());
-        switch (board.getPos()) {
-            case FIRST_LEVEL -> opponent.addToInventory(getFirstOpponent(player, banions));
-            case LAST_LEVEL -> opponent.addToInventory(getLastOpponent(player, banions));
-            default -> opponent.addToInventory(getMidOpponent(player, banions));
+        switch (Objects.isNull(board) ? FIRST_LEVEL : board.getPos()) {
+            case FIRST_LEVEL -> opponent.addToInventory(createFirstOpponent(banions, player));
+            case LAST_LEVEL -> opponent.addToInventory(createLastOpponent(banions, player));
+            default -> opponent.addToInventory(createMidOpponent(banions, player));
         }
         return opponent;
     }

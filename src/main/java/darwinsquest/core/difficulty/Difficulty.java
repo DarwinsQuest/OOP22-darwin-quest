@@ -1,8 +1,7 @@
 package darwinsquest.core.difficulty;
 
-import darwinsquest.core.gameobject.entity.Opponent;
-import darwinsquest.core.gameobject.entity.Player;
-import darwinsquest.core.world.Board;
+import darwinsquest.core.gameobject.entity.GameEntity;
+import darwinsquest.core.world.BattleBoard;
 
 /**
  * Interface of a game difficulty.
@@ -25,16 +24,16 @@ public interface Difficulty {
     AI getAI();
 
     /**
-     * Provides the {@link Board} for this type of {@link Difficulty}.
-     * @return the {@link Board}.
+     * Provides the {@link BattleBoard} for this type of {@link Difficulty}.
+     * @return the {@link BattleBoard}.
      */
-    Board getBoard();
+    BattleBoard getBoard();
 
     /**
-     * Retrieves the {@link Opponent}
+     * Retrieves the {@link GameEntity}
      * that corresponds to a given {@code level}.
-     * @param player the player that will have to face with the {@link Opponent}.
+     * @param player the player that will fight the opponent.
      * @return the opponent.
      */
-    Opponent getOpponent(Player player);
+    GameEntity createOpponent(GameEntity player);
 }

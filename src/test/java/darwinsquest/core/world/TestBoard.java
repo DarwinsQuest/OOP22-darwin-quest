@@ -25,6 +25,7 @@ class TestBoard {
     void movement(final int levels) {
         final var board = new BoardImpl(levels, new Die());
         int pos = 0;
+        assertEquals(levels, board.getLevels());
 
         while (board.move().isPresent()) {
             pos = board.getPos();

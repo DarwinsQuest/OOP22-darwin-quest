@@ -1,6 +1,6 @@
 package darwinsquest.core.battle.turn;
 
-import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.difficulty.BasicAI;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import darwinsquest.core.gameobject.element.ImmutableElement;
@@ -25,9 +25,8 @@ class TestTurn {
     private static final int HP = 100;
     private static final int DAMAGE_1 = 20;
     private static final int DAMAGE_2 = 15;
-    private static final GameEntity E1 = new OpponentImpl("e1", new Normal().getAI());
-    private static final GameEntity E2 = new OpponentImpl("e2", new Normal().getAI());
-
+    private static final GameEntity E1 = new OpponentImpl("e1", new BasicAI());
+    private static final GameEntity E2 = new OpponentImpl("e2", new BasicAI());
 
     @BeforeAll
     static void addBanions() {
