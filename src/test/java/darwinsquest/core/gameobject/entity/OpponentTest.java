@@ -1,7 +1,7 @@
 package darwinsquest.core.gameobject.entity;
 
 import darwinsquest.core.difficulty.AI;
-import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.difficulty.BasicAI;
 import darwinsquest.core.gameobject.move.BasicMove;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.banion.Banion;
@@ -27,7 +27,7 @@ class OpponentTest {
     private static final String NAME_1 = "Alice";
     private static final String NAME_2 = "Bob";
     private static final int MOVE_DAMAGE = 10;
-    private static final AI AI = new Normal().getAI();
+    private static final AI AI = new BasicAI();
 
     private final Element neutral = new Neutral();
 

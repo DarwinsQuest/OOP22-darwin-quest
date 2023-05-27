@@ -7,6 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
+import com.github.javafaker.Faker;
+import darwinsquest.BanionFactory;
 import darwinsquest.core.gameobject.entity.PlayerImpl;
 import org.junit.jupiter.api.Test;
 
@@ -15,15 +17,17 @@ import org.junit.jupiter.api.Test;
  */
 class TestEngine {
 
-    private static final String PLAYER_NAME = "I";
-    private final RandomGenerator generator = new Random();
-
     @Test
     void difficulties() {
-        final var engine = new EngineImpl(new PlayerImpl(PLAYER_NAME));
+        final RandomGenerator generator = new Random();
+        final var player = new PlayerImpl(new Faker().name().firstName());
+        final var engine = new EngineImpl(player);
 
-        engine.getDifficulties().forEach(difficulty ->
-            assertTrue(engine.startGame(difficulty)));
+        player.addToInventory(new BanionFactory().createElements().stream()
+            .findAny()
+            .orElseThrow(IllegalStateException::new));
+
+        engine.getDifficulties().forEach(difficulty -> assertTrue(engine.startGame(difficulty)));
 
         var stringLength = 0;
         var generatedDifficulty = "";
@@ -34,7 +38,7 @@ class TestEngine {
             generatedDifficulty = new String(array, StandardCharsets.UTF_8);
         }
 
-        final var nonexistingDifficulty = generatedDifficulty;
-        assertFalse(engine.startGame(nonexistingDifficulty));
+        final var nonExistingDifficulty = generatedDifficulty;
+        assertFalse(engine.startGame(nonExistingDifficulty));
     }
 }

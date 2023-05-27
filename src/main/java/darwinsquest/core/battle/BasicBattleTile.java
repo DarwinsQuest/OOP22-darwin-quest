@@ -80,11 +80,7 @@ public class BasicBattleTile implements BattleTile {
      */
     @Override
     public boolean isWinner(final GameEntity entity) {
-        if (hasBeenDone) {
-            return this.winner.equals(Objects.requireNonNull(entity));
-        } else {
-            throw new IllegalStateException("To know the winner, the battle must have been fought");
-        }
+        return Objects.nonNull(winner) && winner.equals(entity);
     }
 
     /**

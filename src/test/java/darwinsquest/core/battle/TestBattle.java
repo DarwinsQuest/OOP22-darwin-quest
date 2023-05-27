@@ -2,7 +2,7 @@ package darwinsquest.core.battle;
 
 import darwinsquest.core.battle.turn.MoveTurn;
 import darwinsquest.core.battle.turn.SwapTurn;
-import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.difficulty.BasicAI;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import darwinsquest.core.gameobject.element.Neutral;
 import darwinsquest.core.gameobject.entity.GameEntity;
@@ -28,8 +28,10 @@ class TestBattle {
     private static final int HP_2 = 25;
     private static final int HP_3 = 30;
     private static final int HP_4 = 35;
-    private static final GameEntity E1 = new OpponentImpl("E1", new Normal().getAI());
-    private static final GameEntity E2 = new OpponentImpl("E2", new Normal().getAI());
+    private static final GameEntity E1 = new OpponentImpl("E1",
+        new BasicAI());
+    private static final GameEntity E2 = new OpponentImpl("E2",
+        new BasicAI());
 
     @BeforeEach
     void addBanions() {
@@ -123,14 +125,14 @@ class TestBattle {
     @Test
     void testBattleWinner() {
         final var battle = new BasicBattleTile(E1, E2);
-        assertThrows(IllegalStateException.class, () -> battle.isWinner(E1));
+        assertFalse(battle.isWinner(E1));
         final var report = battle.startBattle();
         final var lastTurn = report.get(report.size() - 1);
         final var loser = lastTurn.getOtherEntity(); // the loser is the entity not on turn of the last turn,
         // because the last turn is a MoveTurn and so the entity not on turn is the entity whose banion is killed.
         assertTrue(loser.isOutOfBanions());
         assertFalse(battle.isWinner(loser));
-        assertThrows(NullPointerException.class, () -> battle.isWinner(null));
+        assertFalse(battle.isWinner(null));
     }
 
 }
