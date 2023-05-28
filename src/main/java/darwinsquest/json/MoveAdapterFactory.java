@@ -22,6 +22,10 @@ import darwinsquest.core.gameobject.element.Neutral;
  */
 public class MoveAdapterFactory implements TypeAdapterFactory {
 
+    private static final String NAME = "name";
+    private static final String ELEMENT = "element";
+    private static final String DAMAGE = "damage";
+
     /**
      * Default constructor.
      */
@@ -43,10 +47,6 @@ public class MoveAdapterFactory implements TypeAdapterFactory {
     }
 
     private static class MoveAdapter extends TypeAdapter<Move> {
-
-        private static final String NAME = "name";
-        private static final String ELEMENT = "element";
-        private static final String DAMAGE = "damage";
 
         private final Element genericElement = new Neutral();
 

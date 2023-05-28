@@ -3,13 +3,13 @@ package darwinsquest.core;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
 import com.github.javafaker.Faker;
 import darwinsquest.BanionFactory;
 import darwinsquest.core.gameobject.entity.PlayerImpl;
+import darwinsquest.json.utility.JsonUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -33,7 +33,7 @@ class TestEngine {
         while (engine.getDifficulties().contains(generatedDifficulty)) {
             final var array = new byte[++stringLength];
             generator.nextBytes(array);
-            generatedDifficulty = new String(array, StandardCharsets.UTF_8);
+            generatedDifficulty = new String(array, JsonUtils.CHARSET);
         }
 
         final var nonExistingDifficulty = generatedDifficulty;
