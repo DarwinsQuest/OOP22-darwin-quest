@@ -23,7 +23,7 @@ class TestNormal {
         final int hp = 100;
 
         final var player = new OpponentImpl(new Faker().name().firstName(), new BasicAI());
-        final var element = new ElementFactory().createElements().stream().findAny().orElseThrow(IllegalStateException::new);
+        final var element = new ElementFactory().createElements().stream().findAny().orElseThrow();
 
         player.addToInventory(new BanionImpl(element,
             new Faker().name().firstName(),

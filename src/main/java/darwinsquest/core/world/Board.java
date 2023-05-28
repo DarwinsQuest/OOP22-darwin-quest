@@ -20,6 +20,12 @@ public interface Board {
     int getPos();
 
     /**
+     * If the player can move to next tile.
+     * @return if player can move to next tile.
+     */
+    boolean canMove();
+
+    /**
      * Tries to compute a movement of a certain step.
      * @return the step of movement, or {@link OptionalInt#empty()} if can't move.
      */

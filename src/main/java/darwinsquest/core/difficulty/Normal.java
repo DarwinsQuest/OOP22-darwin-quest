@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -64,7 +63,7 @@ public final class Normal implements Difficulty {
                 .map(Elemental::getElement)
                 .anyMatch(e -> b.getElement().isWeaker(e)))
             .findAny()
-            .orElseThrow(IllegalStateException::new);
+            .orElseThrow();
     }
 
     private Collection<Banion> createMidOpponent(final List<Banion> banions, final GameEntity player) {
@@ -98,9 +97,13 @@ public final class Normal implements Difficulty {
      */
     @Override
     public GameEntity createOpponent(final GameEntity player) {
+        if (player.isOutOfBanions()) {
+            throw new IllegalArgumentException("Player should have at least one "
+                + Banion.class.getName() + " alive to create a valid opponent.");
+        }
         final var opponent = new OpponentImpl(new Faker().name().firstName(), getAI());
         final var banions = new ArrayList<>(new BanionFactory().createElements());
-        switch (Objects.isNull(board) ? FIRST_LEVEL : board.getPos()) {
+        switch (board.getPos()) {
             case FIRST_LEVEL -> opponent.addToInventory(createFirstOpponent(banions, player));
             case LAST_LEVEL -> opponent.addToInventory(createLastOpponent(banions, player));
             default -> opponent.addToInventory(createMidOpponent(banions, player));

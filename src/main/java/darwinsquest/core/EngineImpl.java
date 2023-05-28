@@ -11,7 +11,7 @@ import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
 import darwinsquest.core.difficulty.Normal;
 import darwinsquest.core.gameobject.entity.Player;
-import darwinsquest.core.world.Board;
+import darwinsquest.core.world.BattleBoard;
 import darwinsquest.utility.MyCollectors;
 
 /**
@@ -21,7 +21,7 @@ public class EngineImpl implements Engine {
 
     private final List<Class<? extends Difficulty>> difficulties;
     private final Player player;
-    private Board board;
+    private BattleBoard board;
     private Difficulty difficulty;
 
     /**
@@ -74,7 +74,7 @@ public class EngineImpl implements Engine {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Board> getBoard() {
+    public Optional<BattleBoard> getBoard() {
         return Optional.ofNullable(board);
     }
 
