@@ -1,5 +1,6 @@
 package darwinsquest.view;
 
+import darwinsquest.view.graphics.BanionsSpriteReader;
 import darwinsquest.view.graphics.SpriteAnimation;
 import darwinsquest.view.sound.GameSoundSystem;
 import javafx.animation.Animation;
@@ -29,7 +30,7 @@ public final class BattleController extends StageInteractive implements Initiali
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;
     private static final int BG_UPSCALE = 4;
-    private static final Image IMAGE1 = new Image("img/banions/AngryPig/Idle (36x30).png");
+    private static final Image IMAGE1 = new BanionsSpriteReader().getBanionSprite("angrypig", BanionsSpriteReader.Sprite.IDLE);
     private static final int FRAMES_IMG1 = 9;
     private static final int WIDTH_IMG1 = 36;
     private static final int HEIGHT_IMG1 = 30;

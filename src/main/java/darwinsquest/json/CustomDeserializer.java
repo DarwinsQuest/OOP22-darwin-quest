@@ -47,10 +47,10 @@ public class CustomDeserializer<T> {
     protected final Set<T> readElements() {
         try {
             return Collections.unmodifiableSet(
-                JsonUtils.readJsonArrayFromResource(
+                JsonUtils.readJsonArrayFromResourceToSet(
+                    url,
                     typeClass,
-                    new GsonBuilder().registerTypeAdapterFactory(factoryAdapter).create(),
-                    url));
+                    new GsonBuilder().registerTypeAdapterFactory(factoryAdapter).create()));
         } catch (final IOException e) {
             throw new IllegalStateException(e);
         }

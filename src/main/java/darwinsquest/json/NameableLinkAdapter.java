@@ -43,9 +43,9 @@ class NameableLinkAdapter<T extends Nameable> extends TypeAdapter<T> {
     }
 
     private void readElements() throws IOException {
-        elements = JsonUtils.readJsonArrayFromResource(typeClass,
-            new GsonBuilder().registerTypeAdapterFactory(typeFactory).create(),
-            url);
+        elements = JsonUtils.readJsonArrayFromResourceToSet(url,
+            typeClass,
+            new GsonBuilder().registerTypeAdapterFactory(typeFactory).create());
     }
 
     /**
@@ -65,10 +65,9 @@ class NameableLinkAdapter<T extends Nameable> extends TypeAdapter<T> {
             readElements();
         }
         final String name = in.nextString();
-        final var result = elements.stream().filter(e -> e.getName().equals(name)).findFirst();
-        if (result.isEmpty()) {
-            throw new IllegalStateException();
-        }
-        return result.get();
+        return elements.stream()
+            .filter(e -> e.getName().equals(name))
+            .findFirst()
+            .orElseThrow();
     }
 }

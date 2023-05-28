@@ -19,6 +19,10 @@ import darwinsquest.core.gameobject.element.ImmutableElement;
  */
 public class ElementAdapterFactory implements TypeAdapterFactory {
 
+    private static final String NAME = "name";
+    private static final String WEAKER = "weaker";
+    private static final String STRONGER = "stronger";
+
     /**
      * Default constructor.
      */
@@ -39,10 +43,6 @@ public class ElementAdapterFactory implements TypeAdapterFactory {
     }
 
     private static class ElementAdapter extends TypeAdapter<Element> {
-
-        private static final String NAME = "name";
-        private static final String WEAKER = "weaker";
-        private static final String STRONGER = "stronger";
 
         /**
          * {@inheritDoc}
