@@ -38,10 +38,10 @@ public final class JsonUtils {
      * @throws IOException the exception that can raise from reading a file.
      */
     public static void readJsonArrayFromResource(final String url, final Consumer<JsonReader> consumer)
-        throws IOException {
+            throws IOException {
         try (var reader = new JsonReader(new InputStreamReader(
-            Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(url)),
-            CHARSET))) {
+                Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(url)),
+                CHARSET))) {
             reader.beginArray();
             while (reader.hasNext()) {
                 consumer.accept(reader);
@@ -62,7 +62,7 @@ public final class JsonUtils {
     public static <K, V> Map<K, V> readJsonArrayFromResourceToMap(
             final String url,
             final Function<JsonReader, Pair<K, V>> function)
-        throws IOException {
+                throws IOException {
         final Map<K, V> elements = new Hashtable<>();
         readJsonArrayFromResource(url, in -> {
             final var pair = function.apply(in);
@@ -79,7 +79,7 @@ public final class JsonUtils {
      * @throws IOException the exception that can raise from reading a file.
      */
     public static Map<String, String> readJsonArrayFromResourceToMap(final String url, final Pair<String, String> identifier)
-        throws IOException {
+            throws IOException {
         return readJsonArrayFromResourceToMap(url, in -> {
             String key = "";
             String value = "";

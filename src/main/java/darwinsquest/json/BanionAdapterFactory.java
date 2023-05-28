@@ -30,15 +30,10 @@ public class BanionAdapterFactory implements TypeAdapterFactory {
     private static final String ELEMENT = "element";
     private static final String HP = "hp";
     private static final String MOVES = "moves";
-
     /**
-     * {@link Banion}'s Idle sprite url.
+     * {@link Banion}s's sprites.
      */
-    public static final String IDLE = "srcIdle";
-    /**
-     * {@link Banion}'s Hit sprite url.
-     */
-    public static final String HIT = "srcHit";
+    public static final String SPRITES = "sprites";
 
     /**
      * Default constructor.
