@@ -34,13 +34,29 @@ public class BattleBoardImpl extends BoardImpl implements BattleBoard {
      * {@inheritDoc}
      */
     @Override
+    public boolean canMove() {
+        return isBattleWon() && super.canMove();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public OptionalInt move() {
-        if (!battle.isWinner(battle.getPlayer())) {
+        if (!isBattleWon()) {
             return OptionalInt.empty();
         }
         final var result = super.move();
         createBattle = result.isPresent();
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBattleWon() {
+        return !createBattle && Objects.nonNull(battle) && battle.isWinner(battle.getPlayer());
     }
 
     /**

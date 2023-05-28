@@ -1,6 +1,7 @@
 package darwinsquest.core.world;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import darwinsquest.core.difficulty.Die;
@@ -8,15 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import darwinsquest.utility.Asserts;
-
 /**
- * Test Class for {@link darwinsquest.core.world.BoardImpl}.
+ * Test Class for {@link BoardImpl}.
  */
 class TestBoard {
 
     @Test
-    void assertions() {
+    void creation() {
         assertThrows(IllegalArgumentException.class, () -> new BoardImpl(0, () -> 0));
     }
 
@@ -31,6 +30,6 @@ class TestBoard {
             pos = board.getPos();
         }
         assertEquals(levels + 1, pos);
-        Asserts.match(pos, value -> value > 0, null);
+        assertFalse(board.canMove());
     }
 }

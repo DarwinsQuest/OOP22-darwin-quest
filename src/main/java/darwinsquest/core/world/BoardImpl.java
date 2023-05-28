@@ -46,9 +46,17 @@ public class BoardImpl implements Board {
      * {@inheritDoc}
      */
     @Override
+    public boolean canMove() {
+        return position < levels;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public OptionalInt move() {
         final var pos = position;
         position = Math.min(position + Asserts.intMatch(supplier.getAsInt(), value -> value > 0), levels);
-        return position == pos ? OptionalInt.empty() : OptionalInt.of(position - pos);
+        return position != pos ? OptionalInt.of(position - pos) : OptionalInt.empty();
     }
 }

@@ -23,9 +23,7 @@ class TestEngine {
         final var player = new PlayerImpl(new Faker().name().firstName());
         final var engine = new EngineImpl(player);
 
-        player.addToInventory(new BanionFactory().createElements().stream()
-            .findAny()
-            .orElseThrow(IllegalStateException::new));
+        player.addToInventory(new BanionFactory().createElements().stream().findAny().orElseThrow());
 
         engine.getDifficulties().forEach(difficulty -> assertTrue(engine.startGame(difficulty)));
 
