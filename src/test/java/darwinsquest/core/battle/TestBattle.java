@@ -125,14 +125,16 @@ class TestBattle {
     @Test
     void testBattleWinner() {
         final var battle = new BasicBattleTile(E1, E2);
-        assertFalse(battle.isWinner(E1));
+        assertThrows(NullPointerException.class, () -> battle.isWinner(null));
+        assertFalse(battle.isWinner(E1)); // the battle has not started yet
+        assertFalse(battle.isWinner(E2)); // the battle has not started yet
         final var report = battle.startBattle();
         final var lastTurn = report.get(report.size() - 1);
         final var loser = lastTurn.getOtherEntity(); // the loser is the entity not on turn of the last turn,
         // because the last turn is a MoveTurn and so the entity not on turn is the entity whose banion is killed.
-        assertTrue(loser.isOutOfBanions());
         assertFalse(battle.isWinner(loser));
-        assertFalse(battle.isWinner(null));
+        assertFalse(battle.isWinner(new OpponentImpl("E3", new BasicAI())));
+        // The new entity has not fought in the battle
     }
 
 }
