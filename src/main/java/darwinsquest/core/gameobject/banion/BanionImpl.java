@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
-import darwinsquest.utility.Asserts;
+import darwinsquest.util.Asserts;
 
 /**
  * Class that represents a simple {@link Banion} implementation.

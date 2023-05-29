@@ -12,7 +12,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import darwinsquest.core.gameobject.Nameable;
-import darwinsquest.json.utility.JsonUtils;
+import darwinsquest.util.JsonUtils;
 
 /**
  * An adapter to deserialize a {@link Nameable}.

@@ -1,4 +1,4 @@
-package darwinsquest.utility;
+package darwinsquest.util;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test Class for {@link darwinsquest.utility.Asserts}.
+ * Test Class for {@link darwinsquest.util.Asserts}.
  */
 class TestAssert {
 

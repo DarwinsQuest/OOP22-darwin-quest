@@ -1,4 +1,4 @@
-package darwinsquest.utility;
+package darwinsquest.util;
 
 import java.util.Collections;
 import java.util.Set;

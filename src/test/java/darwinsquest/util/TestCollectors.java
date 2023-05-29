@@ -1,4 +1,4 @@
-package darwinsquest.utility;
+package darwinsquest.util;
 
 import org.junit.jupiter.api.Test;
 

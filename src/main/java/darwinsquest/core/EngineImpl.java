@@ -12,7 +12,7 @@ import darwinsquest.core.difficulty.Difficulty;
 import darwinsquest.core.difficulty.Normal;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.core.world.BattleBoard;
-import darwinsquest.utility.MyCollectors;
+import darwinsquest.util.MyCollectors;
 
 /**
  * Class that represents the engine of darwinsquest model.

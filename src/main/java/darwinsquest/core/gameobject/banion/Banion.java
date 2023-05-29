@@ -3,7 +3,7 @@ package darwinsquest.core.gameobject.banion;
 import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Elemental;
-import darwinsquest.utility.Cloneable;
+import darwinsquest.util.Cloneable;
 
 import java.util.Set;
 

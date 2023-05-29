@@ -1,4 +1,4 @@
-package darwinsquest.json.utility;
+package darwinsquest.util;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;

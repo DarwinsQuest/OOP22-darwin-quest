@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.function.IntSupplier;
 
-import darwinsquest.utility.Asserts;
+import darwinsquest.util.Asserts;
 
 /**
  * Class that represents a simple {@link Board}.
