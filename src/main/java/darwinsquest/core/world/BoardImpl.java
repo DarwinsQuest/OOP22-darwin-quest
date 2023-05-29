@@ -12,6 +12,8 @@ import darwinsquest.util.Asserts;
  */
 public class BoardImpl implements Board {
 
+    private static final int FIRST_LEVEL = 1;
+
     private final int levels;
     private final IntSupplier supplier;
     private int position;
@@ -30,6 +32,22 @@ public class BoardImpl implements Board {
      * {@inheritDoc}
      */
     @Override
+    public int getFirstLevel() {
+        return FIRST_LEVEL;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getLastLevel() {
+        return FIRST_LEVEL + levels;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getLevels() {
         return levels;
     }
@@ -39,7 +57,7 @@ public class BoardImpl implements Board {
      */
     @Override
     public int getPos() {
-        return position + 1;
+        return position + FIRST_LEVEL;
     }
 
     /**

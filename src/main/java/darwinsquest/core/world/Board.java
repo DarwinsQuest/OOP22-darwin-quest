@@ -8,6 +8,18 @@ import java.util.OptionalInt;
 public interface Board {
 
     /**
+     * Retrieves the first level.
+     * @return the first level.
+     */
+    int getFirstLevel();
+
+    /**
+     * Retrieves the last level.
+     * @return the last level.
+     */
+    int getLastLevel();
+
+    /**
      * Retrieves the number of levels.
      * @return the number of levels, bound from 1 to number of levels + 1.
      */
