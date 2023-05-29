@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import darwinsquest.Controller;
 import darwinsquest.view.sound.GameSoundSystem;
-import darwinsquest.view.utility.JavaFXUtils;
+import darwinsquest.util.JavaFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

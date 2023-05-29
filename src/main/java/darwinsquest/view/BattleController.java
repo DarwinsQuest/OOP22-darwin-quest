@@ -1,6 +1,6 @@
 package darwinsquest.view;
 
-import darwinsquest.json.BanionsSpriteDeserializer;
+import darwinsquest.view.graphics.BanionsSpriteFactory;
 import darwinsquest.view.graphics.Sprite;
 import darwinsquest.view.graphics.SpriteAnimation;
 import darwinsquest.view.sound.GameSoundSystem;
@@ -31,16 +31,12 @@ public final class BattleController extends StageInteractive implements Initiali
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;
     private static final int BG_UPSCALE = 4;
-    private static final Sprite ANGRY_PIG = new BanionsSpriteDeserializer()
-        .getBanionSprite("trunk", BanionsSpriteDeserializer.SpriteType.IDLE);
-    private static final Image IMAGE1 = ANGRY_PIG.getImage();
-//    private static final int FRAMES_IMG1 = 9;
-//    private static final int WIDTH_IMG1 = 36;
-//    private static final int HEIGHT_IMG1 = 30;
-    private static final Image IMAGE2 = new Image("img/banions/Bat/Flying (46x30).png");
-    private static final int FRAMES_IMG2 = 7;
-    private static final int WIDTH_IMG2 = 46;
-    private static final int HEIGHT_IMG2 = 30;
+    private static final Sprite SPRITE1 = new BanionsSpriteFactory()
+        .getBanionSprite("turtle", BanionsSpriteFactory.SpriteType.IDLE);
+    private static final Image IMAGE1 = SPRITE1.getImage();
+    private static final Sprite SPRITE2 = new BanionsSpriteFactory()
+    .getBanionSprite("duck", BanionsSpriteFactory.SpriteType.IDLE);
+    private static final Image IMAGE2 = SPRITE2.getImage();
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
     @FXML
     private BorderPane borderPane;
@@ -92,20 +88,20 @@ public final class BattleController extends StageInteractive implements Initiali
                 IMAGE1,
                 Duration.seconds(1),
                 Animation.INDEFINITE,
-                ANGRY_PIG.frames(),
-                ANGRY_PIG.frames(),
-                ANGRY_PIG.width(),
-                ANGRY_PIG.height(),
+                SPRITE1.frames(),
+                SPRITE1.frames(),
+                SPRITE1.width(),
+                SPRITE1.height(),
                 true).animate();
         new SpriteAnimation(
                 rightBanion,
                 IMAGE2,
                 Duration.seconds(1),
                 Animation.INDEFINITE,
-                FRAMES_IMG2,
-                FRAMES_IMG2,
-                WIDTH_IMG2,
-                HEIGHT_IMG2,
+                SPRITE2.frames(),
+                SPRITE2.frames(),
+                SPRITE2.width(),
+                SPRITE2.height(),
                 false).animate();
         GameSoundSystem.stopAll();
         GameSoundSystem.playIntroAndMusic("BossIntro.wav", "BossMain.wav");

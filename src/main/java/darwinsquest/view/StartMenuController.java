@@ -1,7 +1,7 @@
 package darwinsquest.view;
 
 import darwinsquest.view.sound.GameSoundSystem;
-import darwinsquest.view.utility.JavaFXUtils;
+import darwinsquest.util.JavaFXUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

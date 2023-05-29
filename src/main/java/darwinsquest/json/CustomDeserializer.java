@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapterFactory;
-import darwinsquest.json.utility.JsonUtils;
+import darwinsquest.util.JsonUtils;
 
 /**
  * Generic deserializer for custom types.

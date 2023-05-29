@@ -1,4 +1,4 @@
-package darwinsquest.utility;
+package darwinsquest.util;
 
 /**
  * Interface that denotes a cloneable {@link Object}.

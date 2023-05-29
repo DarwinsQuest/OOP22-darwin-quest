@@ -1,4 +1,4 @@
-package darwinsquest.utility;
+package darwinsquest.util;
 
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
