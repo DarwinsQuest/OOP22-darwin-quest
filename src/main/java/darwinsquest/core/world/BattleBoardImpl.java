@@ -2,7 +2,7 @@ package darwinsquest.core.world;
 
 import darwinsquest.core.battle.BasicBattleTile;
 import darwinsquest.core.battle.BattleTile;
-import darwinsquest.core.difficulty.Difficulty;
+import darwinsquest.core.difficulty.OpponentsFactory;
 import darwinsquest.core.gameobject.entity.GameEntity;
 
 import java.util.Objects;
@@ -14,7 +14,7 @@ import java.util.function.IntSupplier;
  */
 public class BattleBoardImpl extends BoardImpl implements BattleBoard {
 
-    private final Difficulty difficulty;
+    private final OpponentsFactory difficulty;
     private boolean createBattle;
     private BattleTile battle;
 
@@ -24,7 +24,7 @@ public class BattleBoardImpl extends BoardImpl implements BattleBoard {
      * @param supplier the movement strategy, it has to return always positive values.
      * @param difficulty the difficulty of this battle.
      */
-    public BattleBoardImpl(final int levels, final IntSupplier supplier, final Difficulty difficulty) {
+    public BattleBoardImpl(final int levels, final IntSupplier supplier, final OpponentsFactory difficulty) {
         super(levels, supplier);
         this.difficulty = Objects.requireNonNull(difficulty);
         createBattle = true;
@@ -65,7 +65,7 @@ public class BattleBoardImpl extends BoardImpl implements BattleBoard {
     @Override
     public void startBattle(final GameEntity player) {
         if (createBattle) {
-            battle = new BasicBattleTile(player, this.difficulty.createOpponent(player));
+            battle = new BasicBattleTile(player, this.difficulty.createOpponent(this, player));
             createBattle = false;
         }
         battle.startBattle();
