@@ -32,7 +32,7 @@ public final class BattleController extends StageInteractive implements Initiali
     private static final double HEIGHT = 0.3;
     private static final int BG_UPSCALE = 4;
     private static final Sprite ANGRY_PIG = new BanionsSpriteDeserializer()
-        .getBanionSprite("angrypig", BanionsSpriteDeserializer.SpriteType.IDLE);
+        .getBanionSprite("trunk", BanionsSpriteDeserializer.SpriteType.IDLE);
     private static final Image IMAGE1 = ANGRY_PIG.getImage();
 //    private static final int FRAMES_IMG1 = 9;
 //    private static final int WIDTH_IMG1 = 36;
