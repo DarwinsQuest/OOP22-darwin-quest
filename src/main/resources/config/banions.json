@@ -1,7 +1,7 @@
 [
     {
         "element": "Air",
-        "name": "fatbird",
+        "name": "fat bird",
         "hp": 100,
         "moves": ["move1", "move31", "move3", "move4"],
         "sprites": {
@@ -21,7 +21,7 @@
     },
     {
         "element": "Air",
-        "name":"bluebird",
+        "name":"blue bird",
         "hp": 100,
         "moves": ["move1", "move2", "move3", "move4"],
         "sprites": {
@@ -123,7 +123,7 @@
 
     {
         "element": "Fire",
-        "name": "angrypig",
+        "name": "angry pig",
         "hp": 100,
         "moves": ["move14", "move40", "move12", "move13"],
         "sprites": {
