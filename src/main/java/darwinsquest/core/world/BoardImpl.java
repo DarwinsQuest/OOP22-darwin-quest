@@ -2,8 +2,8 @@ package darwinsquest.core.world;
 
 import java.util.Objects;
 import java.util.OptionalInt;
-import java.util.function.IntSupplier;
 
+import darwinsquest.core.difficulty.PositiveIntSupplier;
 import darwinsquest.util.Asserts;
 
 /**
@@ -15,7 +15,7 @@ public class BoardImpl implements Board {
     private static final int FIRST_LEVEL = 1;
 
     private final int levels;
-    private final IntSupplier supplier;
+    private final PositiveIntSupplier supplier;
     private int position;
 
     /**
@@ -23,7 +23,7 @@ public class BoardImpl implements Board {
      * @param levels the number of levels provided, it has to be a positive value.
      * @param supplier the movement strategy, it has to return always positive values.
      */
-    public BoardImpl(final int levels, final IntSupplier supplier) {
+    public BoardImpl(final int levels, final PositiveIntSupplier supplier) {
         this.levels = Asserts.intMatch(levels, value -> value > 0);
         this.supplier = Objects.requireNonNull(supplier);
     }
@@ -72,9 +72,17 @@ public class BoardImpl implements Board {
      * {@inheritDoc}
      */
     @Override
+    public int maxStep() {
+        return supplier.getMaxAsInt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public OptionalInt move() {
         final var pos = position;
-        position = Math.min(position + Asserts.intMatch(supplier.getAsInt(), value -> value > 0), levels);
+        position = Math.min(position + supplier.getAsInt(), levels);
         return position != pos ? OptionalInt.of(position - pos) : OptionalInt.empty();
     }
 }

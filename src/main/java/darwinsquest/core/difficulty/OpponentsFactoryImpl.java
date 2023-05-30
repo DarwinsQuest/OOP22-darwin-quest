@@ -67,13 +67,18 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
                     .anyMatch(e -> predicate.test(b, e)));
     }
 
-    private Stream<Banion> selectBanionsByLevelAsStream(final Board board,
+    private Collection<Banion> selectBanionsByLevelAsStream(final Board board,
                                                         final List<Banion> banions,
                                                         final GameEntity player,
                                                         final BiPredicate<Banion, Element> predicate) {
-        return selectBanionsAsStream(banions, player, predicate)
+        final var result = selectBanionsAsStream(banions, player, predicate)
             .limit(
-                Math.max(getMinOpponentBanions(), Math.floorDiv(board.getPos() * getMaxOpponentBanions(), board.getLastLevel())));
+                Math.max(getMinOpponentBanions(), Math.floorDiv(board.getPos() * getMaxOpponentBanions(), board.getLastLevel())))
+            .collect(Collectors.toSet());
+        if (result.isEmpty()) {
+            throw new IllegalStateException();
+        }
+        return result;
     }
 
     private Banion createFirstOpponent(final List<Banion> banions, final GameEntity player) {
@@ -85,15 +90,13 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
     private Collection<Banion> createMidOpponent(final Board board,
                                                  final List<Banion> banions,
                                                  final GameEntity player) {
-        return selectBanionsByLevelAsStream(board, banions, player, (b, e) -> !b.getElement().isWeaker(e))
-            .collect(Collectors.toSet());
+        return selectBanionsByLevelAsStream(board, banions, player, (b, e) -> !b.getElement().isWeaker(e));
     }
 
     private Collection<Banion> createLastOpponent(final Board board,
                                                   final List<Banion> banions,
                                                   final GameEntity player) {
-        return selectBanionsByLevelAsStream(board, banions, player, (b, e) -> b.getElement().isStronger(e))
-            .collect(Collectors.toSet());
+        return selectBanionsByLevelAsStream(board, banions, player, (b, e) -> b.getElement().isStronger(e));
     }
 
     /**
