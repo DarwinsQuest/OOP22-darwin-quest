@@ -1,4 +1,4 @@
-package darwinsquest.json;
+package darwinsquest.config;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;

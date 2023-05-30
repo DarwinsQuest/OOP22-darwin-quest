@@ -1,6 +1,6 @@
 package darwinsquest.view.graphics;
 
-import darwinsquest.json.BanionsSpriteDeserializer;
+import darwinsquest.config.BanionsSpriteDeserializer;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package darwinsquest.json;
+package darwinsquest.config;
 
 import com.google.gson.GsonBuilder;
 import darwinsquest.Controller;

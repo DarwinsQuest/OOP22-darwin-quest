@@ -1,4 +1,4 @@
-package darwinsquest.json;
+package darwinsquest.config;
 
 import java.io.IOException;
 import java.util.Objects;

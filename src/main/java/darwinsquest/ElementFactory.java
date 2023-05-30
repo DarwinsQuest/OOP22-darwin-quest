@@ -3,8 +3,8 @@ package darwinsquest;
 import java.util.Set;
 
 import darwinsquest.core.gameobject.element.Element;
-import darwinsquest.json.CustomDeserializer;
-import darwinsquest.json.ElementAdapterFactory;
+import darwinsquest.config.CustomDeserializer;
+import darwinsquest.config.ElementAdapterFactory;
 
 /**
  * Factory that generates {@link Element} objects.

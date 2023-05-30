@@ -3,8 +3,8 @@ package darwinsquest;
 import java.util.Set;
 
 import darwinsquest.core.gameobject.move.Move;
-import darwinsquest.json.CustomDeserializer;
-import darwinsquest.json.MoveAdapterFactory;
+import darwinsquest.config.CustomDeserializer;
+import darwinsquest.config.MoveAdapterFactory;
 
 /**
  * Factory that generates {@link Move} objects.
