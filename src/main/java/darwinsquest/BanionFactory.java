@@ -3,8 +3,8 @@ package darwinsquest;
 import java.util.Set;
 
 import darwinsquest.core.gameobject.banion.Banion;
-import darwinsquest.json.BanionAdapterFactory;
-import darwinsquest.json.CustomDeserializer;
+import darwinsquest.config.BanionAdapterFactory;
+import darwinsquest.config.CustomDeserializer;
 
 /**
  * Factory that generates {@link Banion} objects.
