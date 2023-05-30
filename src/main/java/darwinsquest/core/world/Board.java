@@ -38,6 +38,12 @@ public interface Board {
     boolean canMove();
 
     /**
+     * Retrieves max step of movement.
+     * @return the max step of movement.
+     */
+    int maxStep();
+
+    /**
      * Tries to compute a movement of a certain step.
      * @return the step of movement, or {@link OptionalInt#empty()} if can't move.
      */

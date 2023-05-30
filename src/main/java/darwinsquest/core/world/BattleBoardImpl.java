@@ -2,12 +2,12 @@ package darwinsquest.core.world;
 
 import darwinsquest.core.battle.BasicBattleTile;
 import darwinsquest.core.battle.BattleTile;
+import darwinsquest.core.difficulty.PositiveIntSupplier;
 import darwinsquest.core.difficulty.OpponentsFactory;
 import darwinsquest.core.gameobject.entity.GameEntity;
 
 import java.util.Objects;
 import java.util.OptionalInt;
-import java.util.function.IntSupplier;
 
 /**
  * Class that represents a simple battle {@link Board}.
@@ -24,7 +24,7 @@ public class BattleBoardImpl extends BoardImpl implements BattleBoard {
      * @param supplier the movement strategy, it has to return always positive values.
      * @param difficulty the difficulty of this battle.
      */
-    public BattleBoardImpl(final int levels, final IntSupplier supplier, final OpponentsFactory difficulty) {
+    public BattleBoardImpl(final int levels, final PositiveIntSupplier supplier, final OpponentsFactory difficulty) {
         super(levels, supplier);
         this.difficulty = Objects.requireNonNull(difficulty);
         createBattle = true;

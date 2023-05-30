@@ -36,8 +36,8 @@ class TestNormal {
         final var difficulty = new Normal();
         final var board = difficulty.getBoard();
 
-        final var oppFactory = new OpponentsFactoryImpl(Difficulty.MIN_OPP_BANIONS,
-            Difficulty.MAX_OPP_BANIONS,
+        final var oppFactory = new OpponentsFactoryImpl(Normal.MIN_OPP_BANIONS,
+            Normal.MAX_OPP_BANIONS,
             BasicAI.class);
         assertEquals(1, oppFactory.createOpponent(board, player).getInventory().size());
         board.startBattle(player);

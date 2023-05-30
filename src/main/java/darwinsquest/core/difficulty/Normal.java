@@ -10,6 +10,15 @@ import darwinsquest.core.world.BattleBoardImpl;
 @Description("Normal")
 public final class Normal implements Difficulty {
 
+    /**
+     * The minimum amount of {@link darwinsquest.core.gameobject.banion.Banion}s.
+     */
+    public static final int MIN_OPP_BANIONS = 1;
+    /**
+     * The maximum number of {@link darwinsquest.core.gameobject.banion.Banion}s.
+     */
+    public static final int MAX_OPP_BANIONS = 3;
+
     private static final int LEVELS = 10;
     private static final int MAX_STEP = 8;
 
