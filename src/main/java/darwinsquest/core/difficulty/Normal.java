@@ -1,6 +1,7 @@
 package darwinsquest.core.difficulty;
 
 import darwinsquest.annotation.Description;
+import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.world.BattleBoard;
 import darwinsquest.core.world.BattleBoardImpl;
 
@@ -26,11 +27,13 @@ public final class Normal implements Difficulty {
 
     /**
      * Default constructor.
+     * @param player the player.
      */
-    public Normal() {
+    public Normal(final GameEntity player) {
         board = new BattleBoardImpl(LEVELS,
             new Die(MAX_STEP),
-            new OpponentsFactoryImpl(MIN_OPP_BANIONS, MAX_OPP_BANIONS, BasicAI.class));
+            new OpponentsFactoryImpl(MIN_OPP_BANIONS, MAX_OPP_BANIONS, BasicAI.class),
+            player);
     }
 
     /**
