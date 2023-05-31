@@ -5,6 +5,8 @@ import darwinsquest.core.LinearEvolution;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 import darwinsquest.core.gameobject.move.Move;
+import darwinsquest.core.statistic.Statistic;
+import darwinsquest.core.statistic.HpStat;
 import darwinsquest.utility.Asserts;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
@@ -46,7 +48,7 @@ public final class BanionImpl implements Banion {
     private int level = 1;
     private int xp;
     private int maxHp;
-    private int hp;
+    private final Statistic<Integer> hp;
 
     private BanionImpl(final BanionImpl banion) {
         id = UUID.randomUUID();
@@ -56,7 +58,7 @@ public final class BanionImpl implements Banion {
         evolution = banion.evolution;
         level = banion.level;
         xp = banion.xp;
-        hp = banion.hp;
+        hp = new HpStat<>(banion.hp.getValue());
         maxHp = banion.maxHp;
         previousLevels = new ArrayList<>(banion.previousLevels);
     }
@@ -76,8 +78,8 @@ public final class BanionImpl implements Banion {
                         && value.size() == NUM_MOVES
                         && value.stream().allMatch(this::isMoveAcceptable));
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
-        this.hp = Asserts.intMatch(hp, value -> value > MIN_HP);
-        maxHp = this.hp;
+        this.hp = new HpStat<>(Asserts.intMatch(hp, value -> value > MIN_HP));
+        maxHp = this.hp.getValue();
         evolution = new LinearEvolution();
         previousLevels = new ArrayList<>();
     }
@@ -108,7 +110,7 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public int getHp() {
-        return hp;
+        return hp.getValue();
     }
 
     /**
@@ -125,7 +127,7 @@ public final class BanionImpl implements Banion {
     @Override
     public void setMaxHp(final int amount) {
         maxHp = Asserts.intMatch(amount, value -> value > MIN_HP);
-        if (hp > maxHp) {
+        if (hp.getValue() > maxHp) {
             setHpToMax();
         }
     }
@@ -135,7 +137,7 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public void setHpToMax() {
-        hp = maxHp;
+        hp.setValue(maxHp);
     }
 
     /**
@@ -143,7 +145,7 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public void increaseHp(final int amount) {
-        hp = Math.min(Asserts.intMatch(hp + amount, value -> value > hp), maxHp);
+        hp.setValue(Math.min(Asserts.intMatch(hp.getValue() + amount, value -> value > hp.getValue()), maxHp));
     }
 
     /**
@@ -151,7 +153,7 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public void decreaseHp(final int amount) {
-        hp = Math.max(MIN_HP, Asserts.intMatch(hp - amount, value -> value < hp));
+        hp.setValue(Math.max(MIN_HP, Asserts.intMatch(hp.getValue() - amount, value -> value < hp.getValue())));
     }
 
     /**
@@ -207,7 +209,7 @@ public final class BanionImpl implements Banion {
         if (this.level >= level) {
             throw new IllegalArgumentException("Current level " + "(" + this.level + ") is past or equal to: " + level);
         }
-        final var rollbackRecord = new BanionStats(this.level, hp, maxHp);
+        final var rollbackRecord = new BanionStats(this.level, hp.getValue(), maxHp);
         boolean lastStatus;
         while (this.level != level) {
             lastStatus = evolve(requirement);
@@ -244,7 +246,7 @@ public final class BanionImpl implements Banion {
         if (hasGaps(level, sortedLevels)) {
             throw new IllegalArgumentException("MultiMap is missing required values.");
         }
-        final var rollbackRecord = new BanionStats(this.level, hp, maxHp);
+        final var rollbackRecord = new BanionStats(this.level, hp.getValue(), maxHp);
         final var entries = mapCopy.entries().stream().sorted(Map.Entry.comparingByValue()).toList();
         for (final var e : entries) {
             final var flag = evolve(e.getKey());
@@ -325,7 +327,7 @@ public final class BanionImpl implements Banion {
 
     private void rollbackStats(final BanionStats record) {
         level = record.level();
-        hp = record.hp();
+        hp.setValue(record.hp());
         maxHp = record.maxHp();
     }
 
