@@ -10,6 +10,7 @@ import java.util.Set;
 import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
 import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.core.world.BattleBoard;
 import darwinsquest.util.MyCollectors;
@@ -35,14 +36,16 @@ public class EngineImpl implements Engine {
 
     private static String getDifficultyName(final Class<? extends Difficulty> difficulty) {
         return difficulty.getAnnotation(Description.class).value();
-    } 
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Set<String> getDifficulties() {
-        return difficulties.stream().map(EngineImpl::getDifficultyName).collect(MyCollectors.toImmutableSet(LinkedHashSet::new));
+        return difficulties.stream()
+            .map(EngineImpl::getDifficultyName)
+            .collect(MyCollectors.toImmutableSet(LinkedHashSet::new));
     }
 
     /**
@@ -59,7 +62,7 @@ public class EngineImpl implements Engine {
             .findFirst()
             .ifPresent(d -> {
                 try {
-                    this.difficulty = d.getDeclaredConstructor().newInstance();
+                    this.difficulty = d.getDeclaredConstructor(GameEntity.class).newInstance(player);
                 } catch (InstantiationException | IllegalAccessException
                         | InvocationTargetException | NoSuchMethodException e) {
                     throw new IllegalStateException(e);

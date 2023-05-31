@@ -60,6 +60,14 @@ public final class JavaFXApplication extends Application implements StageManager
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setUsername(final String username) {
+        stage.setTitle(Objects.requireNonNull(username) + SEPARATOR + TITLE);
+    }
+
     private void setSceneFromFXML(final Object controller, final String name) {
         setFromFXML(controller, name, p -> stage.setScene(new Scene(p)));
     }
@@ -70,14 +78,6 @@ public final class JavaFXApplication extends Application implements StageManager
 
     private void setStartMenu() {
         setSceneFromFXML(new StartMenuController(this), "startmenu.fxml");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setUsername(final String username) {
-        stage.setTitle(Objects.requireNonNull(username) + SEPARATOR + TITLE);
     }
 
     /**
@@ -102,6 +102,14 @@ public final class JavaFXApplication extends Application implements StageManager
     @Override
     public void showDifficulties() {
         setPanelFromFXML(new DifficultiesController(this, controller), "difficultyselector.fxml");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void showBoard() {
+        setPanelFromFXML(new BoardController(this, controller), "board.fxml");
     }
 
     /**

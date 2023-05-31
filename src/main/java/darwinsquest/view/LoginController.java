@@ -3,7 +3,6 @@ package darwinsquest.view;
 import darwinsquest.Controller;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -45,24 +44,16 @@ public class LoginController extends ControllerStageInteractive implements Initi
         JavaFXUtils.initializeBackground(vBox, "img/Blue.png");
     }
 
-    /**
-     * Enter event.
-     * @param event the event.
-     */
     @FXML
-    protected void onEnterAction(final ActionEvent event) {
+    private void onEnterAction() { // NOPMD, events are indirectly used
         GameSoundSystem.playSfx("IntroJingle.wav", MediaPlayer::pause, MediaPlayer::play);
         getController().login(userName.getText());
         getManager().setUsername(userName.getText());
         getManager().showDifficulties();
     }
 
-    /**
-     * Key changed event.
-     * @param event the event.
-     */
     @FXML
-    protected void onUserNameTextChanged(final KeyEvent event) {
+    private void onUserNameTextChanged(final KeyEvent event) { // NOPMD, events are indirectly used
         btEnter.setDisable(!getController().isValidUsername(((TextField) event.getSource()).getText()));
         if (event.getEventType().equals(KeyEvent.KEY_RELEASED)
                 && event.getCode().isLetterKey()

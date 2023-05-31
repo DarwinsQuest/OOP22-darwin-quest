@@ -1,7 +1,5 @@
 package darwinsquest.core.world;
 
-import darwinsquest.core.gameobject.entity.GameEntity;
-
 /**
  * Interface that represents a {@link Board} of battle tiles.
  */
@@ -15,7 +13,7 @@ public interface BattleBoard extends Board {
 
     /**
      * Starts the player relative battle, or repeats it if unfinished.
-     * @param player the player that has to play the battle.
+     * @return if the player won the battle.
      */
-    void startBattle(GameEntity player);
+    boolean startBattle();
 }
