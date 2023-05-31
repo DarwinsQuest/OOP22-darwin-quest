@@ -73,7 +73,7 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
                                                         final BiPredicate<Banion, Element> predicate) {
         final var result = selectBanionsAsStream(banions, player, predicate)
             .limit(
-                Math.max(getMinOpponentBanions(), Math.floorDiv(board.getPos() * getMaxOpponentBanions(), board.getLastLevel())))
+                Math.max(getMinOpponentBanions(), Math.floorDiv(board.getPos() * getMaxOpponentBanions(), board.getLastPos())))
             .collect(Collectors.toSet());
         if (result.isEmpty()) {
             throw new IllegalStateException();
@@ -121,9 +121,9 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
         Collections.shuffle(banions);
         final var pos = board.getPos();
 
-        if (pos == board.getFirstLevel()) {
+        if (pos == board.getFirstPos()) {
             opponent.addToInventory(createFirstOpponent(banions, player));
-        } else if (pos == board.getLastLevel()) {
+        } else if (pos == board.getLastPos()) {
             opponent.addToInventory(createLastOpponent(board, banions, player));
         } else {
             opponent.addToInventory(createMidOpponent(board, banions, player));

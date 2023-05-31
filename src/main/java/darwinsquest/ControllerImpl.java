@@ -2,6 +2,7 @@ package darwinsquest;
 
 import darwinsquest.core.EngineImpl;
 import darwinsquest.core.gameobject.entity.PlayerImpl;
+import darwinsquest.core.world.Board;
 import darwinsquest.view.JavaFXApplication;
 import javafx.application.Application;
 
@@ -48,6 +49,22 @@ public final class ControllerImpl implements Controller {
     @Override
     public boolean startGame(final String difficulty) {
         return Objects.requireNonNull(engine).startGame(difficulty);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Board getBoard() {
+        return Objects.requireNonNull(engine).getBoard().orElseThrow();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean startBattle() {
+        return Objects.requireNonNull(engine).getBoard().orElseThrow().startBattle();
     }
 
     /**

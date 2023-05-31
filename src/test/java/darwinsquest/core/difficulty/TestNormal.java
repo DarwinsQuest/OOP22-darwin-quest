@@ -33,17 +33,18 @@ class TestNormal {
                 .limit(Banion.NUM_MOVES)
                 .collect(Collectors.toSet())));
 
-        final var difficulty = new Normal();
+        final var difficulty = new Normal(player);
         final var board = difficulty.getBoard();
 
-        final var oppFactory = new OpponentsFactoryImpl(Normal.MIN_OPP_BANIONS,
+        final var oppFactory = new OpponentsFactoryImpl(
+            Normal.MIN_OPP_BANIONS,
             Normal.MAX_OPP_BANIONS,
             BasicAI.class);
         assertEquals(1, oppFactory.createOpponent(board, player).getInventory().size());
-        board.startBattle(player);
+        board.startBattle();
         while (board.move().isPresent()) {
             assertTrue(oppFactory.createOpponent(board, player).getInventory().size() > 0);
-            board.startBattle(player);
+            board.startBattle();
         }
     }
 }

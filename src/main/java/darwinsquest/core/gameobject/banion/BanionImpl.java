@@ -47,8 +47,8 @@ public final class BanionImpl implements Banion {
         this.element = Objects.requireNonNull(element);
         this.moves = new HashSet<>(Asserts.match(moves,
             value -> Objects.nonNull(value)
-            && value.size() == NUM_MOVES
-            && value.stream().allMatch(this::isMoveAcceptable)));
+                && value.size() == NUM_MOVES
+                && value.stream().allMatch(this::isMoveAcceptable)));
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
         this.hp = Asserts.intMatch(hp, value -> value > MIN_HP);
         maxHp = this.hp;

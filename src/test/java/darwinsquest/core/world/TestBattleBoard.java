@@ -22,7 +22,8 @@ class TestBattleBoard {
 
     @Test
     void creation() {
-        assertThrows(IllegalArgumentException.class, () -> new BattleBoardImpl(0, null, null));
+        assertThrows(IllegalArgumentException.class,
+            () -> new BattleBoardImpl(0, null, null, null));
     }
 
     @Test
@@ -31,16 +32,20 @@ class TestBattleBoard {
         final var levels = 10;
         final var numBanion = 4;
         final var player = new OpponentImpl(new Faker().name().firstName(), new BasicAI());
-        player.addToInventory(new BanionFactory().createElements().stream().limit(numBanion).collect(Collectors.toSet()));
+        player.addToInventory(
+            new BanionFactory().createElements().stream()
+                .limit(numBanion)
+                .collect(Collectors.toSet()));
         final var battleBoard = new BattleBoardImpl(levels, new Die(),
-            new OpponentsFactoryImpl(Normal.MIN_OPP_BANIONS, Normal.MAX_OPP_BANIONS, BasicAI.class));
+            new OpponentsFactoryImpl(Normal.MIN_OPP_BANIONS, Normal.MAX_OPP_BANIONS, BasicAI.class),
+            player);
 
-        battleBoard.startBattle(player);
+        battleBoard.startBattle();
         while (battleBoard.move().isPresent()) {
             assertFalse(battleBoard.canMove());
             assertFalse(battleBoard.isBattleWon());
             IntStream.range(0, loopOp).forEach(i -> assertFalse(battleBoard.move().isPresent()));
-            battleBoard.startBattle(player);
+            battleBoard.startBattle();
         }
         assertFalse(battleBoard.canMove());
     }

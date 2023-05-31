@@ -3,7 +3,6 @@ package darwinsquest.view;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -41,21 +40,13 @@ public final class StartMenuController extends StageInteractive implements Initi
         GameSoundSystem.playMusic("Map.wav", true);
     }
 
-    /**
-     * Exit event.
-     * @param event the event.
-     */
     @FXML
-    protected void onExitAction(final ActionEvent event) {
+    private void onExitAction() { // NOPMD, events are indirectly used
         Platform.runLater(Platform::exit);
     }
 
-    /**
-     * Play event.
-     * @param event the event.
-     */
     @FXML
-    protected void onPlayAction(final ActionEvent event) {
+    private void onPlayAction() { // NOPMD, events are indirectly used
         getManager().showLogin();
         GameSoundSystem.playSfx("LowThud.mp3");
     }

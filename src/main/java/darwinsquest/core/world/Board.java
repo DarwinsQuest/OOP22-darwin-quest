@@ -11,13 +11,13 @@ public interface Board {
      * Retrieves the first level.
      * @return the first level.
      */
-    int getFirstLevel();
+    int getFirstPos();
 
     /**
      * Retrieves the last level.
      * @return the last level.
      */
-    int getLastLevel();
+    int getLastPos();
 
     /**
      * Retrieves the number of levels.
@@ -41,7 +41,7 @@ public interface Board {
      * Retrieves max step of movement.
      * @return the max step of movement.
      */
-    int maxStep();
+    int getMaxStep();
 
     /**
      * Tries to compute a movement of a certain step.
