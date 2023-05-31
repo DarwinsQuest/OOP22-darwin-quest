@@ -27,6 +27,11 @@ public interface StageManager {
     void showDifficulties();
 
     /**
+     * Shows board {@link javafx.scene.Scene}.
+     */
+    void showBoard();
+
+    /**
      * Shows battle {@link javafx.scene.Scene}.
      */
     void showBattle();

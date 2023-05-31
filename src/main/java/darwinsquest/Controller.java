@@ -1,5 +1,7 @@
 package darwinsquest;
 
+import darwinsquest.core.world.Board;
+
 import java.util.Set;
 
 /**
@@ -45,4 +47,16 @@ public interface Controller {
      * @return if {@code difficulty} is valid.
      */
     boolean startGame(String difficulty);
+
+    /**
+     * Retrieves the game board. Its result is valid after game has started.
+     * @return the game board.
+     */
+    Board getBoard();
+
+    /**
+     * Starts the battle at the board corresponding level.
+     * @return if the player won.
+     */
+    boolean startBattle();
 }

@@ -32,7 +32,7 @@ public class BoardImpl implements Board {
      * {@inheritDoc}
      */
     @Override
-    public final int getFirstLevel() {
+    public final int getFirstPos() {
         return FIRST_LEVEL;
     }
 
@@ -40,7 +40,7 @@ public class BoardImpl implements Board {
      * {@inheritDoc}
      */
     @Override
-    public final int getLastLevel() {
+    public final int getLastPos() {
         return FIRST_LEVEL + levels;
     }
 
@@ -72,7 +72,7 @@ public class BoardImpl implements Board {
      * {@inheritDoc}
      */
     @Override
-    public final int maxStep() {
+    public final int getMaxStep() {
         return supplier.getMaxAsInt();
     }
 
