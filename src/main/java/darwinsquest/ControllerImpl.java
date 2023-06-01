@@ -54,7 +54,7 @@ public final class ControllerImpl implements ControllerManager {
     public void setBoard() {
         final var boardController = new BoardControllerImpl(engine.getBoard().orElseThrow());
         final var boardView = view.createBoardView(boardController);
-        boardController.init(boardView);
+        boardController.setView(boardView);
         view.show(boardView);
     }
 
