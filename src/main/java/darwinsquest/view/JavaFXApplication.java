@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -20,14 +19,11 @@ import java.util.function.Consumer;
  */
 public final class JavaFXApplication extends Application implements StageManager {
 
-    private static final double MIN_WIDTH_FACTOR = 0.2;
-    private static final double MIN_HEIGHT_FACTOR = 0.2;
-
+    private static final double MIN_WIDTH_FACTOR = 0.4;
+    private static final double MIN_HEIGHT_FACTOR = 0.4;
     private static final String TITLE = "darwin's quest";
     private static final String SEPARATOR = " - ";
-
-     private final Controller controller = new ControllerImpl();
-
+    private final Controller controller = new ControllerImpl();
     private Stage stage;
 
     /**
@@ -110,5 +106,13 @@ public final class JavaFXApplication extends Application implements StageManager
     @Override
     public void showBattle() {
         setPanelFromFXML(new BattleController(this), "battle.fxml");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void showInventoryMenu() {
+        setPanelFromFXML(new InventoryMenuController(this), "inventorymenu.fxml");
     }
 }

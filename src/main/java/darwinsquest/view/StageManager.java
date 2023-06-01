@@ -30,4 +30,9 @@ public interface StageManager {
      * Shows battle {@link javafx.scene.Scene}.
      */
     void showBattle();
+
+    /**
+     * Shows the inventory menu during the battle.
+     */
+    void showInventoryMenu();
 }
