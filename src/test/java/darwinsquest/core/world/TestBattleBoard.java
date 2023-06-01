@@ -4,7 +4,7 @@ import com.github.javafaker.Faker;
 import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.difficulty.BasicAI;
 import darwinsquest.core.difficulty.Die;
-import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.difficulty.NormalDifficulty;
 import darwinsquest.core.difficulty.OpponentsFactoryImpl;
 import darwinsquest.core.gameobject.entity.OpponentImpl;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ class TestBattleBoard {
                 .limit(numBanion)
                 .collect(Collectors.toSet()));
         final var battleBoard = new BattleBoardImpl(levels, new Die(),
-            new OpponentsFactoryImpl(Normal.MIN_OPP_BANIONS, Normal.MAX_OPP_BANIONS, BasicAI.class),
+            new OpponentsFactoryImpl(NormalDifficulty.MIN_OPP_BANIONS, NormalDifficulty.MAX_OPP_BANIONS, BasicAI.class),
             player);
 
         battleBoard.startBattle();

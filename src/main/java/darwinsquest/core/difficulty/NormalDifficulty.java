@@ -9,7 +9,7 @@ import darwinsquest.core.world.BattleBoardImpl;
  * Represents normal difficulty.
  */
 @Description("Normal")
-public final class Normal implements Difficulty {
+public final class NormalDifficulty implements Difficulty {
 
     /**
      * The minimum amount of {@link darwinsquest.core.gameobject.banion.Banion}s.
@@ -29,7 +29,7 @@ public final class Normal implements Difficulty {
      * Default constructor.
      * @param player the player.
      */
-    public Normal(final GameEntity player) {
+    public NormalDifficulty(final GameEntity player) {
         board = new BattleBoardImpl(LEVELS,
             new Die(MAX_STEP),
             new OpponentsFactoryImpl(MIN_OPP_BANIONS, MAX_OPP_BANIONS, BasicAI.class),
