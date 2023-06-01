@@ -1,6 +1,7 @@
 package darwinsquest.view;
 
-import darwinsquest.Controller;
+import darwinsquest.LoginController;
+import darwinsquest.annotation.Description;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;
 import javafx.fxml.FXML;
@@ -18,7 +19,8 @@ import java.util.ResourceBundle;
 /**
  * Class that represents the fxml view controller of the user login.
  */
-public class LoginController extends ControllerStageInteractive implements Initializable {
+@Description("login")
+public class LoginControllerView extends ControllerInteractive<LoginController> implements Initializable {
 
     @FXML
     private VBox vBox;
@@ -29,11 +31,10 @@ public class LoginController extends ControllerStageInteractive implements Initi
 
     /**
      * Default constructor.
-     * @param manager the stage manager related to this javafx controller.
      * @param controller the MVC controller.
      */
-    public LoginController(final StageManager manager, final Controller controller) {
-        super(manager, controller);
+    public LoginControllerView(final LoginController controller) {
+        super(controller);
     }
 
     /**
@@ -48,8 +49,6 @@ public class LoginController extends ControllerStageInteractive implements Initi
     private void onEnterAction() { // NOPMD, events are indirectly used
         GameSoundSystem.playSfx("IntroJingle.wav", MediaPlayer::pause, MediaPlayer::play);
         getController().login(userName.getText());
-        getManager().setUsername(userName.getText());
-        getManager().showDifficulties();
     }
 
     @FXML
