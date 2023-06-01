@@ -19,7 +19,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -116,6 +115,7 @@ public final class BattleController extends StageInteractive implements Initiali
     @FXML
     void onInventoryAction(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        getManager().showInventoryMenu();
     }
 
     @FXML
