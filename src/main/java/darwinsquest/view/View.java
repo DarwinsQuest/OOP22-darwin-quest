@@ -1,6 +1,7 @@
 package darwinsquest.view;
 
 import darwinsquest.BoardController;
+import darwinsquest.DifficultyController;
 import darwinsquest.LoginController;
 
 /**
@@ -29,9 +30,10 @@ public interface View {
 
     /**
      * Creates a difficulty selector view.
+     * @param controller the MVC controller.
      * @return a difficulty view fxml controller.
      */
-    Object createDifficultySelectorView();
+    Object createDifficultySelectorView(DifficultyController controller);
 
     /**
      * Creates a board view.

@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Class that represents a controller for a board.
  */
-public class BoardControllerImpl implements BoardController {
+public final class BoardControllerImpl implements BoardController {
 
     private final BattleBoard board;
     private BoardView view;

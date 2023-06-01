@@ -11,11 +11,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
-import darwinsquest.ControllerImpl;
 import darwinsquest.core.gameobject.move.BasicMove;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
+
+import static darwinsquest.generation.ElementFactory.PATH_ELEMENTS;
 
 /**
  * An adapter to deserialize an {@link Move}.
@@ -43,7 +44,7 @@ public class MoveAdapterFactory implements TypeAdapterFactory {
             return null;
         }
         return (TypeAdapter<T>) new MoveAdapter(
-            new NameableLinkAdapter<Element>(Element.class, ElementAdapterFactory.class, ControllerImpl.PATH_ELEMENTS));
+            new NameableLinkAdapter<Element>(Element.class, ElementAdapterFactory.class, PATH_ELEMENTS));
     }
 
     private static class MoveAdapter extends TypeAdapter<Move> {

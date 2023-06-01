@@ -18,8 +18,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import darwinsquest.BanionFactory;
-import darwinsquest.MoveFactory;
+import darwinsquest.generation.BanionFactory;
+import darwinsquest.generation.MoveFactory;
 import darwinsquest.core.gameobject.element.Neutral;
 
 /**

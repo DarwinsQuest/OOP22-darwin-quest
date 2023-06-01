@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
-import darwinsquest.Controller;
+import darwinsquest.DifficultyController;
 import darwinsquest.annotation.Description;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;
@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
  * Class that represents the fxml view controller of the difficulty selector.
  */
 @Description("difficultyselector")
-public class DifficultiesController extends ControllerInteractive<Controller>
+public class DifficultiesControllerView extends ControllerInteractive<DifficultyController>
     implements Initializable, EventHandler<ActionEvent> {
 
     @FXML
@@ -29,7 +29,7 @@ public class DifficultiesController extends ControllerInteractive<Controller>
      * Default constructor.
      * @param controller the MVC controller.
      */
-    public DifficultiesController(final Controller controller) {
+    public DifficultiesControllerView(final DifficultyController controller) {
         super(controller);
     }
 
@@ -55,7 +55,7 @@ public class DifficultiesController extends ControllerInteractive<Controller>
      */
     @Override
     public void handle(final ActionEvent event) {
-        getController().startGame(((Button) event.getSource()).getText());
+        getController().selectDifficulty(((Button) event.getSource()).getText());
         GameSoundSystem.playSfx("LowThud.mp3");
     }
 }

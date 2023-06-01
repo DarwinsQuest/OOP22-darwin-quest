@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import darwinsquest.BanionFactory;
+import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import darwinsquest.core.gameobject.element.Elemental;
 import org.junit.jupiter.api.Test;
-import darwinsquest.MoveFactory;
+import darwinsquest.generation.MoveFactory;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 

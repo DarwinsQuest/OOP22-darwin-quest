@@ -3,6 +3,7 @@ package darwinsquest.view;
 import darwinsquest.BoardController;
 import darwinsquest.Controller;
 import darwinsquest.ControllerImpl;
+import darwinsquest.DifficultyController;
 import darwinsquest.LoginController;
 import darwinsquest.annotation.Description;
 import javafx.application.Application;
@@ -21,7 +22,7 @@ import java.util.function.Consumer;
 /**
  * View main class.
  */
-public final class JavaFXApplication extends Application implements View {
+public final class JavaFXView extends Application implements View {
 
     private static final double MIN_WIDTH_FACTOR = 0.2;
     private static final double MIN_HEIGHT_FACTOR = 0.2;
@@ -30,7 +31,6 @@ public final class JavaFXApplication extends Application implements View {
     private static final String SEPARATOR = " - ";
 
     private Controller controller;
-
     private Stage stage;
 
     /**
@@ -93,7 +93,7 @@ public final class JavaFXApplication extends Application implements View {
     }
 
     private void setStartMenuView() {
-        setSceneFromFXML(new StartMenuController(controller));
+        setSceneFromFXML(new StartMenuControllerView(controller));
     }
 
     /**
@@ -108,8 +108,8 @@ public final class JavaFXApplication extends Application implements View {
      * {@inheritDoc}
      */
     @Override
-    public Object createDifficultySelectorView() {
-        return new DifficultiesController(controller);
+    public Object createDifficultySelectorView(final DifficultyController controller) {
+        return new DifficultiesControllerView(controller);
     }
 
     /**
@@ -125,6 +125,6 @@ public final class JavaFXApplication extends Application implements View {
      */
     @Override
     public Object createBattleView() {
-        return new BattleController(controller);
+        return new BattleControllerView(controller);
     }
 }

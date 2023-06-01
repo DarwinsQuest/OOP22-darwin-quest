@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Class that represents a login controller.
  */
-public class LoginControllerImpl implements LoginController {
+public final class LoginControllerImpl implements LoginController {
 
     private final ControllerManager controller;
 

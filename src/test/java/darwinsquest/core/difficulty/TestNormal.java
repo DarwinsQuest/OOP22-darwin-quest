@@ -1,8 +1,8 @@
 package darwinsquest.core.difficulty;
 
 import com.github.javafaker.Faker;
-import darwinsquest.ElementFactory;
-import darwinsquest.MoveFactory;
+import darwinsquest.generation.ElementFactory;
+import darwinsquest.generation.MoveFactory;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import darwinsquest.core.gameobject.entity.OpponentImpl;

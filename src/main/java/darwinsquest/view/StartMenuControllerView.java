@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
  * Class that represents the fxml view controller of the start menu.
  */
 @Description("startmenu")
-public final class StartMenuController extends ControllerInteractive<Controller> implements Initializable {
+public final class StartMenuControllerView extends ControllerInteractive<Controller> implements Initializable {
 
     @FXML
     private ImageView logo;
@@ -29,7 +29,7 @@ public final class StartMenuController extends ControllerInteractive<Controller>
      * Default constructor.
      * @param controller the MVC controller.
      */
-    public StartMenuController(final Controller controller) {
+    public StartMenuControllerView(final Controller controller) {
         super(controller);
     }
 
