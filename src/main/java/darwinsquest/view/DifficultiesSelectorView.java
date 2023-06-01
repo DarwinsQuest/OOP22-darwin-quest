@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
  * Class that represents the fxml view controller of the difficulty selector.
  */
 @Description("difficultyselector")
-public class DifficultiesControllerView extends ControllerInteractive<DifficultyController>
+public class DifficultiesSelectorView extends ControllerInteractive<DifficultyController>
     implements Initializable, EventHandler<ActionEvent> {
 
     @FXML
@@ -29,7 +29,7 @@ public class DifficultiesControllerView extends ControllerInteractive<Difficulty
      * Default constructor.
      * @param controller the MVC controller.
      */
-    public DifficultiesControllerView(final DifficultyController controller) {
+    public DifficultiesSelectorView(final DifficultyController controller) {
         super(controller);
     }
 

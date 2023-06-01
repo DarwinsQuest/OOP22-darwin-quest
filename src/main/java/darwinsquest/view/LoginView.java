@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * Class that represents the fxml view controller of the user login.
  */
 @Description("login")
-public class LoginControllerView extends ControllerInteractive<LoginController> implements Initializable {
+public class LoginView extends ControllerInteractive<LoginController> implements Initializable {
 
     @FXML
     private VBox vBox;
@@ -33,7 +33,7 @@ public class LoginControllerView extends ControllerInteractive<LoginController> 
      * Default constructor.
      * @param controller the MVC controller.
      */
-    public LoginControllerView(final LoginController controller) {
+    public LoginView(final LoginController controller) {
         super(controller);
     }
 

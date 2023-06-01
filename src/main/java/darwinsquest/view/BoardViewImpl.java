@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
  * Class that represents the fxml view controller of the start menu.
  */
 @Description("board")
-public final class BoardControllerView implements Initializable, BoardView {
+public final class BoardViewImpl implements Initializable, BoardView {
 
     private static final String PREFIX = "Level: ";
     @FXML
@@ -43,7 +43,7 @@ public final class BoardControllerView implements Initializable, BoardView {
      * Default constructor.
      * @param controller the MVC controller.
      */
-    public BoardControllerView(final BoardController controller) {
+    public BoardViewImpl(final BoardController controller) {
         this.controller = Objects.requireNonNull(controller);
     }
 
