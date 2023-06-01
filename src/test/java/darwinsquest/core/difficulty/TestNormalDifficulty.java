@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Test class for {@link Normal}.
+ * Test class for {@link NormalDifficulty}.
  */
-class TestNormal {
+class TestNormalDifficulty {
 
     @Test
     void opponents() {
@@ -33,12 +33,12 @@ class TestNormal {
                 .limit(Banion.NUM_MOVES)
                 .collect(Collectors.toSet())));
 
-        final var difficulty = new Normal(player);
+        final var difficulty = new NormalDifficulty(player);
         final var board = difficulty.getBoard();
 
         final var oppFactory = new OpponentsFactoryImpl(
-            Normal.MIN_OPP_BANIONS,
-            Normal.MAX_OPP_BANIONS,
+            NormalDifficulty.MIN_OPP_BANIONS,
+            NormalDifficulty.MAX_OPP_BANIONS,
             BasicAI.class);
         assertEquals(1, oppFactory.createOpponent(board, player).getInventory().size());
         board.startBattle();

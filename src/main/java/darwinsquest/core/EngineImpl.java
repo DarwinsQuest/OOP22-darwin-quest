@@ -9,7 +9,7 @@ import java.util.Set;
 
 import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
-import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.difficulty.NormalDifficulty;
 import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.core.world.BattleBoard;
@@ -30,7 +30,7 @@ public class EngineImpl implements Engine {
      * @param player the player enveloped with the game.
      */
     public EngineImpl(final Player player) {
-        difficulties = List.of(Normal.class);
+        difficulties = List.of(NormalDifficulty.class);
         this.player = Objects.requireNonNull(player);
     }
 

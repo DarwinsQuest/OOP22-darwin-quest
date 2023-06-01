@@ -38,7 +38,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
         .getBanionSprite("turtle", BanionsSpriteFactory.SpriteType.IDLE);
     private static final Image IMAGE1 = SPRITE1.getImage();
     private static final Sprite SPRITE2 = new BanionsSpriteFactory()
-    .getBanionSprite("duck", BanionsSpriteFactory.SpriteType.IDLE);
+        .getBanionSprite("duck", BanionsSpriteFactory.SpriteType.IDLE);
     private static final Image IMAGE2 = SPRITE2.getImage();
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
     @FXML
