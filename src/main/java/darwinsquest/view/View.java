@@ -23,21 +23,21 @@ public interface View {
 
     /**
      * Creates a login view.
-     * @param controller the MVC controller.
+     * @param controller the MVC controller associated.
      * @return a login view.
      */
     Object createLoginView(LoginController controller);
 
     /**
      * Creates a difficulty selector view.
-     * @param controller the MVC controller.
+     * @param controller the MVC controller associated.
      * @return a difficulty view.
      */
     Object createDifficultySelectorView(DifficultyController controller);
 
     /**
      * Creates a board view.
-     * @param controller the MVC controller.
+     * @param controller the MVC controller associated.
      * @return a board view.
      */
     BoardView createBoardView(BoardController controller);

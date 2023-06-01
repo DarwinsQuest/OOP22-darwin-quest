@@ -30,7 +30,7 @@ public final class JavaFXView extends Application implements View {
     private static final String TITLE = "Darwin's Quest";
     private static final String SEPARATOR = " - ";
 
-    private Controller controller;
+    private final Controller controller = new ControllerImpl(this);
     private Stage stage;
 
     /**
@@ -38,7 +38,6 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public void start(final Stage stage) {
-        controller = new ControllerImpl(this);
         initStage(stage);
         setStartMenuView();
         stage.show();
@@ -68,14 +67,6 @@ public final class JavaFXView extends Application implements View {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setWindowTitlePrefix(final String username) {
-        stage.setTitle(Objects.requireNonNull(username) + SEPARATOR + TITLE);
-    }
-
     private void setSceneFromFXML(final Object controller) {
         setFromFXML(controller, p -> stage.setScene(new Scene(p)));
     }
@@ -84,16 +75,24 @@ public final class JavaFXView extends Application implements View {
         setFromFXML(controller, p -> stage.getScene().setRoot(p));
     }
 
+    private void setStartMenuView() {
+        setSceneFromFXML(new StartMenuView(controller));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setWindowTitlePrefix(final String username) {
+        stage.setTitle(Objects.requireNonNull(username) + SEPARATOR + TITLE);
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void show(final Object view) {
         setParentFromFXML(view);
-    }
-
-    private void setStartMenuView() {
-        setSceneFromFXML(new StartMenuView(controller));
     }
 
     /**

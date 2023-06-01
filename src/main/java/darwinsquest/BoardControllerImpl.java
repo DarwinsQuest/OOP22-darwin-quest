@@ -23,11 +23,11 @@ public final class BoardControllerImpl implements BoardController {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the view linked to this controller.
+     * @param view th view linked to this controller.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "View is needed according to MVC.")
-    @Override
-    public void init(final BoardView view) {
+    public void setView(final BoardView view) {
         if (Objects.nonNull(this.view)) {
             throw new IllegalStateException();
         }
