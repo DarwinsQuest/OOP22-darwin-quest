@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * Controller for the battle scene.
  */
 @Description("battle")
-public final class BattleController extends ControllerInteractive<Controller> implements Initializable {
+public final class BattleControllerView extends ControllerInteractive<Controller> implements Initializable {
 
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;
@@ -75,7 +75,7 @@ public final class BattleController extends ControllerInteractive<Controller> im
      * Default constructor.
      * @param controller the MVC controller.
      */
-    public BattleController(final Controller controller) {
+    public BattleControllerView(final Controller controller) {
         super(controller);
     }
 

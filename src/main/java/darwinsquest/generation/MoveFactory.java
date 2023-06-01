@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.generation;
 
 import java.util.Set;
 
@@ -9,13 +9,18 @@ import darwinsquest.config.MoveAdapterFactory;
 /**
  * Factory that generates {@link Move} objects.
  */
-public class MoveFactory extends CustomDeserializer<Move> implements TypeFactory<Move> {
+public class MoveFactory extends CustomDeserializer<Move> implements SetFactory<Move> {
+
+    /**
+     * Path to {@link darwinsquest.core.gameobject.move.Move} definitions.
+     */
+    public static final String PATH_MOVES = "config/moves.json";
 
     /**
      * Default constructor.
      */
     public MoveFactory() {
-        super(Move.class, MoveAdapterFactory.class, ControllerImpl.PATH_MOVES);
+        super(Move.class, MoveAdapterFactory.class, PATH_MOVES);
     }
 
     /**

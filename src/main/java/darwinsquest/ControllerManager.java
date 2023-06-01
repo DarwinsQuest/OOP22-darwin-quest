@@ -12,4 +12,9 @@ public interface ControllerManager extends Controller {
      * @param player the player.
      */
     void setPlayer(Player player);
+
+    /**
+     * Sets the board.
+     */
+    void setBoard();
 }

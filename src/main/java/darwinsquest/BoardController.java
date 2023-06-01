@@ -17,6 +17,4 @@ public interface BoardController {
      * Moves inside the board.
      */
     void move();
-
-//    void startBattle();
 }

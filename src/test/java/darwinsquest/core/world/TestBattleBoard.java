@@ -1,7 +1,7 @@
 package darwinsquest.core.world;
 
 import com.github.javafaker.Faker;
-import darwinsquest.BanionFactory;
+import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.difficulty.BasicAI;
 import darwinsquest.core.difficulty.Die;
 import darwinsquest.core.difficulty.Normal;

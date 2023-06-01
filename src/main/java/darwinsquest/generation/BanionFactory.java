@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.generation;
 
 import java.util.Set;
 
@@ -9,13 +9,18 @@ import darwinsquest.config.CustomDeserializer;
 /**
  * Factory that generates {@link Banion} objects.
  */
-public class BanionFactory extends CustomDeserializer<Banion> implements TypeFactory<Banion> {
+public class BanionFactory extends CustomDeserializer<Banion> implements SetFactory<Banion> {
+
+    /**
+     * Path to {@link darwinsquest.core.gameobject.banion.Banion} definitions.
+     */
+    public static final String PATH_BANIONS = "config/banions.json";
 
     /**
      * Default constructor.
      */
     public BanionFactory() {
-        super(Banion.class, BanionAdapterFactory.class, ControllerImpl.PATH_BANIONS);
+        super(Banion.class, BanionAdapterFactory.class, PATH_BANIONS);
     }
 
     /**

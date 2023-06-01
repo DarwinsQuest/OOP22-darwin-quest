@@ -1,7 +1,7 @@
 package darwinsquest.core.difficulty;
 
 import com.github.javafaker.Faker;
-import darwinsquest.BanionFactory;
+import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Elemental;

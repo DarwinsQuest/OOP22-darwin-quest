@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.generation;
 
 import java.util.Set;
 
@@ -6,7 +6,7 @@ import java.util.Set;
  * Factory of elements of generic type.
  * @param <T> the type of the generated elements.
  */
-public interface TypeFactory<T> {
+public interface SetFactory<T> {
 
     /**
      * Creates elements.

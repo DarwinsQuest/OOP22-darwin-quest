@@ -1,7 +1,6 @@
 package darwinsquest.config;
 
 import com.google.gson.GsonBuilder;
-import darwinsquest.Controller;
 import darwinsquest.util.JsonUtils;
 import darwinsquest.view.graphics.Sprite;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -10,6 +9,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
+
+import static darwinsquest.generation.BanionFactory.PATH_BANIONS;
 
 /**
  * Class that reads {@link darwinsquest.view.graphics.Sprite} data from file.
@@ -27,7 +28,7 @@ public final class BanionsSpriteDeserializer {
      */
     public static Map<String, Pair<Sprite, Sprite>> read() {
         try {
-            return JsonUtils.readJsonArrayFromResourceToMap(Controller.PATH_BANIONS, in -> {
+            return JsonUtils.readJsonArrayFromResourceToMap(PATH_BANIONS, in -> {
                 String key = null;
                 Sprite idle = null;
                 Sprite hit = null;
