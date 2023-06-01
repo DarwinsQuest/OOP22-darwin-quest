@@ -19,7 +19,7 @@ public final class DifficultyControllerImpl implements DifficultyController {
      * @param controller the main controller.
      * @param engine the game engine.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Main controller is needed in a separation of concerns.")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Main controller is needed to separate concerns.")
     public DifficultyControllerImpl(final ControllerManager controller, final Engine engine) {
         this.controller = Objects.requireNonNull(controller);
         this.engine = Objects.requireNonNull(engine);
