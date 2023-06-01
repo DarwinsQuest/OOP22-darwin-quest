@@ -16,7 +16,7 @@ public final class LoginControllerImpl implements LoginController {
      * Default constructor.
      * @param controller the main controller.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Main controller is needed in my logic.")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Main controller is needed to separate concerns.")
     public LoginControllerImpl(final ControllerManager controller) {
         this.controller = Objects.requireNonNull(controller);
     }
