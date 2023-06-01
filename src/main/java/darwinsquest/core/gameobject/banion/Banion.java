@@ -97,6 +97,10 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion>, Evolva
 
     /**
      * Increases the current experience amount.
+     * <p>
+     * This method will prompt an evolution and successively
+     * put the remaining xp as the current xp value if
+     * the amount surpasses the max xp allowed per level.
      * @param amount the increase.
      */
     void increaseXp(int amount);
