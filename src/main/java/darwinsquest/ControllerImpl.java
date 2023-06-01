@@ -42,8 +42,8 @@ public final class ControllerImpl implements ControllerManager {
      */
     @Override
     public void setPlayer(final Player player) {
-        this.engine = new EngineImpl(player);
-        view.setStageTitlePrefix(player.getName());
+        engine = new EngineImpl(player);
+        view.setWindowTitlePrefix(player.getName());
         view.show(view.createDifficultySelectorView(new DifficultyControllerImpl(this, engine)));
     }
 

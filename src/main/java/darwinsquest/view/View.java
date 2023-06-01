@@ -5,7 +5,7 @@ import darwinsquest.DifficultyController;
 import darwinsquest.LoginController;
 
 /**
- * A javafx view manager.
+ * Interface of a general view.
  */
 public interface View {
 
@@ -13,38 +13,38 @@ public interface View {
      * Sets username in title.
      * @param username the username to set.
      */
-    void setStageTitlePrefix(String username);
+    void setWindowTitlePrefix(String username);
 
     /**
-     * Shows a fxml controller.
-     * @param controller the controller to show.
+     * Shows a view.
+     * @param view the view to show.
      */
-    void show(Object controller);
+    void show(Object view);
 
     /**
      * Creates a login view.
      * @param controller the MVC controller.
-     * @return a login view fxml controller.
+     * @return a login view.
      */
     Object createLoginView(LoginController controller);
 
     /**
      * Creates a difficulty selector view.
      * @param controller the MVC controller.
-     * @return a difficulty view fxml controller.
+     * @return a difficulty view.
      */
     Object createDifficultySelectorView(DifficultyController controller);
 
     /**
      * Creates a board view.
      * @param controller the MVC controller.
-     * @return a board view fxml controller.
+     * @return a board view.
      */
     BoardView createBoardView(BoardController controller);
 
     /**
      * Creates a battle view.
-     * @return the battle view fxml controller.
+     * @return the battle view.
      */
     Object createBattleView();
 }

@@ -72,7 +72,7 @@ public final class JavaFXView extends Application implements View {
      * {@inheritDoc}
      */
     @Override
-    public void setStageTitlePrefix(final String username) {
+    public void setWindowTitlePrefix(final String username) {
         stage.setTitle(Objects.requireNonNull(username) + SEPARATOR + TITLE);
     }
 
@@ -88,12 +88,12 @@ public final class JavaFXView extends Application implements View {
      * {@inheritDoc}
      */
     @Override
-    public void show(final Object controller) {
-        setParentFromFXML(controller);
+    public void show(final Object view) {
+        setParentFromFXML(view);
     }
 
     private void setStartMenuView() {
-        setSceneFromFXML(new StartMenuControllerView(controller));
+        setSceneFromFXML(new StartMenuView(controller));
     }
 
     /**
@@ -101,7 +101,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createLoginView(final LoginController controller) {
-        return new LoginControllerView(controller);
+        return new LoginView(controller);
     }
 
     /**
@@ -109,7 +109,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createDifficultySelectorView(final DifficultyController controller) {
-        return new DifficultiesControllerView(controller);
+        return new DifficultiesSelectorView(controller);
     }
 
     /**
@@ -117,7 +117,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public BoardView createBoardView(final BoardController controller) {
-        return new BoardControllerView(controller);
+        return new BoardViewImpl(controller);
     }
 
     /**
@@ -125,6 +125,6 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createBattleView() {
-        return new BattleControllerView(controller);
+        return new BattleView(controller);
     }
 }
