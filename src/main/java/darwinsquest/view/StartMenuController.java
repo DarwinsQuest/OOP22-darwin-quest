@@ -1,5 +1,7 @@
 package darwinsquest.view;
 
+import darwinsquest.Controller;
+import darwinsquest.annotation.Description;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;
 import javafx.application.Platform;
@@ -15,7 +17,8 @@ import java.util.ResourceBundle;
 /**
  * Class that represents the fxml view controller of the start menu.
  */
-public final class StartMenuController extends StageInteractive implements Initializable {
+@Description("startmenu")
+public final class StartMenuController extends ControllerInteractive<Controller> implements Initializable {
 
     @FXML
     private ImageView logo;
@@ -24,10 +27,10 @@ public final class StartMenuController extends StageInteractive implements Initi
 
     /**
      * Default constructor.
-     * @param manager the stage manager related to this controller.
+     * @param controller the MVC controller.
      */
-    public StartMenuController(final StageManager manager) {
-        super(manager);
+    public StartMenuController(final Controller controller) {
+        super(controller);
     }
 
     /**
@@ -47,7 +50,7 @@ public final class StartMenuController extends StageInteractive implements Initi
 
     @FXML
     private void onPlayAction() { // NOPMD, events are indirectly used
-        getManager().showLogin();
+        getController().startController();
         GameSoundSystem.playSfx("LowThud.mp3");
     }
 }

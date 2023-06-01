@@ -1,7 +1,10 @@
 package darwinsquest.view;
 
+import darwinsquest.BoardController;
 import darwinsquest.Controller;
 import darwinsquest.ControllerImpl;
+import darwinsquest.LoginController;
+import darwinsquest.annotation.Description;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,15 +21,15 @@ import java.util.function.Consumer;
 /**
  * View main class.
  */
-public final class JavaFXApplication extends Application implements StageManager {
+public final class JavaFXApplication extends Application implements View {
 
     private static final double MIN_WIDTH_FACTOR = 0.2;
     private static final double MIN_HEIGHT_FACTOR = 0.2;
 
-    private static final String TITLE = "darwin's quest";
+    private static final String TITLE = "Darwin's Quest";
     private static final String SEPARATOR = " - ";
 
-     private final Controller controller = new ControllerImpl();
+    private Controller controller;
 
     private Stage stage;
 
@@ -35,8 +38,9 @@ public final class JavaFXApplication extends Application implements StageManager
      */
     @Override
     public void start(final Stage stage) {
+        controller = new ControllerImpl(this);
         initStage(stage);
-        setStartMenu();
+        setStartMenuView();
         stage.show();
     }
 
@@ -49,8 +53,12 @@ public final class JavaFXApplication extends Application implements StageManager
         stage.setMinWidth(screenSize.getWidth() * MIN_WIDTH_FACTOR);
     }
 
-    private void setFromFXML(final Object controller, final String name, final Consumer<Parent> consumer) {
-        final var fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("layouts/" + name));
+    private void setFromFXML(final Object controller, final Consumer<Parent> consumer) {
+        final var fxmlLoader = new FXMLLoader(
+            ClassLoader.getSystemResource(
+                "layouts/"
+                + controller.getClass().getAnnotation(Description.class).value()
+                + ".fxml"));
         fxmlLoader.setController(controller);
 
         try {
@@ -64,59 +72,59 @@ public final class JavaFXApplication extends Application implements StageManager
      * {@inheritDoc}
      */
     @Override
-    public void setUsername(final String username) {
+    public void setStageTitlePrefix(final String username) {
         stage.setTitle(Objects.requireNonNull(username) + SEPARATOR + TITLE);
     }
 
-    private void setSceneFromFXML(final Object controller, final String name) {
-        setFromFXML(controller, name, p -> stage.setScene(new Scene(p)));
+    private void setSceneFromFXML(final Object controller) {
+        setFromFXML(controller, p -> stage.setScene(new Scene(p)));
     }
 
-    private void setPanelFromFXML(final Object controller, final String name) {
-        setFromFXML(controller, name, p -> stage.getScene().setRoot(p));
-    }
-
-    private void setStartMenu() {
-        setSceneFromFXML(new StartMenuController(this), "startmenu.fxml");
+    private void setParentFromFXML(final Object controller) {
+        setFromFXML(controller, p -> stage.getScene().setRoot(p));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void showStartMenu() {
-        setPanelFromFXML(new StartMenuController(this), "startmenu.fxml");
+    public void show(final Object controller) {
+        setParentFromFXML(controller);
+    }
+
+    private void setStartMenuView() {
+        setSceneFromFXML(new StartMenuController(controller));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void showLogin() {
-        setPanelFromFXML(new LoginController(this, controller), "login.fxml");
+    public Object createLoginView(final LoginController controller) {
+        return new LoginControllerView(controller);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void showDifficulties() {
-        setPanelFromFXML(new DifficultiesController(this, controller), "difficultyselector.fxml");
+    public Object createDifficultySelectorView() {
+        return new DifficultiesController(controller);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void showBoard() {
-        setPanelFromFXML(new BoardController(this, controller), "board.fxml");
+    public BoardView createBoardView(final BoardController controller) {
+        return new BoardControllerView(controller);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void showBattle() {
-        setPanelFromFXML(new BattleController(this), "battle.fxml");
+    public Object createBattleView() {
+        return new BattleController(controller);
     }
 }

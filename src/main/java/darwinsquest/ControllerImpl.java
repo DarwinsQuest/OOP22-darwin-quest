@@ -1,9 +1,10 @@
 package darwinsquest;
 
 import darwinsquest.core.EngineImpl;
-import darwinsquest.core.gameobject.entity.PlayerImpl;
-import darwinsquest.core.world.Board;
+import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.view.JavaFXApplication;
+import darwinsquest.view.View;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.application.Application;
 
 import darwinsquest.core.Engine;
@@ -15,24 +16,36 @@ import java.util.Set;
  * Class that represents this project controller.
  * This is the startup point of the application.
  */
-public final class ControllerImpl implements Controller {
+public final class ControllerImpl implements ControllerManager {
 
+    private final View view;
     private Engine engine;
 
     /**
-     * {@inheritDoc}
+     * Default constructor.
+     * @param view the MVC view.
      */
-    @Override
-    public boolean isValidUsername(final String username) {
-        return PlayerImpl.isNameValid(username);
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "View is needed according to MVC.")
+    public ControllerImpl(final View view) {
+        this.view = Objects.requireNonNull(view);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void login(final String username) {
-        engine = new EngineImpl(new PlayerImpl(username));
+    public void startController() {
+        view.show(view.createLoginView(new LoginControllerImpl(this)));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPlayer(final Player player) {
+        this.engine = new EngineImpl(player);
+        view.setStageTitlePrefix(player.getName());
+        view.show(view.createDifficultySelectorView());
     }
 
     /**
@@ -47,25 +60,21 @@ public final class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public boolean startGame(final String difficulty) {
-        return Objects.requireNonNull(engine).startGame(difficulty);
+    public void startGame(final String difficulty) {
+        Objects.requireNonNull(engine).startGame(difficulty);
+        final var boardController = new BoardControllerImpl(Objects.requireNonNull(engine).getBoard().orElseThrow());
+        final var boardView = view.createBoardView(boardController);
+        boardController.init(boardView);
+        view.show(boardView);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Board getBoard() {
-        return Objects.requireNonNull(engine).getBoard().orElseThrow();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean startBattle() {
-        return Objects.requireNonNull(engine).getBoard().orElseThrow().startBattle();
-    }
+//    /**
+//     * {@inheritDoc}
+//     */
+//    @Override
+//    public boolean startBattle() {
+//        return Objects.requireNonNull(engine).getBoard().orElseThrow().startBattle();
+//    }
 
     /**
      * Application entry-point.

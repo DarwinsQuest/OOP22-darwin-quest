@@ -1,11 +1,9 @@
 package darwinsquest;
 
-import darwinsquest.core.world.Board;
-
 import java.util.Set;
 
 /**
- * Interface that represents this project controller.
+ * Interface that represents this project main controller.
  */
 public interface Controller {
 
@@ -23,17 +21,9 @@ public interface Controller {
     String PATH_BANIONS = "config/banions.json";
 
     /**
-     * Checks if {@code username} is valid for {@link Controller#login(String)} action.
-     * @param username the user identifier.
-     * @return if {@code username} is valid.
+     * Starts a game.
      */
-    boolean isValidUsername(String username);
-
-    /**
-     * Registers {@code username} to actual game.
-     * @param username the user identifier.
-     */
-    void login(String username);
+    void startController();
 
     /**
      * Retrieves the ordered {@link Set} of difficulties.
@@ -44,19 +34,12 @@ public interface Controller {
     /**
      * Starts a new game with provided difficulty.
      * @param difficulty a difficulty provided by {@link Controller#getDifficulties()}.
-     * @return if {@code difficulty} is valid.
      */
-    boolean startGame(String difficulty);
+    void startGame(String difficulty);
 
-    /**
-     * Retrieves the game board. Its result is valid after game has started.
-     * @return the game board.
-     */
-    Board getBoard();
-
-    /**
-     * Starts the battle at the board corresponding level.
-     * @return if the player won.
-     */
-    boolean startBattle();
+//    /**
+//     * Starts the battle at the board corresponding level.
+//     * @return if the player won.
+//     */
+//    boolean startBattle();
 }
