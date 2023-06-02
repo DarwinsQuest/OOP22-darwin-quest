@@ -34,7 +34,7 @@ public final class BoardViewImpl implements Initializable, BoardView {
 
     private final BoardController controller;
     private String suffix;
-    private int maxStep;
+    private int levels;
     private int pos;
     private boolean canMove;
     private boolean canFight;
@@ -53,7 +53,7 @@ public final class BoardViewImpl implements Initializable, BoardView {
     @Override
     public void init(final int pos, final int levels, final int maxStep, final boolean canMove, final boolean canFight) {
         suffix = " (max step = " + maxStep + ")";
-        this.maxStep = maxStep;
+        this.levels = levels;
         this.pos = pos;
         this.canMove = canMove;
         this.canFight = canFight;
@@ -68,6 +68,7 @@ public final class BoardViewImpl implements Initializable, BoardView {
         setPos(pos);
         toggleMove(canMove);
         toggleFight(canFight);
+        JavaFXUtils.bindButtonsWidthToMax(vBox);
     }
 
     /**
@@ -77,7 +78,7 @@ public final class BoardViewImpl implements Initializable, BoardView {
     public void setPos(final int pos) {
         this.pos = pos;
         setLabelText(Integer.toString(pos));
-        progress.setProgress((double) pos / maxStep);
+        progress.setProgress((double) pos / levels);
     }
 
     /**
@@ -104,7 +105,7 @@ public final class BoardViewImpl implements Initializable, BoardView {
 
     @FXML
     private void onMoveAction() { // NOPMD, events are indirectly used
-        this.controller.move();
+        controller.move();
     }
 
     @FXML
