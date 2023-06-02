@@ -55,6 +55,6 @@ public class DifficultiesController extends ControllerStageInteractive implement
     public void handle(final ActionEvent event) {
         GameSoundSystem.playSfx("LowThud.mp3");
         getController().startGame(((Button) event.getSource()).getText());
-        getManager().showBattle();
+        getManager().showChooseBanionMenu();
     }
 }

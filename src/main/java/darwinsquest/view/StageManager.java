@@ -35,4 +35,10 @@ public interface StageManager {
      * Shows the inventory menu during the battle.
      */
     void showInventoryMenu();
+
+    /**
+     * Shows the menu that allows the {@link darwinsquest.core.gameobject.entity.Player} to choose
+     * their {@link darwinsquest.core.gameobject.banion.Banion}s at the beginning of the game.
+     */
+    void showChooseBanionMenu();
 }
