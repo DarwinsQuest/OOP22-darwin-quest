@@ -97,11 +97,13 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
      */
     @Override
     public void setMaxHp(final int amount) {
-        maxHp = Asserts.intMatch(amount, value -> value > MIN_HP);
-        if (hp > maxHp) {
-            setHpToMax();
+        if (hp != amount) {
+            maxHp = Asserts.intMatch(amount, value -> value > MIN_HP);
+            if (hp > maxHp) {
+                setHpToMax();
+            }
+            super.notifyEObservers(this);
         }
-        super.notifyEObservers(this);
     }
 
     /**
@@ -109,8 +111,10 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
      */
     @Override
     public void setHpToMax() {
-        hp = maxHp;
-        super.notifyEObservers(this);
+        if (hp != maxHp) {
+            hp = maxHp;
+            super.notifyEObservers(this);
+        }
     }
 
     /**
@@ -152,12 +156,14 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
      */
     @Override
     public boolean replaceMove(final Move oldOne, final Move newOne) {
-        final var result = isMoveAcceptable(newOne)
-            && !moves.contains(newOne)
-            && moves.remove(oldOne)
-            && moves.add(newOne);
-        super.notifyEObservers(this);
-        return result;
+        if (isMoveAcceptable(newOne)
+                && !moves.contains(newOne)
+                && moves.remove(oldOne)
+                && moves.add(newOne)) {
+            super.notifyEObservers(this);
+            return true;
+        }
+        return false;
     }
 
     /**
