@@ -3,6 +3,10 @@ package darwinsquest;
 import java.util.Set;
 
 import darwinsquest.core.gameobject.element.Neutral;
+import darwinsquest.generation.BanionFactory;
+import darwinsquest.generation.ElementFactory;
+import darwinsquest.generation.MoveFactory;
+import darwinsquest.generation.SetFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +36,7 @@ class TestGeneration {
     private static Set<Move> moves;
     private static Set<Banion> banions;
 
-    private static <T> Set<T> read(final Class<T> typeClass, final TypeFactory<T> factory, final int size) {
+    private static <T> Set<T> read(final Class<T> typeClass, final SetFactory<T> factory, final int size) {
         final var entities = factory.createElements();
 
         assertFalse(entities.isEmpty(),
