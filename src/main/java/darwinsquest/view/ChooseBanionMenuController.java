@@ -7,25 +7,25 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
-import javafx.event.ActionEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller for the inventory menu.
+ * View controller for the menu that allows the {@link darwinsquest.core.gameobject.entity.Player}
+ * to choose their {@link darwinsquest.core.gameobject.banion.Banion}s at the beginning of the game.
  */
-public final class InventoryMenuController extends StageInteractive implements Initializable {
+public final class ChooseBanionMenuController extends StageInteractive implements Initializable {
 
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
-    // private static final Insets FIRST_BANION_LABEL_OFFSETS = new Insets(20, 0, 5, 0);
-    // private static final Insets OTHER_BANION_LABELS_OFFSETS = new Insets(5, 0, 5, 0);
-    @FXML
-    private Button backButton;
+    /*
+    private static final int NUM_BANIONS = 18;
+    private static final Insets FIRST_BANION_LABEL_OFFSETS = new Insets(20, 0, 5, 0);
+    private static final Insets OTHER_BANION_LABELS_OFFSETS = new Insets(5, 0, 5, 0);
+     */
     @FXML
     private Pagination banionChooser;
-    @FXML
-    private BorderPane buttonBox;
     @FXML
     private Button chooseButton;
     @FXML
@@ -35,20 +35,17 @@ public final class InventoryMenuController extends StageInteractive implements I
 
     /**
      * Default constructor.
+     *
      * @param manager the {@link StageManager} related to this controller.
      */
-    public InventoryMenuController(final StageManager manager) {
+    public ChooseBanionMenuController(final StageManager manager) {
         super(manager);
-    }
-
-    @FXML
-    void onBackButtonAction(final ActionEvent event) {
-        GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
     @FXML
     void onChooseAction(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        getManager().showBattle();
     }
 
     /**
@@ -85,6 +82,7 @@ public final class InventoryMenuController extends StageInteractive implements I
             vbox.setAlignment(Pos.CENTER);
             return vbox;
         });
+        banionChooser.setPageCount(NUM_BANIONS);
     }
      */
 }

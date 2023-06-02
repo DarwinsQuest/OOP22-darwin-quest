@@ -115,4 +115,12 @@ public final class JavaFXApplication extends Application implements StageManager
     public void showInventoryMenu() {
         setPanelFromFXML(new InventoryMenuController(this), "inventorymenu.fxml");
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void showChooseBanionMenu() {
+        setPanelFromFXML(new ChooseBanionMenuController(this), "choosebanionmenu.fxml");
+    }
 }
