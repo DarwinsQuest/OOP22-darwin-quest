@@ -2,14 +2,13 @@ package darwinsquest.core.difficulty;
 
 import java.util.Objects;
 import java.util.Random;
-import java.util.function.IntSupplier;
 import java.util.random.RandomGenerator;
 
 /**
- * A polyhedral die implementation of an {@link IntSupplier}.
+ * A polyhedral die implementation of an {@link PositiveIntSupplier}.
  * @see <a href="https://en.wikipedia.org/wiki/Dice#Polyhedral_dice">Polyhedral die</a>.
  */
-public class Die implements IntSupplier {
+public class Die implements PositiveIntSupplier {
 
     private static final int DEFAULT_FACES = 6;
     private static final int MIN_FACES = 4;
@@ -54,6 +53,14 @@ public class Die implements IntSupplier {
         return generator.nextInt(faces) + 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getMaxAsInt() {
+        return getFaces();
+    }
+
     private boolean isDieLegal(final int faces) {
         return faces >= MIN_FACES && faces % 2 == 0;    // A die with an odd number of faces is not a polyhedron.
     }
@@ -80,5 +87,4 @@ public class Die implements IntSupplier {
     public int hashCode() {
         return Objects.hash(faces, generator);
     }
-
 }

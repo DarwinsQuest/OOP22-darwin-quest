@@ -16,7 +16,7 @@ class TestBoard {
 
     @Test
     void creation() {
-        assertThrows(IllegalArgumentException.class, () -> new BoardImpl(0, () -> 0));
+        assertThrows(IllegalArgumentException.class, () -> new BoardImpl(0, null));
     }
 
     @ParameterizedTest

@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.random.RandomGenerator;
 
 import com.github.javafaker.Faker;
-import darwinsquest.BanionFactory;
+import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.gameobject.entity.PlayerImpl;
 import darwinsquest.util.JsonUtils;
 import org.junit.jupiter.api.Test;

@@ -11,13 +11,14 @@ import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 import darwinsquest.util.Asserts;
+import darwinsquest.util.ESource;
 
 /**
  * Class that represents a simple {@link Banion} implementation.
  * The number of moves is bounded at 4.
  * The moves can only be of {@link #getElement()}, or {@link Neutral}.
  */
-public final class BanionImpl implements Banion {
+public final class BanionImpl extends ESource<Banion> implements Banion {
 
     private final UUID id;
     private final Element element;
@@ -47,8 +48,8 @@ public final class BanionImpl implements Banion {
         this.element = Objects.requireNonNull(element);
         this.moves = new HashSet<>(Asserts.match(moves,
             value -> Objects.nonNull(value)
-            && value.size() == NUM_MOVES
-            && value.stream().allMatch(this::isMoveAcceptable)));
+                && value.size() == NUM_MOVES
+                && value.stream().allMatch(this::isMoveAcceptable)));
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
         this.hp = Asserts.intMatch(hp, value -> value > MIN_HP);
         maxHp = this.hp;
@@ -100,6 +101,7 @@ public final class BanionImpl implements Banion {
         if (hp > maxHp) {
             setHpToMax();
         }
+        super.notifyEObservers(this);
     }
 
     /**
@@ -108,6 +110,7 @@ public final class BanionImpl implements Banion {
     @Override
     public void setHpToMax() {
         hp = maxHp;
+        super.notifyEObservers(this);
     }
 
     /**
@@ -116,6 +119,7 @@ public final class BanionImpl implements Banion {
     @Override
     public void increaseHp(final int amount) {
         hp = Math.min(Asserts.intMatch(hp + amount, value -> value > hp), maxHp);
+        super.notifyEObservers(this);
     }
 
     /**
@@ -124,6 +128,7 @@ public final class BanionImpl implements Banion {
     @Override
     public void decreaseHp(final int amount) {
         hp = Math.max(MIN_HP, Asserts.intMatch(hp - amount, value -> value < hp));
+        super.notifyEObservers(this);
     }
 
     /**
@@ -147,10 +152,12 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public boolean replaceMove(final Move oldOne, final Move newOne) {
-        return isMoveAcceptable(newOne)
+        final var result = isMoveAcceptable(newOne)
             && !moves.contains(newOne)
             && moves.remove(oldOne)
             && moves.add(newOne);
+        super.notifyEObservers(this);
+        return result;
     }
 
     /**
