@@ -48,6 +48,7 @@ public class DifficultiesSelectorView extends ControllerInteractive<DifficultyCo
             btn.setOnAction(this);
             vBox.getChildren().add(btn);
         });
+        JavaFXUtils.bindButtonsWidthToMax(vBox);
     }
 
     /**

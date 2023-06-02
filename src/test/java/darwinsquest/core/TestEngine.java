@@ -25,7 +25,7 @@ class TestEngine {
 
         player.addToInventory(new BanionFactory().createElements().stream().findAny().orElseThrow());
 
-        engine.getDifficulties().forEach(difficulty -> assertTrue(engine.startGame(difficulty)));
+        engine.getDifficulties().forEach(difficulty -> assertTrue(new EngineImpl(player).startGame(difficulty)));
 
         var stringLength = 0;
         var generatedDifficulty = "";

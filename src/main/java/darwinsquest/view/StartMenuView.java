@@ -41,6 +41,7 @@ public final class StartMenuView extends ControllerInteractive<Controller> imple
         JavaFXUtils.initializeBackground(vBox, "img/Blue.png");
         logo.setImage(new Image("img/logo.png"));
         GameSoundSystem.playMusic("Map.wav", true);
+        JavaFXUtils.bindButtonsWidthToMax(vBox);
     }
 
     @FXML
