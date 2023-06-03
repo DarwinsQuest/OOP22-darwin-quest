@@ -39,7 +39,7 @@ public final class DifficultyControllerImpl implements DifficultyController {
     @Override
     public boolean selectDifficulty(final String difficulty) {
         if (engine.startGame(difficulty)) {
-            controller.setBoard();
+            controller.startBoard();
             return true;
         }
         return false;

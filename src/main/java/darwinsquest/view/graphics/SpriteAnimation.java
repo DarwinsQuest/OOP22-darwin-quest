@@ -1,6 +1,7 @@
 package darwinsquest.view.graphics;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
@@ -54,6 +55,32 @@ public class SpriteAnimation extends Transition {
         this.columns = columns;
         this.width = width;
         this.height = height;
+        this.horizontalFlip = horizontalFlip;
+        setCycleDuration(duration);
+        setInterpolator(Interpolator.LINEAR);
+        setSprite();
+    }
+
+    /**
+     * The sprite animation constructor.
+     * @param imageView the {@code Node} that contains the sprite.
+     * @param sprite the sprite.
+     * @param horizontalFlip when set to {@code true} the sprite will be horizontally flipped.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Storing mutable objects is needed to display animations.")
+    public SpriteAnimation(
+        final ImageView imageView,
+        final Sprite sprite,
+        final boolean horizontalFlip
+    ) {
+        this.imageView = imageView;
+        this.spriteSheet = sprite.getImage();
+        this.duration = Duration.seconds(1);
+        this.count = Animation.INDEFINITE;
+        this.frames = sprite.frames();
+        this.columns = sprite.frames();
+        this.width = sprite.width();
+        this.height = sprite.height();
         this.horizontalFlip = horizontalFlip;
         setCycleDuration(duration);
         setInterpolator(Interpolator.LINEAR);

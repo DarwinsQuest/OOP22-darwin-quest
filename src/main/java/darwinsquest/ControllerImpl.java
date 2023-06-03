@@ -48,18 +48,16 @@ public final class ControllerImpl implements ControllerManager {
         this.player = Objects.requireNonNull(player);
         engine = new EngineImpl(player);
         view.setWindowTitlePrefix(player.getName());
-        view.show(view.createDifficultySelectorView(new DifficultyControllerImpl(this, engine)));
+        selectFirstPlayerBanions();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setBoard() {
-        final var boardController = new BoardControllerImpl(engine.getBoard().orElseThrow());
-        final var boardView = view.createBoardView(boardController);
-        boardController.setView(boardView);
-        view.show(boardView);
+    public void selectFirstPlayerBanions() {
+        final var numBanions = 4;
+        view.show(view.createBanionSelectorView(new SelectBanionControllerImpl(this, numBanions)));
     }
 
     /**
@@ -68,6 +66,25 @@ public final class ControllerImpl implements ControllerManager {
     @Override
     public void addPlayerBanions(final Set<Banion> banions) {
         player.addToInventory(banions);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void selectDifficulty() {
+        view.show(view.createDifficultySelectorView(new DifficultyControllerImpl(this, engine)));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void startBoard() {
+        final var boardController = new BoardControllerImpl(engine.getBoard().orElseThrow());
+        final var boardView = view.createBoardView(boardController);
+        boardController.setView(boardView);
+        view.show(boardView);
     }
 
     /**

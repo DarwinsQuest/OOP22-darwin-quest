@@ -17,13 +17,23 @@ public interface ControllerManager extends Controller {
     void setPlayer(Player player);
 
     /**
-     * Sets the board.
+     * Selects first player Banions.
      */
-    void setBoard();
+    void selectFirstPlayerBanions();
 
     /**
      * Adds player banions.
      * @param banions the selected banions.
      */
     void addPlayerBanions(Set<Banion> banions);
+
+    /**
+     * Selects the difficulty.
+     */
+    void selectDifficulty();
+
+    /**
+     * Starts the board.
+     */
+    void startBoard();
 }

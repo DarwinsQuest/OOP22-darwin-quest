@@ -41,6 +41,14 @@ public class BanionControllerImpl extends ESource<BanionController> implements B
      * {@inheritDoc}
      */
     @Override
+    public String getName() {
+        return banion.getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getElement() {
         return banion.getElement().getName();
     }

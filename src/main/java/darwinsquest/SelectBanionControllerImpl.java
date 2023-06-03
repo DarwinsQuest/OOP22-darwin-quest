@@ -59,8 +59,19 @@ public class SelectBanionControllerImpl implements SelectBanionController {
      * {@inheritDoc}
      */
     @Override
+    public boolean canSelect() {
+        return banions.size() < getToSelect();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean selectBanion(final BanionController banion) {
-        return banions.add(((BanionWrapper) banion).getBanion());
+        if (banions.size() < getToSelect()) {
+            return banions.add(((BanionWrapper) banion).getBanion());
+        }
+        return false;
     }
 
     /**
@@ -76,7 +87,7 @@ public class SelectBanionControllerImpl implements SelectBanionController {
      */
     @Override
     public boolean canConfirm() {
-        return banions.size() == toSelect;
+        return banions.size() == getToSelect();
     }
 
     /**
@@ -86,6 +97,7 @@ public class SelectBanionControllerImpl implements SelectBanionController {
     public boolean confirm() {
         if (canConfirm()) {
             controller.addPlayerBanions(banions);
+            controller.selectDifficulty();
             return true;
         }
         return false;

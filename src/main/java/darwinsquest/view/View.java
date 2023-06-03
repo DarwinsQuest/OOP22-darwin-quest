@@ -3,6 +3,7 @@ package darwinsquest.view;
 import darwinsquest.BoardController;
 import darwinsquest.DifficultyController;
 import darwinsquest.LoginController;
+import darwinsquest.SelectBanionController;
 
 /**
  * Interface of a general view.
@@ -27,6 +28,13 @@ public interface View {
      * @return a login view.
      */
     Object createLoginView(LoginController controller);
+
+    /**
+     * Creates a banion selector view.
+     * @param controller the MVC controller associated.
+     * @return a selection view.
+     */
+    Object createBanionSelectorView(SelectBanionController controller);
 
     /**
      * Creates a difficulty selector view.

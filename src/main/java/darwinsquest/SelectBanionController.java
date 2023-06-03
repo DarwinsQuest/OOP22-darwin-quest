@@ -27,6 +27,12 @@ public interface SelectBanionController {
     boolean isSelected(BanionController banion);
 
     /**
+     * Checks if another Banion can be selected.
+     * @return if another Banion can be selected.
+     */
+    boolean canSelect();
+
+    /**
      * Adds a Banion to the selected.
      * @param banion the banion to add.
      * @return if the Banion was added correctly.
