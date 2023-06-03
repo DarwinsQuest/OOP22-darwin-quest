@@ -23,7 +23,9 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * View controller for the menu that allows the {@link darwinsquest.core.gameobject.entity.Player}
@@ -51,6 +53,8 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
     private Label title;
 
     private final List<BanionController> banions;
+    private final BanionsSpriteFactory spriteFactory;
+    private final Map<String, ImageView> spriteCache;
 
     /**
      * Default constructor.
@@ -61,6 +65,20 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
         this.banions = getController().getBanions().stream()
             .sorted(Comparator.comparing(BanionController::getName))
             .toList();
+        spriteFactory = new BanionsSpriteFactory();
+        spriteCache = banions.stream()
+            .collect(
+                Collectors.toMap(BanionController::getName,
+                    banion -> {
+                        final var imageView = new ImageView();
+                        new SpriteAnimation(
+                            imageView,
+                            spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
+                            Duration.seconds(1),
+                            Animation.INDEFINITE,
+                            false).play();
+                        return imageView;
+                    }));
     }
 
     private void updateButtonsState() {
@@ -106,13 +124,10 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
     }
 
     private void createBanionSprites() {
-        final var spriteFactory = new BanionsSpriteFactory();
-
         banionChooser.setPageFactory(i -> {
             updateButtonsState();
 
             final var banion = banions.get(i);
-            final var sprite = spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE);
 
             final var name = new Label(banion.getName());
             final var hp = new Label("Hp: " + banion.getHp());
@@ -121,13 +136,7 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
             hp.setPadding(OTHER_BANION_LABELS_OFFSETS);
             element.setPadding(OTHER_BANION_LABELS_OFFSETS);
 
-            final var imageView = new ImageView();
-            new SpriteAnimation(
-                imageView,
-                sprite,
-                Duration.seconds(1),
-                Animation.INDEFINITE,
-                false).play();
+            final var imageView = spriteCache.get(banion.getName());
 
             final var vbox = new VBox(imageView, name, hp, element);
             vbox.setAlignment(Pos.CENTER);
