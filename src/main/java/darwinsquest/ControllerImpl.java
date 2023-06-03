@@ -42,7 +42,7 @@ public final class ControllerImpl implements ControllerManager {
      */
     @Override
     public void setPlayer(final Player player) {
-        entityController = new EntityControllerImpl(Objects.requireNonNull(player));
+        entityController = new PlayerController(Objects.requireNonNull(player));
         engine = new EngineImpl(player);
         view.setWindowTitlePrefix(player.getName());
         selectFirstPlayerBanions();
