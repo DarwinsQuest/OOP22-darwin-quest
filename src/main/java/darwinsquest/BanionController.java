@@ -10,6 +10,12 @@ import java.util.Set;
 public interface BanionController extends EObservable<BanionController> {
 
     /**
+     * Retrieves the name.
+     * @return the name.
+     */
+    String getName();
+
+    /**
      * Retrieves the element of belonging.
      * @return the element of belonging.
      */

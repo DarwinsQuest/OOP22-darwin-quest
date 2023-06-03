@@ -28,6 +28,7 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
+            <Button fx:id="btDeselect" disable="true" onAction="#onDeselectAction" text="_Deselect" />
           <Button fx:id="btSelect" onAction="#onSelectAction" text="_Select" />
             <Button fx:id="btConfirm" onAction="#onConfirmAction" text="_Confirm" />
         </buttons>

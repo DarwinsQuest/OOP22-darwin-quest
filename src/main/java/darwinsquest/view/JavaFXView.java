@@ -5,6 +5,7 @@ import darwinsquest.Controller;
 import darwinsquest.ControllerImpl;
 import darwinsquest.DifficultyController;
 import darwinsquest.LoginController;
+import darwinsquest.SelectBanionController;
 import darwinsquest.annotation.Description;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -97,6 +98,14 @@ public final class JavaFXView extends Application implements View {
     @Override
     public Object createLoginView(final LoginController controller) {
         return new LoginView(controller);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object createBanionSelectorView(final SelectBanionController controller) {
+        return new ChooseBanionMenuView(controller);
     }
 
     /**
