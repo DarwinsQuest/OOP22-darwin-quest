@@ -101,7 +101,7 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
         JavaFXUtils.initializeBackground(pane, "img/Blue.png");
         banionChooser.setPageCount(banions.size());
         createBanionSprites();
-        btConfirm.setDisable(!getController().canConfirm());
+        updateButtonsState();
     }
 
     @FXML
@@ -131,19 +131,18 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
         name.setPadding(FIRST_BANION_LABEL_OFFSETS);
         hp.setPadding(OTHER_BANION_LABELS_OFFSETS);
         element.setPadding(OTHER_BANION_LABELS_OFFSETS);
+        final var vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
 
         banionChooser.setPageFactory(i -> {
             updateButtonsState();
 
             final var banion = banions.get(i);
-
             name.setText(banion.getName());
             hp.setText("Hp: " + banion.getHp());
             element.setText("Element: " + banion.getElement());
 
-            final var vbox = new VBox(spriteCache.get(banion.getName()), name, hp, element);
-            vbox.setAlignment(Pos.CENTER);
-
+            vbox.getChildren().setAll(spriteCache.get(banion.getName()), name, hp, element);
             return vbox;
         });
     }
