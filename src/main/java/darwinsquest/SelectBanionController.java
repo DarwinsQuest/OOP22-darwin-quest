@@ -14,12 +14,6 @@ public interface SelectBanionController {
     Set<BanionController> getBanions();
 
     /**
-     * Retrieves the number of banions to select.
-     * @return the number of banions to select.
-     */
-    int getToSelect();
-
-    /**
      * Checks if a banion is yet selected.
      * @param banion the banion to check.
      * @return if selected.

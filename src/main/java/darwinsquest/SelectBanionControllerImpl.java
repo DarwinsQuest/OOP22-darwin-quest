@@ -29,11 +29,7 @@ public class SelectBanionControllerImpl implements SelectBanionController {
         this.toSelect = toSelect;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getToSelect() {
+    private int getToSelect() {
         return toSelect;
     }
 
