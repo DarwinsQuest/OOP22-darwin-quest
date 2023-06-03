@@ -68,7 +68,8 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
         spriteFactory = new BanionsSpriteFactory();
         spriteCache = banions.stream()
             .collect(
-                Collectors.toMap(BanionController::getName,
+                Collectors.toMap(
+                    BanionController::getName,
                     banion -> {
                         final var imageView = new ImageView();
                         new SpriteAnimation(
@@ -124,21 +125,23 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
     }
 
     private void createBanionSprites() {
+        final var name = new Label();
+        final var hp = new Label();
+        final var element = new Label();
+        name.setPadding(FIRST_BANION_LABEL_OFFSETS);
+        hp.setPadding(OTHER_BANION_LABELS_OFFSETS);
+        element.setPadding(OTHER_BANION_LABELS_OFFSETS);
+
         banionChooser.setPageFactory(i -> {
             updateButtonsState();
 
             final var banion = banions.get(i);
 
-            final var name = new Label(banion.getName());
-            final var hp = new Label("Hp: " + banion.getHp());
-            final var element = new Label("Element: " + banion.getElement());
-            name.setPadding(FIRST_BANION_LABEL_OFFSETS);
-            hp.setPadding(OTHER_BANION_LABELS_OFFSETS);
-            element.setPadding(OTHER_BANION_LABELS_OFFSETS);
+            name.setText(banion.getName());
+            hp.setText("Hp: " + banion.getHp());
+            element.setText("Element: " + banion.getElement());
 
-            final var imageView = spriteCache.get(banion.getName());
-
-            final var vbox = new VBox(imageView, name, hp, element);
+            final var vbox = new VBox(spriteCache.get(banion.getName()), name, hp, element);
             vbox.setAlignment(Pos.CENTER);
 
             return vbox;
