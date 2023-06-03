@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Class that represents a banion controller.
  */
-public class BanionControllerImpl extends ESource<BanionController> implements BanionController, EObserver<Banion> {
+public class BanionControllerImpl extends ESource<BanionController> implements BanionWrapper, EObserver<Banion> {
 
     private final Banion banion;
 
@@ -77,5 +77,14 @@ public class BanionControllerImpl extends ESource<BanionController> implements B
     @Override
     public int getMaxHp() {
         return banion.getMaxHp();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This class is a wrapper of a mutable banion.")
+    @Override
+    public Banion getBanion() {
+        return banion;
     }
 }

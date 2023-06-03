@@ -1,0 +1,54 @@
+package darwinsquest;
+
+import java.util.Set;
+
+/**
+ * Interface that represents a banions selector controller.
+ */
+public interface SelectBanionController {
+
+    /**
+     * Retrieves the Banions that can be chosen.
+     * @return the Banions that can be chosen.
+     */
+    Set<BanionController> getBanions();
+
+    /**
+     * Retrieves the number of banions to select.
+     * @return the number of banions to select.
+     */
+    int getToSelect();
+
+    /**
+     * Checks if a banion is yet selected.
+     * @param banion the banion to check.
+     * @return if selected.
+     */
+    boolean isSelected(BanionController banion);
+
+    /**
+     * Adds a Banion to the selected.
+     * @param banion the banion to add.
+     * @return if the Banion was added correctly.
+     */
+    boolean selectBanion(BanionController banion);
+
+    /**
+     * Removes a Banion from the selected.
+     * @param banion the banion to remove.
+     * @return if the Banion was removed correctly.
+     */
+    boolean deselectBanion(BanionController banion);
+
+    /**
+     * Tells if the selection can be confirmed.
+     * @return if the selection can be confirmed.
+     */
+    boolean canConfirm();
+
+    /**
+     * Confirms the Banions selected.
+     * @return if confirmation was legal.
+     */
+    boolean confirm();
+}

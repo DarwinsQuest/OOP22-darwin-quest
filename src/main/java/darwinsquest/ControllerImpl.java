@@ -1,6 +1,7 @@
 package darwinsquest;
 
 import darwinsquest.core.EngineImpl;
+import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.view.JavaFXView;
 import darwinsquest.view.View;
@@ -10,6 +11,7 @@ import javafx.application.Application;
 import darwinsquest.core.Engine;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Class that represents this project controller.
@@ -18,6 +20,7 @@ import java.util.Objects;
 public final class ControllerImpl implements ControllerManager {
 
     private final View view;
+    private Player player;
     private Engine engine;
 
     /**
@@ -42,6 +45,7 @@ public final class ControllerImpl implements ControllerManager {
      */
     @Override
     public void setPlayer(final Player player) {
+        this.player = Objects.requireNonNull(player);
         engine = new EngineImpl(player);
         view.setWindowTitlePrefix(player.getName());
         view.show(view.createDifficultySelectorView(new DifficultyControllerImpl(this, engine)));
@@ -56,6 +60,14 @@ public final class ControllerImpl implements ControllerManager {
         final var boardView = view.createBoardView(boardController);
         boardController.setView(boardView);
         view.show(boardView);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addPlayerBanions(final Set<Banion> banions) {
+        player.addToInventory(banions);
     }
 
     /**
