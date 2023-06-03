@@ -1,17 +1,14 @@
 package darwinsquest;
 
+import darwinsquest.core.Engine;
 import darwinsquest.core.EngineImpl;
-import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.view.JavaFXView;
 import darwinsquest.view.View;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.application.Application;
 
-import darwinsquest.core.Engine;
-
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Class that represents this project controller.
@@ -20,8 +17,8 @@ import java.util.Set;
 public final class ControllerImpl implements ControllerManager {
 
     private final View view;
-    private Player player;
     private Engine engine;
+    private EntityController entityController;
 
     /**
      * Default constructor.
@@ -45,7 +42,7 @@ public final class ControllerImpl implements ControllerManager {
      */
     @Override
     public void setPlayer(final Player player) {
-        this.player = Objects.requireNonNull(player);
+        entityController = new EntityControllerImpl(Objects.requireNonNull(player));
         engine = new EngineImpl(player);
         view.setWindowTitlePrefix(player.getName());
         selectFirstPlayerBanions();
@@ -57,15 +54,7 @@ public final class ControllerImpl implements ControllerManager {
     @Override
     public void selectFirstPlayerBanions() {
         final var numBanions = 4;
-        view.show(view.createBanionSelectorView(new SelectBanionControllerImpl(this, numBanions)));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addPlayerBanions(final Set<Banion> banions) {
-        player.addToInventory(banions);
+        view.show(view.createBanionSelectorView(new SelectBanionControllerImpl(this, entityController, numBanions)));
     }
 
     /**
