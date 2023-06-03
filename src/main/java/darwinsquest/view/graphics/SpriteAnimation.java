@@ -62,12 +62,15 @@ public class SpriteAnimation extends Transition {
      * @param imageView the {@code Node} that contains the sprite.
      * @param sprite the sprite.
      * @param horizontalFlip when set to {@code true} the sprite will be horizontally flipped.
+     * @param duration the duration of the animation.
+     * @param count the amount of times the animation will be played.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Storing mutable objects is needed to display animations.")
     public SpriteAnimation(
         final ImageView imageView,
         final Sprite sprite,
-        final Duration duration, final int count,
+        final Duration duration,
+        final int count,
         final boolean horizontalFlip
     ) {
         this.imageView = imageView;
