@@ -7,6 +7,7 @@ import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
 import darwinsquest.view.graphics.SpriteAnimation;
 import darwinsquest.view.sound.GameSoundSystem;
+import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -17,6 +18,8 @@ import javafx.scene.control.Pagination;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
@@ -122,7 +125,9 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
             new SpriteAnimation(
                 imageView,
                 sprite,
-                false).animate();
+                Duration.seconds(1),
+                Animation.INDEFINITE,
+                false).play();
 
             final var vbox = new VBox(imageView, name, hp, element);
             vbox.setAlignment(Pos.CENTER);

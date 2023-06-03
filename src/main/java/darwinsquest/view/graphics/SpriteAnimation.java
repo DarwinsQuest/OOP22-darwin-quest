@@ -1,7 +1,6 @@
 package darwinsquest.view.graphics;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
@@ -16,8 +15,6 @@ public class SpriteAnimation extends Transition {
 
     private static final int SPRITE_UPSCALE = 4;
     private final ImageView imageView;
-    private final Duration duration;
-    private final int count;
     private final int frames;
     private final int columns;
     private final int width;
@@ -49,14 +46,13 @@ public class SpriteAnimation extends Transition {
     ) {
         this.imageView = imageView;
         this.spriteSheet = spriteSheet;
-        this.duration = duration;
-        this.count = count;
         this.frames = frames;
         this.columns = columns;
-        this.width = width;
-        this.height = height;
+        this.width = width * SPRITE_UPSCALE;
+        this.height = height * SPRITE_UPSCALE;
         this.horizontalFlip = horizontalFlip;
         setCycleDuration(duration);
+        setCycleCount(count);
         setInterpolator(Interpolator.LINEAR);
         setSprite();
     }
@@ -71,18 +67,18 @@ public class SpriteAnimation extends Transition {
     public SpriteAnimation(
         final ImageView imageView,
         final Sprite sprite,
+        final Duration duration, final int count,
         final boolean horizontalFlip
     ) {
         this.imageView = imageView;
         this.spriteSheet = sprite.getImage();
-        this.duration = Duration.seconds(1);
-        this.count = Animation.INDEFINITE;
         this.frames = sprite.frames();
         this.columns = sprite.frames();
-        this.width = sprite.width();
-        this.height = sprite.height();
+        this.width = sprite.width() * SPRITE_UPSCALE;
+        this.height = sprite.height() * SPRITE_UPSCALE;
         this.horizontalFlip = horizontalFlip;
         setCycleDuration(duration);
+        setCycleCount(count);
         setInterpolator(Interpolator.LINEAR);
         setSprite();
     }
@@ -102,22 +98,6 @@ public class SpriteAnimation extends Transition {
             }
             lastIndex = index;
         }
-    }
-
-    /**
-     * Plays the animation.
-     */
-    public void animate() {
-        final var animation = new SpriteAnimation(
-                imageView,
-                spriteSheet,
-                duration,
-                count,
-                frames, columns,
-                width * SPRITE_UPSCALE, height * SPRITE_UPSCALE,
-                horizontalFlip);
-        animation.setCycleCount(count);
-        animation.play();
     }
 
     private void setSprite() {

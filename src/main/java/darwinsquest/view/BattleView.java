@@ -93,7 +93,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
                 SPRITE1.frames(),
                 SPRITE1.width(),
                 SPRITE1.height(),
-                true).animate();
+                true).play();
         new SpriteAnimation(
                 rightBanion,
                 IMAGE2,
@@ -103,7 +103,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
                 SPRITE2.frames(),
                 SPRITE2.width(),
                 SPRITE2.height(),
-                false).animate();
+                false).play();
         GameSoundSystem.stopAll();
         GameSoundSystem.playIntroAndMusic("BossIntro.wav", "BossMain.wav");
     }
