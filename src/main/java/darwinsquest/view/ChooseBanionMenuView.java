@@ -19,8 +19,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -138,11 +138,15 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
             updateButtonsState();
 
             final var banion = banions.get(i);
+            final var moves = banion.getMoves();
+            final List<Label> movesLabels = new ArrayList<>();
             name.setText(banion.getName());
             hp.setText("Hp: " + banion.getHp());
             element.setText("Element: " + banion.getElement());
-
-            vbox.getChildren().setAll(spriteCache.get(banion.getName()), name, hp, element);
+            moves.forEach(m -> movesLabels.add(new Label(m.getName() + " - damage: " + m.getBaseDamage())));
+            movesLabels.forEach(label -> label.setPadding(OTHER_BANION_LABELS_OFFSETS));
+            vbox.getChildren().setAll(spriteCache.get(banion.getName()), name, hp, element, new Label("Moves: "));
+            movesLabels.forEach(label -> vbox.getChildren().add(label));
             return vbox;
         });
     }
