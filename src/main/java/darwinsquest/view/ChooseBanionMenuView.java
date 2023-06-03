@@ -1,5 +1,6 @@
 package darwinsquest.view;
 
+import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.sound.GameSoundSystem;
 import javafx.fxml.FXML;
@@ -8,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.BorderPane;
-import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
  * View controller for the menu that allows the {@link darwinsquest.core.gameobject.entity.Player}
  * to choose their {@link darwinsquest.core.gameobject.banion.Banion}s at the beginning of the game.
  */
+@Description("choosebanionmenu")
 public final class ChooseBanionMenuView implements Initializable {
 
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
@@ -27,16 +28,13 @@ public final class ChooseBanionMenuView implements Initializable {
     @FXML
     private Pagination banionChooser;
     @FXML
-    private Button chooseButton;
+    private Button btSelect;
+    @FXML
+    private Button btConfirm;
     @FXML
     private BorderPane pane;
     @FXML
     private Label title;
-
-    @FXML
-    void onChooseAction(final ActionEvent event) {
-        GameSoundSystem.playSfx(BUTTON_SOUND);
-    }
 
     /**
      * {@inheritDoc}
@@ -45,6 +43,16 @@ public final class ChooseBanionMenuView implements Initializable {
     public void initialize(final URL location, final ResourceBundle resources) {
         // createBanionSprites();
         JavaFXUtils.initializeBackground(pane, "img/Blue.png");
+    }
+
+    @FXML
+    private void onSelectAction() { // NOPMD, events are indirectly used
+        GameSoundSystem.playSfx(BUTTON_SOUND);
+    }
+
+    @FXML
+    private void onConfirmAction() { // NOPMD, events are indirectly used
+        GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
     /*
