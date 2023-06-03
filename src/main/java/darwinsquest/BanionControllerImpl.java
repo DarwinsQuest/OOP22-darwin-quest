@@ -1,7 +1,7 @@
 package darwinsquest;
 
 import darwinsquest.core.gameobject.banion.Banion;
-import darwinsquest.core.gameobject.move.Move;
+import darwinsquest.core.gameobject.move.DamageMove;
 import darwinsquest.util.EObserver;
 import darwinsquest.util.ESource;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -65,9 +65,9 @@ public class BanionControllerImpl extends ESource<BanionController> implements B
      * {@inheritDoc}
      */
     @Override
-    public Set<String> getMoves() {
+    public Set<DamageMoveController> getMoves() {
         return banion.getMoves().stream()
-            .map(Move::getName)
+            .map(m -> new DamageMoveControllerImpl((DamageMove) m))
             .collect(Collectors.toSet());
     }
 
