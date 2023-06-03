@@ -29,9 +29,10 @@ public interface BanionController extends EObservable<BanionController> {
 
     /**
      * Retrieves moves that can be performed.
+     *
      * @return moves that can be performed.
      */
-    Set<String> getMoves();
+    Set<DamageMoveController> getMoves();
 
     /**
      * Provides the life stat amount.
