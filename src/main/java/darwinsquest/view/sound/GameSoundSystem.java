@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Stream;
 
 /**
  * Class that represents the game sound system.
@@ -31,6 +32,9 @@ public final class GameSoundSystem {
     private static MediaPlayer bgmPlayer;
     private static MediaPlayer introPlayer;
     private static MediaPlayer sfxPlayer;
+    private static double masterVolume = 1.0;
+    private static final double MIN_VOLUME = 0.0;
+    private static final double MAX_VOLUME = 1.0;
     private static final Map<String, Pair<Media, Optional<Duration>>> SOUND_SYSTEM = loadSounds();
 
     private GameSoundSystem() {
@@ -47,6 +51,7 @@ public final class GameSoundSystem {
     public static void playSfx(final String sfx) {
         final var sfxMedia = new Media(SOUND_SYSTEM.get(sfx).getKey().getSource());
         sfxPlayer = new MediaPlayer(sfxMedia);
+        sfxPlayer.setVolume(masterVolume);
         sfxPlayer.play();
     }
 
@@ -68,6 +73,7 @@ public final class GameSoundSystem {
         acceptIfMediaPlayerNotNull(beforeAction, bgmPlayer);
         final var media = new Media(SOUND_SYSTEM.get(sfx).getKey().getSource());
         sfxPlayer =  new MediaPlayer(media);
+        sfxPlayer.setVolume(masterVolume);
         sfxPlayer.setOnEndOfMedia(() -> {
             if (!mediaPlayerStatusEquals(bgmPlayer, MediaPlayer.Status.PLAYING)) {
                 acceptIfMediaPlayerNotNull(afterAction, bgmPlayer);
@@ -86,6 +92,7 @@ public final class GameSoundSystem {
         checkSoundPresence(music);
         stopIfPlaying(bgmPlayer);
         bgmPlayer = new MediaPlayer(SOUND_SYSTEM.get(music).getKey());
+        bgmPlayer.setVolume(masterVolume);
         if (loop) {
             bgmPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         }
@@ -107,6 +114,8 @@ public final class GameSoundSystem {
         final var mainPair = SOUND_SYSTEM.get(main);
         introPlayer = new MediaPlayer(introPair.getKey());
         bgmPlayer = new MediaPlayer(mainPair.getKey());
+        bgmPlayer.setVolume(masterVolume);
+        introPlayer.setVolume(masterVolume);
         introPlayer.setStartTime(Duration.ZERO);
         introPlayer.setStopTime(introPair.getValue().orElse(Duration.INDEFINITE));
         introPlayer.setOnEndOfMedia(() -> {
@@ -126,6 +135,21 @@ public final class GameSoundSystem {
         stopIfPlaying(bgmPlayer);
         stopIfPlaying(introPlayer);
         stopIfPlaying(sfxPlayer);
+    }
+
+    /**
+     * This method sets the audio playback volume of all media players.
+     * The accepted range is {@code [0.0, 1.0]}.
+     * @param value the volume value.
+     */
+    public static void setMasterVolume(final double value) {
+        if (!isVolumeInBounds(value)) {
+            throw new IllegalArgumentException("Volume range must be [0.0, 1.0]. Provided: " + value);
+        }
+        masterVolume = value;
+        Stream.of(bgmPlayer, introPlayer, sfxPlayer)
+                .filter(Objects::nonNull)
+                .forEach(mediaPlayer -> mediaPlayer.setVolume(value));
     }
 
     /**
@@ -169,6 +193,10 @@ public final class GameSoundSystem {
         if (Objects.nonNull(mediaPlayer)) {
             consumer.accept(mediaPlayer);
         }
+    }
+
+    private static boolean isVolumeInBounds(final double value) {
+        return Double.compare(value, MIN_VOLUME) >= 0 && Double.compare(value, MAX_VOLUME) <= 0;
     }
 
     private static Map<String, Pair<Media, Optional<Duration>>> loadSounds() {

@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -54,4 +56,12 @@ public final class StartMenuView extends ControllerInteractive<Controller> imple
         getController().startController();
         GameSoundSystem.playSfx("LowThud.mp3");
     }
+
+    @FXML
+    void onEscPressed(final KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            getController().showSettings();
+        }
+    }
+
 }

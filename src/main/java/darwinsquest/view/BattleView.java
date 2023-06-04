@@ -21,6 +21,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -109,33 +110,33 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     }
 
     @FXML
-    private void onForfeitAction(final ActionEvent event) {
+    void onForfeitAction(final ActionEvent event) {
         GameSoundSystem.stopAll();
         GameSoundSystem.playSfx("WarpJingle.wav");
     }
 
     @FXML
-    private void onInventoryAction(final ActionEvent event) {
+    void onInventoryAction(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
     @FXML
-    private void onMove1Action(final ActionEvent event) {
+    void onMove1Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
     @FXML
-    private void onMove2Action(final ActionEvent event) {
+    void onMove2Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
     @FXML
-    private void onMove3Action(final ActionEvent event) {
+    void onMove3Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
     @FXML
-    private void onMove4Action(final ActionEvent event) {
+    void onMove4Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 

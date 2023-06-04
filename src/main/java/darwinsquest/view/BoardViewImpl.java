@@ -3,6 +3,7 @@ package darwinsquest.view;
 import darwinsquest.BoardController;
 import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
+import darwinsquest.view.sound.GameSoundSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -69,6 +70,7 @@ public final class BoardViewImpl implements Initializable, BoardView {
         toggleMove(canMove);
         toggleFight(canFight);
         JavaFXUtils.bindButtonsWidthToMax(vBox);
+        GameSoundSystem.setMasterVolume(1);
     }
 
     /**

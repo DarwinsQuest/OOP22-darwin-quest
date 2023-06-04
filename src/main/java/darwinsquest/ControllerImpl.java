@@ -88,6 +88,15 @@ public final class ControllerImpl implements ControllerManager {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void showSettings() {
+        final var settings = view.createSettingsMenu();
+        view.show(settings);
+    }
+
+    /**
      * Application entry-point.
      * @param args arguments
      */
