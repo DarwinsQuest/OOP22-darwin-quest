@@ -9,4 +9,10 @@ public interface Controller {
      * Starts a game.
      */
     void startController();
+
+    /**
+     * Shows the settings menu.
+     */
+    void showSettings();
+
 }

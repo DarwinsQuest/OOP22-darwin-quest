@@ -132,4 +132,12 @@ public final class JavaFXView extends Application implements View {
         return new BattleView(controller);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object createSettingsMenu() {
+        return new SettingsView(controller);
+    }
+
 }
