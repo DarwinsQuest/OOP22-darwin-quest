@@ -1,8 +1,6 @@
 package darwinsquest;
 
 import darwinsquest.core.gameobject.entity.GameEntity;
-import darwinsquest.core.gameobject.move.Move;
-import darwinsquest.util.ESource;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Collection;
@@ -14,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Class that represents an abstract {@link EntityController}.
  */
-public abstract class AbstractEntityController extends ESource<EntityController> implements EntityController {
+public class EntityControllerImpl implements EntityController {
 
     private final GameEntity entity;
 
@@ -23,7 +21,7 @@ public abstract class AbstractEntityController extends ESource<EntityController>
      * @param entity the game entity.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Storing a game entity is needed in the controller.")
-    public AbstractEntityController(final GameEntity entity) {
+    public EntityControllerImpl(final GameEntity entity) {
         this.entity = Objects.requireNonNull(entity);
     }
 
@@ -83,17 +81,5 @@ public abstract class AbstractEntityController extends ESource<EntityController>
     public boolean isOutOfBanions() {
         return entity.isOutOfBanions();
     }
-
-    @Override
-    public abstract BanionController deployBanion();
-
-    @Override
-    public abstract Move selectMove(BanionController banion);
-
-    @Override
-    public abstract Optional<BanionController> swapBanion();
-
-//    @Override
-//    public abstract Decision getDecision();
 
 }
