@@ -1,8 +1,5 @@
 package darwinsquest;
 
-import darwinsquest.core.gameobject.move.Move;
-import darwinsquest.util.EObservable;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -10,11 +7,11 @@ import java.util.Optional;
 /**
  * Interface that represents the {@link darwinsquest.core.gameobject.entity.GameEntity}'s controller.
  */
-public interface EntityController extends EObservable<EntityController> {
+public interface EntityController {
 
     /**
-     * Retrieves the object's name.
-     * @return the object's name.
+     * Retrieves the entity's name.
+     * @return the entity's name.
      */
     String getName();
 
@@ -57,35 +54,5 @@ public interface EntityController extends EObservable<EntityController> {
      *         {@code false} if there are some left.
      */
     boolean isOutOfBanions();
-
-    /**
-     * Retrieves the game entity's chosen banion
-     * to be their active battle companion.
-     * @return the chosen Banion.
-     */
-    BanionController deployBanion();
-
-    /**
-     * Retrieves the game entity's selected move
-     * to be performed by a banion.
-     * @param banion the banion to select the move from.
-     * @return the selected move.
-     */
-    Move selectMove(BanionController banion);
-
-    /**
-     * Swaps the active battle banion with
-     * another available one chosen by the game entity.
-     * @return an {@link Optional} containing a banion if any is left,
-     *         empty otherwise.
-     */
-    Optional<BanionController> swapBanion();
-
-    /**
-     * Retrieves the last decision made by the entity.
-     * @return a decision.
-     * @see Decision
-     */
-//    DecisionController getDecision();
 
 }
