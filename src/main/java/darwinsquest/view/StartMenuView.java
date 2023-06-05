@@ -58,7 +58,7 @@ public final class StartMenuView extends ControllerInteractive<Controller> imple
     }
 
     @FXML
-    void onEscPressed(final KeyEvent event) {
+    private void onEscPressed(final KeyEvent event) { // NOPMD, events are indirectly used
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             getController().showSettings();
         }
