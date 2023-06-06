@@ -112,8 +112,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
 
     @FXML
     void onForfeitAction(final ActionEvent event) {
-        GameSoundSystem.stopAll();
-        GameSoundSystem.playSfx("WarpJingle.wav");
+        GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
     @FXML
