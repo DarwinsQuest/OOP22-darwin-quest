@@ -1,7 +1,7 @@
 package darwinsquest.view;
 
 import darwinsquest.BoardController;
-import darwinsquest.Controller;
+import darwinsquest.MainController;
 import darwinsquest.ControllerImpl;
 import darwinsquest.DifficultyController;
 import darwinsquest.LoginController;
@@ -22,12 +22,12 @@ import java.util.function.Consumer;
 /**
  * View main class.
  */
-public final class JavaFXView extends Application implements View {
+public final class JavaFXView<T extends View> extends Application implements ViewManager<T> {
     private static final double MIN_WIDTH_FACTOR = 0.4;
     private static final double MIN_HEIGHT_FACTOR = 0.4;
     private static final String TITLE = "Darwin's Quest";
     private static final String SEPARATOR = " - ";
-    private final Controller controller = new ControllerImpl(this);
+    private final MainController controller = new ControllerImpl(this);
     private Stage stage;
 
     /**
@@ -88,7 +88,7 @@ public final class JavaFXView extends Application implements View {
      * {@inheritDoc}
      */
     @Override
-    public void show(final Object view) {
+    public void show(final T view) {
         setParentFromFXML(view);
     }
 

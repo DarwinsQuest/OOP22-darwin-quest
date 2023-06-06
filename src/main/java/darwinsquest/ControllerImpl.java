@@ -4,7 +4,7 @@ import darwinsquest.core.EngineImpl;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.view.JavaFXView;
-import darwinsquest.view.View;
+import darwinsquest.view.ViewManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.application.Application;
 
@@ -19,7 +19,7 @@ import java.util.Set;
  */
 public final class ControllerImpl implements ControllerManager {
 
-    private final View view;
+    private final ViewManager<> view;
     private Player player;
     private Engine engine;
 
@@ -28,7 +28,7 @@ public final class ControllerImpl implements ControllerManager {
      * @param view the MVC view.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "View is needed according to MVC.")
-    public ControllerImpl(final View view) {
+    public ControllerImpl(final ViewManager view) {
         this.view = Objects.requireNonNull(view);
     }
 
@@ -85,15 +85,6 @@ public final class ControllerImpl implements ControllerManager {
         final var boardView = view.createBoardView(boardController);
         boardController.setView(boardView);
         view.show(boardView);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void showSettings() {
-        final var settings = view.createSettingsMenu();
-        view.show(settings);
     }
 
     /**

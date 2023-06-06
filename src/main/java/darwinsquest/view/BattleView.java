@@ -1,6 +1,6 @@
 package darwinsquest.view;
 
-import darwinsquest.Controller;
+import darwinsquest.MainController;
 import darwinsquest.annotation.Description;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
 import darwinsquest.view.graphics.Sprite;
@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * Controller for the battle scene.
  */
 @Description("battle")
-public final class BattleView extends ControllerInteractive<Controller> implements Initializable {
+public final class BattleView extends ControllerInteractive<MainController> implements Initializable {
 
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;
@@ -75,7 +75,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
      * Default constructor.
      * @param controller the MVC controller.
      */
-    public BattleView(final Controller controller) {
+    public BattleView(final MainController controller) {
         super(controller);
     }
 

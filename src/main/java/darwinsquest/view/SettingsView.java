@@ -1,6 +1,6 @@
 package darwinsquest.view;
 
-import darwinsquest.Controller;
+import darwinsquest.MainController;
 import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.sound.GameSoundSystem;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  * Controller for the settings scene.
  */
 @Description("settings")
-public class SettingsView extends ControllerInteractive<Controller> implements Initializable {
+public class SettingsView extends ControllerInteractive<MainController> implements Initializable, View {
 
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
 //    private final Scene previousScene;
@@ -38,7 +38,7 @@ public class SettingsView extends ControllerInteractive<Controller> implements I
      * Default constructor.
      * @param controller the controller.
      */
-    protected SettingsView(final Controller controller/*, final Scene previousScene*/) {
+    protected SettingsView(final MainController controller/*, final Scene previousScene*/) {
         super(controller);
 //        this.previousScene = previousScene;
     }

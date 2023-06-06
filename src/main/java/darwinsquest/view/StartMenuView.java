@@ -1,6 +1,6 @@
 package darwinsquest.view;
 
-import darwinsquest.Controller;
+import darwinsquest.MainController;
 import darwinsquest.annotation.Description;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;
@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * Class that represents the fxml view controller of the start menu.
  */
 @Description("startmenu")
-public final class StartMenuView extends ControllerInteractive<Controller> implements Initializable {
+public final class StartMenuView extends ControllerInteractive<MainController> implements Initializable {
 
     @FXML
     private ImageView logo;
@@ -31,7 +31,7 @@ public final class StartMenuView extends ControllerInteractive<Controller> imple
      * Default constructor.
      * @param controller the MVC controller.
      */
-    public StartMenuView(final Controller controller) {
+    public StartMenuView(final MainController controller) {
         super(controller);
     }
 

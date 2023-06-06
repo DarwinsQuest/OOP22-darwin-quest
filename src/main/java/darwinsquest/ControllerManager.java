@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Interface that represents a manager of controllers.
  */
-public interface ControllerManager extends Controller {
+public interface ControllerManager extends MainController {
 
     /**
      * Sets the player.

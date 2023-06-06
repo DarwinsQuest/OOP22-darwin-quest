@@ -1,4 +1,4 @@
 package darwinsquest.view;
 
-public interface View {
+public interface Controller {
 }

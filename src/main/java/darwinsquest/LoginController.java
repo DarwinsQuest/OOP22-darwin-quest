@@ -1,9 +1,11 @@
 package darwinsquest;
 
+import darwinsquest.view.Controller;
+
 /**
  * Interface that represents a login controller.
  */
-public interface LoginController {
+public interface LoginController extends Controller {
 
     /**
      * Checks if {@code username} is valid for {@link LoginController#login(String)} action.

@@ -1,18 +1,15 @@
 package darwinsquest;
 
+import darwinsquest.view.Controller;
+
 /**
  * Interface that represents this project main controller.
  */
-public interface Controller {
+public interface MainController extends Controller {
 
     /**
      * Starts a game.
      */
     void startController();
-
-    /**
-     * Shows the settings menu.
-     */
-    void showSettings();
 
 }
