@@ -21,6 +21,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -72,10 +73,11 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
 
     /**
      * Default constructor.
+     * @param view the MVC view.
      * @param controller the MVC controller.
      */
-    public BattleView(final Controller controller) {
-        super(controller);
+    public BattleView(final View view, final Controller controller) {
+        super(view, controller);
     }
 
     /**

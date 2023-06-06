@@ -27,10 +27,11 @@ public final class StartMenuView extends ControllerInteractive<Controller> imple
 
     /**
      * Default constructor.
+     * @param view the MVC view.
      * @param controller the MVC controller.
      */
-    public StartMenuView(final Controller controller) {
-        super(controller);
+    public StartMenuView(final View view, final Controller controller) {
+        super(view, controller);
     }
 
     /**
