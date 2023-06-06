@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * A basic implementation of {@link BattleTile}.
  */
-public class BasicBattleTile implements BattleTile {
+public class BasicBattleTile extends Thread implements BattleTile {
 
     private final List<GameEntity> players;
     private boolean hasBeenDone;
@@ -73,6 +73,14 @@ public class BasicBattleTile implements BattleTile {
         hasBeenDone = true; // the field hasBeenDone begins true only at the end of the battle
         setWinner();
         return Collections.unmodifiableList(turns);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void run() {
+        startBattle();
     }
 
     /**
