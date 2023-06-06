@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -42,34 +43,33 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     private static final Image IMAGE2 = SPRITE2.getImage();
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
     @FXML
+    private Label banion1Name;
+    @FXML
+    private Label banion2Name;
+    @FXML
     private BorderPane borderPane;
-
     @FXML
     private Button forfeitBtn;
-
     @FXML
-    private Button inventoryBtn;
-
+    private Button swapBtn;
     @FXML
     private HBox lowerButtonsBox;
-
     @FXML
     private Button moveBtn1;
-
     @FXML
     private Button moveBtn2;
-
     @FXML
     private Button moveBtn3;
-
     @FXML
     private Button moveBtn4;
-
     @FXML
     private ImageView leftBanion;
-
+    @FXML
+    private Label hpBanion1;
     @FXML
     private ImageView rightBanion;
+    @FXML
+    private Label hpBanion2;
 
     /**
      * Default constructor.
@@ -117,7 +117,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     }
 
     @FXML
-    void onInventoryAction(final ActionEvent event) {
+    void onSwapAction(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
     }
 
