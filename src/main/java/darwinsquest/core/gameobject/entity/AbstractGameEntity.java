@@ -16,6 +16,8 @@ import java.util.Optional;
  */
 public abstract class AbstractGameEntity implements GameEntity {
 
+//    private final EObservable<Banion> eventSwap = new ESource<>();
+//    private final EObservable<Banion> eventInventoryChanged = new ESource<>();
     private final String nickname;
     private final List<Banion> inventory = new LinkedList<>();
 

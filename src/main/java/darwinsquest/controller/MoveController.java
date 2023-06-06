@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 /**
  * Interface that represents the controller of a {@link darwinsquest.core.gameobject.move.Move}.

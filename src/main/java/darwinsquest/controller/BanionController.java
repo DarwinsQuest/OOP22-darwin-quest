@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 import darwinsquest.util.EObservable;
 

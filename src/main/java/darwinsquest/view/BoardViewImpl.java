@@ -1,6 +1,6 @@
 package darwinsquest.view;
 
-import darwinsquest.BoardController;
+import darwinsquest.controller.BoardController;
 import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
 import javafx.fxml.FXML;
@@ -109,6 +109,6 @@ public final class BoardViewImpl extends ControllerInteractive<BoardController> 
 
     @FXML
     private void onFightAction() { // NOPMD, events are indirectly used
-//        controller.fight();
+        getController().startBattle();
     }
 }

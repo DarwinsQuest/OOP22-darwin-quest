@@ -1,8 +1,8 @@
 package darwinsquest.view;
 
-import darwinsquest.BanionController;
-import darwinsquest.MoveController;
-import darwinsquest.SelectBanionController;
+import darwinsquest.controller.BanionController;
+import darwinsquest.controller.MoveController;
+import darwinsquest.controller.SelectBanionController;
 import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.graphics.BanionsSpriteFactory;

@@ -2,6 +2,8 @@ package darwinsquest.core.battle;
 
 import darwinsquest.core.battle.turn.Turn;
 import darwinsquest.core.gameobject.entity.GameEntity;
+import darwinsquest.util.Synchronizer;
+
 import java.util.List;
 
 /**
@@ -15,6 +17,12 @@ public interface BattleTile {
      *         during the whole battle.
      */
     List<Turn> startBattle();
+
+    /**
+     * Retrieves a simple synchronizer.
+     * @return a simple synchronizer.
+     */
+    Synchronizer getSynchronizer();
 
     /**
      * Retrieves the {@link GameEntity} that holds the first {@link Turn} of the battle.
@@ -42,5 +50,4 @@ public interface BattleTile {
      *         </ul>
      */
     boolean isWinner(GameEntity entity);
-
 }
