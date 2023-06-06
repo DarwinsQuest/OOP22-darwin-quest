@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 import darwinsquest.core.Engine;
 import darwinsquest.core.EngineImpl;
@@ -70,9 +70,9 @@ public final class ControllerImpl implements ControllerManager {
      */
     @Override
     public void startBoard() {
-        final var boardController = new BoardControllerImpl(engine.getBoard().orElseThrow());
+        final var boardController = new BoardControllerImpl(engine.getBoard().orElseThrow(), view);
         final var boardView = view.createBoardView(boardController);
-        boardController.setView(boardView);
+        boardController.setBoardView(boardView);
         view.show(boardView);
     }
 

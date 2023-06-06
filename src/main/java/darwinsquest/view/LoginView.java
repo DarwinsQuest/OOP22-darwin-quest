@@ -1,6 +1,6 @@
 package darwinsquest.view;
 
-import darwinsquest.LoginController;
+import darwinsquest.controller.LoginController;
 import darwinsquest.annotation.Description;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;

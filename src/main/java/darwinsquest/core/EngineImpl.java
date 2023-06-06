@@ -10,10 +10,10 @@ import java.util.Set;
 import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
 import darwinsquest.core.difficulty.NormalDifficulty;
-import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.core.world.BattleBoard;
 import darwinsquest.util.MyCollectors;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Class that represents the engine of darwinsquest model.
@@ -29,6 +29,7 @@ public class EngineImpl implements Engine {
      * Default constructor.
      * @param player the player enveloped with the game.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Player is needed to separate concerns.")
     public EngineImpl(final Player player) {
         difficulties = List.of(NormalDifficulty.class);
         this.player = Objects.requireNonNull(player);
@@ -62,7 +63,7 @@ public class EngineImpl implements Engine {
             .findFirst()
             .ifPresent(d -> {
                 try {
-                    this.difficulty = d.getDeclaredConstructor(GameEntity.class).newInstance(player);
+                    this.difficulty = d.getDeclaredConstructor(Player.class).newInstance(player);
                 } catch (InstantiationException | IllegalAccessException
                         | InvocationTargetException | NoSuchMethodException e) {
                     throw new IllegalStateException(e);

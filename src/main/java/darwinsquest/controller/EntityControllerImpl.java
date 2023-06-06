@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 import darwinsquest.core.gameobject.entity.GameEntity;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

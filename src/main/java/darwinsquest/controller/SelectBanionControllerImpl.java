@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.generation.BanionFactory;

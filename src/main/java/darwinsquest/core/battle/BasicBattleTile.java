@@ -4,6 +4,9 @@ import darwinsquest.core.battle.turn.DeployTurnImpl;
 import darwinsquest.core.battle.turn.SwapTurnImpl;
 import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.battle.turn.Turn;
+import darwinsquest.util.SimpleSynchronizer;
+import darwinsquest.util.Synchronizer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.Objects;
  * A basic implementation of {@link BattleTile}.
  */
 public class BasicBattleTile extends Thread implements BattleTile {
+
+    private final Synchronizer synchronizer = new SimpleSynchronizer();
 
     private final List<GameEntity> players;
     private boolean hasBeenDone;
@@ -26,6 +31,14 @@ public class BasicBattleTile extends Thread implements BattleTile {
      */
     public BasicBattleTile(final GameEntity player, final GameEntity opponent) {
         this.players = List.of(Objects.requireNonNull(player), Objects.requireNonNull(opponent));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Synchronizer getSynchronizer() {
+        return synchronizer;
     }
 
     /**
@@ -144,5 +157,4 @@ public class BasicBattleTile extends Thread implements BattleTile {
             }
         }
     }
-
 }

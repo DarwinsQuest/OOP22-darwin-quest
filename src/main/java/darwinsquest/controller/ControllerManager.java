@@ -1,11 +1,11 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 import darwinsquest.core.gameobject.entity.Player;
 
 /**
  * Interface that represents a manager of controllers.
  */
-public interface ControllerManager extends Controller {
+interface ControllerManager extends Controller {
 
     /**
      * Sets the player.

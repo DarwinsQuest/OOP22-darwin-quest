@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
-import darwinsquest.DifficultyController;
+import darwinsquest.controller.DifficultyController;
 import darwinsquest.annotation.Description;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;
