@@ -31,10 +31,11 @@ public class LoginView extends ControllerInteractive<LoginController> implements
 
     /**
      * Default constructor.
+     * @param view the MVC view.
      * @param controller the MVC controller.
      */
-    public LoginView(final LoginController controller) {
-        super(controller);
+    public LoginView(final View view, final LoginController controller) {
+        super(view, controller);
     }
 
     /**

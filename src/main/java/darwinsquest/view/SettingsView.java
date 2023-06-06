@@ -1,6 +1,5 @@
 package darwinsquest.view;
 
-import darwinsquest.Controller;
 import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.sound.GameSoundSystem;
@@ -10,19 +9,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
  * Controller for the settings scene.
  */
 @Description("settings")
-public class SettingsView extends ControllerInteractive<Controller> implements Initializable {
+public class SettingsView implements Initializable {
 
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
-//    private final Scene previousScene;
+    private final View view;
+    private final Object previousScene;
+
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -36,11 +39,12 @@ public class SettingsView extends ControllerInteractive<Controller> implements I
 
     /**
      * Default constructor.
-     * @param controller the controller.
+     * @param view the MVC view.
+     * @param previousScene the previous scene.
      */
-    protected SettingsView(final Controller controller/*, final Scene previousScene*/) {
-        super(controller);
-//        this.previousScene = previousScene;
+    protected SettingsView(final View view, final Object previousScene) {
+        this.view = Objects.requireNonNull(view);
+        this.previousScene = Objects.requireNonNull(previousScene);
     }
 
     /**
@@ -52,6 +56,7 @@ public class SettingsView extends ControllerInteractive<Controller> implements I
         // Changes the game volume dynamically on slider movement.
         volumeSlider.valueProperty()
                 .addListener((observable, oldValue, newValue) -> GameSoundSystem.setMasterVolume(volumeSlider.getValue()));
+        volumeSlider.setValue(GameSoundSystem.getMasterVolume());
     }
 
     /**
@@ -60,10 +65,12 @@ public class SettingsView extends ControllerInteractive<Controller> implements I
     @FXML
     void onCloseButtonPressed(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
-//        final var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setScene(previousScene);
-//        stage.show();
+        view.show(previousScene);
     }
 
+    @FXML
+    private void onEscPressed(final KeyEvent event) { // NOPMD, events are indirectly used
+        view.show(previousScene);
+    }
 }
 

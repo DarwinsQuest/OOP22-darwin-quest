@@ -55,11 +55,4 @@ public interface View {
      * @return the battle view.
      */
     Object createBattleView();
-
-    /**
-     * Creates a settings view.
-     * @return the settings view.
-     */
-    Object createSettingsMenu();
-
 }

@@ -59,10 +59,11 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
 
     /**
      * Default constructor.
+     * @param view the MVC view.
      * @param controller the MVC controller.
      */
-    public ChooseBanionMenuView(final SelectBanionController controller) {
-        super(controller);
+    public ChooseBanionMenuView(final View view, final SelectBanionController controller) {
+        super(view, controller);
         this.banions = getController().getBanions().stream()
             .sorted(Comparator.comparing(BanionController::getName))
             .toList();
