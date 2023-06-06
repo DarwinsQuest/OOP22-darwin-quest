@@ -73,7 +73,7 @@ public final class JavaFXView extends Application implements View {
     }
 
     private void setStartMenuView() {
-        setSceneFromFXML(new StartMenuView(controller));
+        setSceneFromFXML(new StartMenuView(this, controller));
     }
 
     /**
@@ -97,7 +97,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createLoginView(final LoginController controller) {
-        return new LoginView(controller);
+        return new LoginView(this, controller);
     }
 
     /**
@@ -105,7 +105,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createBanionSelectorView(final SelectBanionController controller) {
-        return new ChooseBanionMenuView(controller);
+        return new ChooseBanionMenuView(this, controller);
     }
 
     /**
@@ -113,7 +113,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createDifficultySelectorView(final DifficultyController controller) {
-        return new DifficultiesSelectorView(controller);
+        return new DifficultiesSelectorView(this, controller);
     }
 
     /**
@@ -121,7 +121,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public BoardView createBoardView(final BoardController controller) {
-        return new BoardViewImpl(controller);
+        return new BoardViewImpl(this, controller);
     }
 
     /**
@@ -129,15 +129,6 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createBattleView() {
-        return new BattleView(controller);
+        return new BattleView(this, controller);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object createSettingsMenu() {
-        return new SettingsView(controller);
-    }
-
 }

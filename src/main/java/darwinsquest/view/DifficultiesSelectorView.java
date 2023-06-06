@@ -27,10 +27,11 @@ public class DifficultiesSelectorView extends ControllerInteractive<DifficultyCo
 
     /**
      * Default constructor.
+     * @param view the MVC view.
      * @param controller the MVC controller.
      */
-    public DifficultiesSelectorView(final DifficultyController controller) {
-        super(controller);
+    public DifficultiesSelectorView(final View view, final DifficultyController controller) {
+        super(view, controller);
     }
 
     /**

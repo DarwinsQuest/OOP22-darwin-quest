@@ -11,14 +11,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
  * Class that represents the fxml view controller of the start menu.
  */
 @Description("board")
-public final class BoardViewImpl implements Initializable, BoardView {
+public final class BoardViewImpl extends ControllerInteractive<BoardController> implements Initializable, BoardView {
 
     private static final String PREFIX = "Level: ";
     @FXML
@@ -32,7 +31,6 @@ public final class BoardViewImpl implements Initializable, BoardView {
     @FXML
     private ProgressBar progress;
 
-    private final BoardController controller;
     private String suffix;
     private int levels;
     private int pos;
@@ -41,10 +39,11 @@ public final class BoardViewImpl implements Initializable, BoardView {
 
     /**
      * Default constructor.
+     * @param view the MVC view.
      * @param controller the MVC controller.
      */
-    public BoardViewImpl(final BoardController controller) {
-        this.controller = Objects.requireNonNull(controller);
+    public BoardViewImpl(final View view, final BoardController controller) {
+        super(view, controller);
     }
 
     /**
@@ -105,7 +104,7 @@ public final class BoardViewImpl implements Initializable, BoardView {
 
     @FXML
     private void onMoveAction() { // NOPMD, events are indirectly used
-        controller.move();
+        getController().move();
     }
 
     @FXML

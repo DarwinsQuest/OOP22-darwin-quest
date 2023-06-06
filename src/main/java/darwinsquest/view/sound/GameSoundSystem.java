@@ -138,6 +138,14 @@ public final class GameSoundSystem {
     }
 
     /**
+     * Retrieves master volume.
+     * @return the master volume.
+     */
+    public static double getMasterVolume() {
+        return masterVolume;
+    }
+
+    /**
      * This method sets the audio playback volume of all media players.
      * The accepted range is {@code [0.0, 1.0]}.
      * @param value the volume value.
