@@ -32,7 +32,8 @@ public class ESource<T> implements EObservable<T> {
      * Notifies listeners that this object state has changed.
      * @param arg the argument that was updated.
      */
-    protected final void notifyEObservers(final T arg) {
+    @Override
+    public final void notifyEObservers(final T arg) {
         for (final var obs : weakHashSet) {
             obs.update(this, arg);
         }
