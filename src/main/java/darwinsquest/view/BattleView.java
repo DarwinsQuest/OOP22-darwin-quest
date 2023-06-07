@@ -4,6 +4,7 @@ import darwinsquest.annotation.Description;
 import darwinsquest.controller.BanionController;
 import darwinsquest.controller.Controller;
 import darwinsquest.controller.EntityController;
+import darwinsquest.controller.MoveController;
 import darwinsquest.util.Synchronizer;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
 import darwinsquest.view.graphics.Sprite;
@@ -16,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -25,11 +27,15 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * Controller for the battle scene.
@@ -47,6 +53,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
         .getBanionSprite("duck", BanionsSpriteFactory.SpriteType.IDLE);
     private static final Image IMAGE2 = SPRITE2.getImage();
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
+
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -64,6 +71,10 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     @FXML
     private Button moveBtn4;
     @FXML
+    private VBox leftVbox;
+    @FXML
+    private VBox rightVbox;
+    @FXML
     private ImageView leftBanion;
     @FXML
     private ImageView rightBanion;
@@ -71,9 +82,12 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     private final EntityController player;
     private final EntityController opponent;
     private final Synchronizer synchronizer;
-//    private Object selected;
-    private BanionController currentPlayerBanion;
-    private BanionController currentOpponentBanion;
+    private Object selected;
+    private Map<String, ImageView> playerSpriteCache;
+    private Map<String, ImageView> opponentSpriteCache;
+
+    private BanionController playerBanion;
+    private BanionController opponentBanion;
 
     /**
      * Default constructor.
@@ -90,11 +104,25 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
                       final EntityController opponent,
                       final Synchronizer playerInputSynchronizer) {
         super(view, controller);
+
         this.player = Objects.requireNonNull(player);
-        this.player.attachSwapBanionObserver((s, arg) -> currentPlayerBanion = arg);
         this.opponent = Objects.requireNonNull(opponent);
-        this.opponent.attachSwapBanionObserver((s, arg) -> currentOpponentBanion = arg);
+
         this.synchronizer = Objects.requireNonNull(playerInputSynchronizer);
+    }
+
+    private void renderPlayerBanion(final BanionController banion) {
+        leftVbox.getChildren().setAll(
+            new Label(banion.getName()),
+            new Label("Hp: " + banion.getHp()),
+            playerSpriteCache.get(banion.getName()));
+    }
+
+    private void renderOpponentBanion(final BanionController banion) {
+        rightVbox.getChildren().setAll(
+            new Label(banion.getName()),
+            new Label("Hp: " + banion.getHp()),
+            opponentSpriteCache.get(banion.getName()));
     }
 
     /**
@@ -103,26 +131,62 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         initializeBackground();
-        new SpriteAnimation(
-                leftBanion,
-                IMAGE1,
-                Duration.seconds(1),
-                Animation.INDEFINITE,
-                SPRITE1.frames(),
-                SPRITE1.frames(),
-                SPRITE1.width(),
-                SPRITE1.height(),
-                true).play();
-        new SpriteAnimation(
-                rightBanion,
-                IMAGE2,
-                Duration.seconds(1),
-                Animation.INDEFINITE,
-                SPRITE2.frames(),
-                SPRITE2.frames(),
-                SPRITE2.width(),
-                SPRITE2.height(),
-                false).play();
+
+        final var spriteFactory = new BanionsSpriteFactory();
+        playerSpriteCache = player.getInventory().stream()
+            .collect(
+                Collectors.toMap(
+                    BanionController::getName,
+                    banion -> {
+                        final var imageView = new ImageView();
+                        new SpriteAnimation(
+                            imageView,
+                            spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
+                            Duration.seconds(1),
+                            Animation.INDEFINITE,
+                            true).play();
+                        imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
+                        imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
+                        return imageView;
+                    }));
+        opponentSpriteCache = opponent.getInventory().stream()
+            .collect(
+                Collectors.toMap(
+                    BanionController::getName,
+                    banion -> {
+                        final var imageView = new ImageView();
+                        new SpriteAnimation(
+                            imageView,
+                            spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
+                            Duration.seconds(1),
+                            Animation.INDEFINITE,
+                            false).play();
+                        imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
+                        imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
+                        return imageView;
+                    }));
+
+        this.player.attachSwapBanionObserver((s, arg) ->
+            Platform.runLater(() -> {
+                renderPlayerBanion(arg);
+                final var moves = arg.getMoves().stream()
+                    .sorted(Comparator.comparing(MoveController::getName))
+                    .toList();
+                moveBtn1.setText(moves.get(0).getName());
+                moveBtn2.setText(moves.get(1).getName());
+                moveBtn3.setText(moves.get(2).getName());
+                moveBtn4.setText(moves.get(3).getName());
+                playerBanion = arg;
+                playerBanion.attachBanionChangedObserver((so, b) ->
+                    Platform.runLater(() -> renderPlayerBanion(b)));
+            }));
+        this.opponent.attachSwapBanionObserver((s, arg) ->
+            Platform.runLater(() -> {
+                renderOpponentBanion(arg);
+                opponentBanion = arg;
+                opponentBanion.attachBanionChangedObserver((so, b) ->
+                    Platform.runLater(() -> renderOpponentBanion(b)));
+            }));
         GameSoundSystem.stopAll();
         GameSoundSystem.playIntroAndMusic("BossIntro.wav", "BossMain.wav");
     }
@@ -173,8 +237,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
         } catch (final InterruptedException e) {
             throw new IllegalStateException(e);
         }
-        throw new IllegalStateException("Implementation must go on!");
-//        return selected;
+        return selected;
     }
 
     @FXML
@@ -187,25 +250,50 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     @FXML
     void onInventoryAction(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        selected = player.getInventory().stream()
+            .filter(BanionController::isAlive)
+            .findAny()
+            .orElseThrow();
+        synchronizer.signal();
     }
 
     @FXML
-    void onMove1Action(final ActionEvent event) throws InterruptedException {
+    void onMove1Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        selected = playerBanion.getMoves().stream()
+            .filter(m -> m.getName().equals(moveBtn1.getText()))
+            .findFirst()
+            .orElseThrow();
+        synchronizer.signal();
     }
 
     @FXML
     void onMove2Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        selected = playerBanion.getMoves().stream()
+            .filter(m -> m.getName().equals(moveBtn1.getText()))
+            .findFirst()
+            .orElseThrow();
+        synchronizer.signal();
     }
 
     @FXML
     void onMove3Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        selected = playerBanion.getMoves().stream()
+            .filter(m -> m.getName().equals(moveBtn1.getText()))
+            .findFirst()
+            .orElseThrow();
+        synchronizer.signal();
     }
 
     @FXML
     void onMove4Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        selected = playerBanion.getMoves().stream()
+            .filter(m -> m.getName().equals(moveBtn1.getText()))
+            .findFirst()
+            .orElseThrow();
+        synchronizer.signal();
     }
 }

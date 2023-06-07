@@ -2,6 +2,7 @@ package darwinsquest.controller;
 
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.move.DamageMove;
+import darwinsquest.util.EObservable;
 import darwinsquest.util.EObserver;
 import darwinsquest.util.ESource;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -13,8 +14,9 @@ import java.util.stream.Collectors;
 /**
  * Class that represents a banion controller.
  */
-public class BanionControllerImpl extends ESource<BanionController> implements BanionWrapper, EObserver<Banion> {
+public class BanionControllerImpl implements BanionWrapper {
 
+    private final EObservable<BanionController> eventBanionChanged = new ESource<>();
     private final Banion banion;
 
     /**
@@ -24,17 +26,24 @@ public class BanionControllerImpl extends ESource<BanionController> implements B
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This class is a wrapper of a mutable banion.")
     public BanionControllerImpl(final Banion banion) {
         this.banion = Objects.requireNonNull(banion);
+        this.banion.attachBanionChangedObserver((s, arg) ->
+            eventBanionChanged.notifyEObservers(new BanionControllerImpl(arg)));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void update(final ESource<? extends Banion> s, final Banion arg) {
-        if (!arg.equals(banion)) {
-            throw new IllegalStateException();
-        }
-        this.notifyEObservers(this);
+    public boolean attachBanionChangedObserver(final EObserver<? super BanionController> observer) {
+        return eventBanionChanged.addEObserver(observer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean detachBanionChangedObserver(final EObserver<? super BanionController> observer) {
+        return eventBanionChanged.removeEObserver(observer);
     }
 
     /**

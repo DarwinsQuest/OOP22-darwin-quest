@@ -4,6 +4,7 @@ package darwinsquest.util;
  * Interface of a listener of changes.
  * @param <T> the type that has changed.
  */
+@FunctionalInterface
 public interface EObserver<T> {
 
     /**

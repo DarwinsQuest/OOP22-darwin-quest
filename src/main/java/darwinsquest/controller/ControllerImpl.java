@@ -18,7 +18,7 @@ public final class ControllerImpl implements ControllerManager {
 
     private final View view;
     private Engine engine;
-    private EntityController entityController;
+    private Player player;
 
     /**
      * Default constructor.
@@ -40,9 +40,10 @@ public final class ControllerImpl implements ControllerManager {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Player is needed.")
     @Override
     public void setPlayer(final Player player) {
-        entityController = new EntityControllerImpl(Objects.requireNonNull(player));
+        this.player = Objects.requireNonNull(player);
         engine = new EngineImpl(player);
         view.setWindowTitlePrefix(player.getName());
         selectFirstPlayerBanions();
@@ -54,7 +55,8 @@ public final class ControllerImpl implements ControllerManager {
     @Override
     public void selectFirstPlayerBanions() {
         final var numBanions = 4;
-        view.show(view.createBanionSelectorView(new SelectBanionControllerImpl(this, entityController, numBanions)));
+        view.show(view.createBanionSelectorView(
+            new SelectBanionControllerImpl(this, new EntityControllerImpl(player), numBanions)));
     }
 
     /**

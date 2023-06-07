@@ -11,6 +11,8 @@ import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 import darwinsquest.util.Asserts;
+import darwinsquest.util.EObservable;
+import darwinsquest.util.EObserver;
 import darwinsquest.util.ESource;
 
 /**
@@ -18,8 +20,9 @@ import darwinsquest.util.ESource;
  * The number of moves is bounded at 4.
  * The moves can only be of {@link #getElement()}, or {@link Neutral}.
  */
-public final class BanionImpl extends ESource<Banion> implements Banion {
+public final class BanionImpl implements Banion {
 
+    private final EObservable<Banion> eventBanionChanged = new ESource<>();
     private final UUID id;
     private final Element element;
     private final String name;
@@ -64,6 +67,22 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
      * {@inheritDoc}
      */
     @Override
+    public boolean attachBanionChangedObserver(final EObserver<? super Banion> observer) {
+        return eventBanionChanged.addEObserver(observer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean detachBanionChangedObserver(final EObserver<? super Banion> observer) {
+        return eventBanionChanged.removeEObserver(observer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getName() {
         return name;
     }
@@ -102,7 +121,7 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
             if (hp > maxHp) {
                 setHpToMax();
             }
-            super.notifyEObservers(this);
+            eventBanionChanged.notifyEObservers(this);
         }
     }
 
@@ -113,7 +132,7 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
     public void setHpToMax() {
         if (hp != maxHp) {
             hp = maxHp;
-            super.notifyEObservers(this);
+            eventBanionChanged.notifyEObservers(this);
         }
     }
 
@@ -123,7 +142,7 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
     @Override
     public void increaseHp(final int amount) {
         hp = Math.min(Asserts.intMatch(hp + amount, value -> value > hp), maxHp);
-        super.notifyEObservers(this);
+        eventBanionChanged.notifyEObservers(this);
     }
 
     /**
@@ -132,7 +151,7 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
     @Override
     public void decreaseHp(final int amount) {
         hp = Math.max(MIN_HP, Asserts.intMatch(hp - amount, value -> value < hp));
-        super.notifyEObservers(this);
+        eventBanionChanged.notifyEObservers(this);
     }
 
     /**
@@ -160,7 +179,7 @@ public final class BanionImpl extends ESource<Banion> implements Banion {
                 && !moves.contains(newOne)
                 && moves.remove(oldOne)
                 && moves.add(newOne)) {
-            super.notifyEObservers(this);
+            eventBanionChanged.notifyEObservers(this);
             return true;
         }
         return false;

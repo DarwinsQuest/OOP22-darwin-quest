@@ -65,6 +65,7 @@ public final class BoardControllerImpl implements BoardController {
                 board.getBattleSynchronizer());
             board.getPlayer().setInput(new PlayerInputImpl(battleView));
             view.show(battleView);
+            board.startBattle();
         }
     }
 }

@@ -1,8 +1,7 @@
 package darwinsquest.util;
 
-import java.util.Collections;
 import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Class that represents an observable object.
@@ -10,14 +9,14 @@ import java.util.WeakHashMap;
  */
 public class ESource<T> implements EObservable<T> {
 
-    private final Set<EObserver<? super T>> weakHashSet = Collections.newSetFromMap(new WeakHashMap<>());
+    private final Set<EObserver<? super T>> hashSet = ConcurrentHashMap.newKeySet();
 
     /**
      * {@inheritDoc}
      */
     @Override
     public final boolean addEObserver(final EObserver<? super T> obs) {
-        return weakHashSet.add(obs);
+        return hashSet.add(obs);
     }
 
     /**
@@ -25,7 +24,7 @@ public class ESource<T> implements EObservable<T> {
      */
     @Override
     public final boolean removeEObserver(final EObserver<? super T> obs) {
-        return weakHashSet.remove(obs);
+        return hashSet.remove(obs);
     }
 
     /**
@@ -34,7 +33,7 @@ public class ESource<T> implements EObservable<T> {
      */
     @Override
     public final void notifyEObservers(final T arg) {
-        for (final var obs : weakHashSet) {
+        for (final var obs : hashSet) {
             obs.update(this, arg);
         }
     }

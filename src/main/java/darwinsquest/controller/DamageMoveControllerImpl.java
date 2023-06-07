@@ -1,11 +1,12 @@
 package darwinsquest.controller;
 
 import darwinsquest.core.gameobject.move.DamageMove;
+import darwinsquest.core.gameobject.move.Move;
 
 /**
  * Implementation of {@link DamageMoveController}.
  */
-public class DamageMoveControllerImpl implements DamageMoveController {
+public class DamageMoveControllerImpl implements MoveWrapper {
 
     private final DamageMove move;
 
@@ -49,4 +50,11 @@ public class DamageMoveControllerImpl implements DamageMoveController {
         return this.move.getName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Move getMove() {
+        return move;
+    }
 }

@@ -4,14 +4,13 @@ import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Elemental;
 import darwinsquest.util.Cloneable;
-import darwinsquest.util.EObservable;
 
 import java.util.Set;
 
 /**
  * Interface that represents a game monster.
  */
-public interface Banion extends Elemental, GameObject, Cloneable<Banion>, EObservable<Banion> {
+public interface Banion extends Elemental, GameObject, Cloneable<Banion>, EObservableBanionChanged {
 
     /**
      * Allowed number of moves.
