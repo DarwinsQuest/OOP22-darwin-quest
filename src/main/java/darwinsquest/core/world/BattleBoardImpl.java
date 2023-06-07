@@ -117,11 +117,10 @@ public final class BattleBoardImpl extends BoardImpl implements BattleBoard {
      * {@inheritDoc}
      */
     @Override
-    public boolean startBattle() {
+    public void startBattle() {
         if (getBattle().isWinner(battle.getPlayer())) {
             throw new IllegalStateException();
         }
         ((Thread) battle).start();
-        return battle.isWinner(battle.getPlayer());
     }
 }

@@ -35,7 +35,6 @@ public interface BattleBoard extends Board {
 
     /**
      * Starts the player relative battle, or repeats it if unfinished.
-     * @return if the player won the battle.
      */
-    boolean startBattle();
+    void startBattle();
 }

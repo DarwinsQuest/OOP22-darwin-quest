@@ -57,7 +57,7 @@ public final class BoardControllerImpl implements BoardController {
      * {@inheritDoc}
      */
     @Override
-    public boolean startBattle() {
+    public void startBattle() {
         if (!board.isBattleWon()) {
             final var battleView = view.createBattleView(
                 new EntityControllerImpl(board.getPlayer()),
@@ -65,8 +65,6 @@ public final class BoardControllerImpl implements BoardController {
                 board.getBattleSynchronizer());
             board.getPlayer().setInput(new PlayerInputImpl(battleView));
             view.show(battleView);
-            return board.startBattle();
         }
-        return false;
     }
 }
