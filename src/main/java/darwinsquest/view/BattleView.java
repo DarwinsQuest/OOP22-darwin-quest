@@ -11,6 +11,7 @@ import darwinsquest.view.graphics.SpriteAnimation;
 import darwinsquest.view.sound.GameSoundSystem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.animation.Animation;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -80,7 +81,6 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
 //     * @param opponent the opponent.
      * @param playerInputSynchronizer the synchronizer.
      */
-
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Opponent and Player are needed.")
     public BattleView(final View view,
                       final Controller controller,
@@ -177,6 +177,7 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     void onForfeitAction(final ActionEvent event) {
         GameSoundSystem.stopAll();
         GameSoundSystem.playSfx("WarpJingle.wav");
+        Platform.runLater(Platform::exit);
     }
 
     @FXML

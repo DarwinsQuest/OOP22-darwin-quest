@@ -12,7 +12,6 @@ public interface BoardController {
 
     /**
      * Starts current battle.
-     * @return if battle terminated with player victory.
      */
-    boolean startBattle();
+    void startBattle();
 }
