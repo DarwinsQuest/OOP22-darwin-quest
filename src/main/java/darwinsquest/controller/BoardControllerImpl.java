@@ -29,7 +29,7 @@ public final class BoardControllerImpl implements BoardController {
 
     /**
      * Sets the view linked to this controller.
-     * @param boardView th view linked to this controller.
+     * @param boardView the view linked to this controller.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "View is needed according to MVC.")
     public void setBoardView(final BoardView boardView) {
@@ -61,7 +61,7 @@ public final class BoardControllerImpl implements BoardController {
         if (!board.isBattleWon()) {
             final var battleView = view.createBattleView(
                 new EntityControllerImpl(board.getPlayer()),
-                /*new EntityControllerImpl(board.getOpponent()),*/
+                new EntityControllerImpl(board.getOpponent()),
                 board.getBattleSynchronizer());
             board.getPlayer().setInput(new PlayerInputImpl(battleView));
             view.show(battleView);

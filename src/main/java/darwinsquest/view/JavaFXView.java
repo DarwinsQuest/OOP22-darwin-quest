@@ -131,8 +131,8 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public BattleInput createBattleView(final EntityController player,
-                                        /*final EntityController opponent,*/
+                                        final EntityController opponent,
                                         final Synchronizer playerInputSynchronizer) {
-        return new BattleView(this, controller, player, /*opponent,*/ playerInputSynchronizer);
+        return new BattleView(this, controller, player, opponent, playerInputSynchronizer);
     }
 }
