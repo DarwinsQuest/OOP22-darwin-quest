@@ -30,7 +30,7 @@ public class OpponentImpl extends AbstractGameEntity implements Opponent {
      * {@inheritDoc}
      */
     @Override
-    public Banion deployBanion() {
+    public Banion decideDeployBanion() {
         return ai.decideBanionDeployment(getInventory());
     }
 
@@ -46,7 +46,7 @@ public class OpponentImpl extends AbstractGameEntity implements Opponent {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Banion> swapBanion() {
+    public Optional<Banion> decideSwapBanion() {
         return ai.decideBanionSwap(getInventory());
     }
 

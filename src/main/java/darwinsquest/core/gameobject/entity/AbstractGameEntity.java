@@ -3,6 +3,9 @@ package darwinsquest.core.gameobject.entity;
 import darwinsquest.core.battle.decision.Decision;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.util.EObservable;
+import darwinsquest.util.EObserver;
+import darwinsquest.util.ESource;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -16,8 +19,7 @@ import java.util.Optional;
  */
 public abstract class AbstractGameEntity implements GameEntity {
 
-//    private final EObservable<Banion> eventSwap = new ESource<>();
-//    private final EObservable<Banion> eventInventoryChanged = new ESource<>();
+    private final EObservable<Banion> eventSwap = new ESource<>();
     private final String nickname;
     private final List<Banion> inventory = new LinkedList<>();
 
@@ -72,14 +74,43 @@ public abstract class AbstractGameEntity implements GameEntity {
         return Optional.of(inventory.set(index, newBanion));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public abstract Banion deployBanion();
+    public final Banion deployBanion() {
+        final var banion = decideDeployBanion();
+        eventSwap.notifyEObservers(banion);
+        return banion;
+    }
+
+    /**
+     * Retrieves the {@link GameEntity}'s chosen {@link Banion}
+     * to be their active battle companion.
+     * @return the chosen Banion.
+     */
+    public abstract Banion decideDeployBanion();
 
     @Override
     public abstract Move selectMove(Banion banion);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public abstract Optional<Banion> swapBanion();
+    public final Optional<Banion> swapBanion() {
+        final var banion = decideSwapBanion();
+        banion.ifPresent(eventSwap::notifyEObservers);
+        return banion;
+    }
+
+    /**
+     * Swaps the active battle {@link Banion} with
+     * another available one chosen by the {@link GameEntity}.
+     * @return an {@link Optional} containing a {@link Banion} if any is left,
+     *         empty otherwise.
+     */
+    public abstract Optional<Banion> decideSwapBanion();
 
     @Override
     public abstract Decision getDecision();
@@ -98,6 +129,22 @@ public abstract class AbstractGameEntity implements GameEntity {
     @Override
     public String getName() {
         return nickname;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean attachSwapBanionObserver(final EObserver<? super Banion> observer) {
+        return eventSwap.addEObserver(observer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean detachSwapBanionObserver(final EObserver<? super Banion> observer) {
+        return eventSwap.removeEObserver(observer);
     }
 
     /**

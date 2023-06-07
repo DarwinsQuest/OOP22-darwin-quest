@@ -56,7 +56,7 @@ public class PlayerImpl extends AbstractGameEntity implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Banion deployBanion() {
+    public Banion decideDeployBanion() {
         return input.deployBanion();
     }
 
@@ -72,7 +72,7 @@ public class PlayerImpl extends AbstractGameEntity implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Banion> swapBanion() {
+    public Optional<Banion> decideSwapBanion() {
         return Optional.of(input.swapBanion());
     }
 
