@@ -1,6 +1,5 @@
 package darwinsquest.controller;
 
-import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.util.EObservable;
 import darwinsquest.util.EObserver;
@@ -28,9 +27,8 @@ public class EntityControllerImpl implements EntityController {
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Storing a game entity is needed in the controller.")
     public EntityControllerImpl(final GameEntity entity) {
         this.entity = Objects.requireNonNull(entity);
-        final EObserver<Banion> banionSwapObserver = (s, arg) ->
-                banionControllerEObservable.notifyEObservers(new BanionControllerImpl(arg));
-        this.entity.attachSwapBanionObserver(banionSwapObserver);
+        this.entity.attachSwapBanionObserver((s, arg) ->
+            banionControllerEObservable.notifyEObservers(new BanionControllerImpl(arg)));
     }
 
     /**

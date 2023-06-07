@@ -1,13 +1,11 @@
 package darwinsquest.controller;
 
-import darwinsquest.util.EObservable;
-
 import java.util.Set;
 
 /**
  * Interface that represent an immutable banion view.
  */
-public interface BanionController extends EObservable<BanionController> {
+public interface BanionController extends EObservableBanionControllerChanged {
 
     /**
      * Retrieves the name.
