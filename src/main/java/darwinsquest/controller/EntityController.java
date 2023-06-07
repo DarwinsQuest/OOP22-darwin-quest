@@ -1,5 +1,7 @@
 package darwinsquest.controller;
 
+import darwinsquest.util.EObserver;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -54,5 +56,19 @@ public interface EntityController {
      *         {@code false} if there are some left.
      */
     boolean isOutOfBanions();
+
+    /**
+     * Attaches a swap banion observer.
+     * @param observer observer
+     * @return {@code true} on successful operation
+     */
+    boolean attachSwapBanionObserver(EObserver<? super BanionController> observer);
+
+    /**
+     * Detaches a swap banion observer.
+     * @param observer observer
+     * @return {@code true} on successful operation
+     */
+    boolean detachSwapBanionObserver(EObserver<? super BanionController> observer);
 
 }

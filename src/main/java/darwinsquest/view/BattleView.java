@@ -1,9 +1,9 @@
 package darwinsquest.view;
 
+import darwinsquest.annotation.Description;
 import darwinsquest.controller.BanionController;
 import darwinsquest.controller.Controller;
 import darwinsquest.controller.EntityController;
-import darwinsquest.annotation.Description;
 import darwinsquest.util.Synchronizer;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
 import darwinsquest.view.graphics.Sprite;
@@ -69,27 +69,31 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
     private ImageView rightBanion;
 
     private final EntityController player;
-//    private final EntityController opponent;
+    private final EntityController opponent;
     private final Synchronizer synchronizer;
 //    private Object selected;
+    private BanionController currentPlayerBanion;
+    private BanionController currentOpponentBanion;
 
     /**
      * Default constructor.
      * @param view the MVC view.
      * @param controller the MVC controller.
      * @param player the player.
-//     * @param opponent the opponent.
+     * @param opponent the opponent.
      * @param playerInputSynchronizer the synchronizer.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Opponent and Player are needed.")
     public BattleView(final View view,
                       final Controller controller,
                       final EntityController player,
-                      /*final EntityController opponent,*/
+                      final EntityController opponent,
                       final Synchronizer playerInputSynchronizer) {
         super(view, controller);
         this.player = Objects.requireNonNull(player);
-//        this.opponent = Objects.requireNonNull(opponent);
+        this.player.attachSwapBanionObserver((s, arg) -> currentPlayerBanion = arg);
+        this.opponent = Objects.requireNonNull(opponent);
+        this.opponent.attachSwapBanionObserver((s, arg) -> currentOpponentBanion = arg);
         this.synchronizer = Objects.requireNonNull(playerInputSynchronizer);
     }
 

@@ -55,9 +55,9 @@ public interface View {
     /**
      * Creates a battle view.
      * @param player the player.
-//     * @param opponent the opponent.
+     * @param opponent the opponent.
      * @param playerInputSynchronizer the player input synchronizer.
      * @return the battle view.
      */
-    BattleInput createBattleView(EntityController player, /*EntityController opponent,*/ Synchronizer playerInputSynchronizer);
+    BattleInput createBattleView(EntityController player, EntityController opponent, Synchronizer playerInputSynchronizer);
 }
