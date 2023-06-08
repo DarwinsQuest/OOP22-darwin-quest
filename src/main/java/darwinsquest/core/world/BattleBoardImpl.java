@@ -6,7 +6,6 @@ import darwinsquest.core.difficulty.PositiveIntSupplier;
 import darwinsquest.core.difficulty.OpponentsFactory;
 import darwinsquest.core.gameobject.entity.Opponent;
 import darwinsquest.core.gameobject.entity.Player;
-import darwinsquest.util.Synchronizer;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Objects;
@@ -109,18 +108,19 @@ public final class BattleBoardImpl extends BoardImpl implements BattleBoard {
      * {@inheritDoc}
      */
     @Override
-    public Synchronizer getBattleSynchronizer() {
-        return getBattle().getSynchronizer();
+    public boolean startBattle() {
+        if (getBattle().isWinner(battle.getPlayer())) {
+            throw new IllegalStateException();
+        }
+        return battle.newBattle();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void startBattle() {
-        if (getBattle().isWinner(battle.getPlayer())) {
-            throw new IllegalStateException();
-        }
-        ((Thread) battle).start();
+    public boolean nextTurn() {
+        return battle.nextTurn();
     }
+
 }

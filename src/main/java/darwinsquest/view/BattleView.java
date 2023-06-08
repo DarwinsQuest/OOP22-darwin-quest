@@ -2,10 +2,9 @@ package darwinsquest.view;
 
 import darwinsquest.annotation.Description;
 import darwinsquest.controller.BanionController;
-import darwinsquest.controller.Controller;
+import darwinsquest.controller.BattleController;
 import darwinsquest.controller.EntityController;
 import darwinsquest.controller.MoveController;
-import darwinsquest.util.Synchronizer;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
 import darwinsquest.view.graphics.Sprite;
 import darwinsquest.view.graphics.SpriteAnimation;
@@ -41,7 +40,7 @@ import java.util.stream.Collectors;
  * Controller for the battle scene.
  */
 @Description("battle")
-public final class BattleView extends ControllerInteractive<Controller> implements Initializable, BattleInput {
+public final class BattleView extends ControllerInteractive<BattleController> implements Initializable, BattleInput {
 
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;
@@ -81,11 +80,9 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
 
     private final EntityController player;
     private final EntityController opponent;
-    private final Synchronizer synchronizer;
     private Object selected;
     private Map<String, ImageView> playerSpriteCache;
     private Map<String, ImageView> opponentSpriteCache;
-
     private BanionController playerBanion;
     private BanionController opponentBanion;
 
@@ -95,20 +92,16 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
      * @param controller the MVC controller.
      * @param player the player.
      * @param opponent the opponent.
-     * @param playerInputSynchronizer the synchronizer.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Opponent and Player are needed.")
     public BattleView(final View view,
-                      final Controller controller,
+                      final BattleController controller,
                       final EntityController player,
-                      final EntityController opponent,
-                      final Synchronizer playerInputSynchronizer) {
+                      final EntityController opponent) {
         super(view, controller);
 
         this.player = Objects.requireNonNull(player);
         this.opponent = Objects.requireNonNull(opponent);
-
-        this.synchronizer = Objects.requireNonNull(playerInputSynchronizer);
     }
 
     private void renderPlayerBanion(final BanionController banion) {
@@ -231,12 +224,6 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
      */
     @Override
     public Object selectMoveOrBanion() {
-        try {
-            // waits here until signal is sent
-            synchronizer.waitForSignal();
-        } catch (final InterruptedException e) {
-            throw new IllegalStateException(e);
-        }
         return selected;
     }
 
@@ -254,7 +241,9 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
             .filter(BanionController::isAlive)
             .findAny()
             .orElseThrow();
-        synchronizer.signal();
+        // getController().nextTurn();
+        // getController().nextTurn();
+        // synchronizer.signal();
     }
 
     @FXML
@@ -264,36 +253,40 @@ public final class BattleView extends ControllerInteractive<Controller> implemen
             .filter(m -> m.getName().equals(moveBtn1.getText()))
             .findFirst()
             .orElseThrow();
-        synchronizer.signal();
+        getController().nextTurn();
+        getController().nextTurn();
     }
 
     @FXML
     void onMove2Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
         selected = playerBanion.getMoves().stream()
-            .filter(m -> m.getName().equals(moveBtn1.getText()))
+            .filter(m -> m.getName().equals(moveBtn2.getText()))
             .findFirst()
             .orElseThrow();
-        synchronizer.signal();
+        getController().nextTurn();
+        getController().nextTurn();
     }
 
     @FXML
     void onMove3Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
         selected = playerBanion.getMoves().stream()
-            .filter(m -> m.getName().equals(moveBtn1.getText()))
+            .filter(m -> m.getName().equals(moveBtn3.getText()))
             .findFirst()
             .orElseThrow();
-        synchronizer.signal();
+        getController().nextTurn();
+        getController().nextTurn();
     }
 
     @FXML
     void onMove4Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
         selected = playerBanion.getMoves().stream()
-            .filter(m -> m.getName().equals(moveBtn1.getText()))
+            .filter(m -> m.getName().equals(moveBtn4.getText()))
             .findFirst()
             .orElseThrow();
-        synchronizer.signal();
+        getController().nextTurn();
+        getController().nextTurn();
     }
 }

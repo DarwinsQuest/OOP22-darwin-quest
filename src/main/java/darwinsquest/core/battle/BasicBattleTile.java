@@ -4,8 +4,6 @@ import darwinsquest.core.battle.turn.DeployTurnImpl;
 import darwinsquest.core.battle.turn.SwapTurnImpl;
 import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.battle.turn.Turn;
-import darwinsquest.util.SimpleSynchronizer;
-import darwinsquest.util.Synchronizer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,13 +13,13 @@ import java.util.Objects;
 /**
  * A basic implementation of {@link BattleTile}.
  */
-public class BasicBattleTile extends Thread implements BattleTile {
-
-    private final Synchronizer synchronizer = new SimpleSynchronizer();
+public class BasicBattleTile implements BattleTile {
 
     private final List<GameEntity> players;
     private boolean hasBeenDone;
     private GameEntity winner;
+    private boolean isPlayerTurn;
+    private final List<Turn> battleTurns = new ArrayList<>();
 
     /**
      * This constructor creates a new {@link BasicBattleTile} with the
@@ -31,14 +29,7 @@ public class BasicBattleTile extends Thread implements BattleTile {
      */
     public BasicBattleTile(final GameEntity player, final GameEntity opponent) {
         this.players = List.of(Objects.requireNonNull(player), Objects.requireNonNull(opponent));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Synchronizer getSynchronizer() {
-        return synchronizer;
+        isPlayerTurn = true; // this field is set to true because the player is always the first to start the battle in our logic
     }
 
     /**
@@ -61,39 +52,70 @@ public class BasicBattleTile extends Thread implements BattleTile {
      * {@inheritDoc}
      */
     @Override
-    public List<Turn> startBattle() {
-        if (hasBeenDone && isWinner(getPlayer())) {
-            throw new IllegalStateException("The battle has already been fought and the player has already won it");
-        } // if the player has already won the battle, he can't play that battle again
-        final List<Turn> turns = new ArrayList<>();
+    public boolean newBattle() {
+        battleTurns.clear(); // if the battle has been done and the player has lost, the battle should be done again
+        // so it is not correct to add other turns to the previous ones.
+        if (isWinner(getPlayer())) {
+            return false;
+        }
         final var firstTurn = new DeployTurnImpl(getPlayer(), getOpponent());
         firstTurn.performAction();
-        turns.add(firstTurn);
+        battleTurns.add(firstTurn);
         final var secondTurn = new DeployTurnImpl(firstTurn);
         secondTurn.performAction();
-        turns.add(secondTurn);
-        while (nobodyIsOutOfBanions()) {
-            final var previousTurn = turns.get(turns.size() - 1);
-            final Turn currentTurn;
-            if (previousTurn.otherEntityCurrentlyDeployedBanion().get().isAlive()) {
-                currentTurn = getEntityOnTurn(previousTurn).getDecision().getAssociatedTurn(previousTurn);
-            } else {
-                currentTurn = new SwapTurnImpl(previousTurn);
-            }
-            turns.add(currentTurn);
-            currentTurn.performAction();
-        }
-        hasBeenDone = true; // the field hasBeenDone begins true only at the end of the battle
-        setWinner();
-        return Collections.unmodifiableList(turns);
+        battleTurns.add(secondTurn);
+        return true; // returns true if is possible to start a new battle
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void run() {
-        startBattle();
+    public boolean nextTurn() {
+        if (!nobodyIsOutOfBanions()) {
+            hasBeenDone = true;
+            setWinner();
+            return false; // this method returns false if it is not possible to create a new turn, because the battle is finished
+        }
+        if (isPlayerTurn) {
+            playerTurn();
+            isPlayerTurn = false;
+        } else {
+            opponentTurn();
+            isPlayerTurn = true;
+        }
+        return true; // the method returns true if a new turn can be created, and so the battle can continue.
+    }
+
+    private void playerTurn() {
+        performCurrentTurn(battleTurns.get(battleTurns.size() - 1));
+    }
+
+    private void opponentTurn() {
+        performCurrentTurn(battleTurns.get(battleTurns.size() - 1));
+    }
+
+    private void performCurrentTurn(final Turn previousTurn) {
+        final Turn currentTurn;
+        if (previousTurn.otherEntityCurrentlyDeployedBanion().get().isAlive()) {
+            currentTurn = this.getEntityOnTurn(previousTurn).getDecision().getAssociatedTurn(previousTurn);
+        } else {
+            currentTurn = new SwapTurnImpl(previousTurn);
+        }
+        battleTurns.add(currentTurn);
+        currentTurn.performAction();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Turn> getBattleTurns() {
+        if (hasBeenDone) {
+            return Collections.unmodifiableList(battleTurns);
+        } else {
+            return List.of();
+        }
     }
 
     /**

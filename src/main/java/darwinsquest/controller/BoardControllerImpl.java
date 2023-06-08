@@ -62,7 +62,7 @@ public final class BoardControllerImpl implements BoardController {
             final var battleView = view.createBattleView(
                 new EntityControllerImpl(board.getPlayer()),
                 new EntityControllerImpl(board.getOpponent()),
-                board.getBattleSynchronizer());
+                new BattleControllerImpl(board));
             board.getPlayer().setInput(new PlayerInputImpl(battleView));
             view.show(battleView);
             board.startBattle();

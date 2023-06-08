@@ -1,11 +1,11 @@
 package darwinsquest.view;
 
+import darwinsquest.controller.BattleController;
 import darwinsquest.controller.BoardController;
 import darwinsquest.controller.DifficultyController;
 import darwinsquest.controller.EntityController;
 import darwinsquest.controller.LoginController;
 import darwinsquest.controller.SelectBanionController;
-import darwinsquest.util.Synchronizer;
 
 /**
  * Interface of a general view.
@@ -56,8 +56,8 @@ public interface View {
      * Creates a battle view.
      * @param player the player.
      * @param opponent the opponent.
-     * @param playerInputSynchronizer the player input synchronizer.
+     * @param controller the controller associated to the view
      * @return the battle view.
      */
-    BattleInput createBattleView(EntityController player, EntityController opponent, Synchronizer playerInputSynchronizer);
+    BattleInput createBattleView(EntityController player, EntityController opponent, BattleController controller);
 }
