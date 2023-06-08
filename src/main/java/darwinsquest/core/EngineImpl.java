@@ -9,10 +9,11 @@ import java.util.Set;
 
 import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
-import darwinsquest.core.difficulty.Normal;
+import darwinsquest.core.difficulty.NormalDifficulty;
+import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.gameobject.entity.Player;
-import darwinsquest.core.world.Board;
-import darwinsquest.utility.MyCollectors;
+import darwinsquest.core.world.BattleBoard;
+import darwinsquest.util.MyCollectors;
 
 /**
  * Class that represents the engine of darwinsquest model.
@@ -21,7 +22,7 @@ public class EngineImpl implements Engine {
 
     private final List<Class<? extends Difficulty>> difficulties;
     private final Player player;
-    private Board board;
+    private BattleBoard board;
     private Difficulty difficulty;
 
     /**
@@ -29,20 +30,22 @@ public class EngineImpl implements Engine {
      * @param player the player enveloped with the game.
      */
     public EngineImpl(final Player player) {
-        difficulties = List.of(Normal.class);
+        difficulties = List.of(NormalDifficulty.class);
         this.player = Objects.requireNonNull(player);
     }
 
     private static String getDifficultyName(final Class<? extends Difficulty> difficulty) {
         return difficulty.getAnnotation(Description.class).value();
-    } 
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Set<String> getDifficulties() {
-        return difficulties.stream().map(EngineImpl::getDifficultyName).collect(MyCollectors.toImmutableSet(LinkedHashSet::new));
+        return difficulties.stream()
+            .map(EngineImpl::getDifficultyName)
+            .collect(MyCollectors.toImmutableSet(LinkedHashSet::new));
     }
 
     /**
@@ -59,7 +62,7 @@ public class EngineImpl implements Engine {
             .findFirst()
             .ifPresent(d -> {
                 try {
-                    this.difficulty = d.getDeclaredConstructor().newInstance();
+                    this.difficulty = d.getDeclaredConstructor(GameEntity.class).newInstance(player);
                 } catch (InstantiationException | IllegalAccessException
                         | InvocationTargetException | NoSuchMethodException e) {
                     throw new IllegalStateException(e);
@@ -74,7 +77,7 @@ public class EngineImpl implements Engine {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Board> getBoard() {
+    public Optional<BattleBoard> getBoard() {
         return Optional.ofNullable(board);
     }
 

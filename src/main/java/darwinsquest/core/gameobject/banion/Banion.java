@@ -4,7 +4,8 @@ import darwinsquest.core.Evolvable;
 import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.element.Elemental;
 import darwinsquest.core.gameobject.move.Move;
-import darwinsquest.utility.Cloneable;
+import darwinsquest.util.Cloneable;
+import darwinsquest.util.EObserver;
 
 import java.util.Set;
 
@@ -21,6 +22,20 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion>, Evolva
      * Allowed min hit points amount.
      */
     int MIN_HP = 0;
+
+    /**
+     * Attaches an observer that is notified when this banion changes.
+     * @param observer the observer.
+     * @return if the operation was done successfully.
+     */
+    boolean attachBanionChangedObserver(EObserver<? super Banion> observer);
+
+    /**
+     * Detaches an observer that is notified when this banion changes.
+     * @param observer the observer.
+     * @return if the operation was done successfully.
+     */
+    boolean detachBanionChangedObserver(EObserver<? super Banion> observer);
 
     /**
      * Tells if this {@link Banion} is alive or not.

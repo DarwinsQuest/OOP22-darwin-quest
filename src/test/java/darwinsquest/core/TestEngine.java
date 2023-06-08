@@ -3,11 +3,13 @@ package darwinsquest.core;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
+import com.github.javafaker.Faker;
+import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.gameobject.entity.PlayerImpl;
+import darwinsquest.util.JsonUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,15 +17,15 @@ import org.junit.jupiter.api.Test;
  */
 class TestEngine {
 
-    private static final String PLAYER_NAME = "I";
-    private final RandomGenerator generator = new Random();
-
     @Test
     void difficulties() {
-        final var engine = new EngineImpl(new PlayerImpl(PLAYER_NAME));
+        final RandomGenerator generator = new Random();
+        final var player = new PlayerImpl(new Faker().name().firstName());
+        final var engine = new EngineImpl(player);
 
-        engine.getDifficulties().forEach(difficulty ->
-            assertTrue(engine.startGame(difficulty)));
+        player.addToInventory(new BanionFactory().createElements().stream().findAny().orElseThrow());
+
+        engine.getDifficulties().forEach(difficulty -> assertTrue(new EngineImpl(player).startGame(difficulty)));
 
         var stringLength = 0;
         var generatedDifficulty = "";
@@ -31,10 +33,10 @@ class TestEngine {
         while (engine.getDifficulties().contains(generatedDifficulty)) {
             final var array = new byte[++stringLength];
             generator.nextBytes(array);
-            generatedDifficulty = new String(array, StandardCharsets.UTF_8);
+            generatedDifficulty = new String(array, JsonUtils.CHARSET);
         }
 
-        final var nonexistingDifficulty = generatedDifficulty;
-        assertFalse(engine.startGame(nonexistingDifficulty));
+        final var nonExistingDifficulty = generatedDifficulty;
+        assertFalse(engine.startGame(nonExistingDifficulty));
     }
 }

@@ -37,7 +37,7 @@ public class BasicMove implements DamageMove {
      */
     @Override
     public void perform(final Banion opponentBanion) {
-        opponentBanion.decreaseHp(getDamage());
+        opponentBanion.decreaseHp(computeDamage(opponentBanion));
     }
 
     /**
@@ -76,8 +76,22 @@ public class BasicMove implements DamageMove {
      * {@inheritDoc}
      */
     @Override
-    public int getDamage() {
+    public int getBaseDamage() {
         return this.baseDamage;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int computeDamage(final Banion opponentBanion) {
+        if (this.element.isWeaker(opponentBanion.getElement())) {
+            return this.baseDamage * 2;
+        } else if (this.element.isStronger(opponentBanion.getElement())) {
+            return this.baseDamage / 2;
+        } else {
+            return this.baseDamage;
+        }
     }
 
     /**
@@ -102,7 +116,7 @@ public class BasicMove implements DamageMove {
     @Override
     public String toString() {
         return getClass().getSimpleName() + " [name = " + this.getName() + ", element = " + this.getElement()
-                + ", damage = " + this.getDamage() + "]";
+                + ", base damage = " + this.getBaseDamage() + "]";
     }
 
     /**

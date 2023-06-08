@@ -17,7 +17,7 @@ import darwinsquest.core.gameobject.move.Move;
 /**
  * A basic implementation of the game AI.
  */
-class BasicAI implements AI {
+public class BasicAI implements AI {
 
     private static final int MOVE_DECISION_BOUND = 19;
     private static final int SWAP_DECISION_BOUND = 2;
@@ -28,7 +28,7 @@ class BasicAI implements AI {
      * Creates an instance of {@link BasicAI} using the provided {@code seed} to initialize the random number generator.
      * @param seed the random generator's seed.
      */
-    BasicAI(final int seed) {
+    public BasicAI(final int seed) {
         generator = new Random(seed);
         this.decisions = new HashMap<>(Map.of(new SwapDecision(), SWAP_DECISION_BOUND, new MoveDecision(), MOVE_DECISION_BOUND));
     }
@@ -36,7 +36,7 @@ class BasicAI implements AI {
     /**
      * Default constructor.
      */
-    BasicAI() {
+    public BasicAI() {
         generator = new Random();
         this.decisions = new HashMap<>(Map.of(new SwapDecision(), SWAP_DECISION_BOUND, new MoveDecision(), MOVE_DECISION_BOUND));
     }
