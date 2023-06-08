@@ -19,4 +19,10 @@ public interface EObservable<T> {
      * @return if observer added correctly.
      */
     boolean removeEObserver(EObserver<? super T> obs);
+
+    /**
+     * Notifies listeners that this object state has changed.
+     * @param arg the argument that was updated.
+     */
+    void notifyEObservers(T arg);
 }

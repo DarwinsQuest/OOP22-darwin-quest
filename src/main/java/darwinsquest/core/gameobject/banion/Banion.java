@@ -4,14 +4,14 @@ import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Elemental;
 import darwinsquest.util.Cloneable;
-import darwinsquest.util.EObservable;
+import darwinsquest.util.EObserver;
 
 import java.util.Set;
 
 /**
  * Interface that represents a game monster.
  */
-public interface Banion extends Elemental, GameObject, Cloneable<Banion>, EObservable<Banion> {
+public interface Banion extends Elemental, GameObject, Cloneable<Banion> {
 
     /**
      * Allowed number of moves.
@@ -21,6 +21,20 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion>, EObser
      * Allowed min hit points amount.
      */
     int MIN_HP = 0;
+
+    /**
+     * Attaches an observer that is notified when this banion changes.
+     * @param observer the observer.
+     * @return if the operation was done successfully.
+     */
+    boolean attachBanionChangedObserver(EObserver<? super Banion> observer);
+
+    /**
+     * Detaches an observer that is notified when this banion changes.
+     * @param observer the observer.
+     * @return if the operation was done successfully.
+     */
+    boolean detachBanionChangedObserver(EObserver<? super Banion> observer);
 
     /**
      * Tells if this {@link Banion} is alive or not.

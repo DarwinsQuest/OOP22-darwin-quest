@@ -1,8 +1,7 @@
 package darwinsquest.util;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.WeakHashMap;
 
 /**
  * Class that represents an observable object.
@@ -10,7 +9,8 @@ import java.util.WeakHashMap;
  */
 public class ESource<T> implements EObservable<T> {
 
-    private final Set<EObserver<? super T>> weakHashSet = Collections.newSetFromMap(new WeakHashMap<>());
+    private final Set<EObserver<? super T>> weakHashSet = new HashSet<>();
+//        to evaluate if better -> Collections.newSetFromMap(new WeakHashMap<>());
 
     /**
      * {@inheritDoc}
@@ -29,10 +29,10 @@ public class ESource<T> implements EObservable<T> {
     }
 
     /**
-     * Notifies listeners that this object state has changed.
-     * @param arg the argument that was updated.
+     * {@inheritDoc}
      */
-    protected final void notifyEObservers(final T arg) {
+    @Override
+    public final void notifyEObservers(final T arg) {
         for (final var obs : weakHashSet) {
             obs.update(this, arg);
         }
