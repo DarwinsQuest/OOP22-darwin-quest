@@ -29,6 +29,8 @@ class TestMove {
     private static final int HP_1 = 100;
     private static final int HP_2 = 20;
     private static final int HP_3 = 15;
+    private static final double ATK = 1.0;
+    private static final double DEF = 1.0;
     private final Element neutral = new Neutral();
     private static final int MOVE_DAMAGE = 10;
     private static final Set<Move> ALL_MOVES = new MoveFactory().createElements();
@@ -82,9 +84,9 @@ class TestMove {
     @Test
     void testPerformMoveWithNeutral() {
         final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
-        final Banion banion1 = new BanionImpl(neutral, BANION_NAME_1, HP_1, moves);
-        final Banion banion2 = new BanionImpl(neutral, BANION_NAME_2, HP_2, moves);
-        final Banion banion3 = new BanionImpl(neutral, BANION_NAME_3, HP_3, moves);
+        final Banion banion1 = new BanionImpl(neutral, BANION_NAME_1, HP_1, ATK, DEF, moves);
+        final Banion banion2 = new BanionImpl(neutral, BANION_NAME_2, HP_2, ATK, DEF, moves);
+        final Banion banion3 = new BanionImpl(neutral, BANION_NAME_3, HP_3, ATK, DEF, moves);
         move.perform(banion1);
         assertEquals(banion1.getHp(), HP_1 - move.computeDamage(banion1));
         move.perform(banion2);

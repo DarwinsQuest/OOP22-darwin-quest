@@ -28,6 +28,8 @@ class TestBattle {
     private static final int HP_2 = 25;
     private static final int HP_3 = 30;
     private static final int HP_4 = 35;
+    private static final double DEFAULT_ATK = 1.0;
+    private static final double DEFAULT_DEF = 1.0;
     private static final GameEntity E1 = new OpponentImpl("E1",
         new BasicAI());
     private static final GameEntity E2 = new OpponentImpl("E2",
@@ -52,10 +54,10 @@ class TestBattle {
                 new BasicMove(DAMAGE_2, "m2", neutralElement),
                 new BasicMove(DAMAGE_1, "m3", neutralElement),
                 new BasicMove(DAMAGE_2, "m4", neutralElement));
-        final var b1 = new BanionImpl(neutralElement, "b1", HP_1, b1Moves);
-        final var b2 = new BanionImpl(neutralElement, "b2", HP_2, b2Moves);
-        final var b3 = new BanionImpl(neutralElement, "b3", HP_3, b3Moves);
-        final var b4 = new BanionImpl(neutralElement, "b4", HP_4, b4Moves);
+        final var b1 = new BanionImpl(neutralElement, "b1", HP_1, DEFAULT_ATK, DEFAULT_DEF, b1Moves);
+        final var b2 = new BanionImpl(neutralElement, "b2", HP_2, DEFAULT_ATK, DEFAULT_DEF, b2Moves);
+        final var b3 = new BanionImpl(neutralElement, "b3", HP_3, DEFAULT_ATK, DEFAULT_DEF, b3Moves);
+        final var b4 = new BanionImpl(neutralElement, "b4", HP_4, DEFAULT_ATK, DEFAULT_DEF, b4Moves);
         E1.addToInventory(b1);
         E1.addToInventory(b2);
         E2.addToInventory(b3);

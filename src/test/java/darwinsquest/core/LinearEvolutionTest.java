@@ -42,6 +42,8 @@ class LinearEvolutionTest {
     private static final String NAME = "Bob";
     private static final int MOVE_DAMAGE = LEVEL_10;
     private static final int DEFAULT_HP = 100;
+    private static final double DEFAULT_ATK = 1.0;
+    private static final double DEFAULT_DEF = 1.0;
     private static final double HP_MULTIPLIER = 15;
     private static final BanionStats DEFAULT_RECORD = new BanionStats(LEVEL_1, DEFAULT_HP, DEFAULT_HP);
     private BanionStats lastRecord;
@@ -53,7 +55,7 @@ class LinearEvolutionTest {
 
     @Test
     void evolveTest() {
-        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, moves);
+        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         assertFalse(b.evolve(banion -> banion.getLevel() > LEVEL_10));
         assertRecordEquals(DEFAULT_RECORD, b);
         lastRecord = new BanionStats(LEVEL_2, addPercentage(DEFAULT_RECORD.hp()), addPercentage(DEFAULT_RECORD.maxHp()));
@@ -70,7 +72,7 @@ class LinearEvolutionTest {
 
     @Test
     void evolveToLevelTest() {
-        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, moves);
+        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         lastRecord = new BanionStats(LEVEL_10,
                 addPercentage(DEFAULT_RECORD.hp(), LEVEL_10 - 1),
                 addPercentage(DEFAULT_RECORD.maxHp(), LEVEL_10 - 1));
@@ -88,14 +90,14 @@ class LinearEvolutionTest {
 
     @Test
     void rollbackTest() {
-        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, moves);
+        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         assertFalse(b.evolveToLevel(LEVEL_10, banion -> banion.getLevel() % 2 == 0));
         assertRollback(DEFAULT_RECORD, b);
     }
 
     @Test
     void evolveToLevelMultiMapTest() {
-        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, moves);
+        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         final MultiValuedMap<Predicate<Banion>, Integer> requirements = new ArrayListValuedHashMap<>();
         // From lvl 1 to lvl 7.
         requirements.putAll(banion -> banion.getLevel() <= LEVEL_3, List.of(LEVEL_1, LEVEL_2, LEVEL_3));
@@ -123,7 +125,7 @@ class LinearEvolutionTest {
 
     @Test
     void multiMapErrorsTest() {
-        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, moves);
+        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         final MultiValuedMap<Predicate<Banion>, Integer> requirements = new ArrayListValuedHashMap<>();
         // Duplicates test.
         requirements.putAll(banion -> true, List.of(LEVEL_1, LEVEL_1, LEVEL_2));
@@ -144,7 +146,7 @@ class LinearEvolutionTest {
 
     @Test
     void increaseXpTest() {
-        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, moves);
+        final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         assertEquals(XP_0, b.getXp());
         b.increaseXp(XP_5);
         assertEquals(XP_5, b.getXp());
