@@ -40,8 +40,10 @@ public final class BanionImpl implements Banion {
      * @param level current level.
      * @param hp current hp.
      * @param maxHp current maxHp.
+     * @param attack current atk.
+     * @param defence current def.
      */
-    public record BanionStats(int level, int hp, int maxHp) {
+    public record BanionStats(int level, int hp, int maxHp, double attack, double defence) {
     }
 
     private static final int MAX_XP = 20;
@@ -89,8 +91,8 @@ public final class BanionImpl implements Banion {
                       final double attack,
                       final double defence,
                       final Set<Move> moves) {
-        if (Double.compare(attack, 0) <= 0) {
-            throw new IllegalArgumentException("Attack must be greater than 0. Given: " + attack);
+        if (Double.compare(attack, 0) <= 0 || Double.compare(defence, 0) <= 0) {
+            throw new IllegalArgumentException("Attack or Defence must be greater than 0. Given: " + attack + ", " + defence);
         }
         id = UUID.randomUUID();
         this.element = Objects.requireNonNull(element);
@@ -213,6 +215,7 @@ public final class BanionImpl implements Banion {
             throw new IllegalArgumentException();
         }
         attack.setValue(delta);
+        eventBanionChanged.notifyEObservers(this);
     }
 
     /**
@@ -221,6 +224,15 @@ public final class BanionImpl implements Banion {
     @Override
     public void decreaseAttack(final double amount) {
         increaseAttack(-amount);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setAttack(final double value) {
+        attack.setValue(value);
+        eventBanionChanged.notifyEObservers(this);
     }
 
     /**
@@ -241,6 +253,7 @@ public final class BanionImpl implements Banion {
             throw new IllegalArgumentException();
         }
         defence.setValue(delta);
+        eventBanionChanged.notifyEObservers(this);
     }
 
     /**
@@ -249,6 +262,14 @@ public final class BanionImpl implements Banion {
     @Override
     public void decreaseDefence(final double amount) {
         increaseDefence(-amount);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDefence(final double value) {
+        defence.setValue(value);
     }
 
     /**
@@ -273,6 +294,7 @@ public final class BanionImpl implements Banion {
     @Override
     public void increaseLevel() {
         level = level + 1;
+        eventBanionChanged.notifyEObservers(this);
     }
 
     @Override
@@ -294,6 +316,7 @@ public final class BanionImpl implements Banion {
             evolve(banion -> true);
             xp = increaseRest;
         }
+        eventBanionChanged.notifyEObservers(this);
     }
 
     /**
@@ -301,7 +324,11 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public boolean evolve(final Predicate<Banion> requirement) {
-        return evolution.evolve(this, requirement);
+        final var status = evolution.evolve(this, requirement);
+        if (status) {
+            eventBanionChanged.notifyEObservers(this);
+        }
+        return status;
     }
 
     /**
@@ -312,7 +339,7 @@ public final class BanionImpl implements Banion {
         if (this.level >= level) {
             throw new IllegalArgumentException("Current level " + "(" + this.level + ") is past or equal to: " + level);
         }
-        final var rollbackRecord = new BanionStats(this.level, hp.getValue(), maxHp);
+        final var rollbackRecord = new BanionStats(this.level, hp.getValue(), maxHp, attack.getValue(), defence.getValue());
         boolean lastStatus;
         while (this.level != level) {
             lastStatus = evolve(requirement);
@@ -349,7 +376,7 @@ public final class BanionImpl implements Banion {
         if (hasGaps(level, sortedLevels)) {
             throw new IllegalArgumentException("MultiMap is missing required values.");
         }
-        final var rollbackRecord = new BanionStats(this.level, hp.getValue(), maxHp);
+        final var rollbackRecord = new BanionStats(this.level, hp.getValue(), maxHp, attack.getValue(), defence.getValue());
         final var entries = mapCopy.entries().stream().sorted(Map.Entry.comparingByValue()).toList();
         for (final var e : entries) {
             final var flag = evolve(e.getKey());

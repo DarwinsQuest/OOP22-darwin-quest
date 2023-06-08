@@ -44,8 +44,10 @@ class LinearEvolutionTest {
     private static final int DEFAULT_HP = 100;
     private static final double DEFAULT_ATK = 1.0;
     private static final double DEFAULT_DEF = 1.0;
-    private static final double HP_MULTIPLIER = 15;
-    private static final BanionStats DEFAULT_RECORD = new BanionStats(LEVEL_1, DEFAULT_HP, DEFAULT_HP);
+    private static final double HP_MULTIPLIER = 0.15;
+    private static final double ATK_MULTIPLIER = 0.15;
+    private static final double DEF_MULTIPLIER = 0.15;
+    private static final BanionStats DEFAULT_RECORD = new BanionStats(LEVEL_1, DEFAULT_HP, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF);
     private BanionStats lastRecord;
     private final Element neutral = new Neutral();
     private final Set<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
@@ -58,12 +60,20 @@ class LinearEvolutionTest {
         final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         assertFalse(b.evolve(banion -> banion.getLevel() > LEVEL_10));
         assertRecordEquals(DEFAULT_RECORD, b);
-        lastRecord = new BanionStats(LEVEL_2, addPercentage(DEFAULT_RECORD.hp()), addPercentage(DEFAULT_RECORD.maxHp()));
+        lastRecord = new BanionStats(LEVEL_2,
+                addPercentage(DEFAULT_RECORD.hp()),
+                addPercentage(DEFAULT_RECORD.maxHp()),
+                addPercentage(DEFAULT_RECORD.attack(), ATK_MULTIPLIER),
+                addPercentage(DEFAULT_RECORD.defence(), DEF_MULTIPLIER));
         assertTrue(b.evolve(banion -> banion.getLevel() == 1));
         assertRecordEquals(lastRecord, b);
         assertFalse(b.evolve(banion -> false));
         assertRecordEquals(lastRecord, b);
-        lastRecord = new BanionStats(LEVEL_3, addPercentage(lastRecord.hp()), addPercentage(lastRecord.maxHp()));
+        lastRecord = new BanionStats(LEVEL_3,
+                addPercentage(lastRecord.hp()),
+                addPercentage(lastRecord.maxHp()),
+                addPercentage(lastRecord.attack(), ATK_MULTIPLIER),
+                addPercentage(lastRecord.defence(), DEF_MULTIPLIER));
         assertTrue(b.evolve(banion -> banion.getLevel() % 2 == 0));
         assertRecordEquals(lastRecord, b);
         assertFalse(b.evolve(banion -> banion.getLevel() % 2 == 0));
@@ -75,12 +85,16 @@ class LinearEvolutionTest {
         final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         lastRecord = new BanionStats(LEVEL_10,
                 addPercentage(DEFAULT_RECORD.hp(), LEVEL_10 - 1),
-                addPercentage(DEFAULT_RECORD.maxHp(), LEVEL_10 - 1));
+                addPercentage(DEFAULT_RECORD.maxHp(), LEVEL_10 - 1),
+                addPercentage(DEFAULT_RECORD.attack(), ATK_MULTIPLIER, LEVEL_10 - 1),
+                addPercentage(DEFAULT_RECORD.defence(), DEF_MULTIPLIER, LEVEL_10 - 1));
         assertTrue(b.evolveToLevel(LEVEL_10, banion -> banion.getLevel() <= LEVEL_10));
         assertRecordEquals(lastRecord, b);
         lastRecord = new BanionStats(LEVEL_15,
                 addPercentage(lastRecord.hp(), LEVEL_15 - LEVEL_10),
-                addPercentage(lastRecord.maxHp(), LEVEL_15 - LEVEL_10));
+                addPercentage(lastRecord.maxHp(), LEVEL_15 - LEVEL_10),
+                addPercentage(lastRecord.attack(), ATK_MULTIPLIER, LEVEL_15 - LEVEL_10),
+                addPercentage(lastRecord.defence(), DEF_MULTIPLIER, LEVEL_15 - LEVEL_10));
         assertTrue(b.evolveToLevel(LEVEL_15, banion -> banion.getLevel() < LEVEL_15));
         assertRecordEquals(lastRecord, b);
         assertThrows(IllegalArgumentException.class, () -> b.evolveToLevel(LEVEL_5, banion -> true));
@@ -104,21 +118,27 @@ class LinearEvolutionTest {
         requirements.putAll(banion -> banion.getLevel() != LEVEL_11, List.of(LEVEL_4, LEVEL_5, LEVEL_6));
         lastRecord = new BanionStats(LEVEL_7,
                 addPercentage(DEFAULT_RECORD.hp(), LEVEL_7 - 1),
-                addPercentage(DEFAULT_RECORD.maxHp(), LEVEL_7 - 1));
+                addPercentage(DEFAULT_RECORD.maxHp(), LEVEL_7 - 1),
+                addPercentage(DEFAULT_RECORD.attack(), ATK_MULTIPLIER, LEVEL_7 - 1),
+                addPercentage(DEFAULT_RECORD.defence(), DEF_MULTIPLIER, LEVEL_7 - 1));
         assertTrue(b.evolveToLevel(LEVEL_7, requirements));
         assertRecordEquals(lastRecord, b);
         // From lvl 7 to lvl 9.
         requirements.putAll(banion -> true, List.of(LEVEL_7, LEVEL_8));
         lastRecord = new BanionStats(LEVEL_9,
                 addPercentage(lastRecord.hp(), LEVEL_9 - LEVEL_7),
-                addPercentage(lastRecord.maxHp(), LEVEL_9 - LEVEL_7));
+                addPercentage(lastRecord.maxHp(), LEVEL_9 - LEVEL_7),
+                addPercentage(lastRecord.attack(), ATK_MULTIPLIER, LEVEL_9 - LEVEL_7),
+                addPercentage(lastRecord.defence(), DEF_MULTIPLIER, LEVEL_9 - LEVEL_7));
         assertTrue(b.evolveToLevel(LEVEL_9, requirements));
         assertRecordEquals(lastRecord, b);
         // From lvl 9 to lvl 11.
         requirements.putAll(banion -> true, List.of(LEVEL_9, LEVEL_10));
         lastRecord = new BanionStats(LEVEL_11,
                 addPercentage(lastRecord.hp(), LEVEL_11 - LEVEL_9),
-                addPercentage(lastRecord.maxHp(), LEVEL_11 - LEVEL_9));
+                addPercentage(lastRecord.maxHp(), LEVEL_11 - LEVEL_9),
+                addPercentage(lastRecord.attack(), ATK_MULTIPLIER, LEVEL_11 - LEVEL_9),
+                addPercentage(lastRecord.defence(), DEF_MULTIPLIER, LEVEL_11 - LEVEL_9));
         assertTrue(b.evolveToLevel(LEVEL_11, requirements));
         assertRecordEquals(lastRecord, b);
     }
@@ -153,7 +173,9 @@ class LinearEvolutionTest {
         assertRecordEquals(DEFAULT_RECORD, b);
         lastRecord = new BanionStats(LEVEL_2,
                 addPercentage(DEFAULT_RECORD.hp(), 1),
-                addPercentage(DEFAULT_RECORD.maxHp(), 1));
+                addPercentage(DEFAULT_RECORD.maxHp(), 1),
+                addPercentage(DEFAULT_RECORD.attack(), ATK_MULTIPLIER, 1),
+                addPercentage(DEFAULT_RECORD.defence(), DEF_MULTIPLIER, 1));
         b.increaseXp(XP_20);
         assertEquals(XP_5, b.getXp());
         assertRecordEquals(lastRecord, b);
@@ -162,7 +184,9 @@ class LinearEvolutionTest {
         assertRecordEquals(lastRecord, b);
         lastRecord = new BanionStats(LEVEL_3,
                 addPercentage(lastRecord.hp(), 1),
-                addPercentage(lastRecord.maxHp(), 1));
+                addPercentage(lastRecord.maxHp(), 1),
+                addPercentage(lastRecord.attack(), ATK_MULTIPLIER, 1),
+                addPercentage(lastRecord.defence(), DEF_MULTIPLIER, 1));
         b.increaseXp(XP_5);
         assertEquals(XP_5, b.getXp());
         assertRecordEquals(lastRecord, b);
@@ -177,12 +201,16 @@ class LinearEvolutionTest {
     }
 
     private void assertRecordEquals(final BanionStats record, final Banion banion) {
-        final var currentRecord = new BanionStats(banion.getLevel(), banion.getHp(), banion.getMaxHp());
+        final var currentRecord = new BanionStats(banion.getLevel(),
+                banion.getHp(),
+                banion.getMaxHp(),
+                banion.getAttack(),
+                banion.getDefence());
         assertEquals(record, currentRecord);
     }
 
     private int addPercentage(final int stat) {
-        final double increase = 1 + (HP_MULTIPLIER / 100);
+        final double increase = 1 + HP_MULTIPLIER;
         return (int) Math.round(stat * increase);
     }
 
@@ -190,6 +218,19 @@ class LinearEvolutionTest {
         int result = stat;
         for (int i = 0; i < times; i++) {
             result = addPercentage(result);
+        }
+        return result;
+    }
+
+    private double addPercentage(final double stat, final double multiplier) {
+        final double increase = 1 + multiplier;
+        return stat * increase;
+    }
+
+    private double addPercentage(final double stat, final double multiplier, final int times) {
+        double result = stat;
+        for (int i = 0; i < times; i++) {
+            result = addPercentage(result, multiplier);
         }
         return result;
     }

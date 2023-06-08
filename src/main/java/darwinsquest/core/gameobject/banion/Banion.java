@@ -106,6 +106,12 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion>, Evolva
     void decreaseAttack(double amount);
 
     /**
+     * Sets the attack stat value.
+     * @param value the attack value.
+     */
+    void setAttack(double value);
+
+    /**
      * Retrieves the attack stat current value.
      * @return the current attack value.
      */
@@ -122,6 +128,12 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion>, Evolva
      * @param amount the decrease amount.
      */
     void decreaseDefence(double amount);
+
+    /**
+     * Sets the defence stat value.
+     * @param value the defence value.
+     */
+    void setDefence(double value);
 
     /**
      * Retrieves the defence stat current value.
