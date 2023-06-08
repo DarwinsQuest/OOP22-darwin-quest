@@ -1,13 +1,27 @@
 package darwinsquest;
 
-import darwinsquest.util.EObservable;
+import darwinsquest.util.EObserver;
 
 import java.util.Set;
 
 /**
  * Interface that represent an immutable banion view.
  */
-public interface BanionController extends EObservable<BanionController> {
+public interface BanionController {
+
+    /**
+     * Attaches an observer that is notified when this banion changes.
+     * @param observer the observer.
+     * @return if the operation was done successfully.
+     */
+    boolean attachBanionChangedObserver(EObserver<? super BanionController> observer);
+
+    /**
+     * Detaches an observer that is notified when this banion changes.
+     * @param observer the observer.
+     * @return if the operation was done successfully.
+     */
+    boolean detachBanionChangedObserver(EObserver<? super BanionController> observer);
 
     /**
      * Retrieves the name.
