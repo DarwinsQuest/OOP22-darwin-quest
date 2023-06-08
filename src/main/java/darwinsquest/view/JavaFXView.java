@@ -1,5 +1,6 @@
 package darwinsquest.view;
 
+import darwinsquest.controller.BattleController;
 import darwinsquest.controller.BoardController;
 import darwinsquest.controller.Controller;
 import darwinsquest.controller.ControllerImpl;
@@ -8,7 +9,6 @@ import darwinsquest.controller.EntityController;
 import darwinsquest.controller.LoginController;
 import darwinsquest.controller.SelectBanionController;
 import darwinsquest.annotation.Description;
-import darwinsquest.util.Synchronizer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -132,7 +132,7 @@ public final class JavaFXView extends Application implements View {
     @Override
     public BattleInput createBattleView(final EntityController player,
                                         final EntityController opponent,
-                                        final Synchronizer playerInputSynchronizer) {
-        return new BattleView(this, controller, player, opponent, playerInputSynchronizer);
+                                        final BattleController controller) {
+        return new BattleView(this, controller, player, opponent);
     }
 }

@@ -18,4 +18,5 @@ public interface BattleInput {
      * @return a banion move or the banion to deploy (swap with active).
      */
     Object selectMoveOrBanion();
+
 }

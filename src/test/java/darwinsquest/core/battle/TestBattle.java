@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -85,18 +84,27 @@ class TestBattle {
     @Test
     void testBattleStart() {
         final var battle = new BasicBattleTile(E2, E1);
-        battle.startBattle();
+        battle.newBattle();
+        boolean nextTurn = battle.nextTurn();
+        while (nextTurn) {
+            nextTurn = battle.nextTurn();
+        }
         if (battle.isWinner(E2)) {
-            assertThrows(IllegalStateException.class, battle::startBattle);
+            assertFalse(battle::newBattle);
         } else {
-            assertDoesNotThrow(battle::startBattle); // if the "player" is not the winner, the battle can be fought again.
+            assertTrue(battle::newBattle); // if the "player" is not the winner, the battle can be fought again.
         }
     }
 
     @Test
     void testBattleDevelopment() {
         final var battle = new BasicBattleTile(E1, E2);
-        final var report = battle.startBattle();
+        battle.newBattle();
+        boolean nextTurn = battle.nextTurn();
+        while (nextTurn) {
+            nextTurn = battle.nextTurn();
+        }
+        final var report = battle.getBattleTurns();
         assertTrue(E1.isOutOfBanions() || E2.isOutOfBanions());
         assertFalse(E1.isOutOfBanions() && E2.isOutOfBanions());
         for (int i = 0; i < report.size(); i++) {
@@ -128,7 +136,12 @@ class TestBattle {
         assertThrows(NullPointerException.class, () -> battle.isWinner(null));
         assertFalse(battle.isWinner(E1)); // the battle has not started yet
         assertFalse(battle.isWinner(E2)); // the battle has not started yet
-        final var report = battle.startBattle();
+        battle.newBattle();
+        boolean nextTurn = battle.nextTurn();
+        while (nextTurn) {
+            nextTurn = battle.nextTurn();
+        }
+        final var report = battle.getBattleTurns();
         final var lastTurn = report.get(report.size() - 1);
         final var loser = lastTurn.getOtherEntity(); // the loser is the entity not on turn of the last turn,
         // because the last turn is a MoveTurn and so the entity not on turn is the entity whose banion is killed.

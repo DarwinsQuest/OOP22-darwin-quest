@@ -2,7 +2,6 @@ package darwinsquest.core.world;
 
 import darwinsquest.core.gameobject.entity.Opponent;
 import darwinsquest.core.gameobject.entity.Player;
-import darwinsquest.util.Synchronizer;
 
 /**
  * Interface that represents a {@link Board} of battle tiles.
@@ -28,13 +27,15 @@ public interface BattleBoard extends Board {
     boolean isBattleWon();
 
     /**
-     * Retrieves battle synchronizer.
-     * @return the battle synchronizer.
+     * Starts the player relative battle, or repeats it if unfinished.
+     * @return if the battle has started.
      */
-    Synchronizer getBattleSynchronizer();
+    boolean startBattle();
 
     /**
-     * Starts the player relative battle, or repeats it if unfinished.
+     * Forwarder of {@link darwinsquest.core.battle.BattleTile#nextTurn()}.
+     * @return if a new turn can be created.
+     * @see darwinsquest.core.battle.BattleTile#nextTurn()
      */
-    void startBattle();
+    boolean nextTurn();
 }
