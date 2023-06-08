@@ -39,7 +39,7 @@ public class ImmutableElement implements Element {
      * {@inheritDoc}
      */
     @Override
-    public boolean isWeaker(final Element other) {
+    public boolean isStronger(final Element other) {
         return weaker.contains(other.getName());
     }
 
@@ -47,7 +47,7 @@ public class ImmutableElement implements Element {
      * {@inheritDoc}
      */
     @Override
-    public boolean isStronger(final Element other) {
+    public boolean isWeaker(final Element other) {
         return stronger.contains(other.getName());
     }
 

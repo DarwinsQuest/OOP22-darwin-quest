@@ -5,9 +5,12 @@ import darwinsquest.core.LinearEvolution;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 import darwinsquest.core.gameobject.move.Move;
-import darwinsquest.core.statistic.Statistic;
 import darwinsquest.core.statistic.HpStat;
-import darwinsquest.utility.Asserts;
+import darwinsquest.core.statistic.Statistic;
+import darwinsquest.util.Asserts;
+import darwinsquest.util.EObservable;
+import darwinsquest.util.EObserver;
+import darwinsquest.util.ESource;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
@@ -21,6 +24,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
 
 /**
  * Class that represents a simple {@link Banion} implementation.
@@ -39,6 +43,7 @@ public final class BanionImpl implements Banion {
     }
 
     private static final int MAX_XP = 20;
+    private final EObservable<Banion> eventBanionChanged = new ESource<>();
     private final UUID id;
     private final Element element;
     private final String name;
@@ -73,15 +78,31 @@ public final class BanionImpl implements Banion {
     public BanionImpl(final Element element, final String name, final int hp, final Set<Move> moves) {
         id = UUID.randomUUID();
         this.element = Objects.requireNonNull(element);
-        this.moves = Asserts.match(moves,
-                value -> Objects.nonNull(value)
-                        && value.size() == NUM_MOVES
-                        && value.stream().allMatch(this::isMoveAcceptable));
+        this.moves = new HashSet<>(Asserts.match(moves,
+            value -> Objects.nonNull(value)
+                && value.size() == NUM_MOVES
+                && value.stream().allMatch(this::isMoveAcceptable)));
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
         this.hp = new HpStat<>(Asserts.intMatch(hp, value -> value > MIN_HP));
         maxHp = this.hp.getValue();
         evolution = new LinearEvolution();
         previousLevels = new ArrayList<>();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean attachBanionChangedObserver(final EObserver<? super Banion> observer) {
+        return eventBanionChanged.addEObserver(observer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean detachBanionChangedObserver(final EObserver<? super Banion> observer) {
+        return eventBanionChanged.removeEObserver(observer);
     }
 
     private boolean isMoveAcceptable(final Move move) {
@@ -126,9 +147,12 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public void setMaxHp(final int amount) {
-        maxHp = Asserts.intMatch(amount, value -> value > MIN_HP);
-        if (hp.getValue() > maxHp) {
-            setHpToMax();
+        if (hp.getValue() != amount) {
+            maxHp = Asserts.intMatch(amount, value -> value > MIN_HP);
+            if (hp.getValue() > maxHp) {
+                setHpToMax();
+            }
+            eventBanionChanged.notifyEObservers(this);
         }
     }
 
@@ -137,7 +161,10 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public void setHpToMax() {
-        hp.setValue(maxHp);
+        if (hp.getValue() != maxHp) {
+            hp.setValue(maxHp);
+            eventBanionChanged.notifyEObservers(this);
+        }
     }
 
     /**
@@ -146,6 +173,7 @@ public final class BanionImpl implements Banion {
     @Override
     public void increaseHp(final int amount) {
         hp.setValue(Math.min(Asserts.intMatch(hp.getValue() + amount, value -> value > hp.getValue()), maxHp));
+        eventBanionChanged.notifyEObservers(this);
     }
 
     /**
@@ -154,6 +182,7 @@ public final class BanionImpl implements Banion {
     @Override
     public void decreaseHp(final int amount) {
         hp.setValue(Math.max(MIN_HP, Asserts.intMatch(hp.getValue() - amount, value -> value < hp.getValue())));
+        eventBanionChanged.notifyEObservers(this);
     }
 
     /**
@@ -281,10 +310,14 @@ public final class BanionImpl implements Banion {
      */
     @Override
     public boolean replaceMove(final Move oldOne, final Move newOne) {
-        return isMoveAcceptable(newOne)
+        if (isMoveAcceptable(newOne)
                 && !moves.contains(newOne)
                 && moves.remove(oldOne)
-                && moves.add(newOne);
+                && moves.add(newOne)) {
+            eventBanionChanged.notifyEObservers(this);
+            return true;
+        }
+        return false;
     }
 
     /**

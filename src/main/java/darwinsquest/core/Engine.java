@@ -1,6 +1,6 @@
 package darwinsquest.core;
 
-import darwinsquest.core.world.Board;
+import darwinsquest.core.world.BattleBoard;
 
 import java.util.Optional;
 import java.util.Set;
@@ -28,7 +28,7 @@ public interface Engine {
      * @return the {@link darwinsquest.core.world.Board}, or {@link Optional#empty()} if game isn't started yet.
      * @see darwinsquest.core.world.Board
      */
-    Optional<Board> getBoard();
+    Optional<BattleBoard> getBoard();
 
     /**
      * Tells if the game is over.

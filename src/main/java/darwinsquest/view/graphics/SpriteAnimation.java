@@ -15,8 +15,6 @@ public class SpriteAnimation extends Transition {
 
     private static final int SPRITE_UPSCALE = 4;
     private final ImageView imageView;
-    private final Duration duration;
-    private final int count;
     private final int frames;
     private final int columns;
     private final int width;
@@ -48,14 +46,42 @@ public class SpriteAnimation extends Transition {
     ) {
         this.imageView = imageView;
         this.spriteSheet = spriteSheet;
-        this.duration = duration;
-        this.count = count;
         this.frames = frames;
         this.columns = columns;
-        this.width = width;
-        this.height = height;
+        this.width = width * SPRITE_UPSCALE;
+        this.height = height * SPRITE_UPSCALE;
         this.horizontalFlip = horizontalFlip;
         setCycleDuration(duration);
+        setCycleCount(count);
+        setInterpolator(Interpolator.LINEAR);
+        setSprite();
+    }
+
+    /**
+     * The sprite animation constructor.
+     * @param imageView the {@code Node} that contains the sprite.
+     * @param sprite the sprite.
+     * @param horizontalFlip when set to {@code true} the sprite will be horizontally flipped.
+     * @param duration the duration of the animation.
+     * @param count the amount of times the animation will be played.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Storing mutable objects is needed to display animations.")
+    public SpriteAnimation(
+        final ImageView imageView,
+        final Sprite sprite,
+        final Duration duration,
+        final int count,
+        final boolean horizontalFlip
+    ) {
+        this.imageView = imageView;
+        this.spriteSheet = sprite.getImage();
+        this.frames = sprite.frames();
+        this.columns = sprite.frames();
+        this.width = sprite.width() * SPRITE_UPSCALE;
+        this.height = sprite.height() * SPRITE_UPSCALE;
+        this.horizontalFlip = horizontalFlip;
+        setCycleDuration(duration);
+        setCycleCount(count);
         setInterpolator(Interpolator.LINEAR);
         setSprite();
     }
@@ -75,22 +101,6 @@ public class SpriteAnimation extends Transition {
             }
             lastIndex = index;
         }
-    }
-
-    /**
-     * Plays the animation.
-     */
-    public void animate() {
-        final var animation = new SpriteAnimation(
-                imageView,
-                spriteSheet,
-                duration,
-                count,
-                frames, columns,
-                width * SPRITE_UPSCALE, height * SPRITE_UPSCALE,
-                horizontalFlip);
-        animation.setCycleCount(count);
-        animation.play();
     }
 
     private void setSprite() {

@@ -1,6 +1,6 @@
 package darwinsquest.core.difficulty;
 
-import darwinsquest.core.world.Board;
+import darwinsquest.core.world.BattleBoard;
 
 /**
  * Interface of a game difficulty.
@@ -8,14 +8,8 @@ import darwinsquest.core.world.Board;
 public interface Difficulty {
 
     /**
-     * Provides the {@link AI} for this type of {@link Difficulty}.
-     * @return the {@link AI}.
+     * Provides the {@link BattleBoard} for this type of {@link Difficulty}.
+     * @return the {@link BattleBoard}.
      */
-    AI getAI();
-
-    /**
-     * Provides the {@link Board} for this type of {@link Difficulty}.
-     * @return the {@link Board}.
-     */
-    Board getBoard();
+    BattleBoard getBoard();
 }

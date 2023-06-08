@@ -8,7 +8,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import darwinsquest.BanionFactory;
+
+import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;
 import darwinsquest.core.gameobject.move.BasicMove;
@@ -25,7 +26,7 @@ class TestBasicAI {
     private static final int BANION_HP = 100;
     private static final int MOVE_DAMAGE = 10;
 
-    private final AI ai = new Normal().getAI();
+    private final AI ai = new BasicAI();
 
     private final Element neutral = new Neutral();
 
