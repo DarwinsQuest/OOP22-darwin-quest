@@ -138,6 +138,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                             Duration.seconds(1),
                             Animation.INDEFINITE,
                             true).play();
+                        imageView.setPreserveRatio(true);
                         imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
                         imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
                         return imageView;
@@ -154,6 +155,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                             Duration.seconds(1),
                             Animation.INDEFINITE,
                             false).play();
+                        imageView.setPreserveRatio(true);
                         imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
                         imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
                         return imageView;
