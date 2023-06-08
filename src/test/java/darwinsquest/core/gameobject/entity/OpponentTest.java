@@ -28,18 +28,18 @@ class OpponentTest {
     private static final String NAME_2 = "Bob";
     private static final int MOVE_DAMAGE = 10;
     private static final AI AI = new BasicAI();
-
     private final Element neutral = new Neutral();
-
     private static final int HP = 100;
+    private static final double ATK = 1.0;
+    private static final double DEF = 1.0;
     private final Set<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "9", neutral),
         new BasicMove(MOVE_DAMAGE, "2", neutral),
         new BasicMove(MOVE_DAMAGE, "19", neutral),
         new BasicMove(MOVE_DAMAGE, "4", neutral));
     private final List<Banion> banionList = new ArrayList<>(List.of(
-        new BanionImpl(neutral, NAME_2, HP, moves),
-        new BanionImpl(neutral, NAME_2, HP, moves),
-        new BanionImpl(neutral, NAME_2, HP, moves)));
+        new BanionImpl(neutral, NAME_2, HP, ATK, DEF, moves),
+        new BanionImpl(neutral, NAME_2, HP, ATK, DEF, moves),
+        new BanionImpl(neutral, NAME_2, HP, ATK, DEF, moves)));
 
     @Test
     void createOpponentTest() {
@@ -76,7 +76,7 @@ class OpponentTest {
         final GameEntity o1 = new OpponentImpl(NAME_1, AI);
         o1.addToInventory(banionList);
         final List<Optional<Banion>> banionsRemoved = IntStream.range(1, banionList.size())
-                .mapToObj(i -> o1.updateInventory(banionList.get(i), new BanionImpl(neutral, NAME_2, HP, moves)))
+                .mapToObj(i -> o1.updateInventory(banionList.get(i), new BanionImpl(neutral, NAME_2, HP, ATK, DEF, moves)))
                 .toList();
         assertTrue(o1.getInventory().stream().allMatch(b -> b.getElement().equals(neutral)));
         assertEquals(banionList.subList(1, banionList.size()),
@@ -94,7 +94,7 @@ class OpponentTest {
         assertFalse(o2.addToInventory(b1));
         assertTrue(o2.addToInventory(List.of(b2, b3)));
         assertFalse(o2.addToInventory(List.of(b1, b2, b3)));
-        assertTrue(o2.addToInventory(List.of(b1, b2, b3, new BanionImpl(neutral, NAME_2, HP, moves))));
+        assertTrue(o2.addToInventory(List.of(b1, b2, b3, new BanionImpl(neutral, NAME_2, HP, ATK, DEF, moves))));
         // Non-existing banion to update test.
         final GameEntity o3 = new OpponentImpl(NAME_1, AI);
         var retrievedBanion = o3.updateInventory(b1, b2);
@@ -104,7 +104,7 @@ class OpponentTest {
         retrievedBanion = o3.updateInventory(b1, b2);
         assertTrue(retrievedBanion.isEmpty());
         // Inventory does not contain oldBanion test.
-        retrievedBanion = o3.updateInventory(b3, new BanionImpl(neutral, NAME_2, HP, moves));
+        retrievedBanion = o3.updateInventory(b3, new BanionImpl(neutral, NAME_2, HP, ATK, DEF, moves));
         assertTrue(retrievedBanion.isEmpty());
     }
 

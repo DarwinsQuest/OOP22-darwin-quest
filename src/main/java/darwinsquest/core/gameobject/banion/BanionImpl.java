@@ -5,6 +5,8 @@ import darwinsquest.core.LinearEvolution;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 import darwinsquest.core.gameobject.move.Move;
+import darwinsquest.core.statistic.AttackStat;
+import darwinsquest.core.statistic.DefenceStat;
 import darwinsquest.core.statistic.HpStat;
 import darwinsquest.core.statistic.Statistic;
 import darwinsquest.util.Asserts;
@@ -54,6 +56,8 @@ public final class BanionImpl implements Banion {
     private int xp;
     private int maxHp;
     private final Statistic<Integer> hp;
+    private final Statistic<Double> attack;
+    private final Statistic<Double> defence;
 
     private BanionImpl(final BanionImpl banion) {
         id = UUID.randomUUID();
@@ -65,6 +69,8 @@ public final class BanionImpl implements Banion {
         xp = banion.xp;
         hp = new HpStat<>(banion.hp.getValue());
         maxHp = banion.maxHp;
+        attack = new AttackStat<>(banion.attack.getValue());
+        defence = new DefenceStat<>(banion.defence.getValue());
         previousLevels = new ArrayList<>(banion.previousLevels);
     }
 
@@ -73,9 +79,19 @@ public final class BanionImpl implements Banion {
      * @param element element of affinity.
      * @param name identifier.
      * @param hp hit points, represents health.
+     * @param attack attack stat.
+     * @param defence defence stat.
      * @param moves are allowed only 4 moves per {@link Banion}, not more, not less.
      */
-    public BanionImpl(final Element element, final String name, final int hp, final Set<Move> moves) {
+    public BanionImpl(final Element element,
+                      final String name,
+                      final int hp,
+                      final double attack,
+                      final double defence,
+                      final Set<Move> moves) {
+        if (Double.compare(attack, 0) <= 0) {
+            throw new IllegalArgumentException("Attack must be greater than 0. Given: " + attack);
+        }
         id = UUID.randomUUID();
         this.element = Objects.requireNonNull(element);
         this.moves = new HashSet<>(Asserts.match(moves,
@@ -85,6 +101,8 @@ public final class BanionImpl implements Banion {
         this.name = Asserts.stringNotNullOrWhiteSpace(name);
         this.hp = new HpStat<>(Asserts.intMatch(hp, value -> value > MIN_HP));
         maxHp = this.hp.getValue();
+        this.attack = new AttackStat<>(attack);
+        this.defence = new DefenceStat<>(defence);
         evolution = new LinearEvolution();
         previousLevels = new ArrayList<>();
     }
@@ -183,6 +201,62 @@ public final class BanionImpl implements Banion {
     public void decreaseHp(final int amount) {
         hp.setValue(Math.max(MIN_HP, Asserts.intMatch(hp.getValue() - amount, value -> value < hp.getValue())));
         eventBanionChanged.notifyEObservers(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void increaseAttack(final double amount) {
+        final var delta = attack.getValue() + amount;
+        if (Double.compare(delta, 0) <= 0) {
+            throw new IllegalArgumentException();
+        }
+        attack.setValue(delta);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void decreaseAttack(final double amount) {
+        increaseAttack(-amount);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getAttack() {
+        return attack.getValue();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void increaseDefence(final double amount) {
+        final var delta = defence.getValue() + amount;
+        if (Double.compare(delta, 0) <= 0) {
+            throw new IllegalArgumentException();
+        }
+        defence.setValue(delta);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void decreaseDefence(final double amount) {
+        increaseDefence(-amount);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getDefence() {
+        return defence.getValue();
     }
 
     /**

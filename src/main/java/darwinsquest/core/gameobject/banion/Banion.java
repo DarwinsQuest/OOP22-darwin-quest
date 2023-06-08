@@ -94,6 +94,42 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion>, Evolva
     void setHpToMax();
 
     /**
+     * Increases the attack stat by the given amount.
+     * @param amount the increase amount.
+     */
+    void increaseAttack(double amount);
+
+    /**
+     * Decreases the attack stat by the given amount.
+     * @param amount the decrease amount.
+     */
+    void decreaseAttack(double amount);
+
+    /**
+     * Retrieves the attack stat current value.
+     * @return the current attack value.
+     */
+    double getAttack();
+
+    /**
+     * Increases the defence stat by the given amount.
+     * @param amount the increase amount.
+     */
+    void increaseDefence(double amount);
+
+    /**
+     * Decreases the defence stat by the given amount.
+     * @param amount the decrease amount.
+     */
+    void decreaseDefence(double amount);
+
+    /**
+     * Retrieves the defence stat current value.
+     * @return the current defence value.
+     */
+    double getDefence();
+
+    /**
      * Retrieves the current banion level.
      * @return the current level.
      */

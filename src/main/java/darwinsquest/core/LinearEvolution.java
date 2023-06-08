@@ -9,7 +9,9 @@ import java.util.function.Predicate;
  */
 public class LinearEvolution implements Evolution {
 
-    private static final double HP_MULTIPLIER = 15;
+    private static final double HP_MULTIPLIER = 0.15;
+    private static final double ATK_MULTIPLIER = 0.15;
+    private static final double DEF_MULTIPLIER = 0.15;
 
     /**
      * {@inheritDoc}
@@ -21,6 +23,8 @@ public class LinearEvolution implements Evolution {
         }
         banion.setMaxHp(increaseByPercentage(banion.getMaxHp(), HP_MULTIPLIER));
         banion.setHpToMax();
+        banion.increaseAttack(increaseByPercentage(banion.getAttack(), ATK_MULTIPLIER));
+        banion.increaseDefence(increaseByPercentage(banion.getDefence(), DEF_MULTIPLIER));
         banion.increaseLevel();
         return true;
     }
@@ -30,12 +34,19 @@ public class LinearEvolution implements Evolution {
      */
     @Override
     public String toString() {
-        return "LinearEvolution{HP_MULTIPLIER=" + HP_MULTIPLIER + "%}";
+        return "LinearEvolution{HP_MULTIPLIER=" + HP_MULTIPLIER + "%, "
+                + "ATK_MULTIPLIER=" + ATK_MULTIPLIER + "%, "
+                + "DEF_MULTIPLIER=" + DEF_MULTIPLIER + "%}";
     }
 
     private int increaseByPercentage(final int value, final double percentage) {
-        final double increase = 1 + (percentage / 100);
+        final double increase = 1 + percentage;
         return (int) Math.round(value * increase);
+    }
+
+    private double increaseByPercentage(final double value, final double percentage) {
+        final double increase = 1 + percentage;
+        return value * increase;
     }
 
 }
