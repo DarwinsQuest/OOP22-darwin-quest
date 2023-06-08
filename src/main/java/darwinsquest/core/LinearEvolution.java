@@ -23,8 +23,8 @@ public class LinearEvolution implements Evolution {
         }
         banion.setMaxHp(increaseByPercentage(banion.getMaxHp(), HP_MULTIPLIER));
         banion.setHpToMax();
-        banion.increaseAttack(increaseByPercentage(banion.getAttack(), ATK_MULTIPLIER));
-        banion.increaseDefence(increaseByPercentage(banion.getDefence(), DEF_MULTIPLIER));
+        banion.setAttack(increaseByPercentage(banion.getAttack(), ATK_MULTIPLIER));
+        banion.setDefence(increaseByPercentage(banion.getDefence(), DEF_MULTIPLIER));
         banion.increaseLevel();
         return true;
     }
