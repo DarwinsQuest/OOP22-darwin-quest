@@ -38,9 +38,6 @@ import java.util.stream.Collectors;
 @Description("battle")
 public final class BattleView extends ControllerInteractive<BattleController> implements Initializable, BattleInput {
 
-    private static final double WIDTH = 0.3;
-    private static final double HEIGHT = 0.3;
-    private static final int BG_UPSCALE = 4;
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
     private final Random randomGenerator = new Random();
     @FXML
