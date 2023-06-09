@@ -84,7 +84,9 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private Map<String, ImageView> playerSpriteCache;
     private Map<String, ImageView> opponentSpriteCache;
     private BanionController playerBanion;
+    private SpriteAnimation playerBanionAnimation;
     private BanionController opponentBanion;
+    private SpriteAnimation opponentBanionAnimation;
 
     /**
      * Default constructor.
@@ -132,12 +134,13 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                     BanionController::getName,
                     banion -> {
                         final var imageView = new ImageView();
-                        new SpriteAnimation(
+                        this.playerBanionAnimation = new SpriteAnimation(
                             imageView,
                             spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
                             Duration.seconds(1),
                             Animation.INDEFINITE,
-                            true).play();
+                            true);
+                        this.playerBanionAnimation.play();
                         imageView.setPreserveRatio(true);
                         imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
                         imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
@@ -149,12 +152,13 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                     BanionController::getName,
                     banion -> {
                         final var imageView = new ImageView();
-                        new SpriteAnimation(
+                        this.opponentBanionAnimation = new SpriteAnimation(
                             imageView,
                             spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
                             Duration.seconds(1),
                             Animation.INDEFINITE,
-                            false).play();
+                            false);
+                        opponentBanionAnimation.play();
                         imageView.setPreserveRatio(true);
                         imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
                         imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
@@ -240,12 +244,16 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     void onInventoryAction(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
         selected = player.getInventory().stream()
-            .filter(BanionController::isAlive)
-            .findAny()
-            .orElseThrow();
-        // getController().nextTurn();
-        // getController().nextTurn();
-        // synchronizer.signal();
+                .filter(BanionController::isAlive)
+                .filter(b -> !b.equals(playerBanion))
+                .findFirst().get();
+        this.playerBanion = (BanionController) selected;
+        getController().nextTurn();
+        Platform.runLater(() -> {
+            playerBanionAnimation.stop();
+            renderPlayerBanion(playerBanion);
+        });
+        getController().nextTurn();
     }
 
     @FXML
