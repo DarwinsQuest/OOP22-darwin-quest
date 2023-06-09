@@ -1,8 +1,9 @@
 package darwinsquest.core.gameobject.banion;
 
+import darwinsquest.core.evolution.Evolvable;
 import darwinsquest.core.gameobject.GameObject;
-import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Elemental;
+import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.util.Cloneable;
 import darwinsquest.util.EObserver;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 /**
  * Interface that represents a game monster.
  */
-public interface Banion extends Elemental, GameObject, Cloneable<Banion> {
+public interface Banion extends Elemental, GameObject, Cloneable<Banion>, Evolvable {
 
     /**
      * Allowed number of moves.
@@ -91,4 +92,80 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion> {
      * Sets the life stat amount to {@link #getMaxHp()}.
      */
     void setHpToMax();
+
+    /**
+     * Increases the attack stat by the given amount.
+     * @param amount the increase amount.
+     */
+    void increaseAttack(double amount);
+
+    /**
+     * Decreases the attack stat by the given amount.
+     * @param amount the decrease amount.
+     */
+    void decreaseAttack(double amount);
+
+    /**
+     * Sets the attack stat value.
+     * @param value the attack value.
+     */
+    void setAttack(double value);
+
+    /**
+     * Retrieves the attack stat current value.
+     * @return the current attack value.
+     */
+    double getAttack();
+
+    /**
+     * Increases the defence stat by the given amount.
+     * @param amount the increase amount.
+     */
+    void increaseDefence(double amount);
+
+    /**
+     * Decreases the defence stat by the given amount.
+     * @param amount the decrease amount.
+     */
+    void decreaseDefence(double amount);
+
+    /**
+     * Sets the defence stat value.
+     * @param value the defence value.
+     */
+    void setDefence(double value);
+
+    /**
+     * Retrieves the defence stat current value.
+     * @return the current defence value.
+     */
+    double getDefence();
+
+    /**
+     * Retrieves the current banion level.
+     * @return the current level.
+     */
+    int getLevel();
+
+    /**
+     * Increases the current level.
+     */
+    void increaseLevel();
+
+    /**
+     * Retrieves the current banion experience amount.
+     * @return the current xp amount.
+     */
+    int getXp();
+
+    /**
+     * Increases the current experience amount.
+     * <p>
+     * This method will prompt an evolution and successively
+     * put the remaining xp as the current xp value if
+     * the amount surpasses the max xp allowed per level.
+     * @param amount the increase.
+     */
+    void increaseXp(int amount);
+
 }

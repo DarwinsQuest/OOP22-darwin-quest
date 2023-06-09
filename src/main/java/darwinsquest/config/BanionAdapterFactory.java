@@ -31,6 +31,8 @@ public class BanionAdapterFactory implements TypeAdapterFactory {
     public static final String NAME = "name";
     private static final String ELEMENT = "element";
     private static final String HP = "hp";
+    private static final String ATK = "atk";
+    private static final String DEF = "def";
     private static final String MOVES = "moves";
     /**
      * {@link Banion}s's sprites.
@@ -82,6 +84,8 @@ public class BanionAdapterFactory implements TypeAdapterFactory {
         @Override
         public Banion read(final JsonReader in) throws IOException {
             int hp = 0;
+            double atk = 0;
+            double def = 0;
             final Set<Move> moves = new HashSet<>();
             Element element = null;
             String name = null;
@@ -92,6 +96,8 @@ public class BanionAdapterFactory implements TypeAdapterFactory {
                     case NAME: name = in.nextString(); break;
                     case ELEMENT: element = elementAdapter.read(in); break;
                     case HP: hp = in.nextInt(); break;
+                    case ATK: atk = in.nextDouble(); break;
+                    case DEF: def = in.nextDouble(); break;
                     case MOVES:
                         in.beginArray();
                         while (in.hasNext()) {
@@ -99,12 +105,14 @@ public class BanionAdapterFactory implements TypeAdapterFactory {
                         }
                         in.endArray();
                         break;
-                    default: in.skipValue();
+                    default:
+                        in.skipValue();
+                        break;
                 }
             }
             in.endObject();
 
-            return new BanionImpl(element, name, hp, moves);
+            return new BanionImpl(element, name, hp, atk, def, moves);
         }
     }
 }
