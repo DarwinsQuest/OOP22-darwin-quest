@@ -41,7 +41,8 @@ class LinearEvolutionTest {
     public static final int LEVEL_20 = 20;
     private static final String NAME = "Bob";
     private static final int MOVE_DAMAGE = LEVEL_10;
-    private static final int DEFAULT_HP = 100;
+    private static final int DEFAULT_HP = 10;
+    private static final int MAX_HP = 30;
     private static final double DEFAULT_ATK = 1.0;
     private static final double DEFAULT_DEF = 1.0;
     private static final double HP_MULTIPLIER = 0.15;
@@ -84,15 +85,16 @@ class LinearEvolutionTest {
     void evolveToLevelTest() {
         final Banion b = new BanionImpl(neutral, NAME, DEFAULT_HP, DEFAULT_ATK, DEFAULT_DEF, moves);
         lastRecord = new BanionStats(LEVEL_10,
-                addPercentage(DEFAULT_RECORD.hp(), LEVEL_10 - 1),
-                addPercentage(DEFAULT_RECORD.maxHp(), LEVEL_10 - 1),
+                MAX_HP,
+                MAX_HP,
                 addPercentage(DEFAULT_RECORD.attack(), ATK_MULTIPLIER, LEVEL_10 - 1),
                 addPercentage(DEFAULT_RECORD.defence(), DEF_MULTIPLIER, LEVEL_10 - 1));
         assertTrue(b.evolveToLevel(LEVEL_10, banion -> banion.getLevel() <= LEVEL_10));
         assertRecordEquals(lastRecord, b);
+        // Banion reached MAX_HP. HP Cannot further evolve.
         lastRecord = new BanionStats(LEVEL_15,
-                addPercentage(lastRecord.hp(), LEVEL_15 - LEVEL_10),
-                addPercentage(lastRecord.maxHp(), LEVEL_15 - LEVEL_10),
+                MAX_HP,
+                MAX_HP,
                 addPercentage(lastRecord.attack(), ATK_MULTIPLIER, LEVEL_15 - LEVEL_10),
                 addPercentage(lastRecord.defence(), DEF_MULTIPLIER, LEVEL_15 - LEVEL_10));
         assertTrue(b.evolveToLevel(LEVEL_15, banion -> banion.getLevel() < LEVEL_15));
@@ -126,8 +128,8 @@ class LinearEvolutionTest {
         // From lvl 7 to lvl 9.
         requirements.putAll(banion -> true, List.of(LEVEL_7, LEVEL_8));
         lastRecord = new BanionStats(LEVEL_9,
-                addPercentage(lastRecord.hp(), LEVEL_9 - LEVEL_7),
-                addPercentage(lastRecord.maxHp(), LEVEL_9 - LEVEL_7),
+                MAX_HP,
+                MAX_HP,
                 addPercentage(lastRecord.attack(), ATK_MULTIPLIER, LEVEL_9 - LEVEL_7),
                 addPercentage(lastRecord.defence(), DEF_MULTIPLIER, LEVEL_9 - LEVEL_7));
         assertTrue(b.evolveToLevel(LEVEL_9, requirements));
@@ -135,8 +137,8 @@ class LinearEvolutionTest {
         // From lvl 9 to lvl 11.
         requirements.putAll(banion -> true, List.of(LEVEL_9, LEVEL_10));
         lastRecord = new BanionStats(LEVEL_11,
-                addPercentage(lastRecord.hp(), LEVEL_11 - LEVEL_9),
-                addPercentage(lastRecord.maxHp(), LEVEL_11 - LEVEL_9),
+                MAX_HP,
+                MAX_HP,
                 addPercentage(lastRecord.attack(), ATK_MULTIPLIER, LEVEL_11 - LEVEL_9),
                 addPercentage(lastRecord.defence(), DEF_MULTIPLIER, LEVEL_11 - LEVEL_9));
         assertTrue(b.evolveToLevel(LEVEL_11, requirements));
