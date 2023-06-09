@@ -71,9 +71,9 @@ class TestMove {
             for (final var banion : banions) {
                  final var computedDamage = move.computeDamage(banion);
                  if (move.getElement().isStronger(banion.getElement())) {
-                     assertEquals(computedDamage, move.getBaseDamage() / 2);
+                     assertEquals(computedDamage, move.getBaseDamage() * move.getDamageMultiplier());
                  } else if (move.getElement().isWeaker(banion.getElement())) {
-                     assertEquals(computedDamage, move.getBaseDamage() * 2);
+                     assertEquals(computedDamage, move.getBaseDamage() / move.getDamageMultiplier());
                  } else {
                      assertEquals(computedDamage, move.getBaseDamage());
                  }
