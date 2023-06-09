@@ -10,6 +10,7 @@ import darwinsquest.core.gameobject.element.Element;
  */
 public class BasicMove implements DamageMove {
 
+    private static final int DAMAGE_MULTIPLIER = 2;
     private final int baseDamage;
     private final String name;
     private final Element element;
@@ -86,12 +87,20 @@ public class BasicMove implements DamageMove {
     @Override
     public int computeDamage(final Banion opponentBanion) {
         if (this.element.isWeaker(opponentBanion.getElement())) {
-            return this.baseDamage * 2;
+            return this.baseDamage / DAMAGE_MULTIPLIER;
         } else if (this.element.isStronger(opponentBanion.getElement())) {
-            return this.baseDamage / 2;
+            return this.baseDamage * DAMAGE_MULTIPLIER;
         } else {
             return this.baseDamage;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDamageMultiplier() {
+        return DAMAGE_MULTIPLIER;
     }
 
     /**
