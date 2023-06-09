@@ -5,6 +5,9 @@ import darwinsquest.controller.BanionController;
 import darwinsquest.controller.BattleController;
 import darwinsquest.controller.EntityController;
 import darwinsquest.controller.MoveController;
+import darwinsquest.util.AbstractEObserver;
+import darwinsquest.util.EObserver;
+import darwinsquest.util.ESource;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
 import darwinsquest.view.graphics.Sprite;
 import darwinsquest.view.graphics.SpriteAnimation;
@@ -34,6 +37,7 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
@@ -159,27 +163,42 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                         return imageView;
                     }));
 
-        this.player.attachSwapBanionObserver((s, arg) ->
-            Platform.runLater(() -> {
+        this.player.attachSwapBanionObserver(new AbstractEObserver<>() {
+            @Override
+            public void updateOperation(ESource<? extends BanionController> s, BanionController arg) {
                 renderPlayerBanion(arg);
                 final var moves = arg.getMoves().stream()
-                    .sorted(Comparator.comparing(MoveController::getName))
-                    .toList();
-                moveBtn1.setText(moves.get(0).getName());
-                moveBtn2.setText(moves.get(1).getName());
-                moveBtn3.setText(moves.get(2).getName());
-                moveBtn4.setText(moves.get(3).getName());
+                        .sorted(Comparator.comparing(MoveController::getName))
+                        .toList();
+                Platform.runLater(() -> {
+                    moveBtn1.setText(moves.get(0).getName());
+                    moveBtn2.setText(moves.get(1).getName());
+                    moveBtn3.setText(moves.get(2).getName());
+                    moveBtn4.setText(moves.get(3).getName());
+                });
+                System.out.println(arg);
                 playerBanion = arg;
-                playerBanion.attachBanionChangedObserver((so, b) ->
-                    Platform.runLater(() -> renderPlayerBanion(b)));
-            }));
-        this.opponent.attachSwapBanionObserver((s, arg) ->
-            Platform.runLater(() -> {
-                renderOpponentBanion(arg);
+                playerBanion.attachBanionChangedObserver(new AbstractEObserver<BanionController>() {
+                    @Override
+                    public void updateOperation(ESource<? extends BanionController> s, BanionController arg) {
+                        Platform.runLater(() -> renderPlayerBanion(arg));
+                    }
+                });
+            }
+        });
+        this.opponent.attachSwapBanionObserver(new AbstractEObserver<>() {
+            @Override
+            public void updateOperation(ESource<? extends BanionController> s, BanionController arg) {
+                renderPlayerBanion(arg);
                 opponentBanion = arg;
-                opponentBanion.attachBanionChangedObserver((so, b) ->
-                    Platform.runLater(() -> renderOpponentBanion(b)));
-            }));
+                opponentBanion.attachBanionChangedObserver(new AbstractEObserver<>() {
+                    @Override
+                    public void updateOperation(ESource<? extends BanionController> s, BanionController arg) {
+                        Platform.runLater(() -> renderOpponentBanion(arg));
+                    }
+                });
+            }
+        });
         GameSoundSystem.stopAll();
         GameSoundSystem.playIntroAndMusic("BossIntro.wav", "BossMain.wav");
     }

@@ -2,7 +2,7 @@
     {
         "element": "Air",
         "name": "fat bird",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move1", "move31", "move3", "move4"],
         "sprites": {
             "idle": {
@@ -22,7 +22,7 @@
     {
         "element": "Air",
         "name":"blue bird",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move1", "move2", "move3", "move4"],
         "sprites": {
             "idle": {
@@ -42,7 +42,7 @@
     {
         "element": "Air",
         "name":"bee",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move1", "move43", "move3", "move4"],
         "sprites": {
             "idle": {
@@ -63,7 +63,7 @@
     {
         "element": "Electro",
         "name": "bat",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move6", "move7", "move8", "move9"],
         "sprites": {
             "idle": {
@@ -83,7 +83,7 @@
     {
         "element": "Electro",
         "name": "bunny",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move6", "move7", "move45", "move9"],
         "sprites": {
             "idle": {
@@ -103,7 +103,7 @@
     {
         "element": "Electro",
         "name": "chameleon",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move6", "move7", "move8", "move9"],
         "sprites": {
             "idle": {
@@ -124,7 +124,7 @@
     {
         "element": "Fire",
         "name": "angry pig",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move14", "move40", "move12", "move13"],
         "sprites": {
             "idle": {
@@ -144,7 +144,7 @@
     {
         "element": "Fire",
         "name": "chicken",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move15", "move11", "move12", "move13"],
         "sprites": {
             "idle": {
@@ -164,7 +164,7 @@
     {
         "element": "Fire",
         "name": "mushroom",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move15", "move11", "move12", "move13"],
         "sprites": {
             "idle": {
@@ -185,7 +185,7 @@
     {
         "element": "Grass",
         "name": "trunk",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move16", "move17", "move20", "move19"],
         "sprites": {
             "idle": {
@@ -205,7 +205,7 @@
     {
         "element": "Grass",
         "name": "radish",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move16", "move31", "move20", "move19"],
         "sprites": {
             "idle": {
@@ -225,7 +225,7 @@
     {
         "element": "Grass",
         "name": "plant",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move16", "move17", "move20", "move19"],
         "sprites": {
             "idle": {
@@ -246,7 +246,7 @@
     {
         "element": "Rock",
         "name": "rocks",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move21", "move22", "move25", "move23"],
         "sprites": {
             "idle": {
@@ -266,7 +266,7 @@
     {
         "element": "Rock",
         "name": "turtle",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move31", "move32", "move33", "move23"],
         "sprites": {
             "idle": {
@@ -286,7 +286,7 @@
     {
         "element": "Rock",
         "name": "rino",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move21", "move22", "move25", "move23"],
         "sprites": {
             "idle": {
@@ -307,7 +307,7 @@
     {
         "element": "Water",
         "name": "slime",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move26", "move28", "move29", "move30"],
         "sprites": {
             "idle": {
@@ -327,7 +327,7 @@
     {
         "element": "Water",
         "name": "snail",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move34", "move35", "move36", "move30"],
         "sprites": {
             "idle": {
@@ -347,7 +347,7 @@
     {
         "element": "Water",
         "name": "duck",
-        "hp": 100,
+        "hp": 1000,
         "moves": ["move26", "move28", "move29", "move30"],
         "sprites": {
             "idle": {

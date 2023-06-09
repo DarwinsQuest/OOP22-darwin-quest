@@ -1,21 +1,19 @@
 package darwinsquest.util;
 
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * Class that represents an observable object.
  * @param <T> the observed type.
  */
 public class ESource<T> implements EObservable<T> {
 
-    private final Set<EObserver<? super T>> hashSet = ConcurrentHashMap.newKeySet();
+//    private final Set<EObserver<? super T>> hashSet = ConcurrentHashMap.newKeySet();
+    private final SetWithRemove<AbstractEObserver<? super T>> hashSet = new SetWithRemove<>();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final boolean addEObserver(final EObserver<? super T> obs) {
+    public final boolean addEObserver(final AbstractEObserver<? super T> obs) {
         return hashSet.add(obs);
     }
 
@@ -23,7 +21,7 @@ public class ESource<T> implements EObservable<T> {
      * {@inheritDoc}
      */
     @Override
-    public final boolean removeEObserver(final EObserver<? super T> obs) {
+    public final boolean removeEObserver(final AbstractEObserver<? super T> obs) {
         return hashSet.remove(obs);
     }
 

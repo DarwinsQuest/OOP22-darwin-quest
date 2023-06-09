@@ -1,5 +1,6 @@
 package darwinsquest.core.gameobject.banion;
 
+import darwinsquest.util.AbstractEObserver;
 import darwinsquest.util.EObserver;
 
 /**
@@ -12,12 +13,12 @@ public interface EObservableBanionChanged {
      * @param observer the observer.
      * @return if operation done successfully.
      */
-    boolean attachBanionChangedObserver(EObserver<? super Banion> observer);
+    boolean attachBanionChangedObserver(AbstractEObserver<? super Banion> observer);
 
     /**
      * Detaches a changed {@link Banion} event observer.
      * @param observer the observer.
      * @return if operation done successfully.
      */
-    boolean detachBanionChangedObserver(EObserver<? super Banion> observer);
+    boolean detachBanionChangedObserver(AbstractEObserver<? super Banion> observer);
 }

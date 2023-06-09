@@ -2,6 +2,7 @@ package darwinsquest.controller;
 
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.move.DamageMove;
+import darwinsquest.util.AbstractEObserver;
 import darwinsquest.util.EObservable;
 import darwinsquest.util.EObserver;
 import darwinsquest.util.ESource;
@@ -26,15 +27,19 @@ public class BanionControllerImpl implements BanionWrapper {
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This class is a wrapper of a mutable banion.")
     public BanionControllerImpl(final Banion banion) {
         this.banion = Objects.requireNonNull(banion);
-        this.banion.attachBanionChangedObserver((s, arg) ->
-            eventBanionChanged.notifyEObservers(new BanionControllerImpl(arg)));
+        this.banion.attachBanionChangedObserver(new AbstractEObserver<Banion>() {
+            @Override
+            public void updateOperation(ESource<? extends Banion> s, Banion arg) {
+                eventBanionChanged.notifyEObservers(new BanionControllerImpl(arg));
+            }
+        });
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean attachBanionChangedObserver(final EObserver<? super BanionController> observer) {
+    public boolean attachBanionChangedObserver(final AbstractEObserver<? super BanionController> observer) {
         return eventBanionChanged.addEObserver(observer);
     }
 
@@ -42,7 +47,7 @@ public class BanionControllerImpl implements BanionWrapper {
      * {@inheritDoc}
      */
     @Override
-    public boolean detachBanionChangedObserver(final EObserver<? super BanionController> observer) {
+    public boolean detachBanionChangedObserver(final AbstractEObserver<? super BanionController> observer) {
         return eventBanionChanged.removeEObserver(observer);
     }
 

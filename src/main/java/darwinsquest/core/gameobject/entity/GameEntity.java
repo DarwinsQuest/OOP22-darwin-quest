@@ -4,6 +4,7 @@ import darwinsquest.core.battle.decision.Decision;
 import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.util.AbstractEObserver;
 import darwinsquest.util.EObserver;
 
 import java.util.Collection;
@@ -91,13 +92,13 @@ public interface GameEntity extends GameObject {
      * @param observer the observer.
      * @return {@code true} if operation done successfully.
      */
-    boolean attachSwapBanionObserver(EObserver<? super Banion> observer);
+    boolean attachSwapBanionObserver(AbstractEObserver<? super Banion> observer);
 
     /**
      * Detaches a swap {@link Banion} event observer.
      * @param observer the observer.
      * @return {@code true} if operation done successfully.
      */
-    boolean detachSwapBanionObserver(EObserver<? super Banion> observer);
+    boolean detachSwapBanionObserver(AbstractEObserver<? super Banion> observer);
 
 }

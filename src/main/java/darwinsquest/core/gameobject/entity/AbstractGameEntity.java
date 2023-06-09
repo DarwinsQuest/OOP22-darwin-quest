@@ -3,6 +3,7 @@ package darwinsquest.core.gameobject.entity;
 import darwinsquest.core.battle.decision.Decision;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.util.AbstractEObserver;
 import darwinsquest.util.EObservable;
 import darwinsquest.util.EObserver;
 import darwinsquest.util.ESource;
@@ -135,7 +136,7 @@ public abstract class AbstractGameEntity implements GameEntity {
      * {@inheritDoc}
      */
     @Override
-    public boolean attachSwapBanionObserver(final EObserver<? super Banion> observer) {
+    public boolean attachSwapBanionObserver(final AbstractEObserver<? super Banion> observer) {
         return eventSwap.addEObserver(observer);
     }
 
@@ -143,7 +144,7 @@ public abstract class AbstractGameEntity implements GameEntity {
      * {@inheritDoc}
      */
     @Override
-    public boolean detachSwapBanionObserver(final EObserver<? super Banion> observer) {
+    public boolean detachSwapBanionObserver(final AbstractEObserver<? super Banion> observer) {
         return eventSwap.removeEObserver(observer);
     }
 

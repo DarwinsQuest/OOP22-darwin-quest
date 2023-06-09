@@ -1,6 +1,8 @@
 package darwinsquest.controller;
 
+import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.entity.GameEntity;
+import darwinsquest.util.AbstractEObserver;
 import darwinsquest.util.EObservable;
 import darwinsquest.util.EObserver;
 import darwinsquest.util.ESource;
@@ -27,8 +29,12 @@ public class EntityControllerImpl implements EntityController {
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Storing a game entity is needed in the controller.")
     public EntityControllerImpl(final GameEntity entity) {
         this.entity = Objects.requireNonNull(entity);
-        this.entity.attachSwapBanionObserver((s, arg) ->
-            banionControllerEObservable.notifyEObservers(new BanionControllerImpl(arg)));
+        this.entity.attachSwapBanionObserver(new AbstractEObserver<>() {
+            @Override
+            public void updateOperation(ESource<? extends Banion> s, Banion arg) {
+                banionControllerEObservable.notifyEObservers(new BanionControllerImpl(arg));
+            }
+        });
     }
 
     /**
@@ -92,7 +98,7 @@ public class EntityControllerImpl implements EntityController {
      * {@inheritDoc}
      */
     @Override
-    public boolean attachSwapBanionObserver(final EObserver<? super BanionController> observer) {
+    public boolean attachSwapBanionObserver(final AbstractEObserver<? super BanionController> observer) {
         return banionControllerEObservable.addEObserver(observer);
     }
 
@@ -100,7 +106,7 @@ public class EntityControllerImpl implements EntityController {
      * {@inheritDoc}
      */
     @Override
-    public boolean detachSwapBanionObserver(final EObserver<? super BanionController> observer) {
+    public boolean detachSwapBanionObserver(final AbstractEObserver<? super BanionController> observer) {
         return banionControllerEObservable.removeEObserver(observer);
     }
 

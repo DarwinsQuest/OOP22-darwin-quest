@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
+import darwinsquest.util.AbstractEObserver;
 import darwinsquest.util.Asserts;
 import darwinsquest.util.EObservable;
 import darwinsquest.util.EObserver;
@@ -67,7 +68,7 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
-    public boolean attachBanionChangedObserver(final EObserver<? super Banion> observer) {
+    public boolean attachBanionChangedObserver(final AbstractEObserver<? super Banion> observer) {
         return eventBanionChanged.addEObserver(observer);
     }
 
@@ -75,7 +76,7 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
-    public boolean detachBanionChangedObserver(final EObserver<? super Banion> observer) {
+    public boolean detachBanionChangedObserver(final AbstractEObserver<? super Banion> observer) {
         return eventBanionChanged.removeEObserver(observer);
     }
 
