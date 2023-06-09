@@ -24,6 +24,8 @@ class TestBasicAI {
     private static final int SEED = 353_232;
     private static final int N_ITERATIONS = 100;
     private static final int BANION_HP = 100;
+    private static final double BANION_ATK = 1.0;
+    private static final double BANION_DEF = 1.0;
     private static final int MOVE_DAMAGE = 10;
 
     private final AI ai = new BasicAI();
@@ -51,8 +53,8 @@ class TestBasicAI {
     @Test
     void testBanionSwap() {
         final Collection<Banion> banions = new HashSet<>();
-        final Banion b1 = new BanionImpl(neutral, "Grassy", BANION_HP, moves);
-        final Banion b2 = new BanionImpl(neutral, "Airy", BANION_HP, moves);
+        final Banion b1 = new BanionImpl(neutral, "Grassy", BANION_HP, BANION_ATK, BANION_DEF, moves);
+        final Banion b2 = new BanionImpl(neutral, "Airy", BANION_HP, BANION_ATK, BANION_DEF, moves);
         banions.add(b1);
         banions.add(b2);
         final Optional<Banion> deployedBanion1 = ai.decideBanionSwap(banions);

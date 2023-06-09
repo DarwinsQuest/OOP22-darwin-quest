@@ -20,6 +20,8 @@ class TestNormalDifficulty {
     @Test
     void opponents() {
         final int hp = 100;
+        final var atk = 1.0;
+        final var def = 1.0;
 
         final var player = new PlayerImpl(new Faker().name().firstName());
         final var element = new ElementFactory().createElements().stream().findAny().orElseThrow();
@@ -27,6 +29,8 @@ class TestNormalDifficulty {
         player.addToInventory(new BanionImpl(element,
             new Faker().name().firstName(),
             hp,
+            atk,
+            def,
             new MoveFactory().createElements().stream()
                 .filter(m -> m.getElement().equals(element))
                 .limit(Banion.NUM_MOVES)

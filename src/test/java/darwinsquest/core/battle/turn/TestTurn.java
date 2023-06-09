@@ -23,6 +23,8 @@ class TestTurn {
 
     private static final int SIZE = 200;
     private static final int HP = 100;
+    private static final double ATK = 1.0;
+    private static final double DEF = 1.0;
     private static final int DAMAGE_1 = 20;
     private static final int DAMAGE_2 = 15;
     private static final GameEntity E1 = new OpponentImpl("e1", new BasicAI());
@@ -50,10 +52,10 @@ class TestTurn {
                 new BasicMove(DAMAGE_2, "m2", air),
                 new BasicMove(DAMAGE_1, "m3", air),
                 new BasicMove(DAMAGE_2, "m4", air));
-        final var b1 = new BanionImpl(fire, "b1", HP, b1Moves);
-        final var b2 = new BanionImpl(water, "b2", HP, b2Moves);
-        final var b3 = new BanionImpl(grass, "b3", HP, b3Moves);
-        final var b4 = new BanionImpl(air, "b4", HP, b4Moves);
+        final var b1 = new BanionImpl(fire, "b1", HP, ATK, DEF, b1Moves);
+        final var b2 = new BanionImpl(water, "b2", HP, ATK, DEF, b2Moves);
+        final var b3 = new BanionImpl(grass, "b3", HP, ATK, DEF, b3Moves);
+        final var b4 = new BanionImpl(air, "b4", HP, ATK, DEF, b4Moves);
         E1.addToInventory(b1);
         E1.addToInventory(b2);
         E2.addToInventory(b3);

@@ -116,20 +116,22 @@ class TestBanion {
     void comparisons(final long size) {
         final var name = "Translucent";
         final var hp = 100;
+        final var atk = 1.0;
+        final var def = 1.0;
         final var element = new Neutral();
         final var moves = new MoveFactory().createElements().stream()
             .filter(m -> m.getElement().getClass().equals(element.getClass()))
             .limit(BanionImpl.NUM_MOVES)
             .collect(Collectors.toSet());
 
-        final var banions = Stream.generate(() -> new BanionImpl(element, name, hp, moves)).limit(size).toList();
+        final var banions = Stream.generate(() -> new BanionImpl(element, name, hp, atk, def, moves)).limit(size).toList();
 
         banions.forEach(b1 -> {
             banions.stream().filter(b -> b1 != b).forEach(b2 -> assertNotEquals(b1, b2));
             banions.stream().filter(b -> b1 == b).forEach(b2 -> assertEquals(b1, b2));
         });
 
-        final var banion = new BanionImpl(element, name, hp, moves);
+        final var banion = new BanionImpl(element, name, hp, atk, def, moves);
         final var banionClones = Stream.generate(banion::copy).limit(size).toList();
 
         // Banions are considered different
