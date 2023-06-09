@@ -1,4 +1,4 @@
-package darwinsquest.core;
+package darwinsquest.core.evolution;
 
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.banion.BanionImpl;

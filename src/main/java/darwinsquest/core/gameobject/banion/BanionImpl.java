@@ -1,7 +1,7 @@
 package darwinsquest.core.gameobject.banion;
 
-import darwinsquest.core.Evolution;
-import darwinsquest.core.LinearEvolution;
+import darwinsquest.core.evolution.Evolution;
+import darwinsquest.core.evolution.LinearEvolution;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 import darwinsquest.core.gameobject.move.Move;
