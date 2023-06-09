@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
-import darwinsquest.DifficultyController;
+import darwinsquest.controller.DifficultyController;
 import darwinsquest.annotation.Description;
 import darwinsquest.view.sound.GameSoundSystem;
 import darwinsquest.util.JavaFXUtils;
@@ -27,10 +27,11 @@ public class DifficultiesSelectorView extends ControllerInteractive<DifficultyCo
 
     /**
      * Default constructor.
+     * @param view the MVC view.
      * @param controller the MVC controller.
      */
-    public DifficultiesSelectorView(final DifficultyController controller) {
-        super(controller);
+    public DifficultiesSelectorView(final View view, final DifficultyController controller) {
+        super(view, controller);
     }
 
     /**

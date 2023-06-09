@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 /**
  * Interface that represents a login controller.

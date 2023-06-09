@@ -1,17 +1,14 @@
-package darwinsquest;
+package darwinsquest.controller;
 
+import darwinsquest.core.Engine;
 import darwinsquest.core.EngineImpl;
-import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.view.JavaFXView;
 import darwinsquest.view.View;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.application.Application;
 
-import darwinsquest.core.Engine;
-
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Class that represents this project controller.
@@ -20,8 +17,8 @@ import java.util.Set;
 public final class ControllerImpl implements ControllerManager {
 
     private final View view;
-    private Player player;
     private Engine engine;
+    private Player player;
 
     /**
      * Default constructor.
@@ -43,6 +40,7 @@ public final class ControllerImpl implements ControllerManager {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Player is needed.")
     @Override
     public void setPlayer(final Player player) {
         this.player = Objects.requireNonNull(player);
@@ -57,15 +55,8 @@ public final class ControllerImpl implements ControllerManager {
     @Override
     public void selectFirstPlayerBanions() {
         final var numBanions = 4;
-        view.show(view.createBanionSelectorView(new SelectBanionControllerImpl(this, numBanions)));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addPlayerBanions(final Set<Banion> banions) {
-        player.addToInventory(banions);
+        view.show(view.createBanionSelectorView(
+            new SelectBanionControllerImpl(this, new EntityControllerImpl(player), numBanions)));
     }
 
     /**
@@ -81,9 +72,9 @@ public final class ControllerImpl implements ControllerManager {
      */
     @Override
     public void startBoard() {
-        final var boardController = new BoardControllerImpl(engine.getBoard().orElseThrow());
+        final var boardController = new BoardControllerImpl(engine.getBoard().orElseThrow(), view);
         final var boardView = view.createBoardView(boardController);
-        boardController.setView(boardView);
+        boardController.setBoardView(boardView);
         view.show(boardView);
     }
 

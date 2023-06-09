@@ -1,9 +1,11 @@
 package darwinsquest.core.gameobject.entity;
 
+import darwinsquest.controller.PlayerInput;
 import darwinsquest.core.battle.decision.Decision;
-import darwinsquest.core.gameobject.move.Move;
 import darwinsquest.core.gameobject.banion.Banion;
+import darwinsquest.core.gameobject.move.Move;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -12,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class PlayerImpl extends AbstractGameEntity implements Player {
 
-    private static final String EXCEPTION_MSG = "User input not yet supported.";
+    private PlayerInput input;
 
     /**
      * The player constructor.
@@ -42,11 +44,20 @@ public class PlayerImpl extends AbstractGameEntity implements Player {
     }
 
     /**
+     * Sets input source for player.
+     * @param input the player input.
+     */
+    @Override
+    public void setInput(final PlayerInput input) {
+        this.input = Objects.requireNonNull(input);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
-    public Banion deployBanion() {
-        throw new UnsupportedOperationException(EXCEPTION_MSG);
+    public Banion decideDeployBanion() {
+        return input.deployBanion();
     }
 
     /**
@@ -54,15 +65,15 @@ public class PlayerImpl extends AbstractGameEntity implements Player {
      */
     @Override
     public Move selectMove(final Banion banion) {
-        throw new UnsupportedOperationException(EXCEPTION_MSG);
+        return input.selectMove();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Optional<Banion> swapBanion() {
-        throw new UnsupportedOperationException(EXCEPTION_MSG);
+    public Optional<Banion> decideSwapBanion() {
+        return Optional.of(input.swapBanion());
     }
 
     /**
@@ -70,7 +81,7 @@ public class PlayerImpl extends AbstractGameEntity implements Player {
      */
     @Override
     public Decision getDecision() {
-        throw new UnsupportedOperationException(EXCEPTION_MSG);
+        return input.getDecision();
     }
 
     /**

@@ -1,6 +1,7 @@
 package darwinsquest.core.difficulty;
 
 import com.github.javafaker.Faker;
+import darwinsquest.core.gameobject.entity.Opponent;
 import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.element.Element;
@@ -103,7 +104,7 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameEntity createOpponent(final Board board, final GameEntity player) {
+    public Opponent createOpponent(final Board board, final GameEntity player) {
         if (player.isOutOfBanions()) {
             throw new IllegalArgumentException("Player should have at least one "
                 + Banion.class.getName() + " alive to create a valid opponent.");

@@ -1,7 +1,6 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 import darwinsquest.util.EObserver;
-
 import java.util.Set;
 
 /**
