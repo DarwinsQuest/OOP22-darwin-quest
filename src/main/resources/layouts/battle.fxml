@@ -31,7 +31,7 @@
             </GridPane>
             <VBox id="optionsBox" fx:id="vboxMoves" alignment="CENTER" prefHeight="100" prefWidth="125.0" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="inventoryBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onInventoryAction" prefHeight="${vboxMoves.height / 3}" text="Inventory" />
+                  <Button fx:id="swapBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSwapAction" prefHeight="${vboxMoves.height / 3}" text="Swap" />
                   <Button fx:id="forfeitBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onForfeitAction" prefHeight="${vboxMoves.height / 3}" text="Forfeit" />
                </children>
                <padding>
@@ -49,7 +49,8 @@
    <right>
       <VBox fx:id="rightVbox" alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Banion 2" />
+            <Label fx:id="banion2Name" text="Banion 2" />
+            <Label fx:id="hpBanion2" text="HP:" />
             <ImageView fx:id="rightBanion" fitHeight="${borderPane.height / 3}" fitWidth="${borderPane.width / 3}" preserveRatio="true" smooth="false" />
          </children>
       </VBox>
@@ -57,7 +58,8 @@
    <left>
       <VBox fx:id="leftVbox" alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="BOTTOM_CENTER" text="Banion 1" />
+            <Label fx:id="banion1Name" alignment="BOTTOM_CENTER" text="Banion 1" />
+            <Label fx:id="hpBanion1" text="HP:" />
             <ImageView fx:id="leftBanion" fitHeight="${borderPane.height / 3}" fitWidth="${borderPane.width / 3}" preserveRatio="true" smooth="false" />
          </children>
       </VBox>

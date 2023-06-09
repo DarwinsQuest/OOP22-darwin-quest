@@ -54,11 +54,15 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
 
     @FXML
+    private Label banion1Name;
+    @FXML
+    private Label banion2Name;
+    @FXML
     private BorderPane borderPane;
     @FXML
     private Button forfeitBtn;
     @FXML
-    private Button inventoryBtn;
+    private Button swapBtn;
     @FXML
     private HBox lowerButtonsBox;
     @FXML
@@ -241,7 +245,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     }
 
     @FXML
-    void onInventoryAction(final ActionEvent event) {
+    void onSwapAction(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
         selected = player.getInventory().stream()
                 .filter(BanionController::isAlive)
