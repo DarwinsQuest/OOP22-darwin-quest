@@ -5,8 +5,8 @@ import darwinsquest.controller.BanionController;
 import darwinsquest.controller.BattleController;
 import darwinsquest.controller.EntityController;
 import darwinsquest.controller.MoveController;
+import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
-import darwinsquest.view.graphics.Sprite;
 import darwinsquest.view.graphics.SpriteAnimation;
 import darwinsquest.view.sound.GameSoundSystem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -17,13 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -31,8 +25,10 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -45,14 +41,8 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private static final double WIDTH = 0.3;
     private static final double HEIGHT = 0.3;
     private static final int BG_UPSCALE = 4;
-    private static final Sprite SPRITE1 = new BanionsSpriteFactory()
-        .getBanionSprite("turtle", BanionsSpriteFactory.SpriteType.IDLE);
-    private static final Image IMAGE1 = SPRITE1.getImage();
-    private static final Sprite SPRITE2 = new BanionsSpriteFactory()
-        .getBanionSprite("duck", BanionsSpriteFactory.SpriteType.IDLE);
-    private static final Image IMAGE2 = SPRITE2.getImage();
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
-
+    private final Random randomGenerator = new Random();
     @FXML
     private Label banion1Name;
     @FXML
@@ -90,7 +80,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private BanionController playerBanion;
     private SpriteAnimation playerBanionAnimation;
     private BanionController opponentBanion;
-    private SpriteAnimation opponentBanionAnimation;
+//    private SpriteAnimation opponentBanionAnimation;
 
     /**
      * Default constructor.
@@ -110,65 +100,14 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         this.opponent = Objects.requireNonNull(opponent);
     }
 
-    private void renderPlayerBanion(final BanionController banion) {
-        leftVbox.getChildren().setAll(
-            new Label(banion.getName()),
-            new Label("Hp: " + banion.getHp()),
-            playerSpriteCache.get(banion.getName()));
-    }
-
-    private void renderOpponentBanion(final BanionController banion) {
-        rightVbox.getChildren().setAll(
-            new Label(banion.getName()),
-            new Label("Hp: " + banion.getHp()),
-            opponentSpriteCache.get(banion.getName()));
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        initializeBackground();
-
-        final var spriteFactory = new BanionsSpriteFactory();
-        playerSpriteCache = player.getInventory().stream()
-            .collect(
-                Collectors.toMap(
-                    BanionController::getName,
-                    banion -> {
-                        final var imageView = new ImageView();
-                        this.playerBanionAnimation = new SpriteAnimation(
-                            imageView,
-                            spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
-                            Duration.seconds(1),
-                            Animation.INDEFINITE,
-                            true);
-                        this.playerBanionAnimation.play();
-                        imageView.setPreserveRatio(true);
-                        imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
-                        imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
-                        return imageView;
-                    }));
-        opponentSpriteCache = opponent.getInventory().stream()
-            .collect(
-                Collectors.toMap(
-                    BanionController::getName,
-                    banion -> {
-                        final var imageView = new ImageView();
-                        this.opponentBanionAnimation = new SpriteAnimation(
-                            imageView,
-                            spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
-                            Duration.seconds(1),
-                            Animation.INDEFINITE,
-                            false);
-                        opponentBanionAnimation.play();
-                        imageView.setPreserveRatio(true);
-                        imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
-                        imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
-                        return imageView;
-                    }));
-
+        initializeRandomBackground();
+        playerSpriteCache = createSpriteCache(player, true);
+        opponentSpriteCache = createSpriteCache(opponent, false);
         this.player.attachSwapBanionObserver((s, arg) ->
             Platform.runLater(() -> {
                 renderPlayerBanion(arg);
@@ -194,28 +133,10 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         GameSoundSystem.playIntroAndMusic("BossIntro.wav", "BossMain.wav");
     }
 
-    private void initializeBackground() {
-        final Image img = new Image("img/bg.png");
-        final BackgroundSize bgSize = new BackgroundSize(
-            WIDTH,
-            HEIGHT,
-            true,
-            true,
-            true,
-            false);
-        final BackgroundImage bgImg = new BackgroundImage(
-            new Image(img.getUrl(),
-                img.getWidth() * BG_UPSCALE,
-                img.getHeight() * BG_UPSCALE,
-                true,
-                false),
-            BackgroundRepeat.REPEAT,
-            BackgroundRepeat.NO_REPEAT,
-            BackgroundPosition.CENTER,
-            bgSize
-        );
-        final Background bg = new Background(bgImg);
-        borderPane.setBackground(bg);
+    private void initializeRandomBackground() {
+        final List<String> backgrounds = List.of("Brown", "Gray", "Pink", "Yellow");
+        final var bg = backgrounds.get(randomGenerator.nextInt(backgrounds.size()));
+        JavaFXUtils.initializeBackground(borderPane, "img/" + bg + ".png");
     }
 
     /**
@@ -303,4 +224,41 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         getController().nextTurn();
         getController().nextTurn();
     }
+
+    private void renderPlayerBanion(final BanionController banion) {
+        leftVbox.getChildren().setAll(
+                new Label(banion.getName()),
+                new Label("Hp: " + banion.getHp()),
+                playerSpriteCache.get(banion.getName()));
+    }
+
+    private void renderOpponentBanion(final BanionController banion) {
+        rightVbox.getChildren().setAll(
+                new Label(banion.getName()),
+                new Label("Hp: " + banion.getHp()),
+                opponentSpriteCache.get(banion.getName()));
+    }
+
+    private Map<String, ImageView> createSpriteCache(final EntityController entity, final boolean horizontalFlip) {
+        final var spriteFactory = new BanionsSpriteFactory();
+        return entity.getInventory().stream()
+                .collect(
+                        Collectors.toMap(
+                                BanionController::getName,
+                                banion -> {
+                                    final var imageView = new ImageView();
+                                    this.playerBanionAnimation = new SpriteAnimation(
+                                            imageView,
+                                            spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
+                                            Duration.seconds(1),
+                                            Animation.INDEFINITE,
+                                            horizontalFlip);
+                                    this.playerBanionAnimation.play();
+                                    imageView.setPreserveRatio(true);
+                                    imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
+                                    imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
+                                    return imageView;
+                                }));
+    }
+
 }
