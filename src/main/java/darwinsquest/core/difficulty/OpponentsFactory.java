@@ -1,6 +1,7 @@
 package darwinsquest.core.difficulty;
 
 import darwinsquest.core.gameobject.entity.GameEntity;
+import darwinsquest.core.gameobject.entity.Opponent;
 import darwinsquest.core.world.Board;
 
 /**
@@ -26,5 +27,5 @@ public interface OpponentsFactory {
      * @param player the player that will fight the opponent.
      * @return the opponent.
      */
-    GameEntity createOpponent(Board board, GameEntity player);
+    Opponent createOpponent(Board board, GameEntity player);
 }

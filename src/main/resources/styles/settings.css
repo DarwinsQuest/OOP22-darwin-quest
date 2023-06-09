@@ -1,0 +1,22 @@
+.root {
+    -primary-color: #0D98BA;
+    -secondary-color: #10BAE5;
+}
+
+#settingsLabel {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+    -fx-text-fill: white;
+}
+
+#volumeSlider .track {
+    -fx-pref-height: 14;
+    -fx-background-color: white;
+    -fx-background-radius: 0;
+}
+
+#volumeSlider .thumb {
+    -fx-pref-height: 30;
+    -fx-pref-width: 10;
+    -fx-background-color: linear-gradient(to top, -primary-color, -secondary-color);
+    -fx-background-radius: 0;
+}

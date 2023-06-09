@@ -1,7 +1,8 @@
 package darwinsquest.view;
 
-import darwinsquest.BanionController;
-import darwinsquest.SelectBanionController;
+import darwinsquest.controller.BanionController;
+import darwinsquest.controller.MoveController;
+import darwinsquest.controller.SelectBanionController;
 import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
@@ -58,10 +59,11 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
 
     /**
      * Default constructor.
+     * @param view the MVC view.
      * @param controller the MVC controller.
      */
-    public ChooseBanionMenuView(final SelectBanionController controller) {
-        super(controller);
+    public ChooseBanionMenuView(final View view, final SelectBanionController controller) {
+        super(view, controller);
         this.banions = getController().getBanions().stream()
             .sorted(Comparator.comparing(BanionController::getName))
             .toList();
@@ -133,20 +135,26 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
         element.setPadding(OTHER_BANION_LABELS_OFFSETS);
         final var vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
+        final var labelMoves = new Label("Moves: ");
 
         banionChooser.setPageFactory(i -> {
             updateButtonsState();
 
             final var banion = banions.get(i);
-            final var moves = banion.getMoves();
-            final List<Label> movesLabels = new ArrayList<>();
+
             name.setText(banion.getName());
             hp.setText("Hp: " + banion.getHp());
             element.setText("Element: " + banion.getElement());
-            moves.forEach(m -> movesLabels.add(new Label(m.getName() + " - damage: " + m.getBaseDamage())));
+
+            final List<Label> movesLabels = new ArrayList<>();
+            banion.getMoves().stream()
+                .sorted(Comparator.comparing(MoveController::getName))
+                .forEach(m -> movesLabels.add(new Label(m.getName() + " - damage: " + m.getBaseDamage())));
             movesLabels.forEach(label -> label.setPadding(OTHER_BANION_LABELS_OFFSETS));
-            vbox.getChildren().setAll(spriteCache.get(banion.getName()), name, hp, element, new Label("Moves: "));
+
+            vbox.getChildren().setAll(spriteCache.get(banion.getName()), name, hp, element, labelMoves);
             movesLabels.forEach(label -> vbox.getChildren().add(label));
+
             return vbox;
         });
     }

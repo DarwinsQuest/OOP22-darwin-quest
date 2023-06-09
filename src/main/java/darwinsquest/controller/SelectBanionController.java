@@ -1,6 +1,6 @@
-package darwinsquest;
+package darwinsquest.controller;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Interface that represents a banions selector controller.
@@ -11,7 +11,7 @@ public interface SelectBanionController {
      * Retrieves the Banions that can be chosen.
      * @return the Banions that can be chosen.
      */
-    Set<BanionController> getBanions();
+    List<BanionController> getBanions();
 
     /**
      * Checks if a banion is yet selected.

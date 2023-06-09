@@ -1,4 +1,4 @@
-package darwinsquest;
+package darwinsquest.controller;
 
 import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.move.DamageMove;
@@ -103,4 +103,28 @@ public final class BanionControllerImpl implements BanionWrapper {
     public Banion getBanion() {
         return banion;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        final var banionController = (BanionControllerImpl) obj;
+        return this.banion.equals(banionController.banion);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(banion);
+    }
+
 }

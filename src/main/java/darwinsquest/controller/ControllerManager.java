@@ -1,14 +1,11 @@
-package darwinsquest;
+package darwinsquest.controller;
 
-import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.entity.Player;
-
-import java.util.Set;
 
 /**
  * Interface that represents a manager of controllers.
  */
-public interface ControllerManager extends Controller {
+interface ControllerManager extends Controller {
 
     /**
      * Sets the player.
@@ -20,12 +17,6 @@ public interface ControllerManager extends Controller {
      * Selects first player Banions.
      */
     void selectFirstPlayerBanions();
-
-    /**
-     * Adds player banions.
-     * @param banions the selected banions.
-     */
-    void addPlayerBanions(Set<Banion> banions);
 
     /**
      * Selects the difficulty.

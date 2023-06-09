@@ -2,19 +2,13 @@ package darwinsquest.core.battle;
 
 import darwinsquest.core.battle.turn.Turn;
 import darwinsquest.core.gameobject.entity.GameEntity;
+
 import java.util.List;
 
 /**
  * Interface that represents a tile that will prompt a battle.
 */
 public interface BattleTile {
-
-    /**
-     * Starts the battle.
-     * @return a list of turns that represent the actions made by the entities
-     *         during the whole battle.
-     */
-    List<Turn> startBattle();
 
     /**
      * Retrieves the {@link GameEntity} that holds the first {@link Turn} of the battle.
@@ -27,6 +21,28 @@ public interface BattleTile {
      * @return the entity that doesn't hold the first turn.
      */
     GameEntity getOpponent();
+
+    /**
+     * Starts a new battle by letting the two entities in the battle deploy their first banion.
+     * @return if the new battle has been created. A new battle cannot be created if the battle
+     *         has already been done, and the previous winner of that battle is the player.
+     */
+    boolean newBattle();
+
+    /**
+     * Creates a new battle turn and lets the {@link darwinsquest.core.gameobject.entity.GameEntity}
+     * on turn to perform their action.
+     * @return if the new turn can be created. A new turn cannot be created if one of the two entities
+     *         that are fighting in the battle is out of banions.
+     * @see darwinsquest.core.gameobject.entity.GameEntity#isOutOfBanions()
+     */
+    boolean nextTurn();
+
+    /**
+     * Retrieves the list of {@link Turn} of the last fought battle.
+     * @return the turns of the last fought battle.
+     */
+    List<Turn> getBattleTurns();
 
     /**
      * Retrieves if the provided {@link GameEntity} has won the battle.
@@ -42,5 +58,4 @@ public interface BattleTile {
      *         </ul>
      */
     boolean isWinner(GameEntity entity);
-
 }

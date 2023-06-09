@@ -1,11 +1,13 @@
 package darwinsquest.view;
 
-import darwinsquest.BoardController;
-import darwinsquest.Controller;
-import darwinsquest.ControllerImpl;
-import darwinsquest.DifficultyController;
-import darwinsquest.LoginController;
-import darwinsquest.SelectBanionController;
+import darwinsquest.controller.BattleController;
+import darwinsquest.controller.BoardController;
+import darwinsquest.controller.Controller;
+import darwinsquest.controller.ControllerImpl;
+import darwinsquest.controller.DifficultyController;
+import darwinsquest.controller.EntityController;
+import darwinsquest.controller.LoginController;
+import darwinsquest.controller.SelectBanionController;
 import darwinsquest.annotation.Description;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +75,7 @@ public final class JavaFXView extends Application implements View {
     }
 
     private void setStartMenuView() {
-        setSceneFromFXML(new StartMenuView(controller));
+        setSceneFromFXML(new StartMenuView(this, controller));
     }
 
     /**
@@ -97,7 +99,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createLoginView(final LoginController controller) {
-        return new LoginView(controller);
+        return new LoginView(this, controller);
     }
 
     /**
@@ -105,7 +107,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createBanionSelectorView(final SelectBanionController controller) {
-        return new ChooseBanionMenuView(controller);
+        return new ChooseBanionMenuView(this, controller);
     }
 
     /**
@@ -113,7 +115,7 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public Object createDifficultySelectorView(final DifficultyController controller) {
-        return new DifficultiesSelectorView(controller);
+        return new DifficultiesSelectorView(this, controller);
     }
 
     /**
@@ -121,15 +123,16 @@ public final class JavaFXView extends Application implements View {
      */
     @Override
     public BoardView createBoardView(final BoardController controller) {
-        return new BoardViewImpl(controller);
+        return new BoardViewImpl(this, controller);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Object createBattleView() {
-        return new BattleView(controller);
+    public BattleInput createBattleView(final EntityController player,
+                                        final EntityController opponent,
+                                        final BattleController controller) {
+        return new BattleView(this, controller, player, opponent);
     }
-
 }
