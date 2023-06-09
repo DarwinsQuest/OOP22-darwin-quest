@@ -1,6 +1,6 @@
 package darwinsquest.core.gameobject.banion;
 
-import darwinsquest.core.Evolvable;
+import darwinsquest.core.evolution.Evolvable;
 import darwinsquest.core.gameobject.GameObject;
 import darwinsquest.core.gameobject.element.Elemental;
 import darwinsquest.core.gameobject.move.Move;
