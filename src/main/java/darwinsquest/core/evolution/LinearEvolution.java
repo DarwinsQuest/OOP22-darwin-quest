@@ -9,6 +9,7 @@ import java.util.function.Predicate;
  */
 public class LinearEvolution implements Evolution {
 
+    private static final int MAX_HP = 30;
     private static final double HP_MULTIPLIER = 0.15;
     private static final double ATK_MULTIPLIER = 0.15;
     private static final double DEF_MULTIPLIER = 0.15;
@@ -21,7 +22,11 @@ public class LinearEvolution implements Evolution {
         if (!requirement.test(banion)) {
             return false;
         }
-        banion.setMaxHp(increaseByPercentage(banion.getMaxHp(), HP_MULTIPLIER));
+        // Evolution will not prompt if the MAX_HP ceiling is already reached.
+        if (banion.getHp() < MAX_HP) {
+            final int increase = increaseByPercentage(banion.getMaxHp(), HP_MULTIPLIER);
+            banion.setMaxHp(Math.min(increase, MAX_HP));
+        }
         banion.setHpToMax();
         banion.setAttack(increaseByPercentage(banion.getAttack(), ATK_MULTIPLIER));
         banion.setDefence(increaseByPercentage(banion.getDefence(), DEF_MULTIPLIER));
