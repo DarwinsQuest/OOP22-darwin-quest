@@ -47,7 +47,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     @FXML
     private BorderPane borderPane;
     @FXML
-    private Button forfeitBtn;
+    private Button endBtn;
     @FXML
     private Button swapBtn;
     @FXML
@@ -156,7 +156,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     }
 
     @FXML
-    void onForfeitAction(final ActionEvent event) {
+    void onEndAction(final ActionEvent event) {
         GameSoundSystem.stopAll();
         GameSoundSystem.playSfx("WarpJingle.wav");
         Platform.runLater(Platform::exit);
