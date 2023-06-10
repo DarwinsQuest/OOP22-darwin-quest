@@ -127,7 +127,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                     Platform.runLater(() -> renderOpponentBanion(b)));
             }));
         GameSoundSystem.stopAll();
-        GameSoundSystem.playIntroAndMusic("BossIntro.wav", "BossMain.wav");
+        playRandomBGM();
     }
 
     private void initializeRandomBackground() {
@@ -158,8 +158,6 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     @FXML
     void onEndAction(final ActionEvent event) {
         GameSoundSystem.stopAll();
-        GameSoundSystem.playSfx("WarpJingle.wav");
-        Platform.runLater(Platform::exit);
     }
 
     @FXML
@@ -220,6 +218,16 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .orElseThrow();
         getController().nextTurn();
         getController().nextTurn();
+    }
+
+    private void playRandomBGM() {
+        final List<String> tracks = List.of("BossMain.wav", "Mars.wav", "Mercury.wav", "Venus.wav");
+        final var bgm = tracks.get(randomGenerator.nextInt(tracks.size()));
+        if (bgm.equals("BossMain.wav")) {
+            GameSoundSystem.playIntroAndMusic("BossIntro.wav", bgm);
+        } else {
+            GameSoundSystem.playMusic(bgm, true);
+        }
     }
 
     private void renderPlayerBanion(final BanionController banion) {
