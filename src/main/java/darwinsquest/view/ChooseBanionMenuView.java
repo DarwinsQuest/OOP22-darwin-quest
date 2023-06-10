@@ -1,9 +1,9 @@
 package darwinsquest.view;
 
+import darwinsquest.annotation.Description;
 import darwinsquest.controller.BanionController;
 import darwinsquest.controller.MoveController;
 import darwinsquest.controller.SelectBanionController;
-import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.graphics.BanionsSpriteFactory;
 import darwinsquest.view.graphics.SpriteAnimation;
@@ -19,7 +19,10 @@ import javafx.scene.control.Pagination;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -39,6 +42,12 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
     private static final Insets FIRST_BANION_LABEL_OFFSETS = new Insets(20, 0, 5, 0);
     private static final Insets OTHER_BANION_LABELS_OFFSETS = new Insets(5, 0, 5, 0);
+    private static final String AIR = "Air";
+    private static final String ELECTRO = "Electro";
+    private static final String FIRE = "Fire";
+    private static final String GRASS = "Grass";
+    private static final String ROCK = "Rock";
+    private static final String WATER = "Water";
 
     @FXML
     private Pagination banionChooser;
@@ -65,7 +74,7 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
     public ChooseBanionMenuView(final View view, final SelectBanionController controller) {
         super(view, controller);
         this.banions = getController().getBanions().stream()
-            .sorted(Comparator.comparing(BanionController::getName))
+            .sorted(Comparator.comparing(BanionController::getElement))
             .toList();
         spriteFactory = new BanionsSpriteFactory();
         spriteCache = banions.stream()
@@ -143,6 +152,7 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
             final var banion = banions.get(i);
 
             name.setText(banion.getName());
+            name.setTextFill(getColourFromElement(banion.getElement()));
             hp.setText("Hp: " + banion.getHp());
             element.setText("Element: " + banion.getElement());
 
@@ -158,4 +168,24 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
             return vbox;
         });
     }
+
+    private Paint getColourFromElement(final String element) {
+        switch (element) {
+            case AIR:
+                return Paint.valueOf(String.valueOf(Color.LIGHTCYAN));
+            case ELECTRO:
+                return Paint.valueOf(String.valueOf(Color.MEDIUMPURPLE));
+            case FIRE:
+                return Paint.valueOf(String.valueOf(Color.CRIMSON));
+            case ROCK:
+                return Paint.valueOf(String.valueOf(Color.GREY));
+            case GRASS:
+                return Paint.valueOf(String.valueOf(Color.GREEN));
+            case WATER:
+                return Paint.valueOf(String.valueOf(Color.DODGERBLUE));
+            default:
+                return Paint.valueOf(String.valueOf(Color.BLACK));
+        }
+    }
+
 }

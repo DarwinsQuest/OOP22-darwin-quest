@@ -13,7 +13,7 @@
         <URL value="@../styles/choosebanionmenu.css" />
     </stylesheets>
     <center>
-        <Pagination fx:id="banionChooser" maxPageIndicatorCount="4" BorderPane.alignment="CENTER">
+        <Pagination fx:id="banionChooser" maxPageIndicatorCount="3" BorderPane.alignment="CENTER">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></Pagination>
