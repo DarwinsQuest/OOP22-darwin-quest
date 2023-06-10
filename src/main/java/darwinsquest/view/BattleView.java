@@ -158,6 +158,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     @FXML
     void onEndAction(final ActionEvent event) {
         GameSoundSystem.stopAll();
+        getController().showGameOver();
     }
 
     @FXML
@@ -223,7 +224,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private void playRandomBGM() {
         final List<String> tracks = List.of("BossMain.wav", "Mars.wav", "Mercury.wav", "Venus.wav");
         final var bgm = tracks.get(randomGenerator.nextInt(tracks.size()));
-        if (bgm.equals("BossMain.wav")) {
+        if ("BossMain.wav".equals(bgm)) {
             GameSoundSystem.playIntroAndMusic("BossIntro.wav", bgm);
         } else {
             GameSoundSystem.playMusic(bgm, true);
