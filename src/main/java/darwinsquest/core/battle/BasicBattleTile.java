@@ -72,17 +72,24 @@ public class BasicBattleTile implements BattleTile {
      */
     @Override
     public boolean nextTurn() {
+        /*
         if (!nobodyIsOutOfBanions()) {
             hasBeenDone = true;
             setWinner();
             return false; // this method returns false if it is not possible to create a new turn, because the battle is finished
         }
+         */
         if (isPlayerTurn) {
             playerTurn();
             isPlayerTurn = false;
         } else {
             opponentTurn();
             isPlayerTurn = true;
+        }
+        if (!nobodyIsOutOfBanions()) {
+            hasBeenDone = true;
+            setWinner();
+            return false;
         }
         return true; // the method returns true if a new turn can be created, and so the battle can continue.
     }

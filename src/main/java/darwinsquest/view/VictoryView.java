@@ -3,6 +3,7 @@ package darwinsquest.view;
 import darwinsquest.annotation.Description;
 import darwinsquest.util.JavaFXUtils;
 import darwinsquest.view.sound.GameSoundSystem;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,8 @@ public final class VictoryView implements Initializable {
 
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
     private static final String VICTORY_SOUND = "WinJingle.wav";
+    private final View view;
+    private final BoardView board;
 
     @FXML
     private BorderPane pane;
@@ -29,6 +32,17 @@ public final class VictoryView implements Initializable {
     private Label label;
     @FXML
     private Button quitButton;
+
+    /**
+     * Default constructor.
+     * @param view the MVC view.
+     * @param board the view represtation of the game board.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Storing the View and the BoardView is necessary.")
+    public VictoryView(final View view, final BoardView board) {
+        this.view = view;
+        this.board = board;
+    }
 
     /**
      * {@inheritDoc}
@@ -44,7 +58,7 @@ public final class VictoryView implements Initializable {
     @FXML
     void onQuitButton(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
-        Platform.runLater(Platform::exit);
+        Platform.runLater(() -> view.show(board));
     }
 
 }

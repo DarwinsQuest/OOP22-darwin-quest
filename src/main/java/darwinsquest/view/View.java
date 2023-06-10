@@ -63,9 +63,10 @@ public interface View {
 
     /**
      * Creates a victory view.
+     * @param view the view representation of the game board.
      * @return the victory view.
      */
-    VictoryView createVictoryView();
+    VictoryView createVictoryView(BoardView view);
 
     /**
      * Creates a game-over view.
