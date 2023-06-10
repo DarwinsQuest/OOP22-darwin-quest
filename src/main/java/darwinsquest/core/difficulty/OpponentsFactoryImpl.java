@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,9 +27,12 @@ import java.util.stream.Stream;
  */
 public final class OpponentsFactoryImpl implements OpponentsFactory {
 
+    private static final int MIN_LEVEL = 1;
+    private static final int MAX_LEVEL = 10;
     private final Class<? extends AI> ai;
     private final int minOpponentBanions;
     private final int maxOppBanions;
+    private final Random random = new Random();
 
     /**
      * Default constructor.
@@ -125,8 +129,10 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
         if (pos == board.getFirstPos()) {
             opponent.addToInventory(createFirstOpponent(banions, player));
         } else if (pos == board.getLastPos()) {
+            banions.forEach(banion -> banion.evolveToLevel(MAX_LEVEL, b -> true));
             opponent.addToInventory(createLastOpponent(board, banions, player));
         } else {
+            banions.forEach(banion -> banion.evolveToLevel(random.nextInt(MIN_LEVEL + 1, MAX_LEVEL - 1), b -> true));
             opponent.addToInventory(createMidOpponent(board, banions, player));
         }
 
