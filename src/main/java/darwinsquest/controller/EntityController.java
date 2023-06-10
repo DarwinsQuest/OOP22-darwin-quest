@@ -58,6 +58,18 @@ public interface EntityController {
     boolean isOutOfBanions();
 
     /**
+     * Retrieves whether the current entity is a player.
+     * @return {@code true} if the entity is a player.
+     */
+    boolean isPlayer();
+
+    /**
+     * Retrieves whether the current entity is an opponent.
+     * @return {@code true} if the entity is an opponent.
+     */
+    boolean isOpponent();
+
+    /**
      * Attaches a swap banion observer.
      * @param observer observer
      * @return {@code true} on successful operation
