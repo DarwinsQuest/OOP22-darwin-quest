@@ -1,6 +1,7 @@
 package darwinsquest.view;
 
 import darwinsquest.controller.BanionController;
+import darwinsquest.controller.Choosable;
 
 /**
  * Interface that represents a battle input.
@@ -17,6 +18,6 @@ public interface BattleInput {
      * Retrieves the decision input, a {@link darwinsquest.controller.MoveController} or a {@link BanionController}.
      * @return a banion move or the banion to deploy (swap with active).
      */
-    Object selectMoveOrBanion();
+    Choosable selectMoveOrBanion();
 
 }
