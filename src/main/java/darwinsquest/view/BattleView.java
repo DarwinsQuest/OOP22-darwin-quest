@@ -77,7 +77,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private BanionController playerBanion;
     private SpriteAnimation playerBanionAnimation;
     private BanionController opponentBanion;
-//    private SpriteAnimation opponentBanionAnimation;
+    private SpriteAnimation opponentBanionAnimation;
 
     /**
      * Default constructor.
@@ -164,17 +164,20 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     @FXML
     void onSwapAction(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        // Disables the swap button if the player has only one banion left.
+        if (player.getInventory().stream().filter(BanionController::isAlive).count() == 1) {
+            swapBtn.setDisable(true);
+        }
         selected = player.getInventory().stream()
                 .filter(BanionController::isAlive)
                 .filter(b -> !b.equals(playerBanion))
                 .findFirst().get();
         this.playerBanion = (BanionController) selected;
         getController().nextTurn();
-        Platform.runLater(() -> {
-            playerBanionAnimation.stop();
-            renderPlayerBanion(playerBanion);
-        });
+        Platform.runLater(() -> renderPlayerBanion(playerBanion));
+        disableMoveButtons(false);
         getController().nextTurn();
+        disableMoveButtonsIfDead();
     }
 
     @FXML
@@ -186,6 +189,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .orElseThrow();
         getController().nextTurn();
         getController().nextTurn();
+        disableMoveButtonsIfDead();
     }
 
     @FXML
@@ -197,6 +201,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .orElseThrow();
         getController().nextTurn();
         getController().nextTurn();
+        disableMoveButtonsIfDead();
     }
 
     @FXML
@@ -208,6 +213,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .orElseThrow();
         getController().nextTurn();
         getController().nextTurn();
+        disableMoveButtonsIfDead();
     }
 
     @FXML
@@ -219,6 +225,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .orElseThrow();
         getController().nextTurn();
         getController().nextTurn();
+        disableMoveButtonsIfDead();
     }
 
     private void playRandomBGM() {
@@ -253,18 +260,37 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                                 BanionController::getName,
                                 banion -> {
                                     final var imageView = new ImageView();
-                                    this.playerBanionAnimation = new SpriteAnimation(
+                                    final var animation = new SpriteAnimation(
                                             imageView,
                                             spriteFactory.getBanionSprite(banion.getName(), BanionsSpriteFactory.SpriteType.IDLE),
                                             Duration.seconds(1),
                                             Animation.INDEFINITE,
                                             horizontalFlip);
-                                    this.playerBanionAnimation.play();
+                                    if (entity.isPlayer()) {
+                                        playerBanionAnimation = animation;
+                                        playerBanionAnimation.play();
+                                    } else {
+                                        opponentBanionAnimation = animation;
+                                        opponentBanionAnimation.play();
+                                    }
                                     imageView.setPreserveRatio(true);
                                     imageView.fitHeightProperty().bind(borderPane.heightProperty().divide(3));
                                     imageView.fitWidthProperty().bind(borderPane.widthProperty().divide(3));
                                     return imageView;
                                 }));
+    }
+
+    private void disableMoveButtons(final boolean value) {
+        moveBtn1.setDisable(value);
+        moveBtn2.setDisable(value);
+        moveBtn3.setDisable(value);
+        moveBtn4.setDisable(value);
+    }
+
+    private void disableMoveButtonsIfDead() {
+        if (!playerBanion.isAlive()) {
+            disableMoveButtons(true);
+        }
     }
 
 }
