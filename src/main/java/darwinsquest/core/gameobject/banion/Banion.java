@@ -159,6 +159,12 @@ public interface Banion extends Elemental, GameObject, Cloneable<Banion>, Evolva
     int getXp();
 
     /**
+     * Retrieves the max xp amount.
+     * @return the max xp.
+     */
+    int gexMaxXp();
+
+    /**
      * Increases the current experience amount.
      * <p>
      * This method will prompt an evolution and successively

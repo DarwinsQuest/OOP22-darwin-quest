@@ -58,4 +58,17 @@ public interface BanionController {
      * @return the full potential life amount.
      */
     int getMaxHp();
+
+    /**
+     * Retrieves the current experience amount.
+     * @return the xp amount.
+     */
+    int getXp();
+
+    /**
+     * Retrieves the max xp amount.
+     * @return the max xp.
+     */
+    int gexMaxXp();
+
 }

@@ -98,6 +98,22 @@ public final class BanionControllerImpl implements BanionWrapper {
     /**
      * {@inheritDoc}
      */
+    @Override
+    public int getXp() {
+        return banion.getXp();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int gexMaxXp() {
+        return banion.gexMaxXp();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This class is a wrapper of a mutable banion.")
     @Override
     public Banion getBanion() {
