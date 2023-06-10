@@ -1,5 +1,6 @@
 package darwinsquest.controller;
 
+import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.move.DamageMove;
 import darwinsquest.core.gameobject.move.Move;
 
@@ -38,8 +39,8 @@ public class DamageMoveControllerImpl implements MoveWrapper {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
-        return this.move.getType();
+    public int getDamageMultiplier() {
+        return move.getDamageMultiplier();
     }
 
     /**
@@ -57,4 +58,13 @@ public class DamageMoveControllerImpl implements MoveWrapper {
     public Move getMove() {
         return move;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Element getElement() {
+        return move.getElement();
+    }
+
 }

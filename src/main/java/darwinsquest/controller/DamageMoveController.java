@@ -21,4 +21,11 @@ public interface DamageMoveController extends MoveController {
      */
     int computeDamage(BanionController opponentBanion);
 
+    /**
+     * Retrieves the damage multiplier of the move that increases/reduces its base damage.
+     * @return the damage multiplier of the move
+     * @see darwinsquest.core.gameobject.move.DamageMove#getDamageMultiplier()
+     */
+    int getDamageMultiplier();
+
 }

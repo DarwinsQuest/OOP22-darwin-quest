@@ -45,38 +45,6 @@ public class BasicMove implements DamageMove {
      * {@inheritDoc}
      */
     @Override
-    public boolean isStackable() {
-        throw new UnsupportedOperationException("Stackability not yet supported.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getCooldown() {
-        throw new UnsupportedOperationException("Cooldown not yet supported.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getDuration() {
-        throw new UnsupportedOperationException("Duration not yet supported.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getType() {
-        throw new UnsupportedOperationException("Type not yet supported.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int getBaseDamage() {
         return this.baseDamage;
     }
