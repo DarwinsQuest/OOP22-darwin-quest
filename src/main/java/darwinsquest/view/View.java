@@ -60,4 +60,17 @@ public interface View {
      * @return the battle view.
      */
     BattleInput createBattleView(EntityController player, EntityController opponent, BattleController controller);
+
+    /**
+     * Creates a victory view.
+     * @return the victory view.
+     */
+    VictoryView createVictoryView();
+
+    /**
+     * Creates a game-over view.
+     * @return the game-over view.
+     */
+    GameOverView createGameOverView();
+
 }

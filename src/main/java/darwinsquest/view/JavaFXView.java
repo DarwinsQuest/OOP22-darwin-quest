@@ -135,4 +135,21 @@ public final class JavaFXView extends Application implements View {
                                         final BattleController controller) {
         return new BattleView(this, controller, player, opponent);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public VictoryView createVictoryView() {
+        return new VictoryView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GameOverView createGameOverView() {
+        return new GameOverView();
+    }
+
 }
