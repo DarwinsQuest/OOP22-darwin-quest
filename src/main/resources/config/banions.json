@@ -1,11 +1,11 @@
 [
     {
         "element": "Air",
-        "name": "fat bird",
+        "name": "Hefty",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move1", "move31", "move3", "move4"],
+        "moves": ["Tornado", "Claw", "Breeze", "Monsoon"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/FatBird/Idle (40x48).png",
@@ -23,11 +23,11 @@
     },
     {
         "element": "Air",
-        "name":"blue bird",
+        "name":"Aotori",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move1", "move2", "move3", "move4"],
+        "moves": ["Tornado", "Aero Blast", "Breeze", "Monsoon"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/BlueBird/Flying (32x32).png",
@@ -45,11 +45,11 @@
     },
     {
         "element": "Air",
-        "name":"bee",
+        "name":"Buzzwings",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move1", "move43", "move3", "move4"],
+        "moves": ["Tornado", "Hurl", "Breeze", "Aero Slash"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Bee/Idle (36x34).png",
@@ -68,11 +68,11 @@
 
     {
         "element": "Electro",
-        "name": "bat",
+        "name": "Jolbat",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move6", "move7", "move8", "move9"],
+        "moves": ["Spark", "Lightning", "Thunderbolt", "Volt Blitz"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Bat/Flying (46x30).png",
@@ -90,11 +90,11 @@
     },
     {
         "element": "Electro",
-        "name": "bunny",
+        "name": "Sparkleap",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move6", "move7", "move45", "move9"],
+        "moves": ["Spark", "Lightning", "Poke", "Surge Wave"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Bunny/Idle (34x44).png",
@@ -112,11 +112,11 @@
     },
     {
         "element": "Electro",
-        "name": "chameleon",
+        "name": "Zapameleon",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move6", "move7", "move8", "move9"],
+        "moves": ["Spark", "Lightning", "Thunderbolt", "Volt Blitz"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Chameleon/Idle (84x38).png",
@@ -135,11 +135,11 @@
 
     {
         "element": "Fire",
-        "name": "angry pig",
+        "name": "Infernhog",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move14", "move40", "move12", "move13"],
+        "moves": ["Magma Burst", "Pulse", "Flame", "Torch"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/AngryPig/Idle (36x30).png",
@@ -157,11 +157,11 @@
     },
     {
         "element": "Fire",
-        "name": "chicken",
+        "name": "Blazechick",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move15", "move11", "move12", "move13"],
+        "moves": ["Brazier", "Fireball", "Torch", "Magma Burst"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Chicken/Idle (32x34).png",
@@ -179,11 +179,11 @@
     },
     {
         "element": "Fire",
-        "name": "mushroom",
+        "name": "Scorchspore",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move15", "move11", "move12", "move13"],
+        "moves": ["Brazier", "Fireball", "Flame", "Torch"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Mushroom/Idle (32x32).png",
@@ -202,11 +202,11 @@
 
     {
         "element": "Grass",
-        "name": "trunk",
+        "name": "Florastump",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move16", "move17", "move20", "move19"],
+        "moves": ["Meadow", "Foliage Strike", "Spores", "Verdant Beam"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Trunk/Idle (64x32).png",
@@ -224,11 +224,11 @@
     },
     {
         "element": "Grass",
-        "name": "radish",
+        "name": "Herbroot",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move16", "move31", "move20", "move19"],
+        "moves": ["Meadow", "Impale", "Spores", "Verdant Beam"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Radish/Idle 2 (30x38).png",
@@ -246,11 +246,11 @@
     },
     {
         "element": "Grass",
-        "name": "plant",
+        "name": "Flingleaf",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move16", "move17", "move20", "move19"],
+        "moves": ["Meadow", "Foliage Strike", "Spores", "Verdant Beam"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Plant/Idle (44x42).png",
@@ -269,11 +269,11 @@
 
     {
         "element": "Rock",
-        "name": "rocks",
+        "name": "Stonemaul",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move21", "move22", "move25", "move23"],
+        "moves": ["Earthquake", "Landslide", "Pebble Pummel", "Bedrock Bash"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Rocks/Rock1_Idle (38x34).png",
@@ -291,11 +291,11 @@
     },
     {
         "element": "Rock",
-        "name": "turtle",
+        "name": "Spebble",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move31", "move32", "move33", "move23"],
+        "moves": ["Pebble Pummel", "Slam", "Blast", "Bedrock Bash"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Turtle/Idle 1 (44x26).png",
@@ -313,11 +313,11 @@
     },
     {
         "element": "Rock",
-        "name": "rino",
+        "name": "Stonohorn",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move21", "move22", "move25", "move23"],
+        "moves": ["Earthquake", "Landslide", "Boulder Burst", "Bedrock Bash"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Rino/Idle (52x34).png",
@@ -336,11 +336,11 @@
 
     {
         "element": "Water",
-        "name": "slime",
+        "name": "Aquamuck",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move26", "move28", "move29", "move30"],
+        "moves": ["Tsunami", "Aqua Blast", "Whirlpool", "Waterfall"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Slime/Idle-Run (44x30).png",
@@ -358,11 +358,11 @@
     },
     {
         "element": "Water",
-        "name": "snail",
+        "name": "Hydrashell",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move34", "move35", "move36", "move30"],
+        "moves": ["Coral Spear", "Whirlpool", "Bite", "Beam"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Snail/Idle (38x24).png",
@@ -380,11 +380,11 @@
     },
     {
         "element": "Water",
-        "name": "duck",
+        "name": "Quacktide",
         "hp": 10,
         "atk": 1.0,
         "def": 1.0,
-        "moves": ["move26", "move28", "move29", "move30"],
+        "moves": ["Whirlpool", "Aqua Blast", "Swipe", "Punch"],
         "sprites": {
             "idle": {
                 "src":  "img/banions/Duck/Idle (36x36).png",
