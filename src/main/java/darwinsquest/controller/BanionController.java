@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Interface that represent an immutable banion view.
  */
-public interface BanionController {
+public interface BanionController extends Choosable {
 
     /**
      * Attaches an observer that is notified when this banion changes.
@@ -69,6 +69,6 @@ public interface BanionController {
      * Retrieves the max xp amount.
      * @return the max xp.
      */
-    int gexMaxXp();
+    int getMaxXp();
 
 }
