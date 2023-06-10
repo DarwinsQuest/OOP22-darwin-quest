@@ -31,7 +31,6 @@ public final class BoardViewImpl extends ControllerInteractive<BoardController> 
     @FXML
     private ProgressBar progress;
 
-    private String suffix;
     private int levels;
     private int pos;
     private boolean canMove;
@@ -51,7 +50,6 @@ public final class BoardViewImpl extends ControllerInteractive<BoardController> 
      */
     @Override
     public void init(final int pos, final int levels, final int maxStep, final boolean canMove, final boolean canFight) {
-        suffix = " (max step = " + maxStep + ")";
         this.levels = levels;
         this.pos = pos;
         this.canMove = canMove;
@@ -99,7 +97,7 @@ public final class BoardViewImpl extends ControllerInteractive<BoardController> 
     }
 
     private void setLabelText(final String text) {
-        lbLevel.setText(PREFIX + text + suffix);
+        lbLevel.setText(PREFIX + text);
     }
 
     @FXML

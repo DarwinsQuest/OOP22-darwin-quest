@@ -21,7 +21,7 @@ public final class NormalDifficulty implements Difficulty {
     public static final int MAX_OPP_BANIONS = 3;
 
     private static final int LEVELS = 10;
-    private static final int MAX_STEP = 8;
+    private static final int MAX_STEP = 4;
 
     private final BattleBoard board;
 
