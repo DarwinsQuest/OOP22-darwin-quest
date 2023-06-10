@@ -40,6 +40,8 @@ public interface BattleTile {
 
     /**
      * Retrieves the list of {@link Turn} of the last fought battle.
+     * If the battle has never started or the battle is being carried out, an empty
+     * list will be returned.
      * @return the turns of the last fought battle.
      */
     List<Turn> getBattleTurns();
