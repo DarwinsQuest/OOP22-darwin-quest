@@ -1,6 +1,8 @@
 package darwinsquest.controller;
 
 import darwinsquest.core.gameobject.entity.GameEntity;
+import darwinsquest.core.gameobject.entity.Opponent;
+import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.util.EObservable;
 import darwinsquest.util.EObserver;
 import darwinsquest.util.ESource;
@@ -86,6 +88,22 @@ public class EntityControllerImpl implements EntityController {
     @Override
     public boolean isOutOfBanions() {
         return entity.isOutOfBanions();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPlayer() {
+        return entity instanceof Player;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isOpponent() {
+        return entity instanceof Opponent;
     }
 
     /**
