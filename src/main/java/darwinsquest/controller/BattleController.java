@@ -12,4 +12,14 @@ public interface BattleController {
      */
     boolean nextTurn();
 
+    /**
+     * Shows the victory view when the player wins the battle.
+     */
+    void showVictory();
+
+    /**
+     * Shows a game over view when the player loses the battle.
+     */
+    void showGameOver();
+
 }
