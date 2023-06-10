@@ -58,6 +58,7 @@ public final class VictoryView implements Initializable {
     @FXML
     void onQuitButton(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        GameSoundSystem.playMusic("Map.wav", true);
         Platform.runLater(() -> view.show(board));
     }
 

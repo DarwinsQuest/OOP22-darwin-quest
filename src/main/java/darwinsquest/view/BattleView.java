@@ -3,6 +3,7 @@ package darwinsquest.view;
 import darwinsquest.annotation.Description;
 import darwinsquest.controller.BanionController;
 import darwinsquest.controller.BattleController;
+import darwinsquest.controller.Choosable;
 import darwinsquest.controller.EntityController;
 import darwinsquest.controller.MoveController;
 import darwinsquest.util.JavaFXUtils;
@@ -68,7 +69,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
 
     private final EntityController player;
     private final EntityController opponent;
-    private Object selected;
+    private Choosable selected;
     private Map<String, ImageView> playerSpriteCache;
     private Map<String, ImageView> opponentSpriteCache;
     private BanionController playerBanion;
@@ -148,7 +149,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
      * {@inheritDoc}
      */
     @Override
-    public Object selectMoveOrBanion() {
+    public Choosable selectMoveOrBanion() {
         return selected;
     }
 
@@ -247,7 +248,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         leftVbox.getChildren().setAll(
                 new Label(banion.getName()),
                 new Label("Hp: " + banion.getHp()),
-                new Label("Xp: " + banion.getXp() + "/" + banion.getMaxHp()),
+                new Label("Xp: " + banion.getXp() + "/" + banion.getMaxXp()),
                 playerSpriteCache.get(banion.getName()));
     }
 
@@ -255,7 +256,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         rightVbox.getChildren().setAll(
                 new Label(banion.getName()),
                 new Label("Hp: " + banion.getHp()),
-                new Label("Xp: " + banion.getXp() + "/" + banion.getMaxHp()),
+                new Label("Xp: " + banion.getXp() + "/" + banion.getMaxXp()),
                 opponentSpriteCache.get(banion.getName()));
     }
 
