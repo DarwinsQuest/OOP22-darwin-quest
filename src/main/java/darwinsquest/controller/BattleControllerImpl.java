@@ -1,6 +1,7 @@
 package darwinsquest.controller;
 
 import darwinsquest.core.world.BattleBoard;
+import darwinsquest.view.BoardView;
 import darwinsquest.view.View;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -11,16 +12,19 @@ public class BattleControllerImpl implements BattleController {
 
     private final View view;
     private final BattleBoard board;
+    private final BoardView boardView;
 
     /**
      * Default constructor.
      * @param view the MVC view.
      * @param board the game board.
+     * @param boardView the view representation of the game board.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "View is needed in MVC.")
-    public BattleControllerImpl(final View view, final BattleBoard board) {
+    public BattleControllerImpl(final View view, final BattleBoard board, final BoardView boardView) {
         this.view = view;
         this.board = board;
+        this.boardView = boardView;
     }
 
     /**
@@ -36,7 +40,9 @@ public class BattleControllerImpl implements BattleController {
      */
     @Override
     public void showVictory() {
-        view.show(view.createVictoryView());
+        view.show(view.createVictoryView(boardView));
+        boardView.toggleFight(false);
+        boardView.toggleMove(true);
     }
 
     /**
@@ -45,6 +51,28 @@ public class BattleControllerImpl implements BattleController {
     @Override
     public void showGameOver() {
         view.show(view.createGameOverView());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doNextTurnAndShowGameOverIfBattleEnded() {
+        final var isBattleOver = !nextTurn();
+        if (isBattleOver) {
+            showGameOver();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doNextTurnAndShowVictoryIfBattleEnded() {
+        final var isBattleOver = !nextTurn();
+        if (isBattleOver) {
+            showVictory();
+        }
     }
 
 }

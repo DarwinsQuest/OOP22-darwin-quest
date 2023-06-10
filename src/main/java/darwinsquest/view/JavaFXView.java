@@ -140,8 +140,8 @@ public final class JavaFXView extends Application implements View {
      * {@inheritDoc}
      */
     @Override
-    public VictoryView createVictoryView() {
-        return new VictoryView();
+    public VictoryView createVictoryView(final BoardView view) {
+        return new VictoryView(this, view);
     }
 
     /**
