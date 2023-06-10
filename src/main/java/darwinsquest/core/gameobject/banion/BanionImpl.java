@@ -297,11 +297,25 @@ public final class BanionImpl implements Banion {
         eventBanionChanged.notifyEObservers(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getXp() {
         return Asserts.intMatch(xp, value -> value >= 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int gexMaxXp() {
+        return MAX_XP;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseXp(final int amount) {
         if (amount <= 0) {

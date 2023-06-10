@@ -19,7 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -50,8 +49,6 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private Button endBtn;
     @FXML
     private Button swapBtn;
-    @FXML
-    private HBox lowerButtonsBox;
     @FXML
     private Button moveBtn1;
     @FXML
@@ -242,6 +239,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         leftVbox.getChildren().setAll(
                 new Label(banion.getName()),
                 new Label("Hp: " + banion.getHp()),
+                new Label("Xp: " + banion.getXp() + "/" + banion.getMaxHp()),
                 playerSpriteCache.get(banion.getName()));
     }
 
@@ -249,6 +247,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         rightVbox.getChildren().setAll(
                 new Label(banion.getName()),
                 new Label("Hp: " + banion.getHp()),
+                new Label("Xp: " + banion.getXp() + "/" + banion.getMaxHp()),
                 opponentSpriteCache.get(banion.getName()));
     }
 
