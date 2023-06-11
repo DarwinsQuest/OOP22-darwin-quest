@@ -74,4 +74,11 @@ public interface View {
      */
     GameOverView createGameOverView();
 
+    /**
+     * Creates the view that is shown at the end of the game, when the final boss
+     * has been defeated by the player.
+     * @return the final view of the game.
+     */
+    BossVictoryView createBossVictoryView();
+
 }

@@ -26,12 +26,12 @@ public interface BattleController {
      * Creates a new battle turn and allows the opponent to perform their action.
      * If the player is out of banions, shows the game over view.
      */
-    void doNextTurnAndShowGameOverIfBattleEnded();
+    void nextTurnOrGameOver();
 
     /**
      * Creates a new battle turn and allows the player to perform their action.
      * If the opponent is out of banions, shows the victory view.
      */
-    void doNextTurnAndShowVictoryIfBattleEnded();
+    void nextTurnOrVictory();
 
 }

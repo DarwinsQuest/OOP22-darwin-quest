@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -97,7 +98,13 @@ public final class BoardViewImpl extends ControllerInteractive<BoardController> 
     }
 
     private void setLabelText(final String text) {
-        lbLevel.setText(PREFIX + text);
+        if (this.pos == getController().getLastPos()) {
+            lbLevel.setText("!!! FINAL BOSS !!!");
+            lbLevel.setTextFill(Color.CRIMSON);
+            JavaFXUtils.initializeBackground(vBox, "img/Purple.png");
+        } else {
+            lbLevel.setText(PREFIX + text);
+        }
     }
 
     @FXML

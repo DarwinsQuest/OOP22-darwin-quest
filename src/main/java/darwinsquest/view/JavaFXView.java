@@ -152,4 +152,12 @@ public final class JavaFXView extends Application implements View {
         return new GameOverView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BossVictoryView createBossVictoryView() {
+        return new BossVictoryView();
+    }
+
 }

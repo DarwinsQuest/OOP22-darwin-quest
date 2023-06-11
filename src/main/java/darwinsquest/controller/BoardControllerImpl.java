@@ -68,4 +68,13 @@ public final class BoardControllerImpl implements BoardController {
             board.startBattle();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getLastPos() {
+        return board.getLastPos();
+    }
+
 }

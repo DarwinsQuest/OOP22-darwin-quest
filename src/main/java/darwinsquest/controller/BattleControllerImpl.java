@@ -57,7 +57,7 @@ public class BattleControllerImpl implements BattleController {
      * {@inheritDoc}
      */
     @Override
-    public void doNextTurnAndShowGameOverIfBattleEnded() {
+    public void nextTurnOrGameOver() {
         final var isBattleOver = !nextTurn();
         if (isBattleOver && !board.isBattleWon()) {
             showGameOver();
@@ -68,11 +68,19 @@ public class BattleControllerImpl implements BattleController {
      * {@inheritDoc}
      */
     @Override
-    public void doNextTurnAndShowVictoryIfBattleEnded() {
+    public void nextTurnOrVictory() {
         final var isBattleOver = !nextTurn();
         if (isBattleOver && board.isBattleWon()) {
-            showVictory();
+            if (board.getPos() == board.getLastPos()) {
+                showBossVictory();
+            } else {
+                showVictory();
+            }
         }
+    }
+
+    private void showBossVictory() {
+        view.show(view.createBossVictoryView());
     }
 
 }
