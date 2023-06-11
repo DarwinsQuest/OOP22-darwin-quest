@@ -108,7 +108,7 @@ public final class BanionControllerImpl implements BanionWrapper {
      */
     @Override
     public int getMaxXp() {
-        return banion.gexMaxXp();
+        return banion.getMaxXp();
     }
 
     /**

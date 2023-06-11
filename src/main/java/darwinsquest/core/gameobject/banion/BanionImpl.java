@@ -309,7 +309,7 @@ public final class BanionImpl implements Banion {
      * {@inheritDoc}
      */
     @Override
-    public int gexMaxXp() {
+    public int getMaxXp() {
         return MAX_XP;
     }
 
