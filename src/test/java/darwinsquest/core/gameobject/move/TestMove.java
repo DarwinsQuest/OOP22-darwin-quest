@@ -1,9 +1,5 @@
 package darwinsquest.core.gameobject.move;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,8 +12,14 @@ import darwinsquest.generation.MoveFactory;
 import darwinsquest.core.gameobject.element.Element;
 import darwinsquest.core.gameobject.element.Neutral;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 class TestMove {
 
+    private static final int MIN_DAMAGE_INFLICTED = 1;
     private static final int ILLEGAL_BASE_DAMAGE = -10;
     private static final int LEGAL_BASE_DAMAGE_1 = 20;
     private static final int LEGAL_BASE_DAMAGE_2 = 10;
@@ -54,6 +56,7 @@ class TestMove {
         for (final var banion : banions) {
             for (final var move : chosenBanionMoves) {
                 assertEquals(move.computeDamage(chosenBanion, banion), computeCorrectDamage(move, chosenBanion, banion));
+                assertTrue(move.computeDamage(chosenBanion, banion) >= MIN_DAMAGE_INFLICTED);
             }
         }
     }

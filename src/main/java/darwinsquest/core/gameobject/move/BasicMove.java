@@ -11,6 +11,7 @@ import darwinsquest.core.gameobject.element.Element;
 public class BasicMove implements DamageMove {
 
     private static final int DAMAGE_MULTIPLIER = 2;
+    private static final int MIN_DAMAGE_INFLICTED = 1;
     private final int baseDamage;
     private final String name;
     private final Element element;
@@ -54,13 +55,18 @@ public class BasicMove implements DamageMove {
      */
     @Override
     public int computeDamage(final Banion playerBanion, final Banion opponentBanion) {
+        int computedDamage;
         if (this.element.isWeaker(opponentBanion.getElement())) {
-            return this.baseDamage / DAMAGE_MULTIPLIER + computeDamageFromStats(playerBanion, opponentBanion);
+            computedDamage = this.baseDamage / DAMAGE_MULTIPLIER + computeDamageFromStats(playerBanion, opponentBanion);
         } else if (this.element.isStronger(opponentBanion.getElement())) {
-            return this.baseDamage * DAMAGE_MULTIPLIER + computeDamageFromStats(playerBanion, opponentBanion);
+            computedDamage = this.baseDamage * DAMAGE_MULTIPLIER + computeDamageFromStats(playerBanion, opponentBanion);
         } else {
-            return this.baseDamage + computeDamageFromStats(playerBanion, opponentBanion);
+            computedDamage = this.baseDamage + computeDamageFromStats(playerBanion, opponentBanion);
         }
+        if (computedDamage <= 0) {
+            computedDamage = MIN_DAMAGE_INFLICTED;
+        }
+        return computedDamage;
     }
 
     private int computeDamageFromStats(final Banion playerBanion, final Banion opponentBanion) {
