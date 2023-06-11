@@ -4,17 +4,20 @@ import darwinsquest.core.battle.turn.DeployTurnImpl;
 import darwinsquest.core.battle.turn.SwapTurnImpl;
 import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.battle.turn.Turn;
+import darwinsquest.core.gameobject.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * A basic implementation of {@link BattleTile}.
  */
 public class BasicBattleTile implements BattleTile {
 
+    private static final int MIN_XP_BOUND = 5;
     private final List<GameEntity> players;
     private boolean hasBeenDone;
     private GameEntity winner;
@@ -71,6 +74,14 @@ public class BasicBattleTile implements BattleTile {
      * {@inheritDoc}
      */
     @Override
+    public int getMinXpBound() {
+        return MIN_XP_BOUND;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean nextTurn() {
         /*
         if (!nobodyIsOutOfBanions()) {
@@ -80,7 +91,11 @@ public class BasicBattleTile implements BattleTile {
         }
          */
         if (isPlayerTurn) {
-            playerTurn();
+            if (getPlayer() instanceof Player) {
+                playerTurn();
+            } else {
+                opponentTurn();
+            }
             isPlayerTurn = false;
         } else {
             opponentTurn();
@@ -89,17 +104,26 @@ public class BasicBattleTile implements BattleTile {
         if (!nobodyIsOutOfBanions()) {
             hasBeenDone = true;
             setWinner();
+            assignXp();
             return false;
         }
         return true; // the method returns true if a new turn can be created, and so the battle can continue.
     }
 
+    private void assignXp() {
+        final var randomGenerator = new Random();
+        getPlayer().getInventory().forEach(b -> b.increaseXp(randomGenerator.nextInt(MIN_XP_BOUND, b.getMaxXp() - 1)));
+    }
+
     private void playerTurn() {
-        performCurrentTurn(battleTurns.get(battleTurns.size() - 1));
+        final Turn previousTurn = getPreviousTurn();
+        final Turn currentTurn = getEntityOnTurn(previousTurn).getDecision().getAssociatedTurn(previousTurn);
+        battleTurns.add(currentTurn);
+        currentTurn.performAction();
     }
 
     private void opponentTurn() {
-        performCurrentTurn(battleTurns.get(battleTurns.size() - 1));
+        performCurrentTurn(getPreviousTurn());
     }
 
     private void performCurrentTurn(final Turn previousTurn) {
@@ -111,6 +135,10 @@ public class BasicBattleTile implements BattleTile {
         }
         battleTurns.add(currentTurn);
         currentTurn.performAction();
+    }
+
+    private Turn getPreviousTurn() {
+        return battleTurns.get(battleTurns.size() - 1);
     }
 
     /**
@@ -179,7 +207,8 @@ public class BasicBattleTile implements BattleTile {
 
     private void setWinner() {
         if (hasBeenDone) {
-            if (players.stream().filter(GameEntity::isOutOfBanions).findFirst().get().equals(getPlayer())) {
+            if (players.stream().filter(GameEntity::isOutOfBanions).count() == 1
+                    && players.stream().filter(GameEntity::isOutOfBanions).findFirst().get().equals(getPlayer())) {
                 this.winner = getOpponent();
             } else {
                 this.winner = getPlayer();

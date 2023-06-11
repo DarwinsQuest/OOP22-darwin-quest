@@ -60,4 +60,11 @@ public interface BattleTile {
      *         </ul>
      */
     boolean isWinner(GameEntity entity);
+
+    /**
+     * Retrieves the minimum number of xp assigned to a player banion at the end of the battle.
+     * @return the minimum xp assigned to a player banion.
+     */
+    int getMinXpBound();
+
 }
