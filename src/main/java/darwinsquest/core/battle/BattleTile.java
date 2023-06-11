@@ -24,6 +24,7 @@ public interface BattleTile {
 
     /**
      * Starts a new battle by letting the two entities in the battle deploy their first banion.
+     * Upon this method invocation, the player banions' hp will be restored to the full amount.
      * @return if the new battle has been created. A new battle cannot be created if the battle
      *         has already been done, and the previous winner of that battle is the player.
      */
