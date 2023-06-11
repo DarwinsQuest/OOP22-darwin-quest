@@ -69,7 +69,8 @@ public class MoveTurnImpl extends AbstractTurn implements MoveTurn {
     @Override
     protected void doAction() {
         this.actionDone = getEntityOnTurn().selectMove(activeBanion);
-        actionDone.perform(passiveBanion); // the chosen move is always done against otherEntityCurrentlyDeployedBanion().get().
+        // the chosen move is always done against otherEntityCurrentlyDeployedBanion().get().
+        actionDone.perform(activeBanion, passiveBanion);
         passiveBanionCopy = Optional.of(passiveBanion.copy());
     }
 

@@ -31,14 +31,6 @@ public class DamageMoveControllerImpl implements MoveWrapper {
      * {@inheritDoc}
      */
     @Override
-    public int computeDamage(final BanionController opponentBanion) {
-        return this.move.computeDamage(((BanionControllerImpl) opponentBanion).getBanion());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int getDamageMultiplier() {
         return move.getDamageMultiplier();
     }

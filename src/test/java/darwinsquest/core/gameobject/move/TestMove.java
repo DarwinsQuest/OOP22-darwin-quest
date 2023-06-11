@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import darwinsquest.generation.BanionFactory;
 import darwinsquest.core.gameobject.banion.Banion;
-import darwinsquest.core.gameobject.banion.BanionImpl;
-import darwinsquest.core.gameobject.element.Elemental;
 import org.junit.jupiter.api.Test;
 import darwinsquest.generation.MoveFactory;
 import darwinsquest.core.gameobject.element.Element;
@@ -23,23 +23,8 @@ class TestMove {
     private static final int LEGAL_BASE_DAMAGE_2 = 10;
     private static final String MOVE_NAME_1 = "Fireball";
     private static final String MOVE_NAME_2 = "Splash";
-    private static final String BANION_NAME_1 = "Matchy";
-    private static final String BANION_NAME_2 = "Pond";
-    private static final String BANION_NAME_3 = "Grassy";
-    private static final int HP_1 = 100;
-    private static final int HP_2 = 20;
-    private static final int HP_3 = 15;
-    private static final double ATK = 1.0;
-    private static final double DEF = 1.0;
     private final Element neutral = new Neutral();
-    private static final int MOVE_DAMAGE = 10;
-    private static final Set<Move> ALL_MOVES = new MoveFactory().createElements();
     private static final Set<Banion> ALL_BANIONS = new BanionFactory().createElements();
-
-    private final Set<Move> moves = Set.of(new BasicMove(MOVE_DAMAGE, "1", neutral),
-        new BasicMove(MOVE_DAMAGE, "2", neutral),
-        new BasicMove(MOVE_DAMAGE, "3", neutral),
-        new BasicMove(MOVE_DAMAGE, "4", neutral));
 
     @Test
     void testMoveCreation() {
@@ -51,56 +36,39 @@ class TestMove {
 
         final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
         assertEquals(LEGAL_BASE_DAMAGE_1, move.getBaseDamage());
-        // assertEquals(new Fire(), move.getElement());
+        assertEquals(neutral, move.getElement());
         assertEquals(MOVE_NAME_1, move.getName());
     }
 
     @Test
     void testComputeDamage() {
-        final var moves = ALL_MOVES.stream().map(Elemental::getElement).distinct()
-                .map(element -> ALL_MOVES.stream().filter(m -> m.getElement().equals(element)).findAny().get())
-                .map(m -> (DamageMove) m)
-                .collect(Collectors.toSet());
-        // "moves" is composed by a move per element
-        final var banions = ALL_BANIONS.stream().map(Elemental::getElement).distinct()
-                .map(element -> ALL_BANIONS.stream()
-                .filter(b -> b.getElement().equals(element)).findAny().get())
-                .collect(Collectors.toSet());
-        // "banions" is composed by a banion per element
-        for (final var move : moves) {
-            for (final var banion : banions) {
-                 final var computedDamage = move.computeDamage(banion);
-                 if (move.getElement().isStronger(banion.getElement())) {
-                     assertEquals(computedDamage, move.getBaseDamage() * move.getDamageMultiplier());
-                 } else if (move.getElement().isWeaker(banion.getElement())) {
-                     assertEquals(computedDamage, move.getBaseDamage() / move.getDamageMultiplier());
-                 } else {
-                     assertEquals(computedDamage, move.getBaseDamage());
-                 }
+        final var banions = new ArrayList<>(ALL_BANIONS);
+        Collections.shuffle(banions);
+        final var chosenBanion = banions.stream().findFirst().get(); // no check with isPresent() because
+        final Set<DamageMove> chosenBanionMoves = new HashSet<>();
+        for (final var move : chosenBanion.getMoves()) {
+            chosenBanionMoves.add((DamageMove) move);
+        }
+        // ALL_BANIONS cannot be empty.
+        banions.remove(chosenBanion);
+        for (final var banion : banions) {
+            for (final var move : chosenBanionMoves) {
+                assertEquals(move.computeDamage(chosenBanion, banion), computeCorrectDamage(move, chosenBanion, banion));
             }
         }
     }
 
     @Test
-    void testPerformMoveWithNeutral() {
-        final DamageMove move = new BasicMove(LEGAL_BASE_DAMAGE_1, MOVE_NAME_1, neutral);
-        final Banion banion1 = new BanionImpl(neutral, BANION_NAME_1, HP_1, ATK, DEF, moves);
-        final Banion banion2 = new BanionImpl(neutral, BANION_NAME_2, HP_2, ATK, DEF, moves);
-        final Banion banion3 = new BanionImpl(neutral, BANION_NAME_3, HP_3, ATK, DEF, moves);
-        move.perform(banion1);
-        assertEquals(banion1.getHp(), HP_1 - move.computeDamage(banion1));
-        move.perform(banion2);
-        assertEquals(banion2.getHp(), HP_2 - move.computeDamage(banion2));
-        move.perform(banion3);
-        assertEquals(banion3.getHp(), 0);
-    }
-
-    @Test
-    void testPerformMoveWithElements() {
-        final DamageMove move = (DamageMove) ALL_MOVES.stream().findAny().get();
-        final Banion banion = ALL_BANIONS.stream().findAny().get();
-        move.perform(banion);
-        assertEquals(move.computeDamage(banion), banion.getMaxHp() - banion.getHp());
+    void testPerformMove() {
+        final var banions = new ArrayList<>(ALL_BANIONS);
+        Collections.shuffle(banions);
+        final var chosenBanion = banions.stream().findAny().get();
+        banions.remove(chosenBanion);
+        final var chosenMove = (DamageMove) chosenBanion.getMoves().stream().findAny().get();
+        for (final var banion : banions) {
+            chosenMove.perform(chosenBanion, banion);
+            assertEquals(chosenMove.computeDamage(chosenBanion, banion), banion.getMaxHp() - banion.getHp());
+        }
     }
 
     @Test
@@ -116,6 +84,20 @@ class TestMove {
         assertNotEquals(m1, m3); // m1 and m3 have different damage
         assertNotEquals(m1, m4); // m1 and m4 have different element
         assertNotEquals(m2, m4); // m2 and m4 have different name
+    }
+
+    private int computeCorrectDamage(final DamageMove move, final Banion activeBanion, final Banion passiveBanion) {
+        if (move.getElement().isWeaker(passiveBanion.getElement())) {
+            return move.getBaseDamage() / move.getDamageMultiplier() + computeDamageFromStats(activeBanion, passiveBanion);
+        } else if (move.getElement().isStronger(passiveBanion.getElement())) {
+            return move.getBaseDamage() * move.getDamageMultiplier() + computeDamageFromStats(activeBanion, passiveBanion);
+        } else {
+            return move.getBaseDamage() + computeDamageFromStats(activeBanion, passiveBanion);
+        }
+    }
+
+    private int computeDamageFromStats(final Banion activeBanion, final Banion passiveBanion) {
+        return (int) Math.round(activeBanion.getAttack()) - (int) Math.round(passiveBanion.getDefence());
     }
 
 }
