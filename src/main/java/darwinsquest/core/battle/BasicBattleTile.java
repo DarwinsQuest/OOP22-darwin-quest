@@ -85,19 +85,12 @@ public class BasicBattleTile implements BattleTile {
      */
     @Override
     public boolean nextTurn() {
-        /*
-        if (!nobodyIsOutOfBanions()) {
-            hasBeenDone = true;
-            setWinner();
-            return false; // this method returns false if it is not possible to create a new turn, because the battle is finished
-        }
-         */
         if (isPlayerTurn) {
             if (getPlayer() instanceof Player) {
                 playerTurn();
             } else {
                 opponentTurn();
-            }
+            } // in this way, it is possible to carry out a battle between two instances of Opponent (see TestBattle).
             isPlayerTurn = false;
         } else {
             opponentTurn();
