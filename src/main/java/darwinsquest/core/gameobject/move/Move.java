@@ -11,8 +11,9 @@ public interface Move extends Elemental, GameObject {
 
     /**
      * Perform the {@link Move} on a banion.
-     * @param opponentBanion The banion on which the {@link Move} is applied.
+     * @param playerBanion the banion that performs the {@link Move}.
+     * @param opponentBanion the banion on which the {@link Move} is applied.
      */
-    void perform(Banion opponentBanion);
+    void perform(Banion playerBanion, Banion opponentBanion);
 
 }

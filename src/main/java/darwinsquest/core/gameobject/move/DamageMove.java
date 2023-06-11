@@ -25,13 +25,14 @@ public interface DamageMove extends Move {
      *     <li>if none of the previous conditions are met, the damage inflicted by the move remains
      *         its base damage, without modification.</li>
      * </ul>
+     * @param playerBanion the banion that performs the move.
      * @param opponentBanion the {@link Banion} on which the move is performed.
      * @return the damage inflicted by the move to {@code opponentBanion}.
      * @see darwinsquest.core.gameobject.element.Element#isStronger(darwinsquest.core.gameobject.element.Element)
      * @see darwinsquest.core.gameobject.element.Element#isWeaker(darwinsquest.core.gameobject.element.Element)
      * @see DamageMove#getDamageMultiplier()
      */
-    int computeDamage(Banion opponentBanion);
+    int computeDamage(Banion playerBanion, Banion opponentBanion);
 
     /**
      * Retrieves the damage multiplier of the move that increases/reduces its base damage.
