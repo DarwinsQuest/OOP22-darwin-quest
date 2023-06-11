@@ -64,7 +64,7 @@ public class SwapTurnImpl extends AbstractTurn implements SwapTurn {
     protected void doAction() {
         final var chosenBanion = getEntityOnTurn().swapBanion();
         setCurrentlyDeployedBanion(chosenBanion);
-        this.newBanion = Optional.of(chosenBanion.get().copy());
+        chosenBanion.ifPresent(banion -> this.newBanion = Optional.of(banion.copy()));
     }
 
 }

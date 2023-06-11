@@ -59,7 +59,7 @@ public class BattleControllerImpl implements BattleController {
     @Override
     public void doNextTurnAndShowGameOverIfBattleEnded() {
         final var isBattleOver = !nextTurn();
-        if (isBattleOver) {
+        if (isBattleOver && !board.isBattleWon()) {
             showGameOver();
         }
     }
@@ -70,7 +70,7 @@ public class BattleControllerImpl implements BattleController {
     @Override
     public void doNextTurnAndShowVictoryIfBattleEnded() {
         final var isBattleOver = !nextTurn();
-        if (isBattleOver) {
+        if (isBattleOver && board.isBattleWon()) {
             showVictory();
         }
     }
