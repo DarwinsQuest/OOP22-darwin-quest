@@ -109,10 +109,10 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                 final var moves = arg.getMoves().stream()
                     .sorted(Comparator.comparing(MoveController::getName))
                     .toList();
-                moveBtn1.setText(moves.get(0).getName());
-                moveBtn2.setText(moves.get(1).getName());
-                moveBtn3.setText(moves.get(2).getName());
-                moveBtn4.setText(moves.get(3).getName());
+                moveBtn1.setText(moves.get(0).getName() + " (" + moves.get(0).getBaseDamage() + ")");
+                moveBtn2.setText(moves.get(1).getName() + " (" + moves.get(1).getBaseDamage() + ")");
+                moveBtn3.setText(moves.get(2).getName() + " (" + moves.get(2).getBaseDamage() + ")");
+                moveBtn4.setText(moves.get(3).getName() + " (" + moves.get(3).getBaseDamage() + ")");
                 playerBanion = arg;
                 playerBanion.attachBanionChangedObserver((so, b) ->
                     Platform.runLater(() -> renderPlayerBanion(b)));
