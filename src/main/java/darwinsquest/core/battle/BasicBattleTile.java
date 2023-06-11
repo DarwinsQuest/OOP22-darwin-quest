@@ -117,11 +117,8 @@ public class BasicBattleTile implements BattleTile {
     }
 
     private void opponentTurn() {
-        performCurrentTurn(getPreviousTurn());
-    }
-
-    private void performCurrentTurn(final Turn previousTurn) {
         final Turn currentTurn;
+        final Turn previousTurn = getPreviousTurn();
         if (previousTurn.otherEntityCurrentlyDeployedBanion().get().isAlive()) {
             currentTurn = this.getEntityOnTurn(previousTurn).getDecision().getAssociatedTurn(previousTurn);
         } else {
