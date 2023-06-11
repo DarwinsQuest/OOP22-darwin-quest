@@ -87,6 +87,7 @@ class TestBattle {
     void testBattleStart() {
         final var battle = new BasicBattleTile(E2, E1);
         battle.newBattle();
+        battle.getPlayer().getInventory().forEach(banion -> assertEquals(banion.getHp(), banion.getMaxHp()));
         boolean nextTurn = battle.nextTurn();
         while (nextTurn) {
             nextTurn = battle.nextTurn();

@@ -2,6 +2,7 @@ package darwinsquest.core.battle;
 
 import darwinsquest.core.battle.turn.DeployTurnImpl;
 import darwinsquest.core.battle.turn.SwapTurnImpl;
+import darwinsquest.core.gameobject.banion.Banion;
 import darwinsquest.core.gameobject.entity.GameEntity;
 import darwinsquest.core.battle.turn.Turn;
 import darwinsquest.core.gameobject.entity.Player;
@@ -61,6 +62,7 @@ public class BasicBattleTile implements BattleTile {
         if (isWinner(getPlayer())) {
             return false;
         }
+        getPlayer().getInventory().forEach(Banion::setHpToMax);
         final var firstTurn = new DeployTurnImpl(getPlayer(), getOpponent());
         firstTurn.performAction();
         battleTurns.add(firstTurn);
