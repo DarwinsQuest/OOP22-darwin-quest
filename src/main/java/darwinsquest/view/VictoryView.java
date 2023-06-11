@@ -36,7 +36,7 @@ public final class VictoryView implements Initializable {
     /**
      * Default constructor.
      * @param view the MVC view.
-     * @param board the view represtation of the game board.
+     * @param board the view representation of the game board.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Storing the View and the BoardView is necessary.")
     public VictoryView(final View view, final BoardView board) {
