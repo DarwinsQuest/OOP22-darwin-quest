@@ -14,4 +14,10 @@ public interface BoardController {
      * Starts current battle.
      */
     void startBattle();
+
+    /**
+     * Retrieves the last position of the board.
+     * @return the last position of the board.
+     */
+    int getLastPos();
 }

@@ -174,7 +174,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         getController().nextTurn(); // the player performs a swap, so the opponent's banion cannot die.
         Platform.runLater(() -> renderPlayerBanion(playerBanion));
         disableMoveButtons(false);
-        getController().doNextTurnAndShowGameOverIfBattleEnded();
+        getController().nextTurnOrGameOver();
         disableMoveButtonsIfDead();
     }
 
@@ -185,9 +185,9 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .filter(m -> m.getName().equals(moveBtn1.getText()))
             .findFirst()
             .orElseThrow();
-        getController().doNextTurnAndShowVictoryIfBattleEnded(); // the player performs its turn. If the opponent is out
+        getController().nextTurnOrVictory(); // the player performs its turn. If the opponent is out
         // of banions, then the victory view is shown.
-        getController().doNextTurnAndShowGameOverIfBattleEnded(); // the opponent performs its turn. If the player is out
+        getController().nextTurnOrGameOver(); // the opponent performs its turn. If the player is out
         // of banions, then the game over view is shown.
         disableMoveButtonsIfDead();
     }
@@ -199,9 +199,9 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .filter(m -> m.getName().equals(moveBtn2.getText()))
             .findFirst()
             .orElseThrow();
-        getController().doNextTurnAndShowVictoryIfBattleEnded(); // the player performs its turn. If the opponent is out
+        getController().nextTurnOrVictory(); // the player performs its turn. If the opponent is out
         // of banions, then the victory view is shown.
-        getController().doNextTurnAndShowGameOverIfBattleEnded(); // the opponent performs its turn. If the player is out
+        getController().nextTurnOrGameOver(); // the opponent performs its turn. If the player is out
         // of banions, then the game over view is shown.
         disableMoveButtonsIfDead();
     }
@@ -213,9 +213,9 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .filter(m -> m.getName().equals(moveBtn3.getText()))
             .findFirst()
             .orElseThrow();
-        getController().doNextTurnAndShowVictoryIfBattleEnded(); // the player performs its turn. If the opponent is out
+        getController().nextTurnOrVictory(); // the player performs its turn. If the opponent is out
         // of banions, then the victory view is shown.
-        getController().doNextTurnAndShowGameOverIfBattleEnded(); // the opponent performs its turn. If the player is out
+        getController().nextTurnOrGameOver(); // the opponent performs its turn. If the player is out
         // of banions, then the game over view is shown.
         disableMoveButtonsIfDead();
     }
@@ -227,9 +227,9 @@ public final class BattleView extends ControllerInteractive<BattleController> im
             .filter(m -> m.getName().equals(moveBtn4.getText()))
             .findFirst()
             .orElseThrow();
-        getController().doNextTurnAndShowVictoryIfBattleEnded(); // the player performs its turn. If the opponent is out
+        getController().nextTurnOrVictory(); // the player performs its turn. If the opponent is out
         // of banions, then the victory view is shown.
-        getController().doNextTurnAndShowGameOverIfBattleEnded(); // the opponent performs its turn. If the player is out
+        getController().nextTurnOrGameOver(); // the opponent performs its turn. If the player is out
         // of banions, then the game over view is shown.
         disableMoveButtonsIfDead();
     }
