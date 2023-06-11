@@ -118,8 +118,7 @@ public class BasicBattleTile implements BattleTile {
     private void playerTurn() {
         final Turn previousTurn = getPreviousTurn();
         final Turn currentTurn = getEntityOnTurn(previousTurn).getDecision().getAssociatedTurn(previousTurn);
-        battleTurns.add(currentTurn);
-        currentTurn.performAction();
+        addAndPerformTurn(currentTurn);
     }
 
     private void opponentTurn() {
@@ -133,8 +132,12 @@ public class BasicBattleTile implements BattleTile {
         } else {
             currentTurn = new SwapTurnImpl(previousTurn);
         }
-        battleTurns.add(currentTurn);
-        currentTurn.performAction();
+        addAndPerformTurn(currentTurn);
+    }
+
+    private void addAndPerformTurn(final Turn turn) {
+        battleTurns.add(turn);
+        turn.performAction();
     }
 
     private Turn getPreviousTurn() {
