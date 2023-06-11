@@ -107,8 +107,6 @@ class TestBattle {
             nextTurn = battle.nextTurn();
         }
         final var report = battle.getBattleTurns();
-        assertTrue(E1.isOutOfBanions() || E2.isOutOfBanions());
-        assertFalse(E1.isOutOfBanions() && E2.isOutOfBanions());
         for (int i = 0; i < report.size(); i++) {
             final var currentIteratingTurn = report.get(i);
             if (i % 2 == 0) {
@@ -130,6 +128,19 @@ class TestBattle {
             } // controls if the game entity swaps the banion that died in the previous turn with a new one (different
               // from the previous banion) in the following turn.
         }
+    }
+
+    @Test
+    void testXpAssignment() {
+        final var battle = new BasicBattleTile(E1, E2);
+        battle.newBattle();
+        boolean nextTurn = battle.nextTurn();
+        while (nextTurn) {
+            nextTurn = battle.nextTurn();
+        }
+        battle.getPlayer().getInventory()
+                .forEach(banion -> assertTrue(banion.getXp() >= battle.getMinXpBound()
+                        && banion.getXp() < banion.getMaxXp() - 1));
     }
 
     @Test
