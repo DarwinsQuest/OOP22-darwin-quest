@@ -27,20 +27,40 @@ import java.util.stream.Stream;
  */
 public final class OpponentsFactoryImpl implements OpponentsFactory {
 
-    private static final int MIN_LEVEL = 1;
-    private static final int MAX_LEVEL = 10;
+    private final int minBanionLevel;
+    private final int maxBanionLevel;
     private final Class<? extends AI> ai;
     private final int minOpponentBanions;
     private final int maxOppBanions;
     private final Random random = new Random();
 
     /**
-     * Default constructor.
+     * Default constructor, with hidden opponents levels.
      * @param minOpponentBanions the minimum amount of opponents.
      * @param maxOppBanions the maximum amount of opponents.
      * @param ai the {@link AI} to create.
      */
-    public OpponentsFactoryImpl(final int minOpponentBanions, final int maxOppBanions, final Class<? extends AI> ai) {
+    public OpponentsFactoryImpl(final int minOpponentBanions,
+                                final int maxOppBanions,
+                                final Class<? extends AI> ai) {
+        this(minOpponentBanions, maxOppBanions, 1, 10, ai);
+    }
+
+    /**
+     * Default constructor.
+     * @param minOpponentBanions the minimum amount of opponents.
+     * @param maxOppBanions the maximum amount of opponents.
+     * @param minBanionLevel the min level of opponent's Banions.
+     * @param maxBanionLevel the max level of opponent's Banions.
+     * @param ai the {@link AI} to create.
+     */
+    public OpponentsFactoryImpl(final int minOpponentBanions,
+                                final int maxOppBanions,
+                                final int minBanionLevel,
+                                final int maxBanionLevel,
+                                final Class<? extends AI> ai) {
+        this.minBanionLevel = Asserts.intMatch(minBanionLevel, value -> value > 0);
+        this.maxBanionLevel = Asserts.intMatch(maxBanionLevel, value -> value > minBanionLevel);
         this.minOpponentBanions = Asserts.intMatch(minOpponentBanions, value -> value > 0);
         this.maxOppBanions = Asserts.intMatch(maxOppBanions, value -> value > minOpponentBanions);
         this.ai = Objects.requireNonNull(ai);
@@ -129,10 +149,10 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
         if (pos == board.getFirstPos()) {
             opponent.addToInventory(createFirstOpponent(banions, player));
         } else if (pos == board.getLastPos()) {
-            banions.forEach(banion -> banion.evolveToLevel(MAX_LEVEL, b -> true));
+            banions.forEach(banion -> banion.evolveToLevel(maxBanionLevel, b -> true));
             opponent.addToInventory(createLastOpponent(board, banions, player));
         } else {
-            banions.forEach(banion -> banion.evolveToLevel(random.nextInt(MIN_LEVEL + 1, MAX_LEVEL - 1), b -> true));
+            banions.forEach(banion -> banion.evolveToLevel(random.nextInt(minBanionLevel + 1, maxBanionLevel - 1), b -> true));
             opponent.addToInventory(createMidOpponent(board, banions, player));
         }
 

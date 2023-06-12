@@ -4,19 +4,19 @@ import darwinsquest.annotation.Description;
 import darwinsquest.core.gameobject.entity.Player;
 
 /**
- * Class that represents normal difficulty.
+ * Class that represents hard difficulty.
  */
-@Description("Normal")
-public final class NormalDifficulty extends AbstractDifficulty {
+@Description("Hard")
+public final class HardDifficulty extends AbstractDifficulty {
 
     /**
      * The minimum amount of {@link darwinsquest.core.gameobject.banion.Banion}s.
      */
-    public static final int MIN_OPP_BANIONS = 1;
+    public static final int MIN_OPP_BANIONS = 2;
     /**
      * The maximum number of {@link darwinsquest.core.gameobject.banion.Banion}s.
      */
-    public static final int MAX_OPP_BANIONS = 3;
+    public static final int MAX_OPP_BANIONS = 5;
 
     /**
      * The minimum level of opponent's {@link darwinsquest.core.gameobject.banion.Banion}s.
@@ -25,16 +25,16 @@ public final class NormalDifficulty extends AbstractDifficulty {
     /**
      * The maximum level of opponent's {@link darwinsquest.core.gameobject.banion.Banion}s.
      */
-    public static final int MAX_OPP_BANIONS_LEVEL = 10;
+    public static final int MAX_OPP_BANIONS_LEVEL = 20;
 
-    private static final int LEVELS = 15;
-    private static final int MAX_STEP = 4;
+    private static final int LEVELS = 10;
+    private static final int MAX_STEP = 6;
 
     /**
      * Default constructor.
      * @param player the player.
      */
-    public NormalDifficulty(final Player player) {
+    public HardDifficulty(final Player player) {
         super(MIN_OPP_BANIONS,
             MAX_OPP_BANIONS,
             MIN_OPP_BANIONS_LEVEL,
@@ -49,6 +49,6 @@ public final class NormalDifficulty extends AbstractDifficulty {
      */
     @Override
     public String toString() {
-        return "Difficulty: Normal";
+        return "Difficulty: Hard";
     }
 }

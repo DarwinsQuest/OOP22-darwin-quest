@@ -9,6 +9,7 @@ import java.util.Set;
 
 import darwinsquest.annotation.Description;
 import darwinsquest.core.difficulty.Difficulty;
+import darwinsquest.core.difficulty.HardDifficulty;
 import darwinsquest.core.difficulty.NormalDifficulty;
 import darwinsquest.core.gameobject.entity.Player;
 import darwinsquest.core.world.BattleBoard;
@@ -31,7 +32,7 @@ public class EngineImpl implements Engine {
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Player is needed to separate concerns.")
     public EngineImpl(final Player player) {
-        difficulties = List.of(NormalDifficulty.class);
+        difficulties = List.of(NormalDifficulty.class, HardDifficulty.class);
         this.player = Objects.requireNonNull(player);
     }
 
