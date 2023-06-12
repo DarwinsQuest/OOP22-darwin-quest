@@ -114,6 +114,22 @@ public final class BanionControllerImpl implements BanionWrapper {
     /**
      * {@inheritDoc}
      */
+    @Override
+    public int getAttack() {
+        return (int) Math.round(banion.getAttack());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDefence() {
+        return (int) Math.round(banion.getDefence());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This class is a wrapper of a mutable banion.")
     @Override
     public Banion getBanion() {

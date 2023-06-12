@@ -49,8 +49,10 @@
    <right>
       <VBox fx:id="rightVbox" alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="banion2Name" text="Banion 2" />
-            <Label fx:id="hpBanion2" text="HP:" />
+            <Label text="Banion 2" />
+            <Label text="HP:" />
+            <Label text="ATK:" />
+            <Label text="DEF:" />
             <ImageView fx:id="rightBanion" fitHeight="${borderPane.height / 3}" fitWidth="${borderPane.width / 3}" preserveRatio="true" smooth="false" />
          </children>
          <padding>
@@ -61,8 +63,10 @@
    <left>
       <VBox fx:id="leftVbox" alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="banion1Name" alignment="BOTTOM_CENTER" text="Banion 1" />
-            <Label fx:id="hpBanion1" text="HP:" />
+            <Label alignment="BOTTOM_CENTER" text="Banion 1" />
+            <Label text="HP:" />
+            <Label text="ATK:" />
+            <Label text="DEF:" />
             <ImageView fx:id="leftBanion" fitHeight="${borderPane.height / 3}" fitWidth="${borderPane.width / 3}" preserveRatio="true" smooth="false" />
          </children>
          <padding>

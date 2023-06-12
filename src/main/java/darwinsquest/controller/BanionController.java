@@ -71,4 +71,16 @@ public interface BanionController extends Choosable {
      */
     int getMaxXp();
 
+    /**
+     * Retrieves the current attack stat.
+     * @return the attack stat.
+     */
+    int getAttack();
+
+    /**
+     * Retrieves the current defence stat.
+     * @return the defence stat.
+     */
+    int getDefence();
+
 }
