@@ -12,7 +12,7 @@
    <stylesheets>
       <URL value="@../styles/buttonstyle.css" />
       <URL value="@../styles/fontstyle.css" />
-      <URL value="@../styles/inventorymenu.css" />
+      <URL value="@../styles/title.css" />
    </stylesheets>
    <center>
       <Pagination fx:id="banionChooser" maxPageIndicatorCount="4" pageCount="4" BorderPane.alignment="CENTER">

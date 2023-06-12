@@ -7,11 +7,6 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="300.0" onKeyPressed="#onEscPressed" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <stylesheets>
-        <URL value="@../styles/buttonstyle.css" />
-        <URL value="@../styles/fontstyle.css" />
-        <URL value="@../styles/choosebanionmenu.css" />
-    </stylesheets>
     <center>
         <Pagination fx:id="banionChooser" maxPageIndicatorCount="3" BorderPane.alignment="CENTER">
             <cursor>
@@ -25,13 +20,18 @@
             </padding>
         </Label>
     </top>
-   <bottom>
+    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
             <Button fx:id="btDeselect" disable="true" onAction="#onDeselectAction" text="_Discard" />
-          <Button fx:id="btSelect" onAction="#onSelectAction" text="_Select" />
+            <Button fx:id="btSelect" onAction="#onSelectAction" text="_Select" />
             <Button fx:id="btConfirm" onAction="#onConfirmAction" text="_Confirm" />
         </buttons>
       </ButtonBar>
-   </bottom>
+    </bottom>
+    <stylesheets>
+        <URL value="@../styles/buttonstyle.css" />
+        <URL value="@../styles/fontstyle.css" />
+        <URL value="@../styles/title.css" />
+    </stylesheets>
 </BorderPane>

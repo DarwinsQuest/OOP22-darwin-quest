@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -22,6 +23,8 @@ import javafx.scene.layout.VBox;
 public class DifficultiesSelectorView extends ControllerInteractive<DifficultyController>
     implements Initializable, EventHandler<ActionEvent> {
 
+    @FXML
+    private BorderPane pane;
     @FXML
     private VBox vBox;
 
@@ -39,7 +42,7 @@ public class DifficultiesSelectorView extends ControllerInteractive<DifficultyCo
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        JavaFXUtils.initializeBackground(vBox, "img/Blue.png");
+        JavaFXUtils.initializeBackground(pane, "img/Blue.png");
         createButtons(getController().getDifficulties());
     }
 
