@@ -50,6 +50,7 @@
       <VBox fx:id="rightVbox" alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Banion 2" />
+            <Label text="LVL:" />
             <Label text="HP:" />
             <Label text="ATK:" />
             <Label text="DEF:" />
@@ -64,6 +65,7 @@
       <VBox fx:id="leftVbox" alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="BOTTOM_CENTER" text="Banion 1" />
+            <Label text="LVL:" />
             <Label text="HP:" />
             <Label text="ATK:" />
             <Label text="DEF:" />

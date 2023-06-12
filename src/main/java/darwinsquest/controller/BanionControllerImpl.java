@@ -83,6 +83,14 @@ public final class BanionControllerImpl implements BanionWrapper {
      * {@inheritDoc}
      */
     @Override
+    public int getLevel() {
+        return banion.getLevel();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getHp() {
         return banion.getHp();
     }

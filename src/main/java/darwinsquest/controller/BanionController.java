@@ -48,6 +48,12 @@ public interface BanionController extends Choosable {
     Set<DamageMoveController> getMoves();
 
     /**
+     * Retrieves the current level value.
+     * @return the level value.
+     */
+    int getLevel();
+
+    /**
      * Provides the life stat amount.
      * @return the life stat amount.
      */
