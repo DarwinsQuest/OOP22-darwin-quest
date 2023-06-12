@@ -66,19 +66,19 @@ public interface View {
      * @param view the view representation of the game board.
      * @return the victory view.
      */
-    VictoryView createVictoryView(BoardView view);
+    Object createVictoryView(BoardView view);
 
     /**
      * Creates a game-over view.
      * @return the game-over view.
      */
-    GameOverView createGameOverView();
+    Object createGameOverView();
 
     /**
      * Creates the view that is shown at the end of the game, when the final boss
      * has been defeated by the player.
      * @return the final view of the game.
      */
-    BossVictoryView createBossVictoryView();
+    Object createBossVictoryView();
 
 }

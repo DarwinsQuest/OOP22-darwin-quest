@@ -59,8 +59,6 @@ public final class ChooseBanionMenuView extends ControllerInteractive<SelectBani
     private Button btConfirm;
     @FXML
     private BorderPane pane;
-    @FXML
-    private Label title;
 
     private final List<BanionController> banions;
     private final BanionsSpriteFactory spriteFactory;
