@@ -229,6 +229,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private void renderBanion(final VBox vBox, final Map<String, ImageView> sprites, final BanionController banion) {
         vBox.getChildren().setAll(
                 new Label(banion.getName()),
+                new Label("LVL: " + banion.getLevel()),
                 new Label("HP: " + banion.getHp()),
                 new Label("XP: " + banion.getXp() + "/" + banion.getMaxXp()),
                 new Label("ATK: " + banion.getAttack()),
