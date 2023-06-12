@@ -25,8 +25,8 @@ import java.util.function.Consumer;
  * View main class.
  */
 public final class JavaFXView extends Application implements View {
-    private static final double MIN_WIDTH_FACTOR = 0.4;
-    private static final double MIN_HEIGHT_FACTOR = 0.4;
+    private static final double MIN_WIDTH_FACTOR = 0.6;
+    private static final double MIN_HEIGHT_FACTOR = 0.6;
     private static final String TITLE = "Darwin's Quest";
     private static final String SEPARATOR = " - ";
     private final Controller controller = new ControllerImpl(this);
