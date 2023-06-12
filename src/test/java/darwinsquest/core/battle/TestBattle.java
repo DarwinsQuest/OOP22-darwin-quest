@@ -96,6 +96,8 @@ class TestBattle {
             assertFalse(battle::newBattle);
         } else {
             assertTrue(battle::newBattle); // if the "player" is not the winner, the battle can be fought again.
+            // at the beginning of every battle, the player's banions must have max hp for our logic
+            battle.getPlayer().getInventory().forEach(banion -> assertEquals(banion.getHp(), banion.getMaxHp()));
         }
     }
 
