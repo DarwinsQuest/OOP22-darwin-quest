@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -31,6 +32,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Controller for the battle scene.
@@ -40,10 +42,6 @@ public final class BattleView extends ControllerInteractive<BattleController> im
 
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
     private final Random randomGenerator = new Random();
-    @FXML
-    private Label banion1Name;
-    @FXML
-    private Label banion2Name;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -105,24 +103,28 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         opponentSpriteCache = createSpriteCache(opponent, false);
         this.player.attachSwapBanionObserver((s, arg) ->
             Platform.runLater(() -> {
-                renderPlayerBanion(arg);
+                renderBanion(leftVbox, playerSpriteCache, arg);
                 final var moves = arg.getMoves().stream()
                     .sorted(Comparator.comparing(MoveController::getName))
                     .toList();
-                moveBtn1.setText(moves.get(0).getName() + " (" + moves.get(0).getBaseDamage() + ")");
-                moveBtn2.setText(moves.get(1).getName() + " (" + moves.get(1).getBaseDamage() + ")");
-                moveBtn3.setText(moves.get(2).getName() + " (" + moves.get(2).getBaseDamage() + ")");
-                moveBtn4.setText(moves.get(3).getName() + " (" + moves.get(3).getBaseDamage() + ")");
+                final var moveButtons = List.of(moveBtn1, moveBtn2, moveBtn3, moveBtn4);
+                IntStream.range(0, moveButtons.size())
+                        .forEach(i -> {
+                            final var btn = moveButtons.get(i);
+                            final var move = moves.get(i);
+                            btn.setText(move.getName());
+                            Tooltip.install(btn, new Tooltip("Base DMG: " + move.getBaseDamage()));
+                        });
                 playerBanion = arg;
                 playerBanion.attachBanionChangedObserver((so, b) ->
-                    Platform.runLater(() -> renderPlayerBanion(b)));
+                    Platform.runLater(() -> renderBanion(leftVbox, playerSpriteCache, b)));
             }));
         this.opponent.attachSwapBanionObserver((s, arg) ->
             Platform.runLater(() -> {
-                renderOpponentBanion(arg);
+                renderBanion(rightVbox, opponentSpriteCache, arg);
                 opponentBanion = arg;
                 opponentBanion.attachBanionChangedObserver((so, b) ->
-                    Platform.runLater(() -> renderOpponentBanion(b)));
+                    Platform.runLater(() -> renderBanion(rightVbox, opponentSpriteCache, arg)));
             }));
         GameSoundSystem.stopAll();
         playRandomBGM();
@@ -172,7 +174,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
                 .findFirst().get();
         this.playerBanion = (BanionController) selected;
         getController().nextTurn(); // the player performs a swap, so the opponent's banion cannot die.
-        Platform.runLater(() -> renderPlayerBanion(playerBanion));
+        Platform.runLater(() -> renderBanion(leftVbox, playerSpriteCache, playerBanion));
         disableMoveButtons(false);
         getController().nextTurnOrGameOver();
         disableMoveButtonsIfDead();
@@ -181,56 +183,36 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     @FXML
     void onMove1Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
-        selected = playerBanion.getMoves().stream()
-            .filter(m -> m.getName().equals(moveBtn1.getText()))
-            .findFirst()
-            .orElseThrow();
-        getController().nextTurnOrVictory(); // the player performs its turn. If the opponent is out
-        // of banions, then the victory view is shown.
-        getController().nextTurnOrGameOver(); // the opponent performs its turn. If the player is out
-        // of banions, then the game over view is shown.
-        disableMoveButtonsIfDead();
+        playerMoveAction(moveBtn1);
     }
 
     @FXML
     void onMove2Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
-        selected = playerBanion.getMoves().stream()
-            .filter(m -> m.getName().equals(moveBtn2.getText()))
-            .findFirst()
-            .orElseThrow();
-        getController().nextTurnOrVictory(); // the player performs its turn. If the opponent is out
-        // of banions, then the victory view is shown.
-        getController().nextTurnOrGameOver(); // the opponent performs its turn. If the player is out
-        // of banions, then the game over view is shown.
-        disableMoveButtonsIfDead();
+        playerMoveAction(moveBtn2);
     }
 
     @FXML
     void onMove3Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
-        selected = playerBanion.getMoves().stream()
-            .filter(m -> m.getName().equals(moveBtn3.getText()))
-            .findFirst()
-            .orElseThrow();
-        getController().nextTurnOrVictory(); // the player performs its turn. If the opponent is out
-        // of banions, then the victory view is shown.
-        getController().nextTurnOrGameOver(); // the opponent performs its turn. If the player is out
-        // of banions, then the game over view is shown.
-        disableMoveButtonsIfDead();
+        playerMoveAction(moveBtn3);
     }
 
     @FXML
     void onMove4Action(final ActionEvent event) {
         GameSoundSystem.playSfx(BUTTON_SOUND);
+        playerMoveAction(moveBtn4);
+    }
+
+    private void playerMoveAction(final Button moveButton) {
         selected = playerBanion.getMoves().stream()
-            .filter(m -> m.getName().equals(moveBtn4.getText()))
-            .findFirst()
-            .orElseThrow();
-        getController().nextTurnOrVictory(); // the player performs its turn. If the opponent is out
-        // of banions, then the victory view is shown.
-        getController().nextTurnOrGameOver(); // the opponent performs its turn. If the player is out
-        // of banions, then the game over view is shown.
+                .filter(m -> m.getName().equals(moveButton.getText()))
+                .findFirst()
+                .orElseThrow();
+        // The player performs its turn. If the opponent is out of banions, then the victory view is shown.
+        getController().nextTurnOrVictory();
+        // The opponent performs its turn. If the player is out of banions, then the game-over view is shown.
+        getController().nextTurnOrGameOver();
         disableMoveButtonsIfDead();
     }
 
@@ -244,20 +226,15 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         }
     }
 
-    private void renderPlayerBanion(final BanionController banion) {
-        leftVbox.getChildren().setAll(
+    private void renderBanion(final VBox vBox, final Map<String, ImageView> sprites, final BanionController banion) {
+        vBox.getChildren().setAll(
                 new Label(banion.getName()),
-                new Label("Hp: " + banion.getHp()),
-                new Label("Xp: " + banion.getXp() + "/" + banion.getMaxXp()),
-                playerSpriteCache.get(banion.getName()));
-    }
-
-    private void renderOpponentBanion(final BanionController banion) {
-        rightVbox.getChildren().setAll(
-                new Label(banion.getName()),
-                new Label("Hp: " + banion.getHp()),
-                new Label("Xp: " + banion.getXp() + "/" + banion.getMaxXp()),
-                opponentSpriteCache.get(banion.getName()));
+                new Label("HP: " + banion.getHp()),
+                new Label("XP: " + banion.getXp() + "/" + banion.getMaxXp()),
+                new Label("ATK: " + banion.getAttack()),
+                new Label("DEF: " + banion.getDefence()),
+                sprites.get(banion.getName())
+        );
     }
 
     private Map<String, ImageView> createSpriteCache(final EntityController entity, final boolean horizontalFlip) {
@@ -289,10 +266,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     }
 
     private void disableMoveButtons(final boolean value) {
-        moveBtn1.setDisable(value);
-        moveBtn2.setDisable(value);
-        moveBtn3.setDisable(value);
-        moveBtn4.setDisable(value);
+        List.of(moveBtn1, moveBtn2, moveBtn3, moveBtn4).forEach(button -> button.setDisable(value));
     }
 
     private void disableMoveButtonsIfDead() {
