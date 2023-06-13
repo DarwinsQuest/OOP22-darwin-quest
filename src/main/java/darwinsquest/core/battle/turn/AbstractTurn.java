@@ -155,14 +155,4 @@ public abstract class AbstractTurn implements Turn {
         }
     }
 
-    /**
-     * Retrieves a string that represents the internal state of the turn.
-     * @return a string that represents the internal state of the turn.
-     */
-    protected String internalState() {
-        return "entity on turn= " + getEntityOnTurn() + " entity on turn's currently deployed banion= "
-                + onTurnCurrentlyDeployedBanion() + "entity not on turn= " + getOtherEntity()
-                + " entity not on turn's currently deployed banion= " + otherEntityCurrentlyDeployedBanion();
-    }
-
 }
