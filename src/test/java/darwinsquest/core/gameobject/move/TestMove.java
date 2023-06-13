@@ -46,12 +46,11 @@ class TestMove {
     void testComputeDamage() {
         final var banions = new ArrayList<>(ALL_BANIONS);
         Collections.shuffle(banions);
-        final var chosenBanion = banions.stream().findFirst().get(); // no check with isPresent() because
+        final var chosenBanion = banions.stream().findFirst().get();
         final Set<DamageMove> chosenBanionMoves = new HashSet<>();
         for (final var move : chosenBanion.getMoves()) {
             chosenBanionMoves.add((DamageMove) move);
         }
-        // ALL_BANIONS cannot be empty.
         banions.remove(chosenBanion);
         for (final var banion : banions) {
             for (final var move : chosenBanionMoves) {

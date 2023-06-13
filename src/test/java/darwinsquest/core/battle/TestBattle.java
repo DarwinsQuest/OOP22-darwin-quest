@@ -95,7 +95,11 @@ class TestBattle {
         if (battle.isWinner(E2)) {
             assertFalse(battle::newBattle);
         } else {
-            assertTrue(battle::newBattle); // if the "player" is not the winner, the battle can be fought again.
+            /*
+             * If the player (meaning the GameEntity which starts the battle first) is not the
+             * winner, the battle can be fought again.
+             */
+            assertTrue(battle::newBattle);
             // at the beginning of every battle, the player's banions must have max hp for our logic
             battle.getPlayer().getInventory().forEach(banion -> assertEquals(banion.getHp(), banion.getMaxHp()));
         }
@@ -112,24 +116,29 @@ class TestBattle {
         final var report = battle.getBattleTurns();
         for (int i = 0; i < report.size(); i++) {
             final var currentIteratingTurn = report.get(i);
+            // The following if-statement controls whether the two entities are alternatively on turn
             if (i % 2 == 0) {
                 assertEquals(currentIteratingTurn.getEntityOnTurn(), E1);
                 assertEquals(currentIteratingTurn.getOtherEntity(), E2);
             } else {
                 assertEquals(currentIteratingTurn.getEntityOnTurn(), E2);
                 assertEquals(currentIteratingTurn.getOtherEntity(), E1);
-            } // controls whether the two entities are alternately on turn
+            }
+            /*
+             * The following if-statement controls if a GameEntity swaps the banion that died in the previous turn
+             * with a new one (which is different from the previous banion) in the following turn.
+             */
             if (currentIteratingTurn.otherEntityCurrentlyDeployedBanion().isPresent()
                     && currentIteratingTurn instanceof MoveTurn
-                    && !((MoveTurn) currentIteratingTurn).getAction().getRight().isAlive() // if the banion dies in the
-                                                                                           // current turn, the turn has
-                                                                                           // to be a MoveTurn.
+                    /*
+                     * If the banion dies in the current turn, the turn has to be a MoveTurn.
+                     */
+                    && !((MoveTurn) currentIteratingTurn).getAction().getRight().isAlive()
                     && i + 1 < report.size()) {
                 assertTrue(report.get(i + 1) instanceof SwapTurn);
                 assertNotEquals(((SwapTurn) report.get(i + 1)).getAction().getRight().get(),
-                        ((MoveTurn) currentIteratingTurn).getAction().getRight()); // controls that the banions are different.
-            } // controls if the game entity swaps the banion that died in the previous turn with a new one (different
-              // from the previous banion) in the following turn.
+                        ((MoveTurn) currentIteratingTurn).getAction().getRight());
+            }
         }
     }
 
@@ -159,11 +168,13 @@ class TestBattle {
         }
         final var report = battle.getBattleTurns();
         final var lastTurn = report.get(report.size() - 1);
-        final var loser = lastTurn.getOtherEntity(); // the loser is the entity not on turn of the last turn,
-        // because the last turn is a MoveTurn and so the entity not on turn is the entity whose banion is killed.
+        /*
+         * The GameEntity that loses the battle is the entity not on turn of the last turn, because the last turn is a
+         * MoveTurn and so the GameEntity not on turn is the one whose banion is killed.
+         */
+        final var loser = lastTurn.getOtherEntity();
         assertFalse(battle.isWinner(loser));
-        assertFalse(battle.isWinner(new OpponentImpl("E3", new BasicAI())));
-        // The new entity has not fought in the battle
+        assertFalse(battle.isWinner(new OpponentImpl("E3", new BasicAI()))); // "E3" has not fought in the battle.
     }
 
 }

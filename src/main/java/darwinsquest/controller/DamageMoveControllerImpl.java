@@ -13,7 +13,7 @@ public class DamageMoveControllerImpl implements MoveWrapper {
 
     /**
      * Default constructor.
-     * @param move the {@link darwinsquest.core.gameobject.move.DamageMove} to show in the view.
+     * @param move the {@link DamageMove} to show in the view.
      */
     public DamageMoveControllerImpl(final DamageMove move) {
         this.move = move;

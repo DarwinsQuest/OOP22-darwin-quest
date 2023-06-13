@@ -68,7 +68,7 @@ class TestTurn {
         assertThrows(IllegalArgumentException.class, () -> new DeployTurnImpl(null, E1));
         assertThrows(IllegalArgumentException.class, () -> new DeployTurnImpl(E1, null));
         assertThrows(IllegalArgumentException.class, () -> new DeployTurnImpl(null));
-        assertThrows(IllegalArgumentException.class, () -> new DeployTurnImpl(turn)); // turn has not yet been done.
+        assertThrows(IllegalArgumentException.class, () -> new DeployTurnImpl(turn)); // turn has not been done yet.
         turn.performAction();
         final var deployTurn = new DeployTurnImpl(turn);
         deployTurn.performAction();
@@ -99,8 +99,10 @@ class TestTurn {
         assertThrows(IllegalArgumentException.class, () -> new SwapTurnImpl(null));
         assertThrows(IllegalArgumentException.class, () -> new SwapTurnImpl(turn)); // turn has not already been done
         turn.performAction();
-        assertThrows(IllegalArgumentException.class, () -> new SwapTurnImpl(turn)); // the entity on turn does not
-                                                                                    // have a currently deployed banion
+        /*
+         * The entity on turn does not have a currently deployed banion.
+         */
+        assertThrows(IllegalArgumentException.class, () -> new SwapTurnImpl(turn));
         final var deployTurn = doDeployTurns();
         final var swapTurn = new SwapTurnImpl(deployTurn);
         swapTurn.performAction();
@@ -118,8 +120,8 @@ class TestTurn {
     @Test
     void testBanionGetters() {
         final Turn turn = new DeployTurnImpl(E1, E2);
-        assertThrows(IllegalStateException.class, turn::onTurnCurrentlyDeployedBanion); // turn not performed yet
-        assertThrows(IllegalStateException.class, turn::otherEntityCurrentlyDeployedBanion); // turn not performed yet
+        assertThrows(IllegalStateException.class, turn::onTurnCurrentlyDeployedBanion); // turn has not been performed yet
+        assertThrows(IllegalStateException.class, turn::otherEntityCurrentlyDeployedBanion); // turn has not been performed yet
         turn.performAction();
         assertDoesNotThrow(turn::onTurnCurrentlyDeployedBanion);
         assertDoesNotThrow(turn::otherEntityCurrentlyDeployedBanion);
@@ -137,9 +139,9 @@ class TestTurn {
         final DeployTurn dturn = new DeployTurnImpl(E1, E2);
         final MoveTurn mturn = new MoveTurnImpl(doDeployTurns());
         final SwapTurn sturn = new SwapTurnImpl(doDeployTurns());
-        assertThrows(IllegalStateException.class, dturn::getAction); // dturn not performed yet
-        assertThrows(IllegalStateException.class, mturn::getAction); // mturn not performed yet
-        assertThrows(IllegalStateException.class, sturn::getAction); // sturn not performed yet
+        assertThrows(IllegalStateException.class, dturn::getAction); // dturn has not been performed yet
+        assertThrows(IllegalStateException.class, mturn::getAction); // mturn has not been performed yet
+        assertThrows(IllegalStateException.class, sturn::getAction); // sturn has not been performed yet
         dturn.performAction();
         mturn.performAction();
         sturn.performAction();
