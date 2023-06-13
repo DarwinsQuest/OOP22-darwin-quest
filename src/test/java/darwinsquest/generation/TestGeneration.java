@@ -1,12 +1,8 @@
-package darwinsquest;
+package darwinsquest.generation;
 
 import java.util.Set;
 
 import darwinsquest.core.gameobject.element.Neutral;
-import darwinsquest.generation.BanionFactory;
-import darwinsquest.generation.ElementFactory;
-import darwinsquest.generation.MoveFactory;
-import darwinsquest.generation.SetFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
