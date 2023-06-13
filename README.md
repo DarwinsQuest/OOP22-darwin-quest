@@ -27,11 +27,11 @@ Enter the enchanting world of Darwin's Quest! A turn based combat game where YOU
 ## Screenshots
 
 <div style="text-align: center;">
-    <img src="https://imgur.com/7Q23zsO.png" alt="choose_banion" width="845">
-    <img src="https://imgur.com/fmY36zq.png" alt="battle_1">
-    <img src="https://imgur.com/Tj8XPrO.png" alt="battle_2">
-    <img src="https://imgur.com/0PQgRun.png" alt="boss">
-    <img src="https://imgur.com/Qc9D9SA.png" alt="settings">
+    <img src="https://imgur.com/IvgHTSX.png" alt="choose_banion">
+    <img src="https://imgur.com/7XfzQ8g.png" alt="battle_1">
+    <img src="https://imgur.com/dgWvxP6.png" alt="battle_2">
+    <img src="https://imgur.com/KGCv3b9.png" alt="boss">
+    <img src="https://imgur.com/35ZGtu7.png" alt="settings">
 </div>
 
 
