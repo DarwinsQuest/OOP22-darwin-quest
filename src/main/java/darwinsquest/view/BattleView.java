@@ -43,6 +43,8 @@ public final class BattleView extends ControllerInteractive<BattleController> im
     private static final String BUTTON_SOUND = "MI_SFX21.wav";
     private final Random randomGenerator = new Random();
     @FXML
+    private Label title;
+    @FXML
     private BorderPane borderPane;
     @FXML
     private Button endBtn;
@@ -98,6 +100,7 @@ public final class BattleView extends ControllerInteractive<BattleController> im
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        setBattleUsernames();
         initializeRandomBackground();
         playerSpriteCache = createSpriteCache(player, true);
         opponentSpriteCache = createSpriteCache(opponent, false);
@@ -274,6 +277,10 @@ public final class BattleView extends ControllerInteractive<BattleController> im
         if (!playerBanion.isAlive()) {
             disableMoveButtons(true);
         }
+    }
+
+    private void setBattleUsernames() {
+        title.setText(player.getName() + " VS " + opponent.getName());
     }
 
 }
