@@ -25,7 +25,7 @@ public final class HardDifficulty extends AbstractDifficulty {
     /**
      * The maximum level of opponent's {@link darwinsquest.core.gameobject.banion.Banion}s.
      */
-    public static final int MAX_OPP_BANIONS_LEVEL = 20;
+    public static final int MAX_OPP_BANIONS_LEVEL = 12;
 
     private static final int LEVELS = 10;
     private static final int MAX_STEP = 6;

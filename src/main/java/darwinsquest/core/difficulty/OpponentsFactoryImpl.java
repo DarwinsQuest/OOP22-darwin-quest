@@ -29,9 +29,9 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
 
     private final int minBanionLevel;
     private final int maxBanionLevel;
-    private final Class<? extends AI> ai;
     private final int minOpponentBanions;
     private final int maxOppBanions;
+    private final Class<? extends AI> ai;
     private final Random random = new Random();
 
     /**
@@ -66,19 +66,19 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
         this.ai = Objects.requireNonNull(ai);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getMinOpponentBanions() {
+    private int getMinOpponentBanionsLevel() {
+        return minBanionLevel;
+    }
+
+    private int getMaxOpponentBanionsLevel() {
+        return maxBanionLevel;
+    }
+
+    private int getMinOpponentBanions() {
         return minOpponentBanions;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getMaxOpponentBanions() {
+    private int getMaxOpponentBanions() {
         return maxOppBanions;
     }
 
@@ -152,7 +152,9 @@ public final class OpponentsFactoryImpl implements OpponentsFactory {
             banions.forEach(banion -> banion.evolveToLevel(maxBanionLevel, b -> true));
             opponent.addToInventory(createLastOpponent(board, banions, player));
         } else {
-            banions.forEach(banion -> banion.evolveToLevel(random.nextInt(minBanionLevel + 1, maxBanionLevel - 1), b -> true));
+            banions.forEach(banion ->
+                banion.evolveToLevel(
+                    random.nextInt(getMinOpponentBanionsLevel() + 1, getMaxOpponentBanionsLevel() - 1), b -> true));
             opponent.addToInventory(createMidOpponent(board, banions, player));
         }
 
