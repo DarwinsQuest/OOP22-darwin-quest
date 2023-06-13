@@ -64,6 +64,11 @@ public class SwapTurnImpl extends AbstractTurn implements SwapTurn {
     protected void doAction() {
         final var chosenBanion = getEntityOnTurn().swapBanion();
         setCurrentlyDeployedBanion(chosenBanion);
+        /*
+         * I decided to store a copy of the real banion because, in this way, if is wanted to show
+         * a sort of report of the battle at its end, the banion has the same hp that it had at
+         * the exact moment the turn was carried out.
+         */
         chosenBanion.ifPresent(banion -> this.newBanion = Optional.of(banion.copy()));
     }
 

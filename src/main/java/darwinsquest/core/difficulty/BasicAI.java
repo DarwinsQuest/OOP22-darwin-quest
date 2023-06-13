@@ -109,8 +109,11 @@ public class BasicAI implements AI {
                 diff = number - num;
             }
         }
-        return retVal; // this method will never return null because it is called with "num" that is
-                       // less or equal to at least one number of the collection "numbers".
+        /*
+         * the method will never return null because it is always called with "num" that is less or equal
+         * to at least one number of the collection "numbers".
+         */
+        return retVal;
     }
 
     private <K, V> K getRelatedKey(final Map<K, V> map, final V value) {

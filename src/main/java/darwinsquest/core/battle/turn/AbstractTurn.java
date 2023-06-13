@@ -100,9 +100,7 @@ public abstract class AbstractTurn implements Turn {
     @Override
     public final void performAction() {
         if (!isStateLegal) {
-            isStateLegal = true; // isStateLegal is set to true here and not as last instruction of the if statement
-                                 // because in this way the method doAction() can call the methods that require
-                                 // that the state is legal.
+            isStateLegal = true;
             doAction();
         } else {
             throw new IllegalStateException("The action has already been done.");

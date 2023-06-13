@@ -41,8 +41,6 @@ public class DeployTurnImpl extends AbstractTurn implements DeployTurn {
     @Override
     public Banion getAction() {
         if (this.hasBeenDone()) {
-            // final var deployedBanion = this.deployedBanion.get(); // if the state is legal then the banion has already been
-                                                                  // deployed, so the optional is not empty.
             return this.deployedBanion.get();
         } else {
             throw new IllegalStateException("The action hasn't already been done.");
@@ -68,6 +66,11 @@ public class DeployTurnImpl extends AbstractTurn implements DeployTurn {
     protected void doAction() {
         final var currentBanion = Optional.of(getEntityOnTurn().deployBanion());
         setCurrentlyDeployedBanion(currentBanion);
+        /*
+         * deployedBanion is a copy of the real banion because, in this way, if is wanted to show
+         * a sort of report of the battle at its end, all the banions have the same hp that they had at
+         * the exact moment the turn was carried out.
+         */
         this.deployedBanion = Optional.of(currentBanion.get().copy());
     }
 

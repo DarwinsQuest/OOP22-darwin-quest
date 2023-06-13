@@ -57,8 +57,11 @@ public class BasicBattleTile implements BattleTile {
      */
     @Override
     public boolean newBattle() {
-        battleTurns.clear(); // if the battle has been done and the player has lost, the battle should be done again
-        // so it is not correct to add other turns to the previous ones.
+        /*
+         * If the battle has been done and the player has lost, the battle should be done again,
+         * so it is not correct to add other turns to the previous ones.
+         */
+        battleTurns.clear();
         if (isWinner(getPlayer())) {
             return false;
         }
@@ -69,7 +72,7 @@ public class BasicBattleTile implements BattleTile {
         final var secondTurn = new DeployTurnImpl(firstTurn);
         secondTurn.performAction();
         battleTurns.add(secondTurn);
-        return true; // returns true if is possible to start a new battle
+        return true;
     }
 
     /**
@@ -86,11 +89,16 @@ public class BasicBattleTile implements BattleTile {
     @Override
     public boolean nextTurn() {
         if (isPlayerTurn) {
+            /*
+             * The turn of the GameEntity that starts the battle first is structured in this way
+             * because, as can be seen in TestBattle, it is also possible to carry out a battle
+             * between two instances of Opponent.
+             */
             if (getPlayer() instanceof Player) {
                 playerTurn();
             } else {
                 opponentTurn();
-            } // in this way, it is possible to carry out a battle between two instances of Opponent (see TestBattle).
+            }
             isPlayerTurn = false;
         } else {
             opponentTurn();
@@ -102,7 +110,7 @@ public class BasicBattleTile implements BattleTile {
             assignXp();
             return false;
         }
-        return true; // the method returns true if a new turn can be created, and so the battle can continue.
+        return true;
     }
 
     private void assignXp() {

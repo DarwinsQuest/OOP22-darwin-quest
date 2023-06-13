@@ -71,6 +71,11 @@ public class MoveTurnImpl extends AbstractTurn implements MoveTurn {
         this.actionDone = getEntityOnTurn().selectMove(activeBanion);
         // the chosen move is always done against otherEntityCurrentlyDeployedBanion().get().
         actionDone.perform(activeBanion, passiveBanion);
+        /*
+         * I decided to store a copy of the real banions because, in this way, if is wanted to show
+         * a sort of report of the battle at its end, all the banions have the same hp that they had at
+         * the exact moment the turn was carried out.
+         */
         passiveBanionCopy = Optional.of(passiveBanion.copy());
     }
 
