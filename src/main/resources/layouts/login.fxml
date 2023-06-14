@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onEscPressed" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0">
+         <children>
+            <Label text="Username:" />
+            <TextField fx:id="userName" onKeyReleased="#onUserNameTextChanged" />
+         </children>
+      </HBox>
+      <Button fx:id="btEnter" disable="true" onAction="#onEnterAction" text="_Enter" />
+   </children>
+   <stylesheets>
+      <URL value="@../styles/fontstyle.css" />
+      <URL value="@../styles/buttonstyle.css" />
+      <URL value="@../styles/login.css" />
+   </stylesheets>
+</VBox>

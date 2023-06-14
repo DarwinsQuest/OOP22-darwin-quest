@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onEscPressed" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="logo" fitHeight="${vBox.height / 2}" fitWidth="${vBox.width / 2}" preserveRatio="true" />
+      <Button onAction="#onPlayAction" text="_Play" />
+      <Button onAction="#onExitAction" text="_Quit" />
+   </children>
+   <stylesheets>
+      <URL value="@../styles/fontstyle.css" />
+      <URL value="@../styles/buttonstyle.css" />
+      <URL value="@../styles/startmenu.css" />
+   </stylesheets>
+</VBox>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="300.0" onKeyPressed="#onEscPressed" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <Pagination fx:id="banionChooser" maxPageIndicatorCount="3" BorderPane.alignment="CENTER">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor></Pagination>
+    </center>
+    <top>
+        <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Choose your Banions">
+            <padding>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </padding>
+        </Label>
+    </top>
+    <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <buttons>
+            <Button fx:id="btDeselect" disable="true" onAction="#onDeselectAction" text="_Discard" />
+            <Button fx:id="btSelect" onAction="#onSelectAction" text="_Select" />
+            <Button fx:id="btConfirm" onAction="#onConfirmAction" text="_Confirm" />
+        </buttons>
+      </ButtonBar>
+    </bottom>
+    <stylesheets>
+        <URL value="@../styles/buttonstyle.css" />
+        <URL value="@../styles/fontstyle.css" />
+        <URL value="@../styles/title.css" />
+    </stylesheets>
+</BorderPane>

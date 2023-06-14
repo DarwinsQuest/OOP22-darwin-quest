@@ -1,0 +1,403 @@
+[
+    {
+        "element": "Air",
+        "name": "Hefty",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Tornado", "Claw", "Breeze", "Monsoon"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/FatBird/Idle (40x48).png",
+                "width": 40,
+                "height": 48,
+                "frames": 8
+            },
+            "hit": {
+                "src":  "img/banions/FatBird/Hit (40x48).png",
+                "width": 40,
+                "height": 48,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Air",
+        "name":"Aotori",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Tornado", "Aero Blast", "Breeze", "Monsoon"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/BlueBird/Flying (32x32).png",
+                "width": 32,
+                "height": 32,
+                "frames": 9
+            },
+            "hit": {
+                "src":  "img/banions/BlueBird/Hit (32x32).png",
+                "width": 32,
+                "height": 32,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Air",
+        "name":"Buzzwings",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Tornado", "Hurl", "Breeze", "Aero Slash"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Bee/Idle (36x34).png",
+                "width": 36,
+                "height": 34,
+                "frames": 6
+            },
+            "hit": {
+                "src":  "img/banions/Bee/Hit (36x34).png",
+                "width": 36,
+                "height": 34,
+                "frames": 5
+            }
+        }
+    },
+
+    {
+        "element": "Electro",
+        "name": "Jolbat",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Spark", "Lightning", "Thunderbolt", "Volt Blitz"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Bat/Flying (46x30).png",
+                "width": 46,
+                "height": 30,
+                "frames": 7
+            },
+            "hit": {
+                "src":  "img/banions/Bat/Hit (46x30).png",
+                "width": 46,
+                "height": 30,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Electro",
+        "name": "Sparkleap",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Spark", "Lightning", "Poke", "Surge Wave"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Bunny/Idle (34x44).png",
+                "width": 34,
+                "height": 44,
+                "frames": 8
+            },
+            "hit": {
+                "src":  "img/banions/Bunny/Hit (34x44).png",
+                "width": 34,
+                "height": 44,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Electro",
+        "name": "Zapameleon",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Spark", "Lightning", "Thunderbolt", "Volt Blitz"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Chameleon/Idle (84x38).png",
+                "width": 84,
+                "height": 38,
+                "frames": 13
+            },
+            "hit": {
+                "src":  "img/banions/Chameleon/Hit (84x38).png",
+                "width": 84,
+                "height": 38,
+                "frames": 5
+            }
+        }
+    },
+
+    {
+        "element": "Fire",
+        "name": "Infernhog",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Magma Burst", "Pulse", "Flame", "Torch"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/AngryPig/Idle (36x30).png",
+                "width": 36,
+                "height": 30,
+                "frames": 9
+            },
+            "hit": {
+                "src":  "img/banions/AngryPig/Hit 1 (36x30).png",
+                "width": 36,
+                "height": 30,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Fire",
+        "name": "Blazechick",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Brazier", "Fireball", "Torch", "Magma Burst"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Chicken/Idle (32x34).png",
+                "width": 32,
+                "height": 34,
+                "frames": 13
+            },
+            "hit": {
+                "src":  "img/banions/Chicken/Hit (32x34).png",
+                "width": 32,
+                "height": 34,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Fire",
+        "name": "Scorchspore",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Brazier", "Fireball", "Flame", "Torch"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Mushroom/Idle (32x32).png",
+                "width": 32,
+                "height": 32,
+                "frames": 14
+            },
+            "hit": {
+                "src":  "img/banions/Mushroom/Hit.png",
+                "width": 32,
+                "height": 32,
+                "frames": 5
+            }
+        }
+    },
+
+    {
+        "element": "Grass",
+        "name": "Florastump",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Meadow", "Foliage Strike", "Spores", "Verdant Beam"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Trunk/Idle (64x32).png",
+                "width": 64,
+                "height": 32,
+                "frames": 18
+            },
+            "hit": {
+                "src":  "img/banions/Trunk/Hit (64x32).png",
+                "width": 64,
+                "height": 32,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Grass",
+        "name": "Herbroot",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Meadow", "Impale", "Spores", "Verdant Beam"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Radish/Idle 2 (30x38).png",
+                "width": 30,
+                "height": 38,
+                "frames": 9
+            },
+            "hit": {
+                "src":  "img/banions/Radish/Hit (30x38).png",
+                "width": 30,
+                "height": 38,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Grass",
+        "name": "Flingleaf",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Meadow", "Foliage Strike", "Spores", "Verdant Beam"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Plant/Idle (44x42).png",
+                "width": 44,
+                "height": 42,
+                "frames": 11
+            },
+            "hit": {
+                "src":  "img/banions/Plant/Hit (44x42).png",
+                "width": 44,
+                "height": 42,
+                "frames": 5
+            }
+        }
+    },
+
+    {
+        "element": "Rock",
+        "name": "Stonemaul",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Earthquake", "Landslide", "Pebble Pummel", "Bedrock Bash"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Rocks/Rock1_Idle (38x34).png",
+                "width": 38,
+                "height": 34,
+                "frames": 14
+            },
+            "hit": {
+                "src":  "img/banions/Rocks/Rock1_Hit.png",
+                "width": 38,
+                "height": 34,
+                "frames": 1
+            }
+        }
+    },
+    {
+        "element": "Rock",
+        "name": "Spebble",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Pebble Pummel", "Slam", "Blast", "Bedrock Bash"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Turtle/Idle 1 (44x26).png",
+                "width": 44,
+                "height": 26,
+                "frames": 14
+            },
+            "hit": {
+                "src":  "img/banions/Turtle/Hit (44x26).png",
+                "width": 44,
+                "height": 26,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Rock",
+        "name": "Stonohorn",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Earthquake", "Landslide", "Boulder Burst", "Bedrock Bash"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Rino/Idle (52x34).png",
+                "width": 52,
+                "height": 34,
+                "frames": 11
+            },
+            "hit": {
+                "src":  "img/banions/Rino/Hit (52x34).png",
+                "width": 52,
+                "height": 34,
+                "frames": 5
+            }
+        }
+    },
+
+    {
+        "element": "Water",
+        "name": "Aquamuck",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Tsunami", "Aqua Blast", "Whirlpool", "Waterfall"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Slime/Idle-Run (44x30).png",
+                "width": 44,
+                "height": 30,
+                "frames": 10
+            },
+            "hit": {
+                "src":  "img/banions/Slime/Hit (44x30).png",
+                "width": 44,
+                "height": 30,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Water",
+        "name": "Hydrashell",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Coral Spear", "Whirlpool", "Bite", "Beam"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Snail/Idle (38x24).png",
+                "width": 38,
+                "height": 24,
+                "frames": 15
+            },
+            "hit": {
+                "src":  "img/banions/Snail/Hit (38x24).png",
+                "width": 38,
+                "height": 24,
+                "frames": 5
+            }
+        }
+    },
+    {
+        "element": "Water",
+        "name": "Quacktide",
+        "hp": 10,
+        "atk": 1.0,
+        "def": 1.0,
+        "moves": ["Whirlpool", "Aqua Blast", "Swipe", "Punch"],
+        "sprites": {
+            "idle": {
+                "src":  "img/banions/Duck/Idle (36x36).png",
+                "width": 36,
+                "height": 36,
+                "frames": 10
+            },
+            "hit": {
+                "src":  "img/banions/Duck/Hit (36x36).png",
+                "width": 36,
+                "height": 36,
+                "frames": 5
+            }
+        }
+    }
+]

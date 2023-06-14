@@ -1,0 +1,64 @@
+.root {
+    -black-overlay-semitransparent: rgba(0, 0, 0, 0.5);
+    -black-inner-shadow: rgba(0, 0, 0, 0.3);
+}
+
+#movesGrid {
+    -fx-background-color: -black-overlay-semitransparent;
+}
+
+#optionsBox {
+    -fx-background-color: -black-overlay-semitransparent;
+}
+
+#swapBtn {
+    -fx-background-color: SeaGreen;
+    -fx-background-radius: 10px;
+    -fx-effect: innershadow(one-pass-box, -black-inner-shadow, 0, 0, 1, -5);
+    -fx-text-fill: white;
+}
+
+#swapBtn:hover {
+    -fx-background-color: #47d786;
+}
+
+#swapBtn:armed {
+    /* Lowers the inner shadow when pressed. */
+    -fx-effect: innershadow(one-pass-box, -black-inner-shadow, 0, 0, 1, -2);
+    -fx-text-fill: rgba(255, 255, 255, 0.2);
+    -fx-translate-y: 3px;
+}
+
+#swapBtn:focused {
+    -fx-background-color: #47d786;
+}
+
+#swapBtn:disabled {
+    -fx-opacity: 50%;
+}
+
+#endBtn {
+    -fx-background-color: crimson;
+    -fx-background-radius: 10px;
+    -fx-effect: innershadow(one-pass-box, -black-inner-shadow, 0, 0, 1, -5);
+    -fx-text-fill: white;
+}
+
+#endBtn:hover {
+    -fx-background-color: #ff1726;
+}
+
+#endBtn:armed {
+    /* Lowers the inner shadow when pressed. */
+    -fx-effect: innershadow(one-pass-box, -black-inner-shadow, 0, 0, 1, -2);
+    -fx-text-fill: rgba(255, 255, 255, 0.2);
+    -fx-translate-y: 3px;
+}
+
+#endBtn:focused {
+    -fx-background-color: #ff1726;
+}
+
+#endBtn:disabled {
+    -fx-opacity: 50%;
+}

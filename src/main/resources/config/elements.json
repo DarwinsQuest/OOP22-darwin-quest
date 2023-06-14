@@ -1,0 +1,8 @@
+[
+    {"name": "Air", "weaker": ["Water", "Rock"], "stronger": ["Grass", "Air"]},
+    {"name": "Electro", "weaker": ["Electro"], "stronger": ["Grass"]},
+    {"name": "Fire", "weaker": ["Grass"], "stronger": ["Water"]},
+    {"name": "Grass", "weaker": ["Air", "Electro"], "stronger": ["Rock", "Fire"]},
+    {"name": "Rock", "weaker": ["Grass"], "stronger": ["Air"]},
+    {"name": "Water", "weaker": ["Fire"], "stronger": ["Air"]}
+]

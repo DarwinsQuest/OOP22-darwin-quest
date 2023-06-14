@@ -1,0 +1,53 @@
+[
+    {"element": "Air", "name": "Tornado", "damage": 3},
+    {"element": "Air", "name": "Aero Blast", "damage": 3},
+    {"element": "Air", "name": "Breeze", "damage": 3},
+    {"element": "Air", "name": "Monsoon", "damage": 4},
+    {"element": "Air", "name": "Aero Slash", "damage": 4},
+
+    {"element": "Electro", "name": "Spark", "damage": 3},
+    {"element": "Electro", "name": "Lightning", "damage": 3},
+    {"element": "Electro", "name": "Thunderbolt", "damage": 3},
+    {"element": "Electro", "name": "Volt Blitz", "damage": 4},
+    {"element": "Electro", "name": "Surge Wave", "damage": 4},
+
+    {"element": "Fire", "name": "Fireball", "damage": 3},
+    {"element": "Fire", "name": "Flame", "damage": 3},
+    {"element": "Fire", "name": "Torch", "damage": 3},
+    {"element": "Fire", "name": "Magma Burst", "damage": 4},
+    {"element": "Fire", "name": "Brazier", "damage": 4},
+
+    {"element": "Grass", "name": "Meadow", "damage": 3},
+    {"element": "Grass", "name": "Foliage Strike", "damage": 3},
+    {"element": "Grass", "name": "Seed Barrage", "damage": 3},
+    {"element": "Grass", "name": "Verdant Beam", "damage": 4},
+    {"element": "Grass", "name": "Spores", "damage": 4},
+
+    {"element": "Rock", "name": "Earthquake", "damage": 3},
+    {"element": "Rock", "name": "Landslide", "damage": 3},
+    {"element": "Rock", "name": "Bedrock Bash", "damage": 3},
+    {"element": "Rock", "name": "Boulder Burst", "damage": 4},
+    {"element": "Rock", "name": "Pebble Pummel", "damage": 4},
+
+    {"element": "Water", "name": "Tsunami", "damage": 3},
+    {"element": "Water", "name": "Whirlpool", "damage": 3},
+    {"element": "Water", "name": "Aqua Blast", "damage": 3},
+    {"element": "Water", "name": "Coral Spear", "damage": 4},
+    {"element": "Water", "name": "Waterfall", "damage": 4},
+
+    {"element": null, "name": "Claw", "damage": 2},
+    {"element": null, "name": "Roar", "damage": 2},
+    {"element": null, "name": "Bite", "damage": 2},
+    {"element": null, "name": "Impale", "damage": 2},
+    {"element": null, "name": "Kick", "damage": 2},
+    {"element": null, "name": "Strike", "damage": 2},
+    {"element": null, "name": "Blast", "damage": 2},
+    {"element": null, "name": "Slash", "damage": 2},
+    {"element": null, "name": "Swipe", "damage": 2},
+    {"element": null, "name": "Pulse", "damage": 2},
+    {"element": null, "name": "Beam", "damage": 2},
+    {"element": null, "name": "Slam", "damage": 2},
+    {"element": null, "name": "Hurl", "damage": 2},
+    {"element": null, "name": "Punch", "damage": 2},
+    {"element": null, "name": "Poke", "damage": 2}
+]
